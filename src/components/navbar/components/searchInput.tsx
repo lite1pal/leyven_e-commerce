@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function SearchInput() {
   const [showInput, setShowInput] = useState(false);
   return (
-    <div className="p-1.5 rounded-lg shadow">
+    <div className="p-1.5 rounded-lg shadow max-sm:w-72">
       <input
         className="border-none max-h-3 focus:outline-none focus:ring-0"
         type="text"

@@ -33,15 +33,18 @@ const Navbar = () => {
   return (
     <nav
       style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
-      className={`sticky z-50 bg-white top-0 flex transition flex-col px-8`}
+      className={`sticky z-50 bg-white top-0 flex transition flex-col max-sm:px-2 px-8`}
     >
-      <div className={`flex py-6 max-sm:py-3 items-center justify-between`}>
+      <div
+        className={`flex py-6 max-sm:border-b-2 max-sm:mb-3 max-sm:py-3 items-center justify-between`}
+      >
         {/* <div className="text-2xl cursor-default">LeyVen</div> */}
         <Footer.Brand
           href="/"
           src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
           alt="Flowbite Logo"
           name=""
+          className="max-sm:pt-4"
         />
         <ul className="flex max-xl:hidden items-center gap-20 text-lg justify-center">
           <Link href="/">

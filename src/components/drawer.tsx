@@ -29,16 +29,12 @@ export default function DrawerScrollable() {
       <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
         <ModalClose />
         <DialogTitle>Корзина</DialogTitle>
-        <DialogContent>
-          <List>
-            {[...new Array(11)].map((_, index) => (
-              <ListItem key={index}>
-                <ListItemButton onClick={() => setOpen(false)}>
-                  Item {index}
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+        <DialogContent sx={{ padding: "0.78rem" }}>
+          <div className="mb-2">Ваш кошик порожній.</div>
+          <div>
+            Не вагайтеся і перегляньте наш каталог, щоб знайти щось корисне для
+            Вашого пухнастого друга!
+          </div>
         </DialogContent>
       </Drawer>
     </React.Fragment>

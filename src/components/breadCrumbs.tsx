@@ -7,7 +7,10 @@ import { HiHome } from "react-icons/hi";
 
 export default function BasicBreadcrumbs() {
   return (
-    <Breadcrumb className="px-7 py-5" aria-label="Default breadcrumb example">
+    <Breadcrumb
+      className="max-sm:px-5 px-7 py-5"
+      aria-label="Default breadcrumb example"
+    >
       <Breadcrumb.Item href="#" icon={HiHome}>
         Головна
       </Breadcrumb.Item>

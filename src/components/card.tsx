@@ -1,4 +1,13 @@
+import {
+  Inter,
+  Montserrat,
+  Raleway,
+  Raleway_Dots,
+  Roboto,
+} from "next/font/google";
 import CartModal from "./cartModal";
+
+const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
 export default function Card({
   src,
@@ -10,7 +19,9 @@ export default function Card({
   price: string;
 }) {
   return (
-    <div className="w-full mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div
+      className={`${roboto.className} w-full mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+    >
       <a href="#">
         <img className="p-4 rounded-t-lg" src={src} alt="product image" />
       </a>
