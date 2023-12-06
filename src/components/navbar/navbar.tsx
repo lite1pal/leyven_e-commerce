@@ -21,6 +21,7 @@ import { HiFire } from "react-icons/hi";
 import SignInComponent from "../signIn";
 import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import Link from "next/link";
+import NavItem from "./components/navItem";
 
 const Navbar = () => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -34,7 +35,7 @@ const Navbar = () => {
       style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
       className={`sticky z-50 bg-white top-0 flex transition flex-col px-8`}
     >
-      <div className={`flex py-2 items-center justify-between`}>
+      <div className={`flex py-6 max-sm:py-3 items-center justify-between`}>
         {/* <div className="text-2xl cursor-default">LeyVen</div> */}
         <Footer.Brand
           href="/"
@@ -42,7 +43,7 @@ const Navbar = () => {
           alt="Flowbite Logo"
           name=""
         />
-        <ul className="flex items-center gap-20 text-lg justify-center p-4">
+        <ul className="flex max-xl:hidden items-center gap-20 text-lg justify-center">
           <Link href="/">
             <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
               Каталог
@@ -66,7 +67,9 @@ const Navbar = () => {
         </ul>
 
         <div className="flex gap-5 items-center">
-          <SearchInput />
+          <div className="max-sm:hidden">
+            <SearchInput />
+          </div>
           <SignInComponent />
           <Dropdown>
             <MenuButton
@@ -93,6 +96,15 @@ const Navbar = () => {
           <DrawerScrollable />
         </div>
       </div>
+      <div className="mx-auto mb-3 sm:hidden">
+        <SearchInput />
+      </div>
+      <ul className="flex xl:hidden border-t-2 items-center gap-5 md:gap-20 text-lg justify-center p-4">
+        <NavItem link="/" title="Каталог" />
+        <NavItem link="/contacts" title="Контакти" />
+        <NavItem link="/about" title="Про нас" />
+        <NavItem link="/collaboration" title="Співпраця" />
+      </ul>
     </nav>
   );
 };

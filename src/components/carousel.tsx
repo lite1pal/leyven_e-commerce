@@ -5,7 +5,7 @@ import { Carousel } from "flowbite-react";
 
 export default function CarouselComponent() {
   return (
-    <Box className="h-56 sm:h-64 xl:h-[35rem]">
+    <Box className="h-36 sm:h-64 xl:h-[35rem]">
       <Carousel>
         <img
           src="https://brovapharma.ua/image/cachewebp/catalog/slider/deksmedison-ua-1480x580.webp"
@@ -17,6 +17,10 @@ export default function CarouselComponent() {
         />
         <img
           src="https://brovapharma.ua/image/cachewebp/catalog/slider/galmolakt-ua_2023-1480x580.webp"
+          alt="..."
+        />
+        <img
+          src="https://brovapharma.ua/image/cachewebp/catalog/slider/kardistym_ua-1480x580.webp"
           alt="..."
         />
       </Carousel>

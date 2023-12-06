@@ -16,7 +16,7 @@ export default function FooterComponent() {
     <Footer style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} container>
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div>
+          <div className="max-md:p-4 max-md:mr-6">
             <Footer.Brand
               href="https://prom.ua/c3850164-leyven.html"
               src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"

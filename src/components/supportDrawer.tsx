@@ -46,7 +46,7 @@ export default function SupportDrawer() {
         variant="outlined"
         sx={{ borderRadius: "0.625rem", fontSize: "1.2rem" }}
         size="lg"
-        className="fixed bottom-10 right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
+        className="fixed bottom-3 md:bottom-10 right-3 md:right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
         startDecorator={<QuestionMarkIcon />}
         onClick={() => setOpen(true)}
       >

@@ -17,7 +17,7 @@ export default function GridComponent() {
         padding={"0"}
       >
         {Array.from(Array(12)).map((_, index) => (
-          <Grid xs={2} sm={4} md={3} key={index}>
+          <Grid xs={4} sm={4} lg={3} key={index}>
             <Card
               title="Премікс 1% для курей-несучок 500 г"
               price="26,22"

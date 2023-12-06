@@ -14,8 +14,8 @@ export default function PaginationComponent() {
         totalPages={100}
         onPageChange={onPageChange}
         showIcons
-        previousLabel="Назад"
-        nextLabel="Вперед"
+        previousLabel=""
+        nextLabel=""
       />
     </div>
   );
