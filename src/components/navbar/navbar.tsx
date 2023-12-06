@@ -22,6 +22,7 @@ import SignInComponent from "../signIn";
 import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import Link from "next/link";
 import NavItem from "./components/navItem";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -29,6 +30,8 @@ const Navbar = () => {
   const toggleUserDropdown = () => {
     setIsUserDropdownOpen((prev) => !prev);
   };
+
+  const router = useRouter();
 
   return (
     <nav
@@ -47,26 +50,30 @@ const Navbar = () => {
           className="max-sm:pt-4"
         />
         <ul className="flex max-xl:hidden items-center gap-20 text-lg justify-center">
-          <Link href="/">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Каталог
-            </li>
-          </Link>
-          <Link href="/contacts">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Контакти
-            </li>
-          </Link>
-          <Link href="/about">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Про нас
-            </li>
-          </Link>
-          <Link href="/collaboration">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Співпраця
-            </li>
-          </Link>
+          <li
+            onClick={() => router.push("/")}
+            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
+          >
+            Каталог
+          </li>
+          <li
+            onClick={() => router.push("/contacts")}
+            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
+          >
+            Контакти
+          </li>
+          <li
+            onClick={() => router.push("/about")}
+            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
+          >
+            Про нас
+          </li>
+          <li
+            onClick={() => router.push("/collaboration")}
+            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
+          >
+            Співпраця
+          </li>
         </ul>
 
         <div className="flex gap-5 items-center">

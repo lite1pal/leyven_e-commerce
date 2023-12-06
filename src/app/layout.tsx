@@ -23,7 +23,7 @@ export default function RootLayout({
   const pathName = usePathname();
   return (
     <html lang="en">
-      <body className={`${raleway.className}`}>
+      <body className={raleway.className}>
         <Navbar />
         <AnimatePresence>
           <motion.div
