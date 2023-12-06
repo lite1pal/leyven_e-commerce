@@ -23,6 +23,8 @@ import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import Link from "next/link";
 import NavItem from "./components/navItem";
 import { useRouter } from "next/navigation";
+import MenuIcon from "@/icons/menu";
+import Sidebar from "../sidebar";
 
 const Navbar = () => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -42,13 +44,16 @@ const Navbar = () => {
         className={`flex py-6 max-sm:border-b-2 max-sm:mb-3 max-sm:py-3 items-center justify-between`}
       >
         {/* <div className="text-2xl cursor-default">LeyVen</div> */}
-        <Footer.Brand
-          href="/"
-          src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
-          alt="Flowbite Logo"
-          name=""
-          className="max-sm:pt-4"
-        />
+        <div className="flex items-center gap-3">
+          <Sidebar />
+          <Footer.Brand
+            href="/"
+            src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
+            alt="Flowbite Logo"
+            name=""
+            className="max-sm:pt-4"
+          />
+        </div>
         <ul className="flex max-xl:hidden items-center gap-20 text-lg justify-center">
           <li
             onClick={() => router.push("/")}
@@ -109,7 +114,7 @@ const Navbar = () => {
       <div className="mx-auto mb-3 sm:hidden">
         <SearchInput />
       </div>
-      <ul className="flex xl:hidden border-t-2 items-center gap-5 md:gap-20 text-lg justify-center p-4">
+      <ul className="xl:hidden max-md:hidden flex border-t-2 items-center gap-5 md:gap-20 text-lg justify-center p-4">
         <NavItem link="/" title="Каталог" />
         <NavItem link="/contacts" title="Контакти" />
         <NavItem link="/about" title="Про нас" />

@@ -13,6 +13,7 @@ import ListItemButton from "@mui/joy/ListItemButton";
 import Typography from "@mui/joy/Typography";
 import ModalClose from "@mui/joy/ModalClose";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Divider } from "@mui/joy";
 
 export default function DrawerScrollable() {
   const [open, setOpen] = React.useState(false);
@@ -29,6 +30,7 @@ export default function DrawerScrollable() {
       <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
         <ModalClose />
         <DialogTitle>Корзина</DialogTitle>
+        <Divider />
         <DialogContent sx={{ padding: "0.78rem" }}>
           <div className="mb-2">Ваш кошик порожній.</div>
           <div>
