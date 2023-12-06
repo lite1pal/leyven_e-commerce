@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
 import Catalog from "../../domains/catalog/catalog";
@@ -6,10 +6,10 @@ import CarouselComponent from "@/components/carousel";
 import { usePathname } from "next/navigation";
 
 export default function Home() {
-  const pathName = usePathname();
+  // const pathName = usePathname();
   return (
     <main className={`max-w-screen min-h-screen`}>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         <motion.div
           key={pathName}
           initial="initialState"
@@ -25,11 +25,11 @@ export default function Home() {
             },
             exitState: {},
           }}
-        >
-          <CarouselComponent />
-          <Catalog />
-        </motion.div>
-      </AnimatePresence>
+        > */}
+      <CarouselComponent />
+      <Catalog />
+      {/* </motion.div>
+      </AnimatePresence> */}
     </main>
   );
 }
