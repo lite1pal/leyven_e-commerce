@@ -1,10 +1,4 @@
-import {
-  Inter,
-  Montserrat,
-  Raleway,
-  Raleway_Dots,
-  Roboto,
-} from "next/font/google";
+import { Roboto } from "next/font/google";
 import CartModal from "./cartModal";
 
 const roboto = Roboto({ subsets: ["latin"], weight: "300" });
