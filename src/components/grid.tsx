@@ -47,9 +47,9 @@ export default function GridComponent() {
         marginX={"1rem"}
         padding={"0"}
       >
-        {products.map((product) => {
+        {products.map((product, i) => {
           return (
-            <Grid xs={4} sm={4} lg={3}>
+            <Grid key={i} xs={4} sm={4} lg={3}>
               <Card data={product} />
             </Grid>
           );
