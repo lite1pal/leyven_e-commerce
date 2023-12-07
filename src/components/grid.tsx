@@ -1,12 +1,43 @@
-import { Grid } from "@mui/joy";
+"use client";
+
+import { Divider, Dropdown, Grid, Menu, MenuButton, MenuItem } from "@mui/joy";
 import Card from "./card";
 import BasicBreadcrumbs from "./breadCrumbs";
 import PaginationComponent from "./pagination";
+import IconButton from "@mui/joy/IconButton";
+import { MoreVert } from "@mui/icons-material";
+import { products } from "@/data/data";
+import { Inter, Roboto } from "next/font/google";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+const inter = Roboto({ subsets: ["latin"], weight: "300" });
 
 export default function GridComponent() {
   return (
     <>
       <BasicBreadcrumbs />
+      <div
+        className={`${inter.className} flex justify-between items-center px-8 mb-4 w-full`}
+      >
+        <div className={`text-lg font-bold`}>{products.length} товарів</div>
+        <Dropdown>
+          <MenuButton
+            sx={{ border: "none", fontWeight: "400" }}
+            slots={{ root: IconButton }}
+            slotProps={{ root: { variant: "outlined", color: "neutral" } }}
+          >
+            За популярністю
+            <KeyboardArrowDownIcon />
+          </MenuButton>
+
+          <Menu>
+            <MenuItem>За новизною</MenuItem>
+            <MenuItem>За знижкою</MenuItem>
+            <MenuItem>Від найдешевших</MenuItem>
+            <MenuItem>Від найдорожчих</MenuItem>
+          </Menu>
+        </Dropdown>
+      </div>
       <Grid
         container
         spacing={{ xs: 2, md: 3.5 }}
@@ -16,15 +47,13 @@ export default function GridComponent() {
         marginX={"1rem"}
         padding={"0"}
       >
-        {Array.from(Array(12)).map((_, index) => (
-          <Grid xs={4} sm={4} lg={3} key={index}>
-            <Card
-              title="Премікс 1% для курей-несучок 500 г"
-              price="26,22"
-              src="https://ukrzoovet.com.ua/storage/products/small/W6qJ1XiQLqaTgTev1fEy0hdj8Z0dKtfkzPeKqBPo.png"
-            />
-          </Grid>
-        ))}
+        {products.map((product) => {
+          return (
+            <Grid xs={4} sm={4} lg={3}>
+              <Card data={product} />
+            </Grid>
+          );
+        })}
       </Grid>
       <PaginationComponent />
     </>

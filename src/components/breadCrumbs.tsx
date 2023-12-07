@@ -15,7 +15,7 @@ export default function BasicBreadcrumbs() {
         Головна
       </Breadcrumb.Item>
       <Breadcrumb.Item href="#">Корм</Breadcrumb.Item>
-      <Breadcrumb.Item>Курка</Breadcrumb.Item>
+      <Breadcrumb.Item>Собака</Breadcrumb.Item>
     </Breadcrumb>
   );
 }

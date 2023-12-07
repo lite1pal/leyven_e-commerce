@@ -55,30 +55,26 @@ const Navbar = () => {
           />
         </div>
         <ul className="flex max-xl:hidden items-center gap-20 text-lg justify-center">
-          <li
-            onClick={() => router.push("/")}
-            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
-          >
-            Каталог
-          </li>
-          <li
-            onClick={() => router.push("/contacts")}
-            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
-          >
-            Контакти
-          </li>
-          <li
-            onClick={() => router.push("/about")}
-            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
-          >
-            Про нас
-          </li>
-          <li
-            onClick={() => router.push("/collaboration")}
-            className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default"
-          >
-            Співпраця
-          </li>
+          <Link href="/">
+            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+              Каталог
+            </li>
+          </Link>
+          <Link href="/contacts">
+            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+              Контакти
+            </li>
+          </Link>
+          <Link href="/about">
+            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+              Про нас
+            </li>
+          </Link>
+          <Link href="/collaboration">
+            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+              Співпраця
+            </li>
+          </Link>
         </ul>
 
         <div className="flex gap-5 items-center">
