@@ -42,16 +42,24 @@ export default function SupportDrawer() {
 
   return (
     <React.Fragment>
-      <Button
+      <div
+        onClick={() => setOpen(true)}
+        className="fixed flex gap-1 px-3 py-2 cursor-pointer border-2 border-blue-600 text-lg rounded-lg bottom-3 right-3 md:bottom-10 md:right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
+      >
+        <QuestionMarkIcon />
+        <div>Support</div>
+      </div>
+      {/* <Button
         variant="outlined"
         sx={{ borderRadius: "0.625rem", fontSize: "1.2rem" }}
         size="lg"
-        className="fixed bottom-3 right-3 md:bottom-10 md:right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
+        className="fixed text-lg rounded-lg bottom-3 right-3 md:bottom-10 md:right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
         startDecorator={<QuestionMarkIcon />}
         onClick={() => setOpen(true)}
       >
         Support
-      </Button>
+      </Button> */}
+
       <Drawer
         anchor="right"
         size="md"
