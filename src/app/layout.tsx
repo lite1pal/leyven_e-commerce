@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/layout_components/navbar/navbar";
-import FooterComponent from "@/layout_components/footer";
+import Navbar from "@/components/navbar/navbar";
+import FooterComponent from "@/components/footer";
 import { Merriweather, Raleway, Roboto } from "next/font/google";
 import { auth } from "./api/auth/[...nextauth]/auth";
 

@@ -3,7 +3,6 @@
 import { Roboto } from "next/font/google";
 import CartModal from "./cartModal";
 import { Rating } from "flowbite-react";
-import Image from "next/image";
 import FavoriteBorderIcon from "@mui/icons-material/Favorite";
 import { useRouter } from "next/navigation";
 

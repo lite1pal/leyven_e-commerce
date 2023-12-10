@@ -1,6 +1,6 @@
 "use client";
 
-import BasicBreadcrumbs from "@/layout_components/breadCrumbs";
+import BasicBreadcrumbs from "@/components/breadCrumbs";
 import { useParams } from "next/navigation";
 import TabsComponent from "./components/tabs";
 

@@ -1,34 +1,19 @@
 import Catalog from "../domains/catalog/catalog";
-import CarouselComponent from "@/domains/catalog/components/carousel";
+import CarouselComponent from "@/components/carousel";
 import { auth } from "./api/auth/[...nextauth]/auth";
-import { Suspense } from "react";
-
-const getProducts = async () => {
-  try {
-    const res = await fetch("/api/products");
-    if (!res.ok) {
-      return "Failed to fetch products";
-    }
-    return res.json();
-    const parsedRes = await res.json();
-    return parsedRes;
-    // setProducts(parsedRes);
-    // setLoading(false);
-  } catch (err) {
-    console.error("Failed to fetch products", err);
-  }
-};
 
 export default async function HomeScreen() {
+  // gets current session
   const session = await auth();
-  const data = await fetch("https://leyven.vercel.app/api/products");
 
-  console.log(JSON.stringify(data));
+  // gets products for the catalog
+  const res = await fetch("https://leyven.vercel.app/api/products");
+  const data = await res.json();
 
   return (
     <>
       <CarouselComponent />
-      <Catalog session={session} />
+      <Catalog session={session} data={data} />
     </>
   );
 }

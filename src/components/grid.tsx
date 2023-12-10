@@ -11,7 +11,7 @@ import {
   Skeleton,
 } from "@mui/joy";
 import Card from "./card";
-import BasicBreadcrumbs from "../../../layout_components/breadCrumbs";
+import BasicBreadcrumbs from "./breadCrumbs";
 import PaginationComponent from "./pagination";
 import IconButton from "@mui/joy/IconButton";
 import { Inter, Roboto } from "next/font/google";
@@ -20,27 +20,8 @@ import { Suspense, useEffect, useState } from "react";
 
 const inter = Roboto({ subsets: ["latin"], weight: "300" });
 
-export default function GridComponent({ session }: any) {
-  const [products, setProducts] = useState([]);
+export default function GridComponent({ session, data }: any) {
   const [loading, setLoading] = useState(true);
-
-  const getProducts = async () => {
-    try {
-      const res = await fetch("/api/products");
-      if (!res.ok) {
-        return "Failed to fetch products";
-      }
-      const parsedRes = await res.json();
-      setProducts(parsedRes);
-      setLoading(false);
-    } catch (err) {
-      console.error("Failed to fetch products", err);
-    }
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <>
@@ -48,7 +29,7 @@ export default function GridComponent({ session }: any) {
       <div
         className={`${inter.className} flex justify-between items-center px-8 mb-4 w-full`}
       >
-        <div className={`text-lg font-bold`}>{products?.length} товарів</div>
+        <div className={`text-lg font-bold`}>{data?.length} товарів</div>
         <Dropdown>
           <MenuButton
             sx={{ border: "none", fontWeight: "400" }}
@@ -76,7 +57,7 @@ export default function GridComponent({ session }: any) {
         marginX={"1rem"}
         padding={"0"}
       >
-        {products?.map((product: any, i: number) => {
+        {data?.map((product: any, i: number) => {
           return (
             <Grid key={i} xs={4} sm={4} lg={3}>
               <Card data={product} session={session} />
@@ -87,27 +68,4 @@ export default function GridComponent({ session }: any) {
       <PaginationComponent />
     </>
   );
-}
-
-{
-  /* {loading
-  ? [1, 2, 3, 4, 5, 6, 7, 8].map((d, i) => {
-      return (
-        <Grid key={i} xs={4} sm={4} lg={3}>
-          <Skeleton
-            sx={{ bgcolor: "grey.900", borderRadius: "0.625rem" }}
-            variant="rectangular"
-            width={330}
-            height={500}
-          />
-        </Grid>
-      );
-    })
-  : products?.map((product, i) => {
-      return (
-        <Grid key={i} xs={4} sm={4} lg={3}>
-          <Card data={product} session={session} />
-        </Grid>
-      );
-    })} */
 }

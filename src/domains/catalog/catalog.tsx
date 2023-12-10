@@ -1,13 +1,11 @@
-import GridComponent from "@/domains/catalog/components/grid";
-import SupportDrawer from "@/layout_components/supportDrawer";
-import { Suspense } from "react";
+import GridComponent from "../../components/grid";
+import SupportDrawer from "../../components/supportDrawer";
 
-export default async function CatalogView({ session }: any) {
+export default async function CatalogView({ session, data }: any) {
   return (
     <>
       <SupportDrawer />
-
-      <GridComponent session={session} />
+      <GridComponent session={session} data={data} />
     </>
   );
 }
