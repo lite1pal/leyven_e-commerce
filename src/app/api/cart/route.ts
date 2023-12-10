@@ -6,7 +6,10 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const email = searchParams.get("email") as string;
   const user = await prisma.user.findFirst({ where: { email } });
-  const cart = await prisma.cart.findFirst({ where: { userId: user?.id } });
+  const cart = await prisma.cart.findFirst({
+    where: { userId: user?.id },
+    include: { cartProducts: { include: { product: true } } },
+  });
   return new NextResponse(JSON.stringify(cart), {
     status: 200,
   });
