@@ -11,9 +11,11 @@ export default function GridComponent({ data, session }: any) {
   const [openModal, setOpenModal] = useState(false);
 
   const getCart = async () => {
-    const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
-    const data = await res.json();
-    setCart(data);
+    if (session) {
+      const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
+      const data = await res.json();
+      setCart(data);
+    }
   };
 
   useEffect(() => {

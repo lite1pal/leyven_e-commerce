@@ -5,6 +5,7 @@ import CartModal from "./cartModal";
 import { Rating } from "flowbite-react";
 import FavoriteBorderIcon from "@mui/icons-material/Favorite";
 import { useRouter } from "next/navigation";
+import SignInComponent from "./navbar/components/signIn";
 
 const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
@@ -59,13 +60,17 @@ export default function Card({
           <span className="text-2xl font-bold text-gray-900 dark:text-white">
             {data.price} грн
           </span>
-          <CartModal
-            data={data}
-            session={session}
-            cart={cart}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
+          {session ? (
+            <CartModal
+              data={data}
+              session={session}
+              cart={cart}
+              openModal={openModal}
+              setOpenModal={setOpenModal}
+            />
+          ) : (
+            <SignInComponent icon="cart" />
+          )}
         </div>
       </div>
     </div>

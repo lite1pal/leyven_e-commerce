@@ -43,6 +43,7 @@ export default function CartModal({
       >
         {isProductAlreadyInCart() ? "Додано" : "В корзину"}
       </button>
+
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Корзина</Modal.Header>
         <Modal.Body>
