@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
-export default function Card({ data, session }: any) {
+export default function Card({ data, session, cart }: any) {
   const router = useRouter();
   return (
     <div
@@ -52,7 +52,7 @@ export default function Card({ data, session }: any) {
           <span className="text-2xl font-bold text-gray-900 dark:text-white">
             {data.price} грн
           </span>
-          <CartModal data={data} session={session} />
+          <CartModal data={data} session={session} cart={cart} />
         </div>
       </div>
     </div>

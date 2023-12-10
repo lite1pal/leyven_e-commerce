@@ -27,6 +27,10 @@ export default async function GridComponent() {
   // gets products for the catalog
   const res = await fetch(`${API_URL}/products`);
   const data = await res.json();
+
+  // gets current cart
+  const res_2 = await fetch(`${API_URL}/cart?email=${session?.user?.email}`);
+  const cart = await res_2.json();
   return (
     <>
       <BasicBreadcrumbs />
@@ -64,7 +68,7 @@ export default async function GridComponent() {
         {data?.map((product: any, i: number) => {
           return (
             <Grid key={i} xs={4} sm={4} lg={3}>
-              <Card data={product} session={session} />
+              <Card data={product} session={session} cart={cart} />
             </Grid>
           );
         })}
