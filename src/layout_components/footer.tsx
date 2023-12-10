@@ -13,7 +13,13 @@ import {
 
 export default function FooterComponent() {
   return (
-    <Footer style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} container>
+    <Footer
+      style={{
+        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+        marginBlock: "5rem",
+      }}
+      container
+    >
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="max-md:p-4 max-md:mr-6">

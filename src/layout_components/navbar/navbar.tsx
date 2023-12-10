@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
-import DrawerScrollable from "../drawer";
+import DrawerScrollable from "./components/drawer";
 import styles from "./navbar.module.scss";
 import SearchInput from "./components/searchInput";
 import {
@@ -18,22 +18,22 @@ import {
   Toast,
 } from "flowbite-react";
 import { HiFire } from "react-icons/hi";
-import SignInComponent from "../signIn";
+import SignInComponent from "./components/signIn";
 import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import Link from "next/link";
 import NavItem from "./components/navItem";
 import { useRouter } from "next/navigation";
 import MenuIcon from "@/icons/menu";
-import Sidebar from "../sidebar";
+import Sidebar from "./components/sidebar";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
-const Navbar = () => {
+const Navbar = ({ session }: any) => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   const toggleUserDropdown = () => {
     setIsUserDropdownOpen((prev) => !prev);
   };
-
-  const router = useRouter();
 
   return (
     <nav
@@ -81,28 +81,33 @@ const Navbar = () => {
           <div className="max-sm:hidden">
             <SearchInput />
           </div>
-          <SignInComponent />
-          <Dropdown>
-            <MenuButton
-              sx={{
-                padding: 0,
-                border: "none",
-                borderRadius: "50%",
-                height: "fit-content",
-              }}
-            >
-              <Avatar
-                onClick={toggleUserDropdown}
-                img="https://media.licdn.com/dms/image/D4D35AQEupibI8CO8xw/profile-framedphoto-shrink_400_400/0/1692984044624?e=1702468800&v=beta&t=DwzogxzoP2D8fGxueuEhVsE0hzKV3ooyRVYslfdptsg"
-                rounded
-                size={"sm"}
-              />
-            </MenuButton>
-            <Menu>
-              <MenuItem>Історія замовлень</MenuItem>
-              <MenuItem>Вийти</MenuItem>
-            </Menu>
-          </Dropdown>
+          {session?.user.email ? (
+            <Dropdown>
+              <MenuButton
+                sx={{
+                  padding: 0,
+                  border: "none",
+                  borderRadius: "50%",
+                  height: "fit-content",
+                }}
+              >
+                <Avatar
+                  onClick={toggleUserDropdown}
+                  img={session?.user.image}
+                  rounded
+                  size={"sm"}
+                />
+              </MenuButton>
+              <Menu>
+                <MenuItem>Історія замовлень</MenuItem>
+                <MenuItem>Збережені</MenuItem>
+                <MenuItem>Налаштування</MenuItem>
+                <MenuItem onClick={() => signOut()}>Вийти</MenuItem>
+              </Menu>
+            </Dropdown>
+          ) : (
+            <SignInComponent />
+          )}
 
           <DrawerScrollable />
         </div>
