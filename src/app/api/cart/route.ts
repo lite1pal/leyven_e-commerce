@@ -14,8 +14,7 @@ export async function GET(req: NextRequest) {
     if (!cart) {
       const new_cart = await prisma.cart.create({
         data: {
-          userId: user?.id,
-          cartProducts: [],
+          userId: user?.id!,
         },
         include: { cartProducts: { include: { product: true } } },
       });
