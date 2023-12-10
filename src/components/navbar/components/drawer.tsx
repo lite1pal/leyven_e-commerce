@@ -14,7 +14,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Card, CardContent, Divider } from "@mui/joy";
 import { API_URL } from "@/config/api";
 import { Fragment, useEffect, useState } from "react";
-import { Button, Rating, Spinner } from "flowbite-react";
+import { Button, Modal, Rating, Spinner } from "flowbite-react";
 import { useRouter } from "next/navigation";
 
 export default function DrawerScrollable({ session }: any) {

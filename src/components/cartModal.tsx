@@ -20,7 +20,6 @@ export default function CartModal({
     const existingCartProduct = cart.cartProducts.filter(
       (cartProduct: any) => cartProduct.productId === data.id
     );
-    console.log(existingCartProduct);
     return existingCartProduct[0];
   }, [cart]);
 
