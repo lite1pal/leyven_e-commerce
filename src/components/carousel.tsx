@@ -15,7 +15,7 @@ export default function CarouselComponent() {
       >
         <Box className="max-sm:h-36 h-96 xl:h-[35rem]">
           <Carousel>
-            <img
+            {/* <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1200px-Giant_Panda_2004-03-2.jpg"
               alt="..."
             />
@@ -31,7 +31,7 @@ export default function CarouselComponent() {
             <img
               src="https://hips.hearstapps.com/hmg-prod/images/headshot-of-giraffe-sabi-sands-game-reserve-royalty-free-image-1573571300.jpg?crop=1.00xw:0.334xh;0,0.101xh&resize=1200:*"
               alt="..."
-            />
+            /> */}
             <img
               src="https://brovapharma.ua/image/cachewebp/catalog/slider/deksmedison-ua-1480x580.webp"
               alt="..."

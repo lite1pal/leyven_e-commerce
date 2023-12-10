@@ -69,7 +69,7 @@ export default function SignInComponent() {
             </div> */}
             <div className="w-fit flex flex-col font-sans items-center gap-2 text-xs">
               <GoogleButton onClick={() => signIn("google")} />
-              <FacebookLoginButton />
+              {/* <FacebookLoginButton /> */}
             </div>
             {/* <div className="flex cursor-pointer justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
               Немає аккаунту?&nbsp;

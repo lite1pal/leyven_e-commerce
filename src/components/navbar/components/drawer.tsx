@@ -27,9 +27,11 @@ export default function DrawerScrollable({ session }: any) {
 
   const getCart = async () => {
     setLoading(true);
-    const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
-    const data = await res.json();
-    setCart(data);
+    if (session) {
+      const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
+      const data = await res.json();
+      setCart(data);
+    }
     setLoading(false);
   };
 
