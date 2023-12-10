@@ -1,7 +1,6 @@
 "use client";
 
 import BasicBreadcrumbs from "@/layout_components/breadCrumbs";
-import { products } from "@/data/data";
 import { useParams } from "next/navigation";
 import TabsComponent from "./components/tabs";
 import { useEffect, useState } from "react";

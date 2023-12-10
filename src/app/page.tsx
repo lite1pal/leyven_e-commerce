@@ -21,7 +21,7 @@ const getProducts = async () => {
 
 export default async function HomeScreen() {
   const session = await auth();
-  const data = await fetch("/api/products");
+  const data = await fetch("https://leyven.vercel.app/api/products");
 
   console.log(JSON.stringify(data));
 

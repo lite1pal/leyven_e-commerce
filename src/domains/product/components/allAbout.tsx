@@ -1,4 +1,3 @@
-import { products } from "@/data/data";
 import { Divider, Grid } from "@mui/joy";
 import { Rating } from "flowbite-react";
 

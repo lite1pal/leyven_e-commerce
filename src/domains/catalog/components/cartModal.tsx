@@ -48,9 +48,10 @@ export default function CartModal({ data, session }: any) {
         <Modal.Body>
           {cart.cartProducts && cart.cartProducts.length > 0 ? (
             <div className="flex flex-col gap-5">
-              {cart.cartProducts.map((cartProduct: any) => {
+              {cart.cartProducts.map((cartProduct: any, i: number) => {
                 return (
                   <Card
+                    key={i}
                     orientation="horizontal"
                     variant="outlined"
                     sx={{ width: "100%" }}
