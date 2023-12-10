@@ -15,7 +15,7 @@ import ModalClose from "@mui/joy/ModalClose";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Divider } from "@mui/joy";
 
-export default function DrawerScrollable() {
+export default function DrawerScrollable({ cart }: any) {
   const [open, setOpen] = React.useState(false);
 
   return (

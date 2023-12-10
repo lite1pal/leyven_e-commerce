@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import FooterComponent from "@/components/footer";
-import { Merriweather, Raleway, Roboto } from "next/font/google";
-import { auth } from "./api/auth/[...nextauth]/auth";
+import { Raleway } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "LeyVen",
@@ -17,12 +16,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
   return (
     <html lang="en">
       <body className={raleway.className}>
         <main className={`max-w-screen min-h-screen`}>
-          <Navbar session={session} />
+          <Navbar />
           {children}
           <FooterComponent />
         </main>

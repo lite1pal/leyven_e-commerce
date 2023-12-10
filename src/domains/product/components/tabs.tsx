@@ -1,3 +1,5 @@
+"use client";
+
 import Box from "@mui/joy/Box";
 import Chip from "@mui/joy/Chip";
 import Tabs from "@mui/joy/Tabs";
@@ -8,28 +10,8 @@ import AllAbout from "./allAbout";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function TabsComponent() {
+export default function TabsComponent({ data }: any) {
   const [index, setIndex] = useState(0);
-  const [data, setData] = useState([]);
-
-  const params = useParams();
-
-  const getProduct = async () => {
-    try {
-      const res = await fetch(`/api/product?id=${params.id}`);
-      if (!res.ok) {
-        return "Failed to fetch a product";
-      }
-      const parsedRes = await res.json();
-      setData(parsedRes);
-    } catch (err) {
-      console.error("Failed to fetch a product");
-    }
-  };
-
-  useEffect(() => {
-    getProduct();
-  }, []);
   return (
     <Box
       bgcolor={"white"}

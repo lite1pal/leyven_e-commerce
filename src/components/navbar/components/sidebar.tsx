@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import Box from "@mui/joy/Box";
 import Drawer from "@mui/joy/Drawer";
@@ -33,9 +35,6 @@ export default function Sidebar() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* <Button variant="outlined" color="neutral" onClick={toggleDrawer(true)}>
-        Open drawer
-      </Button> */}
       <div onClick={toggleDrawer(true)}>
         <MenuIcon />
       </div>

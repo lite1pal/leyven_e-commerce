@@ -1,39 +1,22 @@
-"use client";
+import React from "react";
 
-import React, { useEffect, useState } from "react";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-import SearchIcon from "@mui/icons-material/Search";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Image from "next/image";
 import DrawerScrollable from "./components/drawer";
-import styles from "./navbar.module.scss";
 import SearchInput from "./components/searchInput";
-import {
-  Alert,
-  Avatar,
-  Button,
-  Footer,
-  ListGroup,
-  Toast,
-} from "flowbite-react";
-import { HiFire } from "react-icons/hi";
-import SignInComponent from "./components/signIn";
-import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
+import { Footer } from "flowbite-react";
 import Link from "next/link";
 import NavItem from "./components/navItem";
-import { useRouter } from "next/navigation";
-import MenuIcon from "@/icons/menu";
 import Sidebar from "./components/sidebar";
-import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
+import UserDropdown from "./components/userDropdown";
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import { API_URL } from "@/config/api";
 
-const Navbar = ({ session }: any) => {
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+export default async function Navbar() {
+  const session = await auth();
 
-  const toggleUserDropdown = () => {
-    setIsUserDropdownOpen((prev) => !prev);
-  };
+  // gets current cart
+  const res = await fetch(`${API_URL}/cart?userId=${session?.user?.id}`);
+  const cart = await res.json();
+  console.log(cart);
 
   return (
     <nav
@@ -43,7 +26,6 @@ const Navbar = ({ session }: any) => {
       <div
         className={`flex py-6 max-sm:border-b-2 max-sm:mb-3 max-sm:py-3 items-center justify-between`}
       >
-        {/* <div className="text-2xl cursor-default">LeyVen</div> */}
         <div className="flex items-center gap-3">
           <Sidebar />
           <Footer.Brand
@@ -81,35 +63,9 @@ const Navbar = ({ session }: any) => {
           <div className="max-sm:hidden">
             <SearchInput />
           </div>
-          {session?.user.email ? (
-            <Dropdown>
-              <MenuButton
-                sx={{
-                  padding: 0,
-                  border: "none",
-                  borderRadius: "50%",
-                  height: "fit-content",
-                }}
-              >
-                <Avatar
-                  onClick={toggleUserDropdown}
-                  img={session?.user.image}
-                  rounded
-                  size={"sm"}
-                />
-              </MenuButton>
-              <Menu>
-                <MenuItem>Історія замовлень</MenuItem>
-                <MenuItem>Збережені</MenuItem>
-                <MenuItem>Налаштування</MenuItem>
-                <MenuItem onClick={() => signOut()}>Вийти</MenuItem>
-              </Menu>
-            </Dropdown>
-          ) : (
-            <SignInComponent />
-          )}
 
-          <DrawerScrollable />
+          <UserDropdown session={session} />
+          <DrawerScrollable cart={cart} />
         </div>
       </div>
       <div className="mx-auto mb-3 sm:hidden">
@@ -123,6 +79,4 @@ const Navbar = ({ session }: any) => {
       </ul>
     </nav>
   );
-};
-
-export default Navbar;
+}

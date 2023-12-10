@@ -1,6 +1,13 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(req: NextRequest) {
+  const userId = req.nextUrl.searchParams.get("userId") as string;
+  const cart = await prisma.cart.findFirst({ where: { userId } });
+  return new NextResponse(JSON.stringify(cart), {
+    status: 200,
+  });
+}
 export async function POST(req: NextRequest) {
   try {
     // const cart = await prisma.cart.create({data: {

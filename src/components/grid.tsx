@@ -1,5 +1,3 @@
-"use client";
-
 import {
   AspectRatio,
   Divider,
@@ -16,13 +14,19 @@ import PaginationComponent from "./pagination";
 import IconButton from "@mui/joy/IconButton";
 import { Inter, Roboto } from "next/font/google";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Suspense, useEffect, useState } from "react";
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import { API_URL } from "@/config/api";
 
 const inter = Roboto({ subsets: ["latin"], weight: "300" });
 
-export default function GridComponent({ session, data }: any) {
-  const [loading, setLoading] = useState(true);
+export default async function GridComponent() {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // gets current session object
+  const session = await auth();
 
+  // gets products for the catalog
+  const res = await fetch(`${API_URL}/products`);
+  const data = await res.json();
   return (
     <>
       <BasicBreadcrumbs />
