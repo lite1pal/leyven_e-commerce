@@ -14,7 +14,7 @@ export default async function Navbar() {
   const session = await auth();
 
   // gets current cart
-  const res = await fetch(`${API_URL}/cart`);
+  const res = await fetch(`${API_URL}/cart?email=${session?.user?.email}`);
   const cart = await res.json();
   console.log(cart);
 
