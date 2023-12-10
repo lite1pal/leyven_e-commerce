@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const user: any = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email: body.session.user.email },
     });
     const cart = await prisma.cart.findFirst({
