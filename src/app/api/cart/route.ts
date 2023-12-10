@@ -2,9 +2,9 @@ import { prisma } from "@/app/api/auth/[...nextauth]/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const userId = req.nextUrl.searchParams.get("userId") as string;
-  const cart = await prisma.cart.findFirst({ where: { userId } });
-  return new NextResponse(JSON.stringify(cart), {
+  // const userId = req.nextUrl.searchParams.get("userId") as string;
+  // const cart = await prisma.cart.findFirst({ where: { userId } });
+  return new NextResponse(JSON.stringify({ message: "hello" }), {
     status: 200,
   });
 }
