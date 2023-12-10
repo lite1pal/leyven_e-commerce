@@ -123,10 +123,12 @@ export default function DrawerScrollable({ session }: any) {
               />
             </div>
           )}
-          <div className="flex w-fit mt-5 mx-auto gap-2">
-            <Button>Оформити замовлення</Button>
-            <Button color="gray">Видалити</Button>
-          </div>
+          {cart.cartProducts.length > 0 && (
+            <div className="flex w-fit mt-5 mx-auto gap-2">
+              <Button>Оформити замовлення</Button>
+              <Button color="gray">Видалити</Button>
+            </div>
+          )}
         </DialogContent>
       </Drawer>
     </Fragment>

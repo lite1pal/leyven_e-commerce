@@ -18,14 +18,14 @@ export default function Card({
   const router = useRouter();
   return (
     <div
-      className={`${roboto.className} relative w-full group h-[32rem] mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+      className={`${roboto.className} relative w-full group mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
     >
       <div className="absolute z-10 hover:bg-blue-100 bg-white top-5 right-5 border-2 border-blue-500 rounded-full p-3 group-hover:opacity-100 opacity-0 transition duration-300">
         <FavoriteBorderIcon color="primary" />
       </div>
       <div
         onClick={() => router.push(`/product/${data.id}`)}
-        className="mx-auto h-96 cursor-pointer"
+        className="mx-auto h-96 xl:h-80 cursor-pointer"
       >
         <img
           className="p-4 hover:scale-102 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain"
@@ -33,15 +33,16 @@ export default function Card({
           alt="product image"
         />
       </div>
-      <div className="px-5 pb-5">
+      <div className="px-4 pb-4">
         <h5
           onClick={() => router.push(`/product/${data.id}`)}
           title={data.title}
-          className="md:text-xl hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
+          className="text-lg whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
         >
-          {data.title.length > 27
-            ? data.title.slice(0, 28) + "..."
-            : data.title}
+          {/* {data.title.length > 23
+            ? data.title.slice(0, 24) + "..."
+            : data.title} */}
+          {data.title}
         </h5>
 
         <Rating style={{ paddingBlock: "0.5rem" }}>

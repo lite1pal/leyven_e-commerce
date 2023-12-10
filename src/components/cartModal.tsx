@@ -13,7 +13,6 @@ export default function CartModal({
   openModal,
   setOpenModal,
 }: any) {
-  // const [cart, setCart] = useState<any>({});
   const router = useRouter();
 
   const isProductAlreadyInCart = useCallback(() => {

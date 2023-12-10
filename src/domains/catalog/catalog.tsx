@@ -25,7 +25,16 @@ export default async function CatalogView() {
       <SupportDrawer />
       <Suspense fallback={<Loading />}>
         <Meta data={data} />
-        <GridComponent data={data} session={session} />
+        <div className="flex">
+          <div
+            style={{ marginLeft: "1rem" }}
+            className="bg-white max-xl:hidden h-[10rem] w-64 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
+          >
+            Фільтри
+          </div>
+          <GridComponent data={data} session={session} />
+        </div>
+
         <PaginationComponent />
       </Suspense>
     </>
