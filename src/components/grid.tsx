@@ -17,8 +17,11 @@ export default function GridComponent({ data, session }: any) {
   };
 
   useEffect(() => {
+    // if (openModal) {
     getCart();
+    // }
   }, [openModal]);
+
   return (
     <Grid
       container

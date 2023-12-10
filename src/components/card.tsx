@@ -20,7 +20,7 @@ export default function Card({
     <div
       className={`${roboto.className} relative w-full group h-[32rem] mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
     >
-      <div className="absolute hover:bg-blue-100 bg-white top-5 right-5 border-2 border-blue-500 rounded-full p-3 group-hover:opacity-100 opacity-0 transition duration-300">
+      <div className="absolute z-10 hover:bg-blue-100 bg-white top-5 right-5 border-2 border-blue-500 rounded-full p-3 group-hover:opacity-100 opacity-0 transition duration-300">
         <FavoriteBorderIcon color="primary" />
       </div>
       <div
@@ -28,7 +28,7 @@ export default function Card({
         className="mx-auto h-96 cursor-pointer"
       >
         <img
-          className="p-4 rounded-t-lg mx-auto w-full h-full object-contain"
+          className="p-4 hover:scale-102 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain"
           src={data.img}
           alt="product image"
         />

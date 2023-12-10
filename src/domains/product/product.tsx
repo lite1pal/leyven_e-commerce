@@ -12,7 +12,7 @@ export default async function ProductView({ id }: IProps) {
   return (
     <div>
       <BasicBreadcrumbs />
-      <div className="px-7">
+      <div className="px-7 pb-10">
         <TabsComponent data={data} />
       </div>
     </div>

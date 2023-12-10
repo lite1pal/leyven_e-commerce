@@ -13,10 +13,6 @@ import { API_URL } from "@/config/api";
 export default async function Navbar() {
   const session = await auth();
 
-  // gets current cart
-  const res = await fetch(`${API_URL}/cart?email=${session?.user?.email}`);
-  const cart = await res.json();
-
   return (
     <nav
       style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
@@ -64,7 +60,7 @@ export default async function Navbar() {
           </div>
 
           <UserDropdown session={session} />
-          <DrawerScrollable cart={cart} />
+          <DrawerScrollable session={session} />
         </div>
       </div>
       <div className="mx-auto mb-3 sm:hidden">

@@ -8,7 +8,7 @@ export default function PaginationComponent() {
 
   const onPageChange = (page: number) => setCurrentPage(page);
   return (
-    <div className="w-fit mx-auto mb-10">
+    <div className="w-fit mx-auto pb-10">
       <Pagination
         currentPage={currentPage}
         totalPages={100}

@@ -1,16 +1,10 @@
 "use client";
 
 import { API_URL } from "@/config/api";
-import {
-  AspectRatio,
-  Card,
-  CardContent,
-  CardOverflow,
-  Typography,
-} from "@mui/joy";
+import { Card, CardContent } from "@mui/joy";
 import { Button, Modal, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function CartModal({
   data,
@@ -22,11 +16,21 @@ export default function CartModal({
   // const [cart, setCart] = useState<any>({});
   const router = useRouter();
 
+  const isProductAlreadyInCart = useCallback(() => {
+    const existingCartProduct = cart.cartProducts.filter(
+      (cartProduct: any) => cartProduct.productId === data.id
+    );
+    console.log(existingCartProduct);
+    return existingCartProduct[0];
+  }, [cart]);
+
   const addProductToCart = async () => {
-    await fetch(`${API_URL}/cart`, {
-      method: "POST",
-      body: JSON.stringify({ data, session }),
-    });
+    if (!isProductAlreadyInCart()) {
+      await fetch(`${API_URL}/cart`, {
+        method: "POST",
+        body: JSON.stringify({ data, session }),
+      });
+    }
     setOpenModal(true);
   };
 
@@ -34,11 +38,14 @@ export default function CartModal({
     <>
       <button
         onClick={addProductToCart}
-        className="text-white bg-blue-600 hover:text-blue-600 hover:bg-white transition border border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className={`${
+          isProductAlreadyInCart() &&
+          "bg-green-600 border-green-600 hover:text-green-600"
+        } text-white bg-blue-600 hover:text-blue-600 hover:bg-white transition border border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
-        В корзину
+        {isProductAlreadyInCart() ? "Додано" : "В корзину"}
       </button>
-      <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Корзина</Modal.Header>
         <Modal.Body>
           <div className="flex flex-col gap-5">

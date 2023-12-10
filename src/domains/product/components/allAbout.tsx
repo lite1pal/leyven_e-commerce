@@ -1,5 +1,6 @@
 import { Divider, Grid } from "@mui/joy";
 import { Rating } from "flowbite-react";
+import Link from "next/link";
 
 import { useParams, useRouter } from "next/navigation";
 
@@ -43,12 +44,11 @@ export default function AllAbout({ data }: any) {
             <div className="text-green-500">В наявності</div>
           </div>
           <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-          <button
-            onClick={() => router.push("/order")}
-            className="px-5 py-2 text-lg rounded text-white bg-blue-600 border-2 border-blue-600 transition hover:bg-white hover:text-blue-600"
-          >
-            Купити
-          </button>
+          <Link href="/order">
+            <button className="px-5 py-2 text-lg rounded text-white bg-blue-600 border-2 border-blue-600 transition hover:bg-white hover:text-blue-600">
+              Купити
+            </button>
+          </Link>
         </div>
       </Grid>
     </Grid>

@@ -6,6 +6,22 @@ export default function CarouselComponent() {
     <Box className="h-36 sm:h-64 xl:h-[35rem]">
       <Carousel>
         <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1200px-Giant_Panda_2004-03-2.jpg"
+          alt="..."
+        />
+        <img
+          src="https://animals.sandiegozoo.org/sites/default/files/2016-08/hero_zebra_animals.jpg"
+          alt="..."
+        />
+        <img
+          src="https://assets3.thrillist.com/v1/image/2543699/792x456/scale;webp=auto;jpeg_quality=60;progressive.jpg"
+          alt="..."
+        />
+        <img
+          src="https://hips.hearstapps.com/hmg-prod/images/headshot-of-giraffe-sabi-sands-game-reserve-royalty-free-image-1573571300.jpg?crop=1.00xw:0.334xh;0,0.101xh&resize=1200:*"
+          alt="..."
+        />
+        {/* <img
           src="https://brovapharma.ua/image/cachewebp/catalog/slider/deksmedison-ua-1480x580.webp"
           alt="..."
         />
@@ -20,7 +36,7 @@ export default function CarouselComponent() {
         <img
           src="https://brovapharma.ua/image/cachewebp/catalog/slider/kardistym_ua-1480x580.webp"
           alt="..."
-        />
+        /> */}
       </Carousel>
     </Box>
   );

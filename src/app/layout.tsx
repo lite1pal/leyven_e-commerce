@@ -19,7 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={raleway.className}>
-        <main className={`max-w-screen min-h-screen`}>
+        <main className={`max-w-screen min-h-screen flex flex-col flex-grow`}>
           <Navbar />
           {children}
           <FooterComponent />
