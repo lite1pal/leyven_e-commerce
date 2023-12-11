@@ -21,7 +21,7 @@ export default async function CatalogView() {
   const session = await auth();
 
   // gets products for the catalog
-  const res = await fetch(`${API_URL}/products`);
+  const res = await fetch(`${API_URL}/products`, { next: { revalidate: 100 } });
   const data = await res.json();
 
   return (
@@ -32,7 +32,7 @@ export default async function CatalogView() {
         <div className="flex">
           <div
             style={{ marginLeft: "1rem" }}
-            className="bg-white flex flex-col gap-4 max-xl:hidden h-[10rem] w-64 p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
+            className="bg-white flex flex-col gap-4 max-xl:hidden h-[10rem] p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
           >
             <FilterRadioButton
               header="Тварина"

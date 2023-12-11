@@ -20,7 +20,7 @@ export default function Card({
   const router = useRouter();
   return (
     <div
-      className={`${roboto.className} relative w-full group mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+      className={`${roboto.className} relative w-full group mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
     >
       <div className="absolute z-10 hover:bg-blue-100 bg-white top-5 right-5 border-2 border-blue-500 rounded-full p-3 group-hover:opacity-100 opacity-0 transition duration-300">
         <FavoriteBorderIcon color="primary" />

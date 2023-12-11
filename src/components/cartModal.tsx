@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
 export default function CartModal({
   data,
@@ -143,9 +144,11 @@ export default function CartModal({
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setOpenModal(false)}>
-            Оформити замовлення
-          </Button>
+          <Link href="/order">
+            <Button onClick={() => setOpenModal(false)}>
+              Оформити замовлення
+            </Button>
+          </Link>
           <Button color="gray" onClick={() => setOpenModal(false)}>
             Видалити
           </Button>

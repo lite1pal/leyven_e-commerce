@@ -38,7 +38,7 @@ export default function GridComponent({ data, session }: any) {
     >
       {data?.map((product: any, i: number) => {
         return (
-          <Grid key={i} xs={4} sm={4} md={4} lg={4}>
+          <Grid key={i} xs={4} sm={4} md={4} lg={3}>
             <Card
               data={product}
               session={session}
