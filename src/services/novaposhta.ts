@@ -1,16 +1,25 @@
-export async function getWarehouses() {
+import { NOVAPOSHTA_API_KEY, NOVAPOSHTA_API_URL } from "@/config/api";
+
+export async function fetchWarehouses() {
   try {
-    const res = await fetch("https://api.novaposhta.ua/v2.0/json", {
-      method: "GET",
+    const res = await fetch(NOVAPOSHTA_API_URL, {
+      method: "POST",
       body: JSON.stringify({
-        apiKey: "e6cdb1e9e29b8014778e8ad687ac414d",
+        apiKey: NOVAPOSHTA_API_KEY,
         modelName: "Address",
         calledMethod: "getWarehouses",
-        methodProperties: { CityName: "київ", Limit: "50", Page: "2" },
+        methodProperties: {
+          CityName: "малин",
+          Limit: "500",
+          Page: "1",
+        },
       }),
     });
     const data = await res.json();
-    return data;
+    const filteredData = data.data.filter(
+      (warehouse: any) => warehouse["CategoryOfWarehouse"] === "Branch"
+    );
+    return filteredData;
   } catch (err) {
     console.error(err);
   }

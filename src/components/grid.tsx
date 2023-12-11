@@ -5,7 +5,6 @@ import Card from "./card";
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/api";
 import Meta from "./meta";
-import { getWarehouses } from "@/services/novaposhta";
 
 export default function GridComponent({ data, session }: any) {
   const [cart, setCart] = useState({ cartProducts: [] });
@@ -13,17 +12,6 @@ export default function GridComponent({ data, session }: any) {
   const [openModal, setOpenModal] = useState(false);
 
   const getCart = async () => {
-    const res = await fetch("https://api.novaposhta.ua/v2.0/json", {
-      method: "POST",
-      body: JSON.stringify({
-        apiKey: "e6cdb1e9e29b8014778e8ad687ac414d",
-        modelName: "Address",
-        calledMethod: "getWarehouses",
-        methodProperties: { CityName: "київ", Limit: "50", Page: "2" },
-      }),
-    });
-    const data = await res.json();
-    console.log(data);
     if (session) {
       const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
       const data = await res.json();
@@ -33,6 +21,7 @@ export default function GridComponent({ data, session }: any) {
 
   useEffect(() => {
     // if (openModal) {
+    // fetchWarehouses();
     getCart();
     // }
   }, [openModal]);
