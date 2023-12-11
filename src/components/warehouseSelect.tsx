@@ -6,7 +6,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Label } from "flowbite-react";
 import { fetchWarehouses } from "@/services/novaposhta";
 
 export default function WarehouseSelect() {
