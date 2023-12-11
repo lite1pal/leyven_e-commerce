@@ -46,7 +46,7 @@ export default function WarehouseSelect() {
           >
             {warehouses.map((warehouse, i) => {
               return (
-                <MenuItem value={warehouse["Description"]}>
+                <MenuItem key={i} value={warehouse["Description"]}>
                   {warehouse["Description"]}
                 </MenuItem>
               );
