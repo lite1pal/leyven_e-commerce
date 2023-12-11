@@ -4,6 +4,7 @@ import { Grid } from "@mui/joy";
 import Card from "./card";
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/api";
+import Meta from "./meta";
 
 export default function GridComponent({ data, session }: any) {
   const [cart, setCart] = useState({ cartProducts: [] });
@@ -41,6 +42,7 @@ export default function GridComponent({ data, session }: any) {
               data={product}
               session={session}
               cart={cart}
+              getCart={getCart}
               openModal={openModal}
               setOpenModal={setOpenModal}
             />

@@ -13,6 +13,7 @@ export default function Card({
   data,
   session,
   cart,
+  getCart,
   openModal,
   setOpenModal,
 }: any) {
@@ -53,7 +54,7 @@ export default function Card({
           </p>
           <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
           <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
-            {data.reviews} reviews
+            8 reviews
           </a>
         </Rating>
         <div className="flex items-center justify-between">
@@ -65,6 +66,7 @@ export default function Card({
               data={data}
               session={session}
               cart={cart}
+              getCart={getCart}
               openModal={openModal}
               setOpenModal={setOpenModal}
             />

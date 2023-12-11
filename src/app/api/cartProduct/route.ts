@@ -1,0 +1,57 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "../auth/[...nextauth]/auth";
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const user = await prisma.user.findUnique({
+      where: { email: body.session.user.email },
+    });
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user?.id },
+      include: { cartProducts: { include: { product: true } } },
+    });
+
+    const existingCartProduct: any = cart?.cartProducts.filter(
+      (cartProduct) => cartProduct.productId === body.data.id
+    );
+
+    if (existingCartProduct[0]) {
+      return new NextResponse(JSON.stringify(cart), {
+        status: 200,
+      });
+    }
+
+    await prisma.cartProduct.create({
+      data: {
+        cartId: cart?.id!,
+        productId: body.data.id,
+      },
+    });
+
+    const updatedCart = await prisma.cart.findUnique({
+      where: { id: cart?.id },
+      include: { cartProducts: { include: { product: true } } },
+    });
+    return new NextResponse(JSON.stringify(updatedCart), {
+      status: 200,
+    });
+  } catch (err) {
+    return new NextResponse(JSON.stringify(err), {
+      status: 500,
+    });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const cartProductId = searchParams.get("cartProductId") as string;
+
+    await prisma.cartProduct.delete({ where: { id: cartProductId } });
+
+    return new NextResponse(JSON.stringify(cartProductId));
+  } catch (err) {
+    return new NextResponse(JSON.stringify(err), { status: 500 });
+  }
+}

@@ -22,7 +22,9 @@ export default function Meta({ data }: any) {
       <div
         className={`${roboto.className} flex justify-between items-center px-8 mb-4 w-full`}
       >
-        <div className={`text-lg font-bold`}>{data?.length} товарів</div>
+        <div className={`text-lg font-bold xl:ml-64`}>
+          {data?.length} товари
+        </div>
         <Dropdown>
           <MenuButton
             sx={{ border: "none", fontWeight: "400" }}
