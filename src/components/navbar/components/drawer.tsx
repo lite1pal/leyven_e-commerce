@@ -84,68 +84,68 @@ export default function DrawerScrollable({ session }: any) {
             </>
           )}
           <div className="flex flex-col gap-3">
-            <AnimatePresence>
-              {cart.cartProducts.length > 0 &&
-                cart.cartProducts.map((cartProduct: any, i: number) => {
-                  return (
-                    <motion.div
-                      key={cartProduct.id}
-                      initial={{ opacity: 0.2, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5 }}
-                      exit={{ opacity: 0.2, scale: 0.5 }}
-                    >
-                      <Card
-                        key={i}
-                        orientation="horizontal"
-                        variant="outlined"
-                        sx={{ width: "100%" }}
+            {/* <AnimatePresence> */}
+            {cart.cartProducts.length > 0 &&
+              cart.cartProducts.map((cartProduct: any, i: number) => {
+                return (
+                  // <motion.div
+                  //   key={cartProduct.id}
+                  //   initial={{ opacity: 0.2, scale: 0.5 }}
+                  //   animate={{ opacity: 1, scale: 1 }}
+                  //   transition={{ duration: 0.5 }}
+                  //   exit={{ opacity: 0.2, scale: 0.5 }}
+                  // >
+                  <Card
+                    key={i}
+                    orientation="horizontal"
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                  >
+                    <div className="h-44 w-36 ml-3">
+                      <img
+                        className="w-full h-full object-contain rounded-lg"
+                        src={cartProduct.product.img}
+                        loading="lazy"
+                        alt=""
+                      />
+                    </div>
+                    <CardContent>
+                      <div
+                        onClick={() => {
+                          setOpen(false);
+                          router.push(`/product/${cartProduct.product.id}`);
+                        }}
+                        className="cursor-pointer font-medium hover:underline"
                       >
-                        <div className="h-44 w-36 ml-3">
-                          <img
-                            className="w-full h-full object-contain rounded-lg"
-                            src={cartProduct.product.img}
-                            loading="lazy"
-                            alt=""
-                          />
-                        </div>
-                        <CardContent>
-                          <div
-                            onClick={() => {
-                              setOpen(false);
-                              router.push(`/product/${cartProduct.product.id}`);
-                            }}
-                            className="cursor-pointer font-medium hover:underline"
-                          >
-                            {cartProduct.product.title}
-                          </div>
-                          <Rating style={{ paddingBlock: "0.5rem" }}>
-                            <Rating.Star />
-                            <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-                              {cartProduct.product.rating}
-                            </p>
-                            <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-                            <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
-                              0 reviews
-                            </a>
-                          </Rating>
-                          <div className="flex items-center justify-between">
-                            <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                              {cartProduct.product.price} грн
-                            </span>
-                          </div>
-                        </CardContent>
-                        <div
-                          onClick={() => deleteProductFromCart(cartProduct.id)}
-                          className="p-1 cursor-pointer transition rounded-lg hover:bg-slate-200 h-fit"
-                        >
-                          <CloseIcon />
-                        </div>
-                      </Card>
-                    </motion.div>
-                  );
-                })}
-            </AnimatePresence>
+                        {cartProduct.product.title}
+                      </div>
+                      <Rating style={{ paddingBlock: "0.5rem" }}>
+                        <Rating.Star />
+                        <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+                          {cartProduct.product.rating}
+                        </p>
+                        <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
+                        <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
+                          0 reviews
+                        </a>
+                      </Rating>
+                      <div className="flex items-center justify-between">
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                          {cartProduct.product.price} грн
+                        </span>
+                      </div>
+                    </CardContent>
+                    <div
+                      onClick={() => deleteProductFromCart(cartProduct.id)}
+                      className="p-1 cursor-pointer transition rounded-lg hover:bg-slate-200 h-fit"
+                    >
+                      <CloseIcon />
+                    </div>
+                  </Card>
+                  // </motion.div>
+                );
+              })}
+            {/* </AnimatePresence> */}
           </div>
           {loading && (
             <div className="my-5 mx-auto">
