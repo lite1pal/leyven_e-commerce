@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar/navbar";
 import FooterComponent from "@/components/footer";
 import { Montserrat, Raleway, Wallpoet } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import ServerCartProvider from "@/context/cart";
 
 export const metadata: Metadata = {
   title: "LeyVen",
@@ -22,12 +23,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <Toaster />
-        <main className={`max-w-screen min-h-screen flex flex-col flex-grow`}>
-          <Navbar />
-          {children}
-          <FooterComponent />
-        </main>
+        <ServerCartProvider>
+          <Toaster />
+          <main className={`max-w-screen min-h-screen flex flex-col flex-grow`}>
+            <Navbar />
+            {children}
+            <FooterComponent />
+          </main>
+        </ServerCartProvider>
       </body>
     </html>
   );

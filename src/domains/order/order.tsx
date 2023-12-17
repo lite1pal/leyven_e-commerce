@@ -1,29 +1,30 @@
 "use client";
 
 import { Session } from "next-auth";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Card, CardContent, Divider, FormControl, Grid } from "@mui/joy";
 import InputLabel from "@mui/material/InputLabel";
 import CitySelect from "@/components/citySelect";
 import WarehouseSelect from "@/components/warehouseSelect";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { fetchCities } from "@/services/novaposhta";
-import CardCart from "@/components/cardCart";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import { Formik } from "formik";
+import { useCart } from "react-use-cart";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { API_URL } from "@/config/api";
 
-export default function OrderView({
-  session,
-  cart,
-}: {
-  session: Session | null;
-  cart: any;
-}) {
-  const [city, setCity] = useState("");
+export default function OrderView({ session }: { session: Session | null }) {
+  const { items, cartTotal, emptyCart } = useCart();
+
   const router = useRouter();
 
   const [cities, setCities] = useState([]);
+
+  // form inputs
+  const [cityInput, setCityInput] = useState("");
+  const [warehouseInput, setWarehouseInput] = useState("");
 
   const getCities = async () => {
     const data = await fetchCities();
@@ -34,8 +35,57 @@ export default function OrderView({
     getCities();
   }, []);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    try {
+      if (items.length === 0) {
+        toast.error(
+          "Додайте хоча б один товар до корзини, щоб зробити замовлення"
+        );
+        return;
+      }
+
+      if (!cityInput) {
+        toast.error("Виберіть місто доставки");
+        return;
+      } else if (!warehouseInput) {
+        toast.error("Виберіть відділення Нової пошти");
+        return;
+      }
+
+      data.city = cityInput;
+      data.warehouse = warehouseInput;
+      data.orderProducts = items;
+      const res = await fetch(`${API_URL}/order`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        toast.error(
+          "Сталась якась помилка, перезавантажте сторінку та спробуйте ще раз"
+        );
+        return;
+      }
+
+      const parsedRes = await res.json();
+
+      emptyCart();
+
+      router.push(`/order_success/${parsedRes.id}`);
+      toast.success("Замовлення успішне!");
+    } catch (err) {
+      console.error("Failed to create an order");
+    }
+  };
+
   return (
-    <form onSubmit={() => router.push("/order_success")}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
         <Grid xs={11} marginInline="auto" sm={8} md={4} lg={6}>
           <div className=" flex w-full mt-5 flex-col gap-3">
@@ -53,33 +103,61 @@ export default function OrderView({
                   type="email"
                   placeholder={"name@gmail.com"}
                   required
-                  value={session?.user?.email!}
                   shadow
+                  {...register("email", { required: true })}
                 />
               </div>
               <div>
                 <div className="mb-2 block">
                   <Label htmlFor="phone" value="Ваш номер телефону" />
                 </div>
-                <TextInput id="phone" type="tel" required shadow />
+                <TextInput
+                  id="phone"
+                  type="tel"
+                  required
+                  shadow
+                  {...register("phone", {
+                    required: true,
+                  })}
+                />
               </div>
               <div className="flex gap-3 w-full">
                 <div className="w-full">
                   <div className="mb-2 block">
                     <Label htmlFor="name" value="Ваше ім`я" />
                   </div>
-                  <TextInput id="name" type="text" required shadow />
+                  <TextInput
+                    id="name"
+                    type="text"
+                    required
+                    shadow
+                    {...register("firstName", {
+                      required: true,
+                    })}
+                  />
                 </div>
                 <div className="w-full">
                   <div className="mb-2 block">
                     <Label htmlFor="last-name" value="Ваша фамілія" />
                   </div>
-                  <TextInput id="last-name" type="text" required shadow />
+                  <TextInput
+                    id="last-name"
+                    type="text"
+                    required
+                    shadow
+                    {...register("lastName", {
+                      required: true,
+                    })}
+                  />
                 </div>
               </div>
-              <div className="text-lg font-medium">Доставка</div>
-              <CitySelect {...{ city, setCity, cities }} />
-              <WarehouseSelect {...{ city }} />
+              <div className="text-lg font-medium">Доставка Нова пошта</div>
+              <CitySelect
+                {...{ cityInput, setCityInput, setWarehouseInput, cities }}
+              />
+              <WarehouseSelect
+                {...{ cityInput, warehouseInput, setWarehouseInput }}
+              />
             </div>
           </div>
         </Grid>
@@ -93,7 +171,7 @@ export default function OrderView({
                 overflowY: "scroll",
               }}
             >
-              {cart.cartProducts.map((cartProduct: any) => {
+              {items.map((cartProduct: any) => {
                 return (
                   <Card
                     key={cartProduct.id}
@@ -103,8 +181,8 @@ export default function OrderView({
                   >
                     <div className="h-28 w-36 ml-3">
                       <img
-                        className={`w-full h-full object-contain rounded-lg`}
-                        src={cartProduct.product.img}
+                        className={`w-full h-36 object-contain rounded-lg`}
+                        src={cartProduct.img}
                         loading="lazy"
                         alt=""
                       />
@@ -116,13 +194,13 @@ export default function OrderView({
                         // }
                         className="cursor-pointer font-medium"
                       >
-                        {cartProduct.product.title}
+                        {cartProduct.title}
                       </div>
 
                       <div className="flex items-center justify-between">
                         <span className="text-2xl max-sm:text-lg font-medium text-gray-900 dark:text-white">
                           {/* {cartProduct.product.price} */}
-                          {cartProduct.totalPrice}.00 UAH
+                          {cartProduct.itemTotal}.00 UAH
                         </span>
                       </div>
                       <div>{cartProduct.quantity} шт.</div>
@@ -134,7 +212,7 @@ export default function OrderView({
             <Card>
               <div className="flex justify-between">
                 <div>Вартість замовлення</div>
-                <strong>{cart.totalPrice}.00 UAH</strong>
+                <strong>{cartTotal}.00 UAH</strong>
               </div>
               <div className="flex justify-between">
                 <div>Доставка нової пошти</div>
@@ -143,7 +221,7 @@ export default function OrderView({
               <Divider />
               <div className="flex justify-between">
                 <div>Разом</div>
-                <strong>{cart.totalPrice + 60}.00 UAH</strong>
+                <strong>{cartTotal + 60}.00 UAH</strong>
               </div>
             </Card>
           </div>

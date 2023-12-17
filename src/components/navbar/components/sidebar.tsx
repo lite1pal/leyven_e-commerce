@@ -16,6 +16,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import HealingIcon from "@mui/icons-material/Healing";
 import CelebrationIcon from "@mui/icons-material/Celebration";
+import Link from "next/link";
 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
@@ -77,19 +78,33 @@ export default function Sidebar() {
             <ListItem>
               <ListItemButton sx={{ padding: "1rem" }}>
                 <FoodBankIcon color="primary" />
-                <div>Годування</div>
+                <Link href="/food">
+                  <div>Годування тварин</div>
+                </Link>
               </ListItemButton>
             </ListItem>
             <ListItem>
               <ListItemButton sx={{ padding: "1rem" }}>
                 <HealingIcon color="primary" />
-                <div>Ветеринарна аптека</div>
+                <Link href="/veterynarny">
+                  <div>Ветеринарні засоби</div>
+                </Link>
               </ListItemButton>
             </ListItem>
             <ListItem>
               <ListItemButton sx={{ padding: "1rem" }}>
                 <CelebrationIcon color="primary" />
-                <div>Ігри та розваги</div>
+                <Link href="/animalcare">
+                  <div>Товари для догляду</div>
+                </Link>
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton sx={{ padding: "1rem" }}>
+                <CelebrationIcon color="primary" />
+                <Link href="/outdoors">
+                  <div>Товари для подорожей</div>
+                </Link>
               </ListItemButton>
             </ListItem>
           </List>

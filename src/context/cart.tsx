@@ -1,24 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { ReactNode } from "react";
+import { CartProvider } from "react-use-cart";
 
-const CartContext = createContext<any>({
-  cart: "",
-  revalidateCart: {},
-});
-
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<any>({});
-
-  const revalidateCart = () => {};
-
-  return (
-    <CartContext.Provider value={{ cart, setCart }}>
-      {children}
-    </CartContext.Provider>
-  );
-}
-
-export function useLanguage() {
-  return useContext(CartContext);
+export default function ServerCartProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return <CartProvider>{children}</CartProvider>;
 }

@@ -9,17 +9,19 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Label } from "flowbite-react";
 
 export default function CitySelect({
-  city,
-  setCity,
+  cityInput,
+  setCityInput,
+  setWarehouseInput,
   cities,
 }: {
-  city: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
+  cityInput: string;
+  setCityInput: React.Dispatch<React.SetStateAction<string>>;
+  setWarehouseInput: React.Dispatch<React.SetStateAction<string>>;
   cities: any;
 }) {
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
-    setCity(event.target.value as string);
+    setCityInput(event.target.value as string);
+    setWarehouseInput("");
   };
 
   return (
@@ -30,10 +32,10 @@ export default function CitySelect({
         </div> */}
         <InputLabel id="demo-simple-select-label">Місто</InputLabel>
         <Select
-          defaultValue={city}
+          defaultValue={cityInput}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={city}
+          value={cityInput}
           label="Місто"
           onChange={handleChange}
         >

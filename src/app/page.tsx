@@ -1,12 +1,26 @@
 import Catalog from "../domains/catalog/catalog";
 import CarouselComponent from "@/components/carousel";
 import { auth } from "./api/auth/[...nextauth]/auth";
+import { API_URL } from "@/config/api";
+import BasicBreadcrumbs from "@/components/breadCrumbs";
+import CategoryHeader from "@/components/categoryHeader";
+import { revalidatePath } from "next/cache";
 
 export default async function HomeScreen({ searchParams }: any) {
+  const sorting = searchParams.sorting;
+  const searchString = `?sorting=${sorting}`;
+
+  // gets products for the catalog
+  const res = await fetch(`${API_URL}/products${searchString}`, {
+    next: { revalidate: 1000 },
+  });
+  const data = await res.json();
+
   return (
     <div className="bg-slate-100">
       <CarouselComponent />
-      <Catalog {...{ searchParams }} />
+      <CategoryHeader title="Всі товари" />
+      <Catalog {...{ data }} />
     </div>
   );
 }

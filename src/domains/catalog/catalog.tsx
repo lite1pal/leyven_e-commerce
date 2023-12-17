@@ -15,29 +15,16 @@ import { Grid } from "@mui/joy";
 import FilterRadioButton from "@/components/filterRadioButton";
 import SwitchAvailability from "@/components/switchAvailability";
 import RangeSlider from "@/components/rangeSlider";
-import { convertXMLtoJSON } from "../../utils";
+import { convertXMLtoJSON } from "../../libs/utils";
+import CategoryHeader from "@/components/categoryHeader";
 
-export default async function CatalogView({ searchParams }: any) {
-  // gets current session object
-  const session = await auth();
-
-  // const res = await fetch(
-  //   "https://leyven.com.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids="
-  // );
-
-  // const data = await convertXMLtoJSON(res);
-
-  // gets products for the catalog
-  const res = await fetch(`${API_URL}/products`, {
-    next: { revalidate: 1000 },
-  });
-  const data = await res.json();
-
+export default async function CatalogView({ data }: any) {
   return (
     <>
       <SupportDrawer />
       <Suspense fallback={<Loading />}>
         <Meta data={data} />
+
         <div className="flex">
           <div
             style={{ marginLeft: "1rem" }}
@@ -71,7 +58,8 @@ export default async function CatalogView({ searchParams }: any) {
 
             <SwitchAvailability />
           </div>
-          <GridComponent data={data} session={session} />
+
+          <GridComponent data={data} />
         </div>
 
         <Pagination

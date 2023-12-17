@@ -6,35 +6,10 @@ import { useEffect, useState } from "react";
 import { API_URL } from "@/config/api";
 import Meta from "./meta";
 import _ from "lodash";
+import { CartProvider } from "react-use-cart";
 
-export default function GridComponent({ data, session }: any) {
-  const [cart, setCart] = useState({ cartProducts: [] });
-
+export default function GridComponent({ data }: any) {
   const [openModal, setOpenModal] = useState(false);
-
-  const getCart = async () => {
-    if (session) {
-      const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
-      const data = await res.json();
-      console.log(data);
-      setCart(data);
-    }
-  };
-
-  useEffect(() => {
-    // if (openModal) {
-
-    getCart();
-    // fetchWarehouses();
-    // }
-  }, [openModal]);
-
-  useEffect(() => {
-    /*
-    Query logic
-    */
-    console.log("i fire once");
-  }, []);
 
   return (
     <Grid
@@ -51,9 +26,6 @@ export default function GridComponent({ data, session }: any) {
           <Grid key={i} xs={12} sm={6} md={4} lg={2}>
             <Card
               data={product}
-              session={session}
-              cart={cart}
-              getCart={getCart}
               openModal={openModal}
               setOpenModal={setOpenModal}
             />

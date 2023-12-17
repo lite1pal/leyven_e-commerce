@@ -24,9 +24,9 @@ export default function SignInComponent({ icon = "person" }) {
     <>
       <button
         onClick={() => setOpenModal(true)}
-        className={`text-white lg:px-1.5 lg:py-1.5 bg-blue-600 hover:text-blue-600 hover:bg-white transition border border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+        className={` lg:px-1.5 lg:py-1.5  hover:text-blue-600 hover:scale-110 hover:bg-white transition focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
-        <AddShoppingCartIcon fontSize="small" />
+        <PersonIcon />
       </button>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
         <Modal.Header />

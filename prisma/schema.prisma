@@ -69,8 +69,10 @@ model Product {
   availability String
   description String
   breadcrumbs String
+  info Json[]
   reviews     Review[]
   cartProducts CartProduct[]
+  orderProducts OrderProduct[]
 }
 
 model Cart {
@@ -104,5 +106,30 @@ model Review {
   userId    String  @db.ObjectId
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String  @db.ObjectId
+}
+
+model Order {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  email String
+  phone String
+  firstName String
+  lastName String
+  city String
+  warehouse String
+  orderProducts OrderProduct[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+}
+
+model OrderProduct {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  order       Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId     String   @db.ObjectId
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String   @db.ObjectId
+  quantity Int?
+  itemTotal Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 }
 

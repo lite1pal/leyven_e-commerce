@@ -7,7 +7,7 @@ import { HiHome } from "react-icons/hi";
 
 export default function BasicBreadcrumbs({ data }: any) {
   const breadcrumbs = useMemo(() => {
-    return data?.breadcrumbs.split(">");
+    return data?.breadcrumbs.split(" > ");
   }, [data]);
 
   function capitalizeFirstLetter(string: string) {

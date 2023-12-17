@@ -9,15 +9,22 @@ import { fetchWarehouses } from "@/services/novaposhta";
 import { useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";
 
-export default function WarehouseSelect({ city }: { city: string }) {
-  const [input, setInput] = useState("");
+export default function WarehouseSelect({
+  cityInput,
+  warehouseInput,
+  setWarehouseInput,
+}: {
+  cityInput: string;
+  warehouseInput: string;
+  setWarehouseInput: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const [warehouses, setWarehouses] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getWarehouses = async () => {
-    if (city) {
+    if (cityInput) {
       setLoading(true);
-      const data = await fetchWarehouses(city);
+      const data = await fetchWarehouses(cityInput);
       setWarehouses(data);
       setLoading(false);
     }
@@ -25,10 +32,10 @@ export default function WarehouseSelect({ city }: { city: string }) {
 
   useEffect(() => {
     getWarehouses();
-  }, [city]);
+  }, [cityInput]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setInput(event.target.value as string);
+    setWarehouseInput(event.target.value as string);
   };
 
   return (
@@ -39,10 +46,10 @@ export default function WarehouseSelect({ city }: { city: string }) {
             Відділення нової пошти
           </InputLabel>
           <Select
-            defaultValue={input}
+            defaultValue={warehouseInput}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={input}
+            value={warehouseInput}
             label="Відділення нової пошти"
             onChange={handleChange}
             className={`${loading && "pointer-events-none"}`}
@@ -56,6 +63,11 @@ export default function WarehouseSelect({ city }: { city: string }) {
             })}
           </Select>
         </FormControl>
+      )}
+      {cityInput && warehouses.length === 0 && (
+        <InputLabel sx={{ color: "red" }} id="demo-simple-select-label">
+          На жаль, відділення у цьому місті наразі не працюють
+        </InputLabel>
       )}
     </Box>
   );

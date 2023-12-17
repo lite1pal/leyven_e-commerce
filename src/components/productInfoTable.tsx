@@ -7,26 +7,16 @@ export default function ProductInfoTable({ data }: any) {
     <div className="overflow-x-auto mt-5">
       <Table>
         <Table.Body className="divide-y">
-          <Table.Row>
-            <Table.Cell className="whitespace-nowrap p-0 font-bold text-slate-600">
-              Тип
-            </Table.Cell>
-            <Table.Cell>Корм</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell className="whitespace-nowrap p-0 font-bold text-slate-600">
-              Тварина
-            </Table.Cell>
-            <Table.Cell>Собака</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell className="whitespace-nowrap p-0 font-bold text-slate-600">
-              Опис
-            </Table.Cell>
-            <Table.Cell>
-              Сухий повнораціонний корм для дорослих собак
-            </Table.Cell>
-          </Table.Row>
+          {data.info.map((info: any) => {
+            return (
+              <Table.Row>
+                <Table.Cell className="whitespace-nowrap p-0 font-bold text-slate-600">
+                  {info["g:attribute_name"]._text}
+                </Table.Cell>
+                <Table.Cell>{info["g:attribute_value"]._text}</Table.Cell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
     </div>

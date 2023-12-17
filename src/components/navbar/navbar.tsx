@@ -1,14 +1,11 @@
 import React from "react";
-
-import DrawerScrollable from "./components/drawer";
 import SearchInput from "./components/searchInput";
 import { Footer } from "flowbite-react";
 import Link from "next/link";
 import NavItem from "./components/navItem";
 import Sidebar from "./components/sidebar";
-import UserDropdown from "./components/userDropdown";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
-import { API_URL } from "@/config/api";
+import Icons from "./components/icons";
 
 export default async function Navbar() {
   const session = await auth();
@@ -37,31 +34,24 @@ export default async function Navbar() {
               Каталог
             </li>
           </Link>
-          <Link href="/contacts">
+          <Link href="/veterynarny">
             <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Контакти
+              Ветеринарія
             </li>
           </Link>
-          <Link href="/about">
+          <Link href="/food">
             <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Про нас
+              Годування
             </li>
           </Link>
-          <Link href="/collaboration">
+          <Link href="/outdoors">
             <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
-              Співпраця
+              Подорожі
             </li>
           </Link>
         </ul>
 
-        <div className="flex gap-5 items-center">
-          <div className="max-sm:hidden">
-            <SearchInput />
-          </div>
-
-          <UserDropdown session={session} />
-          <DrawerScrollable session={session} />
-        </div>
+        <Icons {...{ session }} />
       </div>
       <div className="mx-auto mb-3 sm:hidden">
         <SearchInput />

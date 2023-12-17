@@ -20,88 +20,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import CardCart from "@/components/cardCart";
+import { useCart } from "react-use-cart";
 
-export default function DrawerScrollable({ session }: any) {
+export default function DrawerScrollable() {
   const [open, setOpen] = useState(false);
-  const [cart, setCart] = useState({ totalPrice: "", cartProducts: [] });
 
-  const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
-
-  const getCart = async () => {
-    setLoading(true);
-    if (session) {
-      const res = await fetch(`${API_URL}/cart?email=${session.user.email}`);
-      const data = await res.json();
-      setCart(data);
-    }
-    setLoading(false);
-  };
-
-  const increaseQuantity = async (cartProductId: string) => {
-    try {
-      setLoading(true);
-      if (!cartProductId) {
-        return console.log("Provide product id as a parameter");
-      }
-      await fetch(
-        `${API_URL}/cartProduct?cartProductId=${cartProductId}&type=increase`,
-        {
-          method: "PUT",
-        }
-      );
-      setLoading(false);
-      getCart();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const decreaseQuantity = async (cartProductId: string) => {
-    try {
-      setLoading(true);
-      if (!cartProductId) {
-        return console.log("Provide product id as a parameter");
-      }
-
-      await fetch(
-        `${API_URL}/cartProduct?cartProductId=${cartProductId}&type=decrease`,
-        {
-          method: "PUT",
-        }
-      );
-      setLoading(false);
-      getCart();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const deleteProductFromCart = async (cartProductId: string) => {
-    if (!cartProductId) return console.log("Provide product id as a parameter");
-
-    await fetch(`${API_URL}/cartProduct?cartProductId=${cartProductId}`, {
-      method: "DELETE",
-    });
-    getCart();
-  };
-
-  useEffect(() => {
-    if (open) {
-      getCart();
-    }
-  }, [open]);
+  const { items, isEmpty, cartTotal, emptyCart } = useCart();
 
   return (
     <Fragment>
       <div
-        className="transition hover:bg-slate-200 p-1 rounded"
+        className="transition cursor-pointer hover:bg-slate-200 p-1 rounded"
         onClick={() => setOpen(true)}
       >
-        {/* <Badge badgeContent={cart.cartProducts.length} badgeInset="-20%"> */}
-        <ShoppingCartIcon />
-        {/* </Badge> */}
+        <Badge badgeContent={items.length} badgeInset="-20%">
+          <ShoppingCartIcon />
+        </Badge>
       </div>
 
       <Drawer
@@ -111,7 +45,15 @@ export default function DrawerScrollable({ session }: any) {
         onClose={() => setOpen(false)}
       >
         <ModalClose />
-        <DialogTitle>Корзина</DialogTitle>
+        <DialogTitle>
+          Корзина{" "}
+          <button
+            onClick={emptyCart}
+            className="font-light underline text-sm ml-5"
+          >
+            Очистити корзину
+          </button>
+        </DialogTitle>
         <Divider />
         <DialogContent
           sx={{
@@ -120,7 +62,7 @@ export default function DrawerScrollable({ session }: any) {
             position: "relative",
           }}
         >
-          {!loading && cart.cartProducts.length === 0 && (
+          {isEmpty && (
             <>
               <div className="mb-2">Ваш кошик порожній.</div>
               <div>
@@ -129,14 +71,10 @@ export default function DrawerScrollable({ session }: any) {
               </div>
             </>
           )}
-          <div
-            className={`${
-              loading && "opacity-50 pointer-events-none"
-            } flex flex-col gap-3`}
-          >
+          <div className={`flex flex-col gap-3`}>
             <AnimatePresence>
-              {cart.cartProducts.length > 0 &&
-                cart.cartProducts.map((cartProduct: any, i: number) => {
+              {!isEmpty &&
+                items.map((cartProduct: any, i: number) => {
                   return (
                     <motion.div
                       key={cartProduct.id}
@@ -147,9 +85,6 @@ export default function DrawerScrollable({ session }: any) {
                       <CardCart
                         {...{
                           cartProduct,
-                          deleteProductFromCart,
-                          increaseQuantity,
-                          decreaseQuantity,
                         }}
                       />
                     </motion.div>
@@ -157,15 +92,15 @@ export default function DrawerScrollable({ session }: any) {
                 })}
             </AnimatePresence>
           </div>
-          {loading && (
+          {/* {loading && (
             <div className="my-5 mx-auto">
               <Spinner
                 aria-label="Alternate spinner button example"
                 size="lg"
               />
             </div>
-          )}
-          {cart.cartProducts.length > 0 && (
+          )} */}
+          {!isEmpty && (
             <div className="flex fixed items-center bg-white z-20 bottom-0 p-5 border-2 right-0 w-full mt-5 mx-auto gap-5">
               <Link href="/order">
                 <Button onClick={() => setOpen(false)}>
@@ -173,7 +108,7 @@ export default function DrawerScrollable({ session }: any) {
                 </Button>
               </Link>
               <div className="border p-3 text-slate-600 font-sans text-2xl font-semibold rounded">
-                {cart.totalPrice}.00 UAH
+                {cartTotal}.00 UAH
               </div>
             </div>
           )}
