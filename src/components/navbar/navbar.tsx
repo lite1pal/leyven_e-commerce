@@ -19,7 +19,7 @@ export default async function Navbar() {
       className={`sticky z-50 bg-white top-0 flex transition flex-col max-sm:px-2 px-8`}
     >
       <div
-        className={`flex py-6 max-sm:border-b-2 max-sm:mb-3 max-sm:py-3 items-center justify-between`}
+        className={`flex py-6 max-sm:border-b-2 max-sm:mb-3 max-xl:py-4 items-center justify-between`}
       >
         <div className="flex items-center gap-3">
           <Sidebar />

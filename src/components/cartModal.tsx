@@ -4,10 +4,15 @@ import { API_URL } from "@/config/api";
 import { Card, CardContent } from "@mui/joy";
 import { Button, Modal, Rating, Spinner } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { AnimatePresence, motion } from "framer-motion";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Link from "next/link";
+import { Transition } from "react-transition-group";
+import toast from "react-hot-toast";
+import { AnimatePresence, motion } from "framer-motion";
+import CardCart from "./cardCart";
 
 export default function CartModal({
   data,
@@ -33,26 +38,76 @@ export default function CartModal({
   }, [cart]);
 
   const addProductToCart = async () => {
-    setLoading(true);
-    if (!isProductAlreadyInCart()) {
-      await fetch(`${API_URL}/cartProduct`, {
-        method: "POST",
-        body: JSON.stringify({ data, session }),
-      });
+    try {
+      setLoading(true);
+      if (!isProductAlreadyInCart()) {
+        await fetch(`${API_URL}/cartProduct`, {
+          method: "POST",
+          body: JSON.stringify({ data, session }),
+        });
+        toast.success("Товар доданий у корзину!");
+      }
+      setLoading(false);
+      setOpenModal(true);
+    } catch (err) {
+      console.error("Failed to add a product to the cart", err);
     }
-    setLoading(false);
-    setOpenModal(true);
+  };
+
+  const increaseQuantity = async (cartProductId: string) => {
+    try {
+      setLoading(true);
+      if (!cartProductId) {
+        return console.log("Provide product id as a parameter");
+      }
+      await fetch(
+        `${API_URL}/cartProduct?cartProductId=${cartProductId}&type=increase`,
+        {
+          method: "PUT",
+        }
+      );
+      setLoading(false);
+      getCart();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const decreaseQuantity = async (cartProductId: string) => {
+    try {
+      setLoading(true);
+      if (!cartProductId) {
+        return console.log("Provide product id as a parameter");
+      }
+
+      await fetch(
+        `${API_URL}/cartProduct?cartProductId=${cartProductId}&type=decrease`,
+        {
+          method: "PUT",
+        }
+      );
+      setLoading(false);
+      getCart();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const deleteProductFromCart = async (cartProductId: string) => {
-    setLoading(true);
-    if (!cartProductId) return console.log("Provide product id as a parameter");
+    try {
+      setLoading(true);
+      if (!cartProductId)
+        return console.log("Provide product id as a parameter");
 
-    await fetch(`${API_URL}/cartProduct?cartProductId=${cartProductId}`, {
-      method: "DELETE",
-    });
-    getCart();
-    setLoading(false);
+      await fetch(`${API_URL}/cartProduct?cartProductId=${cartProductId}`, {
+        method: "DELETE",
+      });
+      toast.success(`Товар видалено з корзини`);
+      getCart();
+      setLoading(false);
+    } catch (err) {
+      console.error("Failed to delete a product from the cart", err);
+    }
   };
 
   return (
@@ -62,16 +117,29 @@ export default function CartModal({
         className={`${
           isProductAlreadyInCart() &&
           "bg-green-600 border-green-600 hover:text-green-600"
-        } text-white bg-blue-600 hover:text-blue-600 hover:bg-white transition border border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+        } text-white lg:px-1.5 lg:py-1.5 bg-blue-600 hover:text-blue-600 hover:bg-white transition border border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
-        {isProductAlreadyInCart() ? "Додано" : "В корзину"}
-        {loading && <Spinner style={{ marginLeft: "0.5rem" }} />}
+        {isProductAlreadyInCart() ? (
+          <ShoppingCartIcon />
+        ) : loading ? (
+          <Spinner />
+        ) : (
+          <AddShoppingCartIcon fontSize="small" />
+        )}
       </button>
 
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal
+        className="bg-opacity-5"
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+      >
         <Modal.Header>Корзина</Modal.Header>
         <Modal.Body>
-          <div className="flex flex-col gap-5">
+          <div
+            className={`${
+              loading && "opacity-50 pointer-events-none"
+            } flex flex-col gap-5`}
+          >
             {cart.cartProducts.length === 0 && (
               <div className="space-y-6">
                 <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
@@ -79,79 +147,41 @@ export default function CartModal({
                 </p>
               </div>
             )}
-            {/* <AnimatePresence> */}
-            {cart.cartProducts.length > 0 &&
-              cart.cartProducts.map((cartProduct: any, i: number) => {
-                return (
-                  // <motion.div
-                  //   key={cartProduct.id}
-                  //   initial={{ opacity: 0.2, scale: 0.5 }}
-                  //   animate={{ opacity: 1, scale: 1 }}
-                  //   transition={{ duration: 0.4 }}
-                  //   exit={{ opacity: 0.2, scale: 0.5 }}
-                  // >
-                  <Card
-                    key={i}
-                    orientation="horizontal"
-                    variant="outlined"
-                    sx={{ width: "100%" }}
-                  >
-                    <div className="h-44 w-36 ml-3">
-                      <img
-                        className="w-full h-full object-contain rounded-lg"
-                        src={cartProduct.product.img}
-                        loading="lazy"
-                        alt=""
-                      />
-                    </div>
-                    <CardContent>
-                      <div
-                        onClick={() =>
-                          router.push(`/product/${cartProduct.product.id}`)
-                        }
-                        className="cursor-pointer font-medium hover:underline"
-                      >
-                        {cartProduct.product.title}
-                      </div>
-                      <Rating style={{ paddingBlock: "0.5rem" }}>
-                        <Rating.Star />
-                        <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-                          {cartProduct.product.rating}
-                        </p>
-                        <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-                        <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
-                          0 reviews
-                        </a>
-                      </Rating>
-                      <div className="flex items-center justify-between">
-                        <span className="text-2xl max-sm:text-lg font-bold text-gray-900 dark:text-white">
-                          {cartProduct.product.price} грн
-                        </span>
-                      </div>
-                    </CardContent>
-                    <div
-                      onClick={() => deleteProductFromCart(cartProduct.id)}
-                      className="p-1 cursor-pointer transition rounded-lg hover:bg-slate-200 h-fit"
+            <AnimatePresence>
+              {cart.cartProducts.length > 0 &&
+                cart.cartProducts.map((cartProduct: any, i: number) => {
+                  return (
+                    <motion.div
+                      key={cartProduct.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
                     >
-                      <CloseIcon />
-                    </div>
-                  </Card>
-                  // </motion.div>
-                );
-              })}
-            {/* </AnimatePresence> */}
-            {/* {loading && <Spinner style={{ marginInline: "auto" }} />} */}
+                      <CardCart
+                        {...{
+                          cartProduct,
+                          deleteProductFromCart,
+                          increaseQuantity,
+                          decreaseQuantity,
+                        }}
+                      />
+                    </motion.div>
+                  );
+                })}
+            </AnimatePresence>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Link href="/order">
-            <Button onClick={() => setOpenModal(false)}>
-              Оформити замовлення
-            </Button>
-          </Link>
-          <Button color="gray" onClick={() => setOpenModal(false)}>
-            Видалити
-          </Button>
+        <Modal.Footer className="justify-between">
+          <div className="flex gap-3">
+            <Link href="/order">
+              <Button onClick={() => setOpenModal(false)}>
+                Оформити замовлення
+              </Button>
+            </Link>
+          </div>
+          <div className="border p-3 font-sans text-2xl font-semibold rounded">
+            {cart.totalPrice}.00 UAH
+          </div>
         </Modal.Footer>
       </Modal>
     </>

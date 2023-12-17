@@ -2,7 +2,7 @@
 
 import { Table } from "flowbite-react";
 
-export default function ProductInfoTable() {
+export default function ProductInfoTable({ data }: any) {
   return (
     <div className="overflow-x-auto mt-5">
       <Table>

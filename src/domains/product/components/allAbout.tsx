@@ -6,6 +6,7 @@ import type { CustomFlowbiteTheme } from "flowbite-react";
 import { useParams, useRouter } from "next/navigation";
 import BannerPromo from "@/components/bannerPromo";
 import ProductInfoTable from "@/components/productInfoTable";
+import UnarchiveIcon from "@mui/icons-material/Unarchive";
 
 const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
   root: {
@@ -71,16 +72,21 @@ export default function AllAbout({ data }: any) {
             </p>
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
             <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
-              8 reviews
+              0 відгуків
             </a>
           </Rating>
-          <div className="font-light text-slate-400 pr-10">Код: 357398823</div>
+          <div className="font-light text-slate-400 pr-10">
+            Код: {data.id.slice(0, 12)}
+          </div>
         </div>
         <Divider />
         <div className="flex items-center pt-4 gap-5">
           <div>
-            <div className="text-2xl font-semibold">{data.price} ₴</div>
-            <div className="text-green-500">В наявності</div>
+            <div className="text-2xl font-semibold">{data.price}.00 UAH</div>
+            <div className="flex gap-1 items-center">
+              <UnarchiveIcon color="success" />
+              <div className="text-green-500">В наявності</div>
+            </div>
           </div>
           <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
           <Link href="/order">
@@ -90,7 +96,7 @@ export default function AllAbout({ data }: any) {
           </Link>
         </div>
         <BannerPromo />
-        <ProductInfoTable />
+        <ProductInfoTable {...{ data }} />
       </Grid>
     </Grid>
   );

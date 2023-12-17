@@ -12,7 +12,6 @@ export default function Loading() {
         transition={{ duration: 0.5 }}
       >
         <div className="flex gap-3 w-fit mx-auto my-20 pb-96 text-4xl font-bold">
-          <div>Loading...</div>
           <Spinner size="lg" />
         </div>
       </motion.div>

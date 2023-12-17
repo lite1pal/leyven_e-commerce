@@ -13,7 +13,7 @@ export default function CarouselComponent() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
-        <Box className="max-sm:h-36 h-96 xl:h-[35rem]">
+        <Box className="h-[9rem] sm:h-[15rem] xl:h-[30rem]">
           <Carousel>
             {/* <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1200px-Giant_Panda_2004-03-2.jpg"

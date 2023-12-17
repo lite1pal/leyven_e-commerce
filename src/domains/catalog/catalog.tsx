@@ -15,13 +15,22 @@ import { Grid } from "@mui/joy";
 import FilterRadioButton from "@/components/filterRadioButton";
 import SwitchAvailability from "@/components/switchAvailability";
 import RangeSlider from "@/components/rangeSlider";
+import { convertXMLtoJSON } from "../../utils";
 
-export default async function CatalogView() {
+export default async function CatalogView({ searchParams }: any) {
   // gets current session object
   const session = await auth();
 
+  // const res = await fetch(
+  //   "https://leyven.com.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids="
+  // );
+
+  // const data = await convertXMLtoJSON(res);
+
   // gets products for the catalog
-  const res = await fetch(`${API_URL}/products`, { next: { revalidate: 100 } });
+  const res = await fetch(`${API_URL}/products`, {
+    next: { revalidate: 1000 },
+  });
   const data = await res.json();
 
   return (
@@ -32,7 +41,7 @@ export default async function CatalogView() {
         <div className="flex">
           <div
             style={{ marginLeft: "1rem" }}
-            className="bg-white flex flex-col gap-4 max-xl:hidden h-[10rem] p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
+            className="bg-white flex flex-col gap-4 max-xl:hidden h-fit p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
           >
             <FilterRadioButton
               header="Тварина"

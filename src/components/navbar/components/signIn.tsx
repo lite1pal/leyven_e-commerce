@@ -22,18 +22,12 @@ export default function SignInComponent({ icon = "person" }) {
 
   return (
     <>
-      <div
-        className="hover:bg-slate-200 transition rounded"
+      <button
         onClick={() => setOpenModal(true)}
+        className={`text-white lg:px-1.5 lg:py-1.5 bg-blue-600 hover:text-blue-600 hover:bg-white transition border border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
-        {icon === "person" ? (
-          <PersonIcon />
-        ) : (
-          <button className="px-4 py-2 rounded bg-blue-600 border-2 border-blue-600 hover:bg-white text-white transition text-sm hover:text-blue-600">
-            В корзину
-          </button>
-        )}
-      </div>
+        <AddShoppingCartIcon fontSize="small" />
+      </button>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
         <Modal.Header />
         <Modal.Body>

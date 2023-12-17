@@ -8,10 +8,17 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Label } from "flowbite-react";
 
-export default function CitySelect() {
-  const [city, setCity] = React.useState("Малин");
-
+export default function CitySelect({
+  city,
+  setCity,
+  cities,
+}: {
+  city: string;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
+  cities: any;
+}) {
   const handleChange = (event: SelectChangeEvent) => {
+    console.log(event.target.value);
     setCity(event.target.value as string);
   };
 
@@ -30,12 +37,22 @@ export default function CitySelect() {
           label="Місто"
           onChange={handleChange}
         >
-          <MenuItem value={"Малин"}>Малин</MenuItem>
-          <MenuItem value={"Київ"}>Київ</MenuItem>
-          <MenuItem value={"Звягіль"}>Звягіль</MenuItem>
-          <MenuItem value={"Житомир"}>Житомир</MenuItem>
-          <MenuItem value={"Ірпінь"}>Ірпінь</MenuItem>
-          <MenuItem value={"Львів"}>Львів</MenuItem>
+          {cities.length > 0 &&
+            cities.map((city: any) => {
+              return (
+                <MenuItem
+                  key={city["Ref"]}
+                  value={city["Description"].toLowerCase()}
+                >
+                  {city["Description"]}
+                </MenuItem>
+              );
+            })}
+          {/* <MenuItem value={"київ"}>Київ</MenuItem>
+          <MenuItem value={"звягель"}>Звягель</MenuItem>
+          <MenuItem value={"житомир"}>Житомир</MenuItem>
+          <MenuItem value={"ірпінь"}>Ірпінь</MenuItem>
+          <MenuItem value={"львів"}>Львів</MenuItem> */}
         </Select>
       </FormControl>
     </Box>

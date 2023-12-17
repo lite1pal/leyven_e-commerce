@@ -1,25 +1,31 @@
 "use client";
 
-import * as React from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { fetchWarehouses } from "@/services/novaposhta";
+import { useEffect, useState } from "react";
+import { Spinner } from "flowbite-react";
 
-export default function WarehouseSelect() {
-  const [input, setInput] = React.useState("");
-  const [warehouses, setWarehouses] = React.useState([]);
+export default function WarehouseSelect({ city }: { city: string }) {
+  const [input, setInput] = useState("");
+  const [warehouses, setWarehouses] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getWarehouses = async () => {
-    const data = await fetchWarehouses();
-    setWarehouses(data);
+    if (city) {
+      setLoading(true);
+      const data = await fetchWarehouses(city);
+      setWarehouses(data);
+      setLoading(false);
+    }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getWarehouses();
-  }, []);
+  }, [city]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setInput(event.target.value as string);
@@ -27,21 +33,19 @@ export default function WarehouseSelect() {
 
   return (
     <Box>
-      <FormControl fullWidth>
-        {/* <div className="mb-2">
-          <Label htmlFor="repeat-password" value="Місто" />
-        </div> */}
-        <InputLabel id="demo-simple-select-label">
-          Відділення нової пошти
-        </InputLabel>
-        {warehouses.length > 0 && (
+      {warehouses.length > 0 && (
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">
+            Відділення нової пошти
+          </InputLabel>
           <Select
-            defaultValue={warehouses[0]["Description"]}
+            defaultValue={input}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={warehouses[0]["Description"]}
+            value={input}
             label="Відділення нової пошти"
             onChange={handleChange}
+            className={`${loading && "pointer-events-none"}`}
           >
             {warehouses.map((warehouse, i) => {
               return (
@@ -51,8 +55,8 @@ export default function WarehouseSelect() {
               );
             })}
           </Select>
-        )}
-      </FormControl>
+        </FormControl>
+      )}
     </Box>
   );
 }

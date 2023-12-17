@@ -65,10 +65,9 @@ export default function TabsComponent({ data }: any) {
                   variant="soft"
                   color={index === 2 ? "primary" : "neutral"}
                 >
-                  8
+                  0
                 </Chip>
               </Tab>
-              <Tab indicatorInset>Купують разом</Tab>
             </TabList>
             <Box
               sx={(theme) => ({
@@ -82,7 +81,6 @@ export default function TabsComponent({ data }: any) {
               </TabPanel>
               <TabPanel value={1}>Характеристики</TabPanel>
               <TabPanel value={2}>Відгуки</TabPanel>
-              <TabPanel value={3}>Купують разом</TabPanel>
             </Box>
           </Tabs>
         </Box>

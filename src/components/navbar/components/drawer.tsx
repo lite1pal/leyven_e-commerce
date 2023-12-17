@@ -19,10 +19,11 @@ import { useRouter } from "next/navigation";
 import CloseIcon from "@mui/icons-material/Close";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import CardCart from "@/components/cardCart";
 
 export default function DrawerScrollable({ session }: any) {
   const [open, setOpen] = useState(false);
-  const [cart, setCart] = useState({ cartProducts: [] });
+  const [cart, setCart] = useState({ totalPrice: "", cartProducts: [] });
 
   const [loading, setLoading] = useState(false);
 
@@ -38,6 +39,45 @@ export default function DrawerScrollable({ session }: any) {
     setLoading(false);
   };
 
+  const increaseQuantity = async (cartProductId: string) => {
+    try {
+      setLoading(true);
+      if (!cartProductId) {
+        return console.log("Provide product id as a parameter");
+      }
+      await fetch(
+        `${API_URL}/cartProduct?cartProductId=${cartProductId}&type=increase`,
+        {
+          method: "PUT",
+        }
+      );
+      setLoading(false);
+      getCart();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const decreaseQuantity = async (cartProductId: string) => {
+    try {
+      setLoading(true);
+      if (!cartProductId) {
+        return console.log("Provide product id as a parameter");
+      }
+
+      await fetch(
+        `${API_URL}/cartProduct?cartProductId=${cartProductId}&type=decrease`,
+        {
+          method: "PUT",
+        }
+      );
+      setLoading(false);
+      getCart();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const deleteProductFromCart = async (cartProductId: string) => {
     if (!cartProductId) return console.log("Provide product id as a parameter");
 
@@ -48,20 +88,20 @@ export default function DrawerScrollable({ session }: any) {
   };
 
   useEffect(() => {
-    // if (open) {
-    getCart();
-    // }
+    if (open) {
+      getCart();
+    }
   }, [open]);
 
   return (
     <Fragment>
       <div
-        className="transition hover:bg-slate-200 rounded"
+        className="transition hover:bg-slate-200 p-1 rounded"
         onClick={() => setOpen(true)}
       >
-        <Badge badgeContent={cart.cartProducts.length} badgeInset="-20%">
-          <ShoppingCartIcon />
-        </Badge>
+        {/* <Badge badgeContent={cart.cartProducts.length} badgeInset="-20%"> */}
+        <ShoppingCartIcon />
+        {/* </Badge> */}
       </div>
 
       <Drawer
@@ -73,7 +113,13 @@ export default function DrawerScrollable({ session }: any) {
         <ModalClose />
         <DialogTitle>Корзина</DialogTitle>
         <Divider />
-        <DialogContent sx={{ padding: "0.78rem" }}>
+        <DialogContent
+          sx={{
+            padding: "0.78rem",
+            paddingBottom: "7.2rem",
+            position: "relative",
+          }}
+        >
           {!loading && cart.cartProducts.length === 0 && (
             <>
               <div className="mb-2">Ваш кошик порожній.</div>
@@ -83,69 +129,33 @@ export default function DrawerScrollable({ session }: any) {
               </div>
             </>
           )}
-          <div className="flex flex-col gap-3">
-            {/* <AnimatePresence> */}
-            {cart.cartProducts.length > 0 &&
-              cart.cartProducts.map((cartProduct: any, i: number) => {
-                return (
-                  // <motion.div
-                  //   key={cartProduct.id}
-                  //   initial={{ opacity: 0.2, scale: 0.5 }}
-                  //   animate={{ opacity: 1, scale: 1 }}
-                  //   transition={{ duration: 0.5 }}
-                  //   exit={{ opacity: 0.2, scale: 0.5 }}
-                  // >
-                  <Card
-                    key={i}
-                    orientation="horizontal"
-                    variant="outlined"
-                    sx={{ width: "100%" }}
-                  >
-                    <div className="h-44 w-36 ml-3">
-                      <img
-                        className="w-full h-full object-contain rounded-lg"
-                        src={cartProduct.product.img}
-                        loading="lazy"
-                        alt=""
-                      />
-                    </div>
-                    <CardContent>
-                      <div
-                        onClick={() => {
-                          setOpen(false);
-                          router.push(`/product/${cartProduct.product.id}`);
-                        }}
-                        className="cursor-pointer font-medium hover:underline"
-                      >
-                        {cartProduct.product.title}
-                      </div>
-                      <Rating style={{ paddingBlock: "0.5rem" }}>
-                        <Rating.Star />
-                        <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-                          {cartProduct.product.rating}
-                        </p>
-                        <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-                        <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
-                          0 reviews
-                        </a>
-                      </Rating>
-                      <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                          {cartProduct.product.price} грн
-                        </span>
-                      </div>
-                    </CardContent>
-                    <div
-                      onClick={() => deleteProductFromCart(cartProduct.id)}
-                      className="p-1 cursor-pointer transition rounded-lg hover:bg-slate-200 h-fit"
+          <div
+            className={`${
+              loading && "opacity-50 pointer-events-none"
+            } flex flex-col gap-3`}
+          >
+            <AnimatePresence>
+              {cart.cartProducts.length > 0 &&
+                cart.cartProducts.map((cartProduct: any, i: number) => {
+                  return (
+                    <motion.div
+                      key={cartProduct.id}
+                      initial={{ opacity: 0.5 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0.5 }}
                     >
-                      <CloseIcon />
-                    </div>
-                  </Card>
-                  // </motion.div>
-                );
-              })}
-            {/* </AnimatePresence> */}
+                      <CardCart
+                        {...{
+                          cartProduct,
+                          deleteProductFromCart,
+                          increaseQuantity,
+                          decreaseQuantity,
+                        }}
+                      />
+                    </motion.div>
+                  );
+                })}
+            </AnimatePresence>
           </div>
           {loading && (
             <div className="my-5 mx-auto">
@@ -156,13 +166,15 @@ export default function DrawerScrollable({ session }: any) {
             </div>
           )}
           {cart.cartProducts.length > 0 && (
-            <div className="flex w-fit mt-5 mx-auto gap-2">
+            <div className="flex fixed items-center bg-white z-20 bottom-0 p-5 border-2 right-0 w-full mt-5 mx-auto gap-5">
               <Link href="/order">
                 <Button onClick={() => setOpen(false)}>
                   Оформити замовлення
                 </Button>
               </Link>
-              <Button color="gray">Видалити</Button>
+              <div className="border p-3 text-slate-600 font-sans text-2xl font-semibold rounded">
+                {cart.totalPrice}.00 UAH
+              </div>
             </div>
           )}
         </DialogContent>

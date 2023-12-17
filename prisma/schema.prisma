@@ -63,9 +63,12 @@ model VerificationToken {
 model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  price       String
+  price       Int
   rating      String
   img String
+  availability String
+  description String
+  breadcrumbs String
   reviews     Review[]
   cartProducts CartProduct[]
 }
@@ -76,7 +79,7 @@ model Cart {
   userId      String        @db.ObjectId
   cartProducts CartProduct[]
   totalProductsCount Int?
-  totalPrice Int?
+  totalPrice Int @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -88,7 +91,7 @@ model CartProduct {
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId  String   @db.ObjectId
   quantity   Int      @default(1)
-  totalPrice Int      @default(0)
+  totalPrice Int  @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
 }
