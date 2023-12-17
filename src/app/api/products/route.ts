@@ -1,12 +1,56 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
-import { convertXMLtoJSON } from "@/utils";
+import { convertXMLtoJSON } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
+
+// type Category =
+//   | "Ветеринарія"
+//   | "товари для догляду за домашніми тваринами"
+//   | "Товари для прогулянок і подорожей з тваринами"
+//   | "Годування домашніх тварин і птахів";
 
 export async function GET(req: NextRequest) {
   try {
-    const products = await prisma.product.findMany();
+    const url = new URL(req.url);
+    const category = url.searchParams.get("category");
+    const sorting = url.searchParams.get("sorting");
+    let products: any = [];
 
-    return new NextResponse(JSON.stringify(products.slice(0, 30)), {
+    const filteringObject: any = (category: string | null) => {
+      let orderBy = {};
+      if (sorting === "price_desc") {
+        orderBy = { price: "desc" };
+      } else if (sorting === "price_asc") {
+        orderBy = { price: "asc" };
+      }
+
+      if (!category) {
+        return { orderBy };
+      }
+      return {
+        where: { breadcrumbs: { contains: category } },
+        orderBy,
+      };
+    };
+
+    if (!category) {
+      products = await prisma.product.findMany(filteringObject());
+    } else if (category === "veterynarny") {
+      products = await prisma.product.findMany(filteringObject("Ветеринарія"));
+    } else if (category === "animalcare") {
+      products = await prisma.product.findMany(
+        filteringObject("товари для догляду за домашніми тваринами")
+      );
+    } else if (category === "outdoors") {
+      products = await prisma.product.findMany(
+        filteringObject("Товари для прогулянок і подорожей з тваринами")
+      );
+    } else if (category === "food") {
+      products = await prisma.product.findMany(
+        filteringObject("Годування домашніх тварин і птахів")
+      );
+    }
+
+    return new NextResponse(JSON.stringify(products), {
       status: 200,
     });
   } catch (err) {
@@ -35,6 +79,7 @@ export async function POST(req: NextRequest) {
           description: badProduct["g:description"]._text,
           breadcrumbs: badProduct["g:product_type"]._text,
           rating: "4",
+          info: badProduct["g:product_detail"],
         },
       });
     });
