@@ -20,9 +20,9 @@ export default function BasicBreadcrumbs({ data }: any) {
       aria-label="Default breadcrumb example"
     >
       <HiHome />
-      {breadcrumbs?.map((breadcrumb: any) => {
+      {breadcrumbs?.map((breadcrumb: any, i: number) => {
         return (
-          <Breadcrumb.Item href="#">
+          <Breadcrumb.Item key={i} href="#">
             {capitalizeFirstLetter(breadcrumb)}
           </Breadcrumb.Item>
         );
