@@ -10,11 +10,20 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
+    // creates an object URL to obtain search params
     const url = new URL(req.url);
+
+    // grabs each search param from search params object
     const category = url.searchParams.get("category");
     const sorting = url.searchParams.get("sorting");
+    const page = parseInt(url.searchParams.get("page") as string);
+
+    console.log("page\n\n\n\n", url.searchParams);
+
+    // defines a products variable
     let products: any = [];
 
+    // returns a filtering options object for prisma query based on search params
     const filteringObject: any = (category: string | null) => {
       let orderBy = {};
       if (sorting === "price_desc") {
@@ -23,15 +32,24 @@ export async function GET(req: NextRequest) {
         orderBy = { price: "asc" };
       }
 
+      // if search params don't contain category then return products of all categories
       if (!category) {
-        return { orderBy };
+        return {
+          orderBy,
+          skip: page ? (page - 1) * 20 : 0,
+          take: 20,
+        };
       }
+
       return {
         where: { breadcrumbs: { contains: category } },
         orderBy,
+        skip: page ? (page - 1) * 20 : 0,
+        take: 20,
       };
     };
 
+    // determines of which category to return products
     if (!category) {
       products = await prisma.product.findMany(filteringObject());
     } else if (category === "veterynarny") {

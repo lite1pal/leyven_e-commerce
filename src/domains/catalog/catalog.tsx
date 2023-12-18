@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import GridComponent from "../../components/grid";
 import SupportDrawer from "../../components/supportDrawer";
-import Pagination from "@mui/material/Pagination";
 
 import Loading from "@/app/loading";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
@@ -17,60 +16,54 @@ import SwitchAvailability from "@/components/switchAvailability";
 import RangeSlider from "@/components/rangeSlider";
 import { convertXMLtoJSON } from "../../libs/utils";
 import CategoryHeader from "@/components/categoryHeader";
+import LoadMore from "@/components/loadMore";
+import { Spinner } from "flowbite-react";
 
 export default async function CatalogView({ data }: any) {
   return (
     <>
       <SupportDrawer />
-      <Suspense fallback={<Loading />}>
-        <Meta data={data} />
+      <Meta data={data} />
 
-        <div className="flex">
-          <div
-            style={{ marginLeft: "1rem" }}
-            className="bg-white flex flex-col gap-4 max-xl:hidden h-fit p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
-          >
-            <FilterRadioButton
-              header="Тварина"
-              labels={["Собака", "Кіт", "Кінь"]}
-            />
-            <FilterRadioButton
-              header="Розмір"
-              labels={["Маленький", "Середній", "Великий"]}
-            />
-            <FilterRadioButton
-              header="Країна виробник"
-              labels={["Україна", "Норвегія", "Польша", "Франція"]}
-            />
-            <FilterRadioButton
-              header="Ціна"
-              labels={[
-                "Менше 50грн",
-                "від 50 до 250грн",
-                "від 250 до 1000грн",
-                "від 1000грн",
-              ]}
-            />
-            <FilterRadioButton
-              header="Рейтинг від покупців"
-              labels={["5 зірок", "4 зірки", "3 зірки", "2 зірки і менше"]}
-            />
+      <div className="flex">
+        <div
+          style={{ marginLeft: "1rem" }}
+          className="bg-white flex flex-col gap-4 max-xl:hidden h-fit p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
+        >
+          <FilterRadioButton
+            header="Тварина"
+            labels={["Собака", "Кіт", "Кінь"]}
+          />
+          <FilterRadioButton
+            header="Розмір"
+            labels={["Маленький", "Середній", "Великий"]}
+          />
+          <FilterRadioButton
+            header="Країна виробник"
+            labels={["Україна", "Норвегія", "Польша", "Франція"]}
+          />
+          <FilterRadioButton
+            header="Ціна"
+            labels={[
+              "Менше 50грн",
+              "від 50 до 250грн",
+              "від 250 до 1000грн",
+              "від 1000грн",
+            ]}
+          />
+          <FilterRadioButton
+            header="Рейтинг від покупців"
+            labels={["5 зірок", "4 зірки", "3 зірки", "2 зірки і менше"]}
+          />
 
-            <SwitchAvailability />
-          </div>
-
-          <GridComponent data={data} />
+          <SwitchAvailability />
         </div>
 
-        <Pagination
-          sx={{
-            marginInline: "auto",
-            marginBlock: "1.5rem",
-            width: "fit-content",
-          }}
-          count={10}
-        />
-      </Suspense>
+        <Suspense fallback={<Loading />}>
+          <GridComponent data={data} />
+        </Suspense>
+      </div>
+      <PaginationComponent />
     </>
   );
 }

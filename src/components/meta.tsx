@@ -23,7 +23,6 @@ export default function Meta({ data }: any) {
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  console.log(searchParams.get("sorting"));
 
   const currentSortingTitle = useMemo(() => {
     if (searchParams.get("sorting") === "price_desc") {
@@ -37,7 +36,9 @@ export default function Meta({ data }: any) {
     <div
       className={`${roboto.className} flex justify-between items-center px-8 mb-4 w-full`}
     >
-      <div className={`text-base font-bold xl:ml-44`}>
+      <div
+        className={`text-base opacity-0 pointer-events-none font-bold xl:ml-44`}
+      >
         {data?.length} товари
       </div>
       <Dropdown>

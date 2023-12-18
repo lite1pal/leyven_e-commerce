@@ -7,6 +7,8 @@ import { API_URL } from "@/config/api";
 import Meta from "./meta";
 import _ from "lodash";
 import { CartProvider } from "react-use-cart";
+import { useInView } from "react-intersection-observer";
+import { Spinner } from "flowbite-react";
 
 export default function GridComponent({ data }: any) {
   const [openModal, setOpenModal] = useState(false);

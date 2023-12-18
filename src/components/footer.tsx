@@ -1,6 +1,7 @@
 "use client";
 
 import { Footer } from "flowbite-react";
+import { useEffect } from "react";
 import {
   BsDribbble,
   BsFacebook,
@@ -10,8 +11,17 @@ import {
   BsWhatsapp,
   BsTwitter,
 } from "react-icons/bs";
+import { useInView } from "react-intersection-observer";
 
 export default function FooterComponent() {
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      console.log("You scrolled to the bottom");
+    }
+  }, [inView]);
+
   return (
     <Footer
       style={{
