@@ -63,7 +63,7 @@ export default async function CatalogView({ data }: any) {
           <GridComponent data={data} />
         </Suspense>
       </div>
-      <PaginationComponent />
+      <PaginationComponent data={data} />
     </>
   );
 }

@@ -9,14 +9,14 @@ export default async function Outdoors({ searchParams }: any) {
   const res = await fetch(
     `${API_URL}/products?category=outdoors${searchString}`,
     {
-      next: { revalidate: 1000 },
+      cache: "no-store",
     }
   );
 
   const data = await res.json();
   return (
     <>
-      <CategoryHeader title="Товари для прогялок та подорожей з домашніми тваринами" />
+      <CategoryHeader title="Товари для прогулянок та подорожей з домашніми тваринами" />
       <CatalogView {...{ data }} />;
     </>
   );

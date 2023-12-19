@@ -58,7 +58,7 @@ export default function TabsComponent({ data }: any) {
             >
               <Tab indicatorInset>Все про товар </Tab>
               <Tab indicatorInset>Характеристики </Tab>
-              <Tab indicatorInset>
+              <Tab className="max-sm:hidden" indicatorInset>
                 Відгуки{" "}
                 <Chip
                   size="sm"

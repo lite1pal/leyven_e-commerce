@@ -13,7 +13,7 @@ export default async function HomeScreen({ searchParams }: any) {
 
   // gets products for the catalog
   const res = await fetch(`${API_URL}/products${searchString}`, {
-    next: { revalidate: 1000 },
+    cache: "no-store",
   });
   const data = await res.json();
 

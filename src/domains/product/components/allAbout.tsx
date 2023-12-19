@@ -8,6 +8,7 @@ import BannerPromo from "@/components/bannerPromo";
 import ProductInfoTable from "@/components/productInfoTable";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useCart } from "react-use-cart";
+import Button from "@/components/base/Button";
 
 const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
   root: {
@@ -66,11 +67,15 @@ export default function AllAbout({ data }: any) {
         </div>
       </Grid>
       <Grid sx={{ width: "100%" }} xs={8} md={7}>
-        <div className="text-2xl font-medium ">{data.title}</div>
-        <div className="flex justify-between py-2">
-          <Rating style={{ paddingBlock: "0.5rem" }}>
+        <div className="max-sm:text-lg text-2xl font-medium">{data.title}</div>
+        <div className="flex justify-between py-2 items-center">
+          <Rating
+            style={{
+              paddingBlock: "0.5rem",
+            }}
+          >
             <Rating.Star />
-            <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+            <p className="ml-1 text-sm font-bold text-gray-900 dark:text-white">
               {data.rating}
             </p>
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
@@ -78,7 +83,7 @@ export default function AllAbout({ data }: any) {
               0 відгуків
             </a>
           </Rating>
-          <div className="font-light text-slate-400 pr-10">
+          <div className="max-sm:text-sm font-light text-slate-400 pr-10">
             Код: {data.id.slice(0, 12)}
           </div>
         </div>
@@ -92,15 +97,16 @@ export default function AllAbout({ data }: any) {
             </div>
           </div>
           <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-          <button
-            onClick={() => {
-              !inCart(data.id) && addItem(data);
-              router.push("/order");
-            }}
-            className="px-5 py-2 text-lg rounded text-white bg-blue-600 border-2 border-blue-600 transition hover:bg-white hover:text-blue-600"
-          >
-            Купити
-          </button>
+
+          <Link onClick={() => !inCart(data.id) && addItem(data)} href="/order">
+            <Button
+              title="Купити"
+              // onClick={() => {
+              //   !inCart(data.id) && addItem(data);
+              //   router.push("/order");
+              // }}
+            />
+          </Link>
         </div>
         <BannerPromo />
         <ProductInfoTable {...{ data }} />

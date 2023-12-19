@@ -4,7 +4,6 @@ import * as React from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Drawer from "@mui/joy/Drawer";
-import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Checkbox from "@mui/joy/Checkbox";
@@ -35,6 +34,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import BuildIcon from "@mui/icons-material/Build";
+import Button from "./base/Button";
 
 export default function SupportDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -44,7 +44,7 @@ export default function SupportDrawer() {
     <React.Fragment>
       <div
         onClick={() => setOpen(true)}
-        className="fixed flex gap-1 px-3 py-2 cursor-pointer border-2 border-blue-600 text-lg rounded-lg bottom-3 right-3 md:bottom-10 md:right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
+        className="fixed flex gap-1 px-3 py-2 cursor-pointer border-2 border-blue-600 text-lg rounded bottom-3 right-3 md:bottom-10 md:right-10 z-10 bg-blue-600 text-white hover:bg-white hover:text-blue-600 transition"
       >
         <QuestionMarkIcon />
         <div>Support</div>
@@ -70,7 +70,6 @@ export default function SupportDrawer() {
           content: {
             sx: {
               bgcolor: "transparent",
-              p: { md: 3, sm: 0 },
               boxShadow: "none",
             },
           },
@@ -131,7 +130,9 @@ export default function SupportDrawer() {
                       key={item.name}
                       sx={{
                         boxShadow: "none",
-                        "&:hover": { bgcolor: "background.level1" },
+                        "&:hover": {
+                          bgcolor: "background.level1",
+                        },
                       }}
                     >
                       <CardContent>
@@ -178,7 +179,8 @@ export default function SupportDrawer() {
               />
             </div>
 
-            <Button
+            <Button title="Відправити" />
+            {/* <Button
               variant="outlined"
               color="neutral"
               sx={{ borderRadius: "0.625rem", fontSize: "1.2rem" }}
@@ -186,7 +188,7 @@ export default function SupportDrawer() {
               onClick={() => setOpen(true)}
             >
               Відправити
-            </Button>
+            </Button> */}
           </DialogContent>
         </Sheet>
       </Drawer>

@@ -2,8 +2,10 @@ import { Card, CardContent } from "@mui/joy";
 import { Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { API_URL } from "@/config/api";
 import { useCart } from "react-use-cart";
+import Link from "next/link";
 
 export default function CardCart({ cartProduct }: { cartProduct: any }) {
   const router = useRouter();
@@ -15,7 +17,7 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
       key={cartProduct.id}
       orientation="horizontal"
       variant="outlined"
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", position: "relative" }}
     >
       <div className="h-44 w-36 ml-3">
         <img
@@ -26,12 +28,11 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
         />
       </div>
       <CardContent>
-        <div
-          onClick={() => router.push(`/product/${cartProduct.id}`)}
-          className="cursor-pointer font-medium hover:underline"
-        >
-          {cartProduct.title}
-        </div>
+        <Link href={`/product/${cartProduct.id}`}>
+          <div className="cursor-pointer max-h-32 overflow-y-hidden font-medium hover:underline">
+            {cartProduct.title}
+          </div>
+        </Link>
         <Rating style={{ paddingBlock: "0.5rem" }}>
           <Rating.Star />
           <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
@@ -48,7 +49,7 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
             {cartProduct.itemTotal}.00 UAH
           </span>
         </div>
-        <div className="mt-4 w-fit flex gap-4 rounded-full border border-gray-500 border-opacity-80 px-5 py-1">
+        <div className="max-sm:text-sm mt-4 w-fit flex gap-4 rounded-full border border-gray-500 border-opacity-80 px-5 py-1">
           <div
             onClick={() =>
               updateItemQuantity(cartProduct.id, cartProduct.quantity - 1)
@@ -57,7 +58,7 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
           >
             -
           </div>
-          <div className="md:text-lg 2xl:text-xl">
+          <div className="md:text-lg max-sm:w-11 2xl:text-xl">
             {cartProduct.quantity} шт.
           </div>
           <div
@@ -72,9 +73,9 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
       </CardContent>
       <div
         onClick={() => removeItem(cartProduct.id)}
-        className="p-1 cursor-pointer transition rounded-lg hover:bg-slate-200 h-fit"
+        className="max-sm:absolute max-sm:top-1 max-sm:left-1 transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100 p-1  rounded-lg h-fit"
       >
-        <CloseIcon />
+        <DeleteIcon />
       </div>
     </Card>
   );

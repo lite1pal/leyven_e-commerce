@@ -32,8 +32,8 @@ export default function UserDropdown({ session }: any) {
             />
           </MenuButton>
           <Menu>
-            <MenuItem>Історія замовлень</MenuItem>
-            <MenuItem>Збережені</MenuItem>
+            {/* <MenuItem>Історія замовлень</MenuItem>
+            <MenuItem>Збережені</MenuItem> */}
             <MenuItem onClick={() => signOut()}>Вийти</MenuItem>
           </Menu>
         </Dropdown>

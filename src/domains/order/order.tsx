@@ -6,7 +6,7 @@ import { Card, CardContent, Divider, FormControl, Grid } from "@mui/joy";
 import InputLabel from "@mui/material/InputLabel";
 import CitySelect from "@/components/citySelect";
 import WarehouseSelect from "@/components/warehouseSelect";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Checkbox, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { fetchCities } from "@/services/novaposhta";
 import { Formik } from "formik";
@@ -14,6 +14,7 @@ import { useCart } from "react-use-cart";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { API_URL } from "@/config/api";
+import Button from "@/components/base/Button";
 
 export default function OrderView({ session }: { session: Session | null }) {
   const { items, cartTotal, emptyCart } = useCart();
@@ -188,12 +189,7 @@ export default function OrderView({ session }: { session: Session | null }) {
                       />
                     </div>
                     <CardContent>
-                      <div
-                        // onClick={() =>
-                        //   router.push(`/product/${cartProduct.product.id}`)
-                        // }
-                        className="cursor-pointer font-medium"
-                      >
+                      <div className="cursor-pointer font-medium">
                         {cartProduct.title}
                       </div>
 
@@ -225,9 +221,12 @@ export default function OrderView({ session }: { session: Session | null }) {
               </div>
             </Card>
           </div>
-          <Button type="submit" className="mb-5 mx-auto text-xl w-fit">
+          <div className="mx-auto w-fit mb-5">
+            <Button title="Замовити" type="submit" />
+          </div>
+          {/* <Button type="submit" className="mb-5 mx-auto text-xl w-fit">
             Замовити
-          </Button>
+          </Button> */}
         </Grid>
       </Grid>
     </form>

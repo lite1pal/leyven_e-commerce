@@ -36,16 +36,16 @@ export async function GET(req: NextRequest) {
       if (!category) {
         return {
           orderBy,
-          skip: page ? (page - 1) * 20 : 0,
-          take: 20,
+          skip: page ? (page - 1) * 24 : 0,
+          take: 24,
         };
       }
 
       return {
         where: { breadcrumbs: { contains: category } },
         orderBy,
-        skip: page ? (page - 1) * 20 : 0,
-        take: 20,
+        skip: page ? (page - 1) * 24 : 0,
+        take: 24,
       };
     };
 

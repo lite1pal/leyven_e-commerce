@@ -14,13 +14,13 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge, Card, CardContent, Divider } from "@mui/joy";
 import { API_URL } from "@/config/api";
 import { Fragment, useEffect, useState } from "react";
-import { Button, Modal, Rating, Spinner } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@mui/icons-material/Close";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import CardCart from "@/components/cardCart";
 import { useCart } from "react-use-cart";
+import Button from "@/components/base/Button";
 
 export default function DrawerScrollable() {
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ export default function DrawerScrollable() {
   return (
     <Fragment>
       <div
-        className="transition cursor-pointer hover:bg-slate-200 p-1 rounded"
+        className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100  p-1.5 rounded-lg"
         onClick={() => setOpen(true)}
       >
         <Badge badgeContent={items.length} badgeInset="-20%">
@@ -101,13 +101,14 @@ export default function DrawerScrollable() {
             </div>
           )} */}
           {!isEmpty && (
-            <div className="flex fixed items-center bg-white z-20 bottom-0 p-5 border-2 right-0 w-full mt-5 mx-auto gap-5">
-              <Link href="/order">
-                <Button onClick={() => setOpen(false)}>
-                  Оформити замовлення
-                </Button>
+            <div className="flex max-sm:flex-col max-sm:gap-3 fixed items-center bg-white z-20 bottom-0 p-5 border-2 right-0 w-full mt-5 mx-auto gap-5">
+              <Link href="/order" className="max-sm:order-2">
+                <Button
+                  title="Оформити замовлення"
+                  onClick={() => setOpen(false)}
+                />
               </Link>
-              <div className="border p-3 text-slate-600 font-sans text-2xl font-semibold rounded">
+              <div className="max-sm:order-1 max-sm:border-none max-sm:text-xl border p-3 text-slate-600 font-sans text-2xl font-semibold rounded">
                 {cartTotal}.00 UAH
               </div>
             </div>

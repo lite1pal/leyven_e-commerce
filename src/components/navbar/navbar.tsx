@@ -19,10 +19,10 @@ export default async function Navbar() {
         className={`flex py-6 max-sm:border-b-2 max-sm:mb-3 max-xl:py-4 items-center justify-between`}
       >
         <div className="flex items-center gap-3">
-          <Sidebar />
+          <Sidebar {...{ session }} />
           <Footer.Brand
             href="/"
-            src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
+            src="/small_logo.jpg"
             alt="Flowbite Logo"
             name=""
             className="max-sm:pt-4"
@@ -30,22 +30,22 @@ export default async function Navbar() {
         </div>
         <ul className="flex max-xl:hidden items-center gap-20 text-lg justify-center">
           <Link href="/">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+            <li className="border-b-blue-600 hover:text-blue-600 duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
               Каталог
             </li>
           </Link>
           <Link href="/veterynarny">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+            <li className="border-b-blue-600 hover:text-blue-600 duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
               Ветеринарія
             </li>
           </Link>
           <Link href="/food">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+            <li className="border-b-blue-600 hover:text-blue-600 duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
               Годування
             </li>
           </Link>
           <Link href="/outdoors">
-            <li className="border-b-black duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
+            <li className="border-b-blue-600 hover:text-blue-600 duration-400 border-b-2 border-opacity-0 hover:border-opacity-100 transition cursor-default">
               Подорожі
             </li>
           </Link>
@@ -58,9 +58,9 @@ export default async function Navbar() {
       </div>
       <ul className="xl:hidden max-md:hidden flex border-t-2 items-center gap-5 md:gap-20 text-lg justify-center p-4">
         <NavItem link="/" title="Каталог" />
-        <NavItem link="/contacts" title="Контакти" />
-        <NavItem link="/about" title="Про нас" />
-        <NavItem link="/collaboration" title="Співпраця" />
+        <NavItem link="/veterynarny" title="Ветеринарія" />
+        <NavItem link="/food" title="Годування" />
+        <NavItem link="/outdoors" title="Подорожі" />
       </ul>
     </nav>
   );

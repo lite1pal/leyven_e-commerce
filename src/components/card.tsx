@@ -6,6 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/Favorite";
 import { useRouter } from "next/navigation";
 import SignInComponent from "./navbar/components/signIn";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
+import Link from "next/link";
 
 export default function Card({ data, openModal, setOpenModal }: any) {
   const router = useRouter();
@@ -16,25 +17,25 @@ export default function Card({ data, openModal, setOpenModal }: any) {
       {/* <div className="absolute z-10 hover:bg-blue-100 bg-white top-5 right-5 border-2 border-blue-500 rounded-full px-2 py-1.5 group-hover:opacity-100 opacity-0 transition duration-300">
         <FavoriteBorderIcon fontSize="small" color="primary" />
       </div> */}
-      <div
-        onClick={() => router.push(`/product/${data.id}`)}
-        className="mx-auto sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer"
-      >
-        <img
-          className="p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain"
-          src={data.img}
-          alt="product image"
-        />
-      </div>
+      <Link href={`/product/${data.id}`}>
+        <div className="mx-auto h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer">
+          <img
+            className="p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain"
+            src={data.img}
+            alt="product image"
+          />
+        </div>
+      </Link>
       <div className="px-4 relative pb-4 flex flex-col gap-1">
-        <h5
-          onClick={() => router.push(`/product/${data.id}`)}
-          title={data.title}
-          style={{ animation: "move-words 20s linear infinite;" }}
-          className="text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
-        >
-          {data.title}
-        </h5>
+        <Link href={`/product/${data.id}`}>
+          <h5
+            title={data.title}
+            style={{ animation: "move-words 20s linear infinite;" }}
+            className="text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
+          >
+            {data.title}
+          </h5>
+        </Link>
 
         <div
           className={`${

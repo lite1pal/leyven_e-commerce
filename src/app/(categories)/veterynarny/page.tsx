@@ -9,7 +9,7 @@ export default async function Veterynarny({ searchParams }: any) {
   const res = await fetch(
     `${API_URL}/products?category=veterynarny${searchString}`,
     {
-      next: { revalidate: 1000 },
+      cache: "no-store",
     }
   );
 

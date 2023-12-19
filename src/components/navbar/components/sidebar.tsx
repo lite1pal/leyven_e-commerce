@@ -10,15 +10,16 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import MenuIcon from "@/icons/menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Footer } from "flowbite-react";
+import { Avatar, Footer } from "flowbite-react";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import HealingIcon from "@mui/icons-material/Healing";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import Link from "next/link";
+import { Session } from "next-auth";
 
-export default function Sidebar() {
+export default function Sidebar({ session }: { session: Session | null }) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer =
@@ -36,7 +37,10 @@ export default function Sidebar() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <div onClick={toggleDrawer(true)}>
+      <div
+        className="transition duration-500 hover:scale-125"
+        onClick={toggleDrawer(true)}
+      >
         <MenuIcon />
       </div>
       <Drawer size="sm" open={open} onClose={toggleDrawer(false)}>
@@ -52,27 +56,14 @@ export default function Sidebar() {
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          <List>
-            <ListItem sx={{ padding: "1rem", paddingTop: "0" }}>
-              <AccountCircleIcon fontSize="large" color="primary" />
-              <div>Denis Tarasenko</div>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemButton sx={{ padding: "1rem" }}>
-                <FormatListBulletedIcon color="primary" />
-                <div>Категорії товару</div>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={{ padding: "1rem" }}>
-                <ShoppingCartIcon color="primary" />
-                <div>Кошик</div>
-              </ListItemButton>
-            </ListItem>
-          </List>
+          {session?.user && (
+            <List>
+              <ListItem sx={{ padding: "1rem", paddingTop: "0" }}>
+                <Avatar img={session?.user?.image!} rounded size={"sm"} />
+                <div className="cursor-default">{session?.user?.name}</div>
+              </ListItem>
+            </List>
+          )}
           <Divider />
           <List>
             <ListItem>
@@ -110,11 +101,19 @@ export default function Sidebar() {
           </List>
           <Divider />
           <List>
-            <ListItem>Контакти</ListItem>
-            <ListItem>Про нас</ListItem>
-            <ListItem>Відгуки</ListItem>
+            <ListItem>
+              <a target="_blank" href="https://leyven.com.ua/ua/contacts">
+                Контакти
+              </a>
+            </ListItem>
+            <ListItem>
+              <a target="_blank" href="https://leyven.com.ua/ua/about_us">
+                Про компанію
+              </a>
+            </ListItem>
+            {/* <ListItem>Відгуки</ListItem>
             <ListItem>Сертифікації</ListItem>
-            <ListItem>Цікаві факти</ListItem>
+            <ListItem>Цікаві факти</ListItem> */}
           </List>
         </Box>
       </Drawer>

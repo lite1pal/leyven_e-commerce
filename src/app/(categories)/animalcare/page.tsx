@@ -10,7 +10,7 @@ export default async function Animalcare({ searchParams }: any) {
   const res = await fetch(
     `${API_URL}/products?category=animalcare${searchString}`,
     {
-      next: { revalidate: 1000 },
+      cache: "no-store",
     }
   );
 

@@ -36,10 +36,8 @@ export default function Meta({ data }: any) {
     <div
       className={`${roboto.className} flex justify-between items-center px-8 mb-4 w-full`}
     >
-      <div
-        className={`text-base opacity-0 pointer-events-none font-bold xl:ml-44`}
-      >
-        {data?.length} товари
+      <div className={`text-base font-bold xl:ml-44`}>
+        {searchParams.get("page") || 1} сторінка
       </div>
       <Dropdown>
         <MenuButton
