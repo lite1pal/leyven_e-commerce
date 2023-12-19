@@ -1,6 +1,7 @@
 "use client";
 
 import { Banner } from "flowbite-react";
+import toast from "react-hot-toast";
 import { MdPercent } from "react-icons/md";
 
 export default function BannerPromo() {
@@ -15,10 +16,15 @@ export default function BannerPromo() {
             <span className="[&_p]:inline">
               Отримай 5% знижку ввівши промокод -&nbsp;
               <div
+                onClick={() =>
+                  toast("Для отримання промокоду, увійдіть в свій акаунт", {
+                    position: "bottom-center",
+                  })
+                }
                 // href="https://flowbite.com"
                 className="ml-0 flex cursor-pointer items-center text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-500 md:ml-1 md:inline-flex"
               >
-                GOODTHINGS
+                Отримати промокод
                 {/* <HiArrowRight className="ml-2" /> */}
               </div>
             </span>

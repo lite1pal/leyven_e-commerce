@@ -16,7 +16,7 @@ export default async function ProductView({ id }: IProps) {
       <div className="px-7 pb-10">
         <TabsComponent data={data} />
       </div>
-      <div className="flex px-7 py-3 flex-col gap-3">
+      <div className="flex px-7 py-6 flex-col gap-3">
         <p className="text-slate-700">
           <strong>Застереження!</strong> Будь ласка, перед купівлею зверніться
           до ветеринарного лікаря за рекомендацією! Ми не надаємо консультацій
