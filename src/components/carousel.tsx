@@ -13,7 +13,10 @@ export default function CarouselComponent() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
-        <Box className="h-[9rem] sm:h-[15rem] xl:h-[30rem]">
+        <Box
+          sx={{ maxHeight: "27rem" }}
+          className="h-[9rem] sm:h-[15rem] xl:h-[30rem]"
+        >
           <Carousel>
             {/* <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1200px-Giant_Panda_2004-03-2.jpg"
@@ -33,19 +36,19 @@ export default function CarouselComponent() {
               alt="..."
             /> */}
             <img
-              src="https://brovapharma.ua/image/cachewebp/catalog/slider/deksmedison-ua-1480x580.webp"
+              src="https://www.zoetis.com.ua/uk/_locale-assets/3.simparika_ukr_banner.jpg"
               alt="..."
             />
             <img
-              src="https://brovapharma.ua/image/cachewebp/catalog/slider/nivomit-ua-1480x580.webp"
+              src="https://masterzoo.ua/content/uploads/images/top10-korm-koty-masterzoo-ua.jpg"
               alt="..."
             />
             <img
-              src="https://brovapharma.ua/image/cachewebp/catalog/slider/galmolakt-ua_2023-1480x580.webp"
+              src="https://pets.ua/images/slider-upper/small/1bc2e897a14217d01017461231c17b26.jpg"
               alt="..."
             />
             <img
-              src="https://brovapharma.ua/image/cachewebp/catalog/slider/kardistym_ua-1480x580.webp"
+              src="https://luposan.com.ua/content/images/2/1440x432e90nn0/94462668873712.jpg"
               alt="..."
             />
           </Carousel>

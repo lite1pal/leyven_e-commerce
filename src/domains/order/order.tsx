@@ -94,7 +94,7 @@ export default function OrderView({ session }: { session: Session | null }) {
               Оформлення замовлення
             </div>
             <div className="text-lg font-medium">Ваші контактні дані</div>
-            <div className="flex max-w-2xl flex-col gap-4">
+            <div className="flex max-w-2xl mb-6 flex-col gap-4">
               <div>
                 <div className="mb-2 block">
                   <Label htmlFor="email" value="Ваша пошта" />

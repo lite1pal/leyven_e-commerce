@@ -17,11 +17,9 @@ export default async function HomeScreen({ searchParams }: any) {
   });
   const data = await res.json();
 
-  console.log(data);
-
   return (
     <div className="bg-slate-100">
-      {/* <CarouselComponent /> */}
+      <CarouselComponent />
       <CategoryHeader title="Всі товари" />
       <Catalog {...{ data }} />
     </div>

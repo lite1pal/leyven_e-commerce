@@ -1,4 +1,4 @@
-import { Button } from "flowbite-react";
+import Button from "@/components/base/Button";
 import Link from "next/link";
 
 export default function OrderSuccess({ params }: any) {
@@ -12,7 +12,7 @@ export default function OrderSuccess({ params }: any) {
         Очікуйте дзвінок нашого менеджера для уточнення замовлення
       </h1>
       <Link href="/">
-        <Button>Повернутися до каталогу</Button>
+        <Button title="Повернутися до каталогу" />
       </Link>
     </div>
   );

@@ -17,14 +17,23 @@ export async function GET(req: NextRequest) {
     const category = url.searchParams.get("category");
     const sorting = url.searchParams.get("sorting");
     const page = parseInt(url.searchParams.get("page") as string);
+    const search = url.searchParams.get("search");
 
-    console.log("page\n\n\n\n", url.searchParams);
+    console.log("page\n\n\n\n", search);
 
     // defines a products variable
     let products: any = [];
 
     // returns a filtering options object for prisma query based on search params
     const filteringObject: any = (category: string | null) => {
+      // if (search) {
+      //   return {
+      //     where: { title: { contains: search } },
+      //     skip: page ? (page - 1) * 24 : 0,
+      //     take: 24,
+      //   };
+      // }
+
       let orderBy = {};
       if (sorting === "price_desc") {
         orderBy = { price: "desc" };
