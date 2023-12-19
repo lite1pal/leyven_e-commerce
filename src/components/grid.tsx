@@ -10,6 +10,7 @@ import { CartProvider } from "react-use-cart";
 import { useInView } from "react-intersection-observer";
 import { Spinner } from "flowbite-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function GridComponent({ data }: any) {
   const [openModal, setOpenModal] = useState(false);
@@ -36,32 +37,41 @@ export default function GridComponent({ data }: any) {
       marginX={"0.5rem"}
       padding={"0"}
     >
-      {data?.map((product: any, i: number) => {
-        return (
-          <Grid key={i} xs={12} sm={6} md={4} lg={2}>
-            {loading ? (
-              <Card sx={{ height: "12rem" }}>
-                <AspectRatio variant="plain">
-                  <Skeleton loading={loading}>
-                    <img
-                      src={
-                        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-                      }
-                      alt=""
-                    />
-                  </Skeleton>
-                </AspectRatio>
-              </Card>
-            ) : (
-              <CardComponent
-                data={product}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-              />
-            )}
-          </Grid>
-        );
-      })}
+      <AnimatePresence>
+        {data?.map((product: any, i: number) => {
+          return (
+            <Grid key={i} xs={12} sm={6} md={4} lg={2}>
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {loading ? (
+                  <Card sx={{ height: "12rem" }}>
+                    <AspectRatio variant="plain">
+                      <Skeleton loading={loading}>
+                        <img
+                          src={
+                            "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                          }
+                          alt=""
+                        />
+                      </Skeleton>
+                    </AspectRatio>
+                  </Card>
+                ) : (
+                  <CardComponent
+                    data={product}
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                  />
+                )}
+              </motion.div>
+            </Grid>
+          );
+        })}
+      </AnimatePresence>
     </Grid>
   );
 }

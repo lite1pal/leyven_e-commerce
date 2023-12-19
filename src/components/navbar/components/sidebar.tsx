@@ -66,38 +66,38 @@ export default function Sidebar({ session }: { session: Session | null }) {
           )}
           <Divider />
           <List>
-            <ListItem>
-              <ListItemButton sx={{ padding: "1rem" }}>
-                <FoodBankIcon color="primary" />
-                <Link href="/food">
+            <Link href="/food">
+              <ListItem>
+                <ListItemButton sx={{ padding: "1rem" }}>
+                  <FoodBankIcon color="primary" />
                   <div>Годування тварин</div>
-                </Link>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={{ padding: "1rem" }}>
-                <HealingIcon color="primary" />
-                <Link href="/veterynarny">
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link href="/veterynarny">
+              <ListItem>
+                <ListItemButton sx={{ padding: "1rem" }}>
+                  <HealingIcon color="primary" />
                   <div>Ветеринарні засоби</div>
-                </Link>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={{ padding: "1rem" }}>
-                <CelebrationIcon color="primary" />
-                <Link href="/animalcare">
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link href="/animalcare">
+              <ListItem>
+                <ListItemButton sx={{ padding: "1rem" }}>
+                  <CelebrationIcon color="primary" />
                   <div>Товари для догляду</div>
-                </Link>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={{ padding: "1rem" }}>
-                <CelebrationIcon color="primary" />
-                <Link href="/outdoors">
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link href="/outdoors">
+              <ListItem>
+                <ListItemButton sx={{ padding: "1rem" }}>
+                  <CelebrationIcon color="primary" />
                   <div>Товари для подорожей</div>
-                </Link>
-              </ListItemButton>
-            </ListItem>
+                </ListItemButton>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
           <List>

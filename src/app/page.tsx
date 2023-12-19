@@ -21,7 +21,7 @@ export default async function HomeScreen({ searchParams }: any) {
 
   return (
     <div className="bg-slate-100">
-      <CarouselComponent />
+      {/* <CarouselComponent /> */}
       <CategoryHeader title="Всі товари" />
       <Catalog {...{ data }} />
     </div>

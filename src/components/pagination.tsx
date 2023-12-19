@@ -27,6 +27,8 @@ export default function PaginationComponent({ data }: any) {
       }}
       siblingCount={1}
       boundaryCount={1}
+      hidePrevButton
+      hideNextButton
       count={data?.length > 23 ? parseInt(page) + 1 || 2 : parseInt(page)}
     />
   );
