@@ -69,6 +69,7 @@ model Product {
   availability String
   description String
   breadcrumbs String
+  brand String
   info Json[]
   reviews     Review[]
   cartProducts CartProduct[]
@@ -110,7 +111,7 @@ model Review {
 
 model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  email String
+  email String?
   phone String
   firstName String
   lastName String

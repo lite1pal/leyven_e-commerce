@@ -7,14 +7,14 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import Switch from "@mui/joy/Switch";
 
 export default function SwitchAvailability() {
-  const [checked, setChecked] = React.useState<boolean>(false);
+  const [checked, setChecked] = React.useState<boolean>(true);
   return (
     <FormControl
-      orientation="horizontal"
-      //   sx={{ width: 300, justifyContent: "space-between" }}
+      orientation="vertical"
+      // sx={{ width: 300, justifyContent: "space-between" }}
     >
       <div>
-        <FormLabel>Товари не в наявності</FormLabel>
+        <FormLabel sx={{ fontSize: "0.9rem" }}>В наявності</FormLabel>
         {/* <FormHelperText sx={{ mt: 0 }}>Товари не в наявності</FormHelperText> */}
       </div>
       <Switch
@@ -24,7 +24,7 @@ export default function SwitchAvailability() {
         }
         color={checked ? "success" : "neutral"}
         variant={checked ? "solid" : "outlined"}
-        endDecorator={checked ? "On" : "Off"}
+        endDecorator={checked ? "Так" : "Ні"}
         slotProps={{
           endDecorator: {
             sx: {

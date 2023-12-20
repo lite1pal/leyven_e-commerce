@@ -1,10 +1,7 @@
 "use client";
 
+import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/joy";
 import * as React from "react";
-import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
-import Radio from "@mui/joy/Radio";
-import RadioGroup from "@mui/joy/RadioGroup";
 
 interface IProps {
   header: string;
@@ -20,13 +17,18 @@ export default function FilterRadioButton({ header, labels }: IProps) {
 
   return (
     <FormControl>
-      <FormLabel sx={{ fontSize: "1rem" }}>{header}</FormLabel>
+      <FormLabel sx={{ fontSize: "0.9rem" }}>{header}</FormLabel>
       <RadioGroup
-        // defaultValue={labels[0]}
         name="controlled-radio-buttons-group"
         value={value}
         onChange={handleChange}
-        sx={{ my: 1 }}
+        sx={{
+          my: 1,
+          maxHeight: "10rem",
+          overflowY: "scroll",
+          overflowX: "hidden",
+          height: "fit-content",
+        }}
       >
         {labels.map((label, i) => {
           return (
@@ -38,9 +40,6 @@ export default function FilterRadioButton({ header, labels }: IProps) {
             />
           );
         })}
-        {/* <Radio value="dog" label="Собака" />
-        <Radio value="cat" label="Кіт" />
-        <Radio value="horse" label="Кінь" /> */}
       </RadioGroup>
     </FormControl>
   );

@@ -18,6 +18,7 @@ import { convertXMLtoJSON } from "../../libs/utils";
 import CategoryHeader from "@/components/categoryHeader";
 import LoadMore from "@/components/loadMore";
 import { Spinner } from "flowbite-react";
+import Filters from "@/components/filters";
 
 export default async function CatalogView({ data }: any) {
   return (
@@ -26,39 +27,7 @@ export default async function CatalogView({ data }: any) {
       <Meta data={data} />
 
       <div className="flex">
-        <div
-          style={{ marginLeft: "1rem" }}
-          className="bg-white flex flex-col gap-4 max-xl:hidden h-fit p-5 shadow rounded-lg px-20 max-w-sm  border border-gray-200"
-        >
-          <FilterRadioButton
-            header="Тварина"
-            labels={["Собака", "Кіт", "Кінь"]}
-          />
-          <FilterRadioButton
-            header="Розмір"
-            labels={["Маленький", "Середній", "Великий"]}
-          />
-          <FilterRadioButton
-            header="Країна виробник"
-            labels={["Україна", "Норвегія", "Польша", "Франція"]}
-          />
-          <FilterRadioButton
-            header="Ціна"
-            labels={[
-              "Менше 50грн",
-              "від 50 до 250грн",
-              "від 250 до 1000грн",
-              "від 1000грн",
-            ]}
-          />
-          <FilterRadioButton
-            header="Рейтинг від покупців"
-            labels={["5 зірок", "4 зірки", "3 зірки", "2 зірки і менше"]}
-          />
-
-          <SwitchAvailability />
-        </div>
-
+        <Filters />
         <Suspense fallback={<Loading />}>
           <GridComponent data={data} />
         </Suspense>

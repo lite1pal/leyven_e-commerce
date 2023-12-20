@@ -21,6 +21,7 @@ import Link from "next/link";
 import CardCart from "@/components/cardCart";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
+import { Tooltip } from "flowbite-react";
 
 export default function DrawerScrollable() {
   const [open, setOpen] = useState(false);

@@ -14,6 +14,18 @@ import Button from "./base/Button";
 export default function CartModal({ data, openModal, setOpenModal }: any) {
   const { addItem, items, isEmpty, cartTotal, inCart } = useCart();
 
+  useEffect(() => {
+    window.addEventListener("click", (e: any) => {
+      if (e.target.id === "cartModal") {
+        setOpenModal(false);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("click", (e: any) => {});
+    };
+  }, []);
+
   return (
     <>
       <button
@@ -36,6 +48,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
       <Modal
         className="bg-opacity-5"
         show={openModal}
+        id="cartModal"
         onClose={() => setOpenModal(false)}
       >
         <Modal.Header>Корзина</Modal.Header>

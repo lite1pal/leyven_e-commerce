@@ -103,9 +103,8 @@ export default function OrderView({ session }: { session: Session | null }) {
                   id="email"
                   type="email"
                   placeholder={"name@gmail.com"}
-                  required
                   shadow
-                  {...register("email", { required: true })}
+                  {...register("email")}
                 />
               </div>
               <div>

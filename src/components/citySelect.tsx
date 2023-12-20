@@ -6,6 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Autocomplete, FormLabel } from "@mui/joy";
 import { Label } from "flowbite-react";
 
 export default function CitySelect({
@@ -27,9 +28,15 @@ export default function CitySelect({
   return (
     <Box>
       <FormControl fullWidth>
-        {/* <div className="mb-2">
-          <Label htmlFor="repeat-password" value="Місто" />
-        </div> */}
+        {/* <div className="mb-2 block">
+          <Label value="Місто" />
+        </div>
+        <Autocomplete
+          className="py-2 rounded-lg"
+          onChange={(e: any, newValue) => handleChange(e, newValue)}
+          options={cities}
+          getOptionLabel={(option: any) => option["Description"]}
+        /> */}
         <InputLabel id="demo-simple-select-label">Місто</InputLabel>
         <Select
           defaultValue={cityInput}
@@ -50,11 +57,6 @@ export default function CitySelect({
                 </MenuItem>
               );
             })}
-          {/* <MenuItem value={"київ"}>Київ</MenuItem>
-          <MenuItem value={"звягель"}>Звягель</MenuItem>
-          <MenuItem value={"житомир"}>Житомир</MenuItem>
-          <MenuItem value={"ірпінь"}>Ірпінь</MenuItem>
-          <MenuItem value={"львів"}>Львів</MenuItem> */}
         </Select>
       </FormControl>
     </Box>

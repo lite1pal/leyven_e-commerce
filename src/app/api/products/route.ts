@@ -19,26 +19,27 @@ export async function GET(req: NextRequest) {
     const page = parseInt(url.searchParams.get("page") as string);
     const search = url.searchParams.get("search");
 
-    console.log("page\n\n\n\n", search);
+    // console.log("page\n\n\n\n", search);
 
     // defines a products variable
     let products: any = [];
 
     // returns a filtering options object for prisma query based on search params
     const filteringObject: any = (category: string | null) => {
-      // if (search) {
-      //   return {
-      //     where: { title: { contains: search } },
-      //     skip: page ? (page - 1) * 24 : 0,
-      //     take: 24,
-      //   };
-      // }
-
       let orderBy = {};
       if (sorting === "price_desc") {
         orderBy = { price: "desc" };
       } else if (sorting === "price_asc") {
         orderBy = { price: "asc" };
+      }
+
+      if (search) {
+        return {
+          orderBy,
+          where: { title: { contains: search, mode: "insensitive" } },
+          skip: page ? (page - 1) * 24 : 0,
+          take: 24,
+        };
       }
 
       // if search params don't contain category then return products of all categories
@@ -105,6 +106,7 @@ export async function POST(req: NextRequest) {
           availability: badProduct["g:availability"]._text,
           description: badProduct["g:description"]._text,
           breadcrumbs: badProduct["g:product_type"]._text,
+          brand: badProduct["g:brand"]._text,
           rating: "4",
           info: badProduct["g:product_detail"],
         },

@@ -18,7 +18,8 @@ export default function SearchInput() {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            router.push(`${pathName}?search=${input}`);
+            setInput("");
+            router.push(`/search?search=${input}`);
           }
         }}
         className="border-none max-h-3 focus:outline-none focus:ring-0"
