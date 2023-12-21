@@ -14,7 +14,6 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
 
   return (
     <Card
-      key={cartProduct.id}
       orientation="horizontal"
       variant="outlined"
       sx={{ width: "100%", position: "relative" }}
