@@ -21,7 +21,7 @@ export default function Card({ data, openModal, setOpenModal }: any) {
         <div
           className={`${
             data.availability === "out of stock" && "opacity-30"
-          } mx-auto h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer`}
+          } mx-auto max-sm:h-48 h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer`}
         >
           <img
             className={`p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain`}
@@ -30,12 +30,12 @@ export default function Card({ data, openModal, setOpenModal }: any) {
           />
         </div>
       </Link>
-      <div className="px-4 relative pb-4 flex flex-col gap-1">
+      <div className="max-sm:px-2.5 max-sm:pb-2.5 px-4 relative pb-4 flex flex-col gap-1">
         <Link href={`/product/${data.id}`}>
           <h5
             title={data.title}
             style={{ animation: "move-words 20s linear infinite;" }}
-            className="text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
+            className="max-sm:text-base text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
           >
             {data.title}
           </h5>
@@ -62,8 +62,8 @@ export default function Card({ data, openModal, setOpenModal }: any) {
             8 reviews
           </a>
         </Rating> */}
-        <div className="flex items-center justify-between border-t-2 pt-4">
-          <span className="text-2xl font-sans lg:text-base font-medium text-gray-900 dark:text-white">
+        <div className="max-sm:pt-2.5 flex items-center justify-between border-t-2 pt-4">
+          <span className="max-sm:text-base text-2xl font-sans lg:text-base font-medium text-gray-900 dark:text-white">
             {data.price}.00 UAH
           </span>
           <CartModal

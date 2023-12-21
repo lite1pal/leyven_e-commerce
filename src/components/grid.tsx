@@ -40,7 +40,7 @@ export default function GridComponent({ data }: any) {
       <AnimatePresence>
         {data?.map((product: any, i: number) => {
           return (
-            <Grid key={i} xs={12} sm={6} md={4} lg={2}>
+            <Grid key={i} xs={6} sm={6} md={4} lg={2}>
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0 }}
