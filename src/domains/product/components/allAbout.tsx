@@ -92,21 +92,30 @@ export default function AllAbout({ data }: any) {
           <div>
             <div className="text-2xl font-semibold">{data.price}.00 UAH</div>
             <div className="flex gap-1 items-center">
-              <UnarchiveIcon color="success" />
-              <div className="text-green-500">В наявності</div>
+              {data.availability === "in stock" ? (
+                <>
+                  <UnarchiveIcon color="success" />
+                  <div className="text-green-500">В наявності</div>
+                </>
+              ) : (
+                <div className="text-slate-500">Немає на складі</div>
+              )}
             </div>
           </div>
-          <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
+          <span
+            className={`${
+              data.availability === "out of stock" && "hidden"
+            } mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400`}
+          />
 
-          <Link onClick={() => !inCart(data.id) && addItem(data)} href="/order">
-            <Button
-              title="Купити"
-              // onClick={() => {
-              //   !inCart(data.id) && addItem(data);
-              //   router.push("/order");
-              // }}
-            />
-          </Link>
+          {data.availability === "in stock" && (
+            <Link
+              onClick={() => !inCart(data.id) && addItem(data)}
+              href="/order"
+            >
+              <Button title="Купити" />
+            </Link>
+          )}
         </div>
         <BannerPromo />
         <ProductInfoTable {...{ data }} />

@@ -25,6 +25,7 @@ export default function Meta({ data }: any) {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search");
+  const inStock = searchParams.get("instock");
 
   const currentSortingTitle = useMemo(() => {
     if (searchParams.get("sorting") === "price_desc") {
@@ -39,7 +40,7 @@ export default function Meta({ data }: any) {
       className={`${roboto.className} flex justify-between items-center px-8 mb-4 w-full`}
     >
       <div className={`text-base font-bold xl:ml-44`}>
-        Сторінка - {searchParams.get("page") || 1}
+        Сторінка - <strong>{searchParams.get("page") || 1}</strong>
       </div>
       <Dropdown>
         <MenuButton
@@ -52,19 +53,27 @@ export default function Meta({ data }: any) {
         </MenuButton>
 
         <Menu>
-          <MenuItem onClick={() => router.push(`${pathName}?search=${search}`)}>
+          <MenuItem
+            onClick={() =>
+              router.push(`${pathName}?search=${search}&instock=${inStock}`)
+            }
+          >
             За популярністю
           </MenuItem>
           <MenuItem
             onClick={() =>
-              router.push(`${pathName}?sorting=price_asc&search=${search}`)
+              router.push(
+                `${pathName}?sorting=price_asc&search=${search}&instock=${inStock}`
+              )
             }
           >
             Від найдешевших
           </MenuItem>
           <MenuItem
             onClick={() =>
-              router.push(`${pathName}?sorting=price_desc&search=${search}`)
+              router.push(
+                `${pathName}?sorting=price_desc&search=${search}&instock=${inStock}`
+              )
             }
           >
             Від найдорожчих

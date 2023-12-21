@@ -19,11 +19,13 @@ import CategoryHeader from "@/components/categoryHeader";
 import LoadMore from "@/components/loadMore";
 import { Spinner } from "flowbite-react";
 import Filters from "@/components/filters";
+import FiltersMobile from "@/components/filtersMobile";
 
 export default async function CatalogView({ data }: any) {
   return (
     <>
       <SupportDrawer />
+      <FiltersMobile />
       <Meta data={data} />
 
       <div className="flex">

@@ -7,6 +7,7 @@ export default function PaginationComponent({ data }: any) {
   const searchParams = useSearchParams();
   const sorting = searchParams.get("sorting") as string;
   const page = searchParams.get("page") as string;
+  const inStock = searchParams.get("instock") as string;
 
   const searchString = `?sorting=${sorting}&`;
 
@@ -23,7 +24,9 @@ export default function PaginationComponent({ data }: any) {
       onChange={(e, value) => {
         console.log(value);
         window.scrollTo({ top: 0, behavior: "smooth" });
-        router.push(`${pathName}${searchString}page=${value}`);
+        router.push(
+          `${pathName}${searchString}page=${value}&instock=${inStock}`
+        );
       }}
       siblingCount={1}
       boundaryCount={1}

@@ -18,9 +18,13 @@ export default function Card({ data, openModal, setOpenModal }: any) {
         <FavoriteBorderIcon fontSize="small" color="primary" />
       </div> */}
       <Link href={`/product/${data.id}`}>
-        <div className="mx-auto h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer">
+        <div
+          className={`${
+            data.availability === "out of stock" && "opacity-30"
+          } mx-auto h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer`}
+        >
           <img
-            className="p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain"
+            className={`p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain`}
             src={data.img}
             alt="product image"
           />

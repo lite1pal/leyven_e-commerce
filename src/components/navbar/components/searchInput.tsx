@@ -12,12 +12,12 @@ export default function SearchInput() {
   const pathName = usePathname();
 
   return (
-    <div className="p-1.5 rounded-lg shadow max-sm:w-72">
+    <div className="p-1.5 rounded-lg shadow flex max-sm:w-72">
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && input) {
             setInput("");
             router.push(`/search?search=${input}`);
           }
@@ -26,7 +26,16 @@ export default function SearchInput() {
         type="text"
         placeholder="Пошук"
       />
-      <SearchIcon className="transition hover:opacity-80" />
+      <div
+        onClick={() => {
+          if (input) {
+            setInput("");
+            router.push(`/search?search=${input}`);
+          }
+        }}
+      >
+        <SearchIcon className="transition hover:opacity-80" />
+      </div>
     </div>
   );
 }

@@ -1,18 +1,25 @@
 "use client";
 
 import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/joy";
+import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
 
 interface IProps {
   header: string;
   labels: String[];
+  link?: string;
 }
 
-export default function FilterRadioButton({ header, labels }: IProps) {
+export default function FilterRadioButton({ header, labels, link }: IProps) {
   const [value, setValue] = React.useState("");
+  const router = useRouter();
+  const pathName = usePathname();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+    if (link) {
+      router.push(`${pathName}${link}${event.target.value.toLowerCase()}`);
+    }
   };
 
   return (
@@ -25,7 +32,7 @@ export default function FilterRadioButton({ header, labels }: IProps) {
         sx={{
           my: 1,
           maxHeight: "10rem",
-          overflowY: "scroll",
+          overflowY: labels.length > 5 ? "auto" : "hidden",
           overflowX: "hidden",
           height: "fit-content",
         }}

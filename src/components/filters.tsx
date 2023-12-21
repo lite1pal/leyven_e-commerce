@@ -1,15 +1,22 @@
+"use client";
+
+import { useState } from "react";
 import PriceFilter from "./filterPrice";
 import FilterRadioButton from "./filterRadioButton";
 import SwitchAvailability from "./switchAvailability";
+import { Accordion, AccordionContent, Modal } from "flowbite-react";
 
 export default function Filters() {
   return (
     <div
       style={{ marginLeft: "1rem" }}
-      className="bg-white flex flex-col gap-6 max-xl:hidden h-fit w-44 p-5  shadow rounded-lg max-w-sm  border border-gray-200"
+      className="bg-white flex flex-col gap-6 max-xl:hidden h-fit w-44 p-5 shadow rounded-lg max-w-sm border border-gray-200"
     >
-      {/* <SwitchAvailability /> */}
-      <FilterRadioButton header="В наявності" labels={["Так", "Ні"]} />
+      <FilterRadioButton
+        header="В наявності"
+        labels={["Так", "Ні"]}
+        link="?instock="
+      />
       <FilterRadioButton
         header="Країна виробник"
         labels={[
@@ -56,15 +63,6 @@ export default function Filters() {
         ]}
       />
       <PriceFilter />
-      {/* <FilterRadioButton
-        header="Ціна"
-        labels={[
-          "Менше 50грн",
-          "від 50 до 250грн",
-          "від 250 до 1000грн",
-          "від 1000грн",
-        ]}
-      /> */}
     </div>
   );
 }

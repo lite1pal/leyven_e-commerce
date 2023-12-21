@@ -5,7 +5,8 @@ import CatalogView from "@/domains/catalog/catalog";
 export default async function Veterynarny({ searchParams }: any) {
   const sorting = searchParams.sorting;
   const page = searchParams.page;
-  const searchString = `&sorting=${sorting}&page=${page}`;
+  const inStock = searchParams.instock;
+  const searchString = `&sorting=${sorting}&page=${page}&instock=${inStock}`;
 
   // gets products for the catalog
   const res = await fetch(

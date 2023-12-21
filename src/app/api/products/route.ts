@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
     const sorting = url.searchParams.get("sorting");
     const page = parseInt(url.searchParams.get("page") as string);
     const search = url.searchParams.get("search");
+    const instock = url.searchParams.get("instock");
 
     // console.log("page\n\n\n\n", search);
 
@@ -31,6 +32,22 @@ export async function GET(req: NextRequest) {
         orderBy = { price: "desc" };
       } else if (sorting === "price_asc") {
         orderBy = { price: "asc" };
+      }
+
+      if (instock === "так") {
+        return {
+          orderBy,
+          where: { availability: "in stock" },
+          skip: page ? (page - 1) * 24 : 0,
+          take: 24,
+        };
+      } else if (instock === "ні") {
+        return {
+          orderBy,
+          where: { availability: "out of stock" },
+          skip: page ? (page - 1) * 24 : 0,
+          take: 24,
+        };
       }
 
       if (search) {

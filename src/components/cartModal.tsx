@@ -36,6 +36,9 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
         className={`${
           inCart(data.id) &&
           "bg-green-600 border-green-600 hover:text-green-600"
+        } ${
+          data.availability === "out of stock" &&
+          "pointer-events-none bg-slate-500 border-slate-500"
         } text-white p-2.5 lg:p-1.5 bg-blue-600 hover:text-blue-600 hover:bg-white transition border-2 border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
         {inCart(data.id) ? (

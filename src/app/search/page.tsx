@@ -6,8 +6,6 @@ import Link from "next/link";
 
 export default async function SearchScreen({ searchParams, params }: any) {
   const sorting = searchParams.sorting;
-  const page = searchParams.page;
-  const searchString = `&sorting=${sorting}&page=${page}`;
   const search = searchParams.search;
 
   // gets products for the catalog
@@ -23,7 +21,7 @@ export default async function SearchScreen({ searchParams, params }: any) {
   return (
     <div className="flex flex-col flex-grow">
       <CategoryHeader title="Результат пошуку" />
-      <div className="flex ml-10 gap-1 items-center">
+      <div className="flex ml-10 gap-1 items-center pb-5">
         <Link href="/">
           <div className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100  p-1.5 rounded-lg">
             <CloseIcon fontSize="small" />
