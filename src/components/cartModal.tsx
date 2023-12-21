@@ -49,13 +49,13 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
       </button>
 
       <Modal
-        className="bg-opacity-5 z-50"
+        className="bg-opacity-5"
         show={openModal}
         id="cartModal"
         onClose={() => setOpenModal(false)}
       >
         <Modal.Header>Корзина</Modal.Header>
-        <Modal.Body className="max-sm:p-1.5">
+        <Modal.Body className="max-sm:p-1.5 z-50">
           <div className={`flex flex-col gap-5 max-sm:gap-2`}>
             {isEmpty && (
               <div className="space-y-6">
