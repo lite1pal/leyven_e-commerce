@@ -64,25 +64,25 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
                 </p>
               </div>
             )}
-            <AnimatePresence>
-              {items.length > 0 &&
-                items.map((cartProduct: any, i: number) => {
-                  return (
-                    <motion.div
-                      key={cartProduct.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <CardCart
-                        {...{
-                          cartProduct,
-                        }}
-                      />
-                    </motion.div>
-                  );
-                })}
-            </AnimatePresence>
+            {/* <AnimatePresence> */}
+            {items.length > 0 &&
+              items.map((cartProduct: any, i: number) => {
+                return (
+                  // <motion.div
+                  //   key={cartProduct.id}
+                  //   initial={{ opacity: 0 }}
+                  //   animate={{ opacity: 1 }}
+                  //   exit={{ opacity: 0 }}
+                  // >
+                  <CardCart
+                    {...{
+                      cartProduct,
+                    }}
+                  />
+                  // </motion.div>
+                );
+              })}
+            {/* </AnimatePresence> */}
           </div>
         </Modal.Body>
         <Modal.Footer className="max-sm:flex-col max-sm:gap-3 justify-between">
