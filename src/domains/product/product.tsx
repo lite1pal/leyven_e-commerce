@@ -1,6 +1,7 @@
 import BasicBreadcrumbs from "@/components/breadCrumbs";
 import TabsComponent from "./components/tabs";
 import { API_URL } from "@/config/api";
+import parse from "html-react-parser";
 
 interface IProps {
   id: string;
@@ -9,6 +10,9 @@ interface IProps {
 export default async function ProductView({ id }: IProps) {
   const res = await fetch(`${API_URL}/product?id=${id}`);
   const data = await res.json();
+
+  console.log(data.description);
+  const parsedHTML = parse(data.description.replace(/\./g, "<br />"));
 
   return (
     <div>
@@ -24,8 +28,6 @@ export default async function ProductView({ id }: IProps) {
           застосування без призначення, адже Ви ризикуєте зашкодити своєму
           улюбленцю!
         </p>
-
-        {/* <p>{data.description.slice(257, 2000)}</p> */}
       </div>
     </div>
   );

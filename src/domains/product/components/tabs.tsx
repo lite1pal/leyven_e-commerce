@@ -58,7 +58,7 @@ export default function TabsComponent({ data }: any) {
             >
               <Tab indicatorInset>Все про товар </Tab>
               <Tab indicatorInset>Характеристики </Tab>
-              <Tab className="max-sm:hidden" indicatorInset>
+              {/* <Tab className="max-sm:hidden" indicatorInset>
                 Відгуки{" "}
                 <Chip
                   size="sm"
@@ -67,7 +67,7 @@ export default function TabsComponent({ data }: any) {
                 >
                   0
                 </Chip>
-              </Tab>
+              </Tab> */}
             </TabList>
             <Box
               sx={(theme) => ({
