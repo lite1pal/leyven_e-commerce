@@ -75,6 +75,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
                   //   exit={{ opacity: 0 }}
                   // >
                   <CardCart
+                    key={cartProduct.id}
                     {...{
                       cartProduct,
                     }}
