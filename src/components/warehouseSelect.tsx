@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { fetchWarehouses } from "@/services/novaposhta";
 import { useEffect, useState } from "react";
-import { Spinner } from "flowbite-react";
+import { Label, Spinner } from "flowbite-react";
 
 export default function WarehouseSelect({
   cityInput,
@@ -42,6 +42,9 @@ export default function WarehouseSelect({
     <Box>
       {warehouses.length > 0 && (
         <FormControl fullWidth>
+          {/* <div className="mb-2 block">
+            <Label value="Відділення нової пошти" />
+          </div> */}
           <InputLabel id="demo-simple-select-label">
             Відділення нової пошти
           </InputLabel>

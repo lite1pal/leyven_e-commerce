@@ -59,7 +59,7 @@ export default function DrawerScrollable() {
         <DialogContent
           sx={{
             padding: "0.78rem",
-            paddingBottom: "7.2rem",
+            paddingBottom: "20rem",
             position: "relative",
           }}
         >

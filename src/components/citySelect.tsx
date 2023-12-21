@@ -20,24 +20,24 @@ export default function CitySelect({
   setWarehouseInput: React.Dispatch<React.SetStateAction<string>>;
   cities: any;
 }) {
-  const handleChange = (event: SelectChangeEvent) => {
-    setCityInput(event.target.value as string);
+  const handleChange = (event: SelectChangeEvent, newValue: any) => {
+    setCityInput(newValue["Description"]);
     setWarehouseInput("");
   };
 
   return (
     <Box>
       <FormControl fullWidth>
-        {/* <div className="mb-2 block">
+        <div className="mb-2 block">
           <Label value="Місто" />
         </div>
         <Autocomplete
-          className="py-2 rounded-lg"
+          className="py-3.5 rounded shadow-none border-gray-300 bg-white"
           onChange={(e: any, newValue) => handleChange(e, newValue)}
           options={cities}
           getOptionLabel={(option: any) => option["Description"]}
-        /> */}
-        <InputLabel id="demo-simple-select-label">Місто</InputLabel>
+        />
+        {/* <InputLabel id="demo-simple-select-label">Місто</InputLabel>
         <Select
           defaultValue={cityInput}
           labelId="demo-simple-select-label"
@@ -57,7 +57,7 @@ export default function CitySelect({
                 </MenuItem>
               );
             })}
-        </Select>
+        </Select> */}
       </FormControl>
     </Box>
   );
