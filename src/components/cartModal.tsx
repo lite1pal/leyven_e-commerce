@@ -30,8 +30,8 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
     <>
       <button
         onClick={() => {
-          setOpenModal(true);
           addItem(data);
+          setOpenModal(true);
         }}
         className={`${
           inCart(data.id) &&
