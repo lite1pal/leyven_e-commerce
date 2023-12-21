@@ -55,35 +55,33 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
         onClose={() => setOpenModal(false)}
       >
         <Modal.Header>Корзина</Modal.Header>
-        <Modal.Body className="max-sm:p-1.5 z-50">
-          <div className={`flex flex-col gap-5 max-sm:gap-2`}>
-            {isEmpty && (
-              <div className="space-y-6">
-                <p className="text-base leading-relaxed p-4 text-gray-500 dark:text-gray-400">
-                  Пусто
-                </p>
-              </div>
-            )}
-            <AnimatePresence>
-              {items.length > 0 &&
-                items.map((cartProduct: any, i: number) => {
-                  return (
-                    <motion.div
-                      key={cartProduct.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <CardCart
-                        {...{
-                          cartProduct,
-                        }}
-                      />
-                    </motion.div>
-                  );
-                })}
-            </AnimatePresence>
-          </div>
+        <Modal.Body className="max-sm:p-1.5 border flex flex-col gap-5 max-sm:gap-2">
+          {isEmpty && (
+            <div className="space-y-6">
+              <p className="text-base leading-relaxed p-4 text-gray-500 dark:text-gray-400">
+                Пусто
+              </p>
+            </div>
+          )}
+          <AnimatePresence>
+            {items.length > 0 &&
+              items.map((cartProduct: any, i: number) => {
+                return (
+                  <motion.div
+                    key={cartProduct.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <CardCart
+                      {...{
+                        cartProduct,
+                      }}
+                    />
+                  </motion.div>
+                );
+              })}
+          </AnimatePresence>
         </Modal.Body>
         <Modal.Footer className="max-sm:flex-col max-sm:gap-3 justify-between">
           <div
