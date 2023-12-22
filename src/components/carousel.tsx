@@ -35,13 +35,14 @@ export default function CarouselComponent() {
               src="https://hips.hearstapps.com/hmg-prod/images/headshot-of-giraffe-sabi-sands-game-reserve-royalty-free-image-1573571300.jpg?crop=1.00xw:0.334xh;0,0.101xh&resize=1200:*"
               alt="..."
             /> */}
-            <Image
-              width={1920}
-              height={1080}
-              src="/carousel/1.webp"
+            <img
+              src="https://www.zoetis.com.ua/uk/_locale-assets/3.simparika_ukr_banner.jpg"
               alt="..."
             />
-            {/* <img src="2.webp" alt="..." />
+            <img
+              src="https://masterzoo.ua/content/uploads/images/top10-korm-koty-masterzoo-ua.jpg"
+              alt="..."
+            />
             <img
               src="https://pets.ua/images/slider-upper/small/1bc2e897a14217d01017461231c17b26.jpg"
               alt="..."
@@ -49,7 +50,7 @@ export default function CarouselComponent() {
             <img
               src="https://luposan.com.ua/content/images/2/1440x432e90nn0/94462668873712.jpg"
               alt="..."
-            /> */}
+            />
           </Carousel>
         </Box>
       </motion.div>

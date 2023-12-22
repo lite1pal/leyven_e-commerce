@@ -24,9 +24,7 @@ export default function Card({ data, openModal, setOpenModal }: any) {
             data.availability === "out of stock" && "opacity-30"
           } mx-auto max-sm:h-48 h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer`}
         >
-          <Image
-            width={1920}
-            height={1080}
+          <img
             className={`p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain`}
             src={data.img}
             alt="product image"
