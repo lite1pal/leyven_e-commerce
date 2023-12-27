@@ -3,6 +3,7 @@ import { API_URL } from "@/config/api";
 import CatalogView from "@/domains/catalog/catalog";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function SearchScreen({ searchParams, params }: any) {
   const sorting = searchParams.sorting;
@@ -17,7 +18,6 @@ export default async function SearchScreen({ searchParams, params }: any) {
   );
   const data = await res.json();
 
-  console.log(searchParams.search);
   return (
     <div className="flex flex-col flex-grow">
       <CategoryHeader title="Результат пошуку" />

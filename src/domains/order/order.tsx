@@ -46,7 +46,7 @@ export default function OrderView({ session }: { session: Session | null }) {
     try {
       if (items.length === 0) {
         toast.error(
-          "Додайте хоча б один товар до корзини, щоб зробити замовлення"
+          "Додайте хоча б один товар до кошику, щоб зробити замовлення"
         );
         return;
       }

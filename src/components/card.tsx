@@ -8,20 +8,31 @@ import SignInComponent from "./navbar/components/signIn";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import Link from "next/link";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 
-export default function Card({ data, openModal, setOpenModal }: any) {
+export default function Card({
+  data,
+  openModal,
+  setOpenModal,
+  type = "catalog",
+}: any) {
   const router = useRouter();
   return (
     <div
-      className={`relative w-full group mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+      className={`${
+        type !== "catalog" && "max-w-xs"
+      } relative w-full hover:border-blue-600 transition duration-50 group mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
     >
-      {/* <div className="absolute z-10 hover:bg-blue-100 bg-white top-5 right-5 border-2 border-blue-500 rounded-full px-2 py-1.5 group-hover:opacity-100 opacity-0 transition duration-300">
-        <FavoriteBorderIcon fontSize="small" color="primary" />
+      {/* <div className="absolute flex flex-col flex-end group-hover:opacity-100 w-full z-10 pb-10 border border-blue-600 rounded-lg opacity-0 transition duration-300">
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          hello
+        </div>
       </div> */}
+
       <Link href={`/product/${data.id}`}>
         <div
-          className={`${
-            data.availability === "out of stock" && "opacity-30"
+          className={`${data.availability === "out of stock" && "opacity-30"} ${
+            type !== "catalog" && "xl:h-80"
           } mx-auto max-sm:h-48 h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer`}
         >
           <img
@@ -36,7 +47,7 @@ export default function Card({ data, openModal, setOpenModal }: any) {
           <h5
             title={data.title}
             style={{ animation: "move-words 20s linear infinite;" }}
-            className="max-sm:text-base text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-semibold tracking-tight text-gray-900 dark:text-white"
+            className="max-sm:text-base text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-medium tracking-tight text-gray-900 dark:text-white"
           >
             {data.title}
           </h5>
@@ -45,11 +56,11 @@ export default function Card({ data, openModal, setOpenModal }: any) {
         <div
           className={`${
             data.availability === "in stock"
-              ? "text-green-600"
+              ? "text-emerald-600"
               : "text-slate-700"
           } flex items-center gap-1`}
         >
-          {data.availability === "in stock" && <UnarchiveIcon />}
+          {/* {data.availability === "in stock" && <UnarchiveIcon />} */}
           {data.availability === "in stock" ? "В наявності" : "Немає на складі"}
         </div>
 
@@ -77,6 +88,13 @@ export default function Card({ data, openModal, setOpenModal }: any) {
             <SignInComponent icon="cart" />
           )} */}
         </div>
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          ></motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -12,23 +12,24 @@ import { Add } from "@mui/icons-material";
 import Button from "./base/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { Divider } from "@mui/joy";
+import RelatedProducts from "./relatedProducts";
 
 export default function CartModal({ data, openModal, setOpenModal }: any) {
   const { addItem, items, isEmpty, cartTotal, inCart } = useCart();
 
-  useEffect(() => {
-    window.addEventListener("click", (e: any) => {
-      console.log(e.target.id);
-      if (e.target.id === "cartModal") {
-        setOpenModal(false);
-        (document.getElementById("cartModal") as HTMLFormElement).close();
-      }
-    });
+  // useEffect(() => {
+  //   window.addEventListener("click", (e: any) => {
+  //     console.log(e.target.id);
+  //     if (e.target.id === "cartModal") {
+  //       setOpenModal(false);
+  //       (document.getElementById("cartModal") as HTMLFormElement).close();
+  //     }
+  //   });
 
-    return () => {
-      window.removeEventListener("click", (e: any) => {});
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("click", (e: any) => {});
+  //   };
+  // }, []);
 
   return (
     <>
@@ -40,7 +41,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
         }}
         className={`${
           inCart(data.id) &&
-          "bg-green-600 border-green-600 hover:text-green-600"
+          "bg-emerald-600 border-emerald-600 hover:text-emerald-600"
         } ${
           data.availability === "out of stock" &&
           "pointer-events-none bg-slate-500 border-slate-500"
@@ -56,7 +57,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
       <dialog id="cartModal" className="modal">
         <div className="modal-box bg-white text-black p-0">
           <div className="flex justify-between sticky top-0 z-10 border-b-2 bg-white items-center p-6">
-            <h3 className="font-bold text-lg">Корзина</h3>
+            <h3 className="font-bold text-lg">Кошик</h3>
             <form method="dialog">
               <button className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100 p-1 rounded-lg h-fit">
                 <CloseIcon />
@@ -101,7 +102,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
                 <Button
                   size="sm"
                   title="Оформити замовлення"
-                  onClick={() => setOpenModal(false)}
+                  // onClick={() => setOpenModal(false)}
                 />
               </Link>
             </div>

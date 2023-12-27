@@ -31,12 +31,13 @@ export default function DrawerScrollable() {
   return (
     <Fragment>
       <div
-        className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100  p-1.5 rounded-lg"
+        className="transition flex text-lg gap-3 duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100  p-1.5 rounded-lg"
         onClick={() => setOpen(true)}
       >
         <Badge badgeContent={items.length} badgeInset="-20%">
           <ShoppingCartIcon />
         </Badge>
+        <div className="">Кошик</div>
       </div>
 
       <Drawer
@@ -47,12 +48,12 @@ export default function DrawerScrollable() {
       >
         <ModalClose />
         <DialogTitle>
-          Корзина{" "}
+          Кошик{" "}
           <button
             onClick={emptyCart}
             className="font-light underline text-sm ml-5"
           >
-            Очистити корзину
+            Очистити кошик
           </button>
         </DialogTitle>
         <Divider />

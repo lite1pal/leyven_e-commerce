@@ -22,12 +22,13 @@ export default function SignInComponent({ icon = "person" }) {
 
   return (
     <>
-      <button
+      <div
         onClick={() => setOpenModal(true)}
-        className={` lg:px-1.5 lg:py-1.5 border-2 border-blue-600 border-opacity-0 hover:border-opacity-100 duration-300 hover:text-blue-600 hover:bg-white transition focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+        className={`flex items-center gap-2.5 text-lg cursor-pointer p-1.5 border-2 border-blue-600 border-opacity-0 hover:border-opacity-100 duration-300 hover:text-blue-600 hover:bg-white transition focus:ring-0 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
         <PersonIcon />
-      </button>
+        <div>Вхід</div>
+      </div>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
         <Modal.Header />
         <Modal.Body>

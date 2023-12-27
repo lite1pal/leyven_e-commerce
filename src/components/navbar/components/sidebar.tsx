@@ -38,24 +38,30 @@ export default function Sidebar({ session }: { session: Session | null }) {
   return (
     <Box sx={{ display: "flex" }}>
       <div
-        className="transition duration-500 hover:scale-125"
+        className="transition items-center font-medium rounded-lg cursor-pointer flex gap-2 text-lg duration-300 hover:scale-125"
         onClick={toggleDrawer(true)}
+        onMouseEnter={toggleDrawer(true)}
       >
         <MenuIcon />
+        Каталог
       </div>
       <Drawer size="sm" open={open} onClose={toggleDrawer(false)}>
-        <Footer.Brand
-          href="/"
-          src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
-          alt="Flowbite Logo"
-          name=""
-          className="p-4"
-        />
         <Box
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
+          onMouseLeave={toggleDrawer(false)}
         >
+          <Link href="/" className="flex items-center">
+            <Footer.Brand
+              href="/"
+              src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
+              alt="Flowbite Logo"
+              name=""
+              className="p-4"
+            />
+            <div className="text-lg font-medium">Головна</div>
+          </Link>
           {session?.user && (
             <List>
               <ListItem sx={{ padding: "1rem", paddingTop: "0" }}>

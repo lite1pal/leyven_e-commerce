@@ -13,12 +13,13 @@ export default function UserDropdown({ session }: any) {
     setIsUserDropdownOpen((prev) => !prev);
   };
   return (
-    <>
+    <div className="flex items-center">
       {session?.user.email ? (
         <Dropdown>
           <MenuButton
             sx={{
               padding: 0,
+              minWidth: "2rem",
               border: "none",
               borderRadius: "50%",
               height: "fit-content",
@@ -40,6 +41,6 @@ export default function UserDropdown({ session }: any) {
       ) : (
         <SignInComponent />
       )}
-    </>
+    </div>
   );
 }

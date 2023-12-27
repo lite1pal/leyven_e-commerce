@@ -20,7 +20,6 @@ export default function BasicBreadcrumbs({ data }: any) {
   const pathName = usePathname();
 
   const getBreadcrumbLink = (breadcrumb: string) => {
-    console.log(breadcrumb);
     if (
       breadcrumb == "ветеринарні засоби та препарати" ||
       breadcrumb == "Ветеринарія"

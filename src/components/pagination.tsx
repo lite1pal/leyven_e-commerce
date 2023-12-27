@@ -22,7 +22,6 @@ export default function PaginationComponent({ data }: any) {
       }}
       page={parseInt(page) || 1}
       onChange={(e, value) => {
-        console.log(value);
         window.scrollTo({ top: 0, behavior: "smooth" });
         router.push(
           `${pathName}${searchString}page=${value}&instock=${inStock}`

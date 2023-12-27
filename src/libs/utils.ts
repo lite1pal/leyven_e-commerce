@@ -12,3 +12,7 @@ export const convertXMLtoJSON = async (xmlRes: Response) => {
 
   return parsedXML.rss.channel.item;
 };
+
+export function wait(milliseconds: number) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}

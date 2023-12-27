@@ -38,7 +38,7 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
             {cartProduct.rating}
           </p>
           <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-          <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
+          <a className="text-sm cursor-pointer font-medium text-gray-900 dark:text-white">
             0 відгуків
           </a>
         </Rating>

@@ -12,7 +12,7 @@ export default function SearchInput() {
   const pathName = usePathname();
 
   return (
-    <div className="p-1.5 rounded-lg shadow flex max-sm:w-72">
+    <div className="p-1.5 rounded-lg shadow text-lg items-center flex max-sm:w-72 w-full justify-between">
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -22,7 +22,7 @@ export default function SearchInput() {
             router.push(`/search?search=${input}`);
           }
         }}
-        className="border-none max-h-3 focus:outline-none focus:ring-0"
+        className="border-none max-h-5 w-full focus:outline-none focus:ring-0"
         type="text"
         placeholder="Пошук"
       />

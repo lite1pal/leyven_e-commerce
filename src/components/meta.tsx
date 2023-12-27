@@ -17,7 +17,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
-const roboto = Roboto({ subsets: ["latin"], weight: "300" });
+// const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
 export default function Meta({ data }: any) {
   const router = useRouter();
@@ -35,32 +35,21 @@ export default function Meta({ data }: any) {
     }
     return "За популярністю";
   }, [searchParams]);
+
   return (
-    <div
-      className={`${roboto.className} flex justify-between items-center px-8 mb-4 w-full`}
-    >
-      <div className={`text-base font-bold xl:ml-44`}>
-        Сторінка - <strong>{searchParams.get("page") || 1}</strong>
+    <div className={`flex justify-between items-center px-8 mb-4 w-full`}>
+      <div className={`text-base xl:ml-44`}>
+        Сторінка -{" "}
+        <span className="font-medium">{searchParams.get("page") || 1}</span>
       </div>
-      <Dropdown>
-        <MenuButton
-          sx={{ border: "none", fontWeight: "400" }}
-          slots={{ root: IconButton }}
-          slotProps={{ root: { variant: "outlined", color: "neutral" } }}
-        >
+      <div className="group">
+        <div className="cursor-pointer">
           {currentSortingTitle}
           <KeyboardArrowDownIcon />
-        </MenuButton>
-
-        <Menu>
-          <MenuItem
-            onClick={() =>
-              router.push(`${pathName}?search=${search}&instock=${inStock}`)
-            }
-          >
-            За популярністю
-          </MenuItem>
-          <MenuItem
+        </div>
+        <div className="absolute mt-2 flex flex-col p-2 gap-2 border-2 rounded-lg group-hover:opacity-100 opacity-0 transition duration-50">
+          <div
+            className="cursor-pointer hover:text-blue-600 transition"
             onClick={() =>
               router.push(
                 `${pathName}?sorting=price_asc&search=${search}&instock=${inStock}`
@@ -68,8 +57,10 @@ export default function Meta({ data }: any) {
             }
           >
             Від найдешевших
-          </MenuItem>
-          <MenuItem
+          </div>
+          <Divider />
+          <div
+            className="cursor-pointer hover:text-blue-600 transition"
             onClick={() =>
               router.push(
                 `${pathName}?sorting=price_desc&search=${search}&instock=${inStock}`
@@ -77,9 +68,18 @@ export default function Meta({ data }: any) {
             }
           >
             Від найдорожчих
-          </MenuItem>
-        </Menu>
-      </Dropdown>
+          </div>
+          <Divider />
+          <div
+            className="cursor-pointer hover:text-blue-600 transition"
+            onClick={() =>
+              router.push(`${pathName}?search=${search}&instock=${inStock}`)
+            }
+          >
+            За популярністю
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

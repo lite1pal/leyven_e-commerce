@@ -5,4 +5,9 @@
 body {
   color: black;
   background-color: white;
+
+  ::selection {
+    background: #2563eb;
+    color: white;
+  }
 }

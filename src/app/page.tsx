@@ -7,6 +7,7 @@ import CategoryHeader from "@/components/categoryHeader";
 import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 import { products } from "@/data";
+import RelatedProducts from "@/components/relatedProducts";
 
 export default async function HomeScreen({ searchParams }: any) {
   const sorting = searchParams.sorting;
@@ -26,20 +27,17 @@ export default async function HomeScreen({ searchParams }: any) {
         (i: any) => i["g:attribute_name"]._text === "Країна виробник"
       )[0]
   );
-  console.log(
-    new Set(
-      countriesOfManufacture.map((country) => {
-        if (country) {
-          return country["g:attribute_value"]._text;
-        }
-        return "Німеччина";
-      })
-    )
-  );
 
   return (
     <div className="bg-slate-100">
+      <RelatedProducts header="Новинки" />
       <CarouselComponent />
+      <Suspense>
+        <RelatedProducts header="Рекомендації на основі ваших переглядів" />
+      </Suspense>
+      <Suspense>
+        <RelatedProducts header="Акційні пропозиції" />
+      </Suspense>
       <CategoryHeader title="Всі товари" />
       <Catalog {...{ data }} />
     </div>

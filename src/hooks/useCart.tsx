@@ -69,7 +69,7 @@ export default function useCart({ session, open, setOpen }: IProps) {
       await fetch(`${API_URL}/cartProduct?cartProductId=${cartProductId}`, {
         method: "DELETE",
       });
-      toast.success(`Товар видалено з корзини`);
+      toast.success(`Товар видалено з кошику`);
       await refetchCart();
       setLoading(false);
     } catch (err) {

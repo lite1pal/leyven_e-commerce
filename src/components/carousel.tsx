@@ -51,6 +51,10 @@ export default function CarouselComponent() {
               src="https://luposan.com.ua/content/images/2/1440x432e90nn0/94462668873712.jpg"
               alt="..."
             />
+            <div>
+              <div>hello</div>
+              <div>bye</div>
+            </div>
           </Carousel>
         </Box>
       </motion.div>
