@@ -14,7 +14,13 @@ export default async function RelatedProducts({ header }: { header: string }) {
       <div className="text-2xl font-medium">{header}</div>
       <div className="flex gap-2 overflow-x-scroll">
         {data.slice(0, 10).map((relatedProduct: any) => {
-          return <Card type="related products" data={relatedProduct} />;
+          return (
+            <Card
+              key={relatedProduct.id}
+              type="related products"
+              data={relatedProduct}
+            />
+          );
         })}
       </div>
     </div>
