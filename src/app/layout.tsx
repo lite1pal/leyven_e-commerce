@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ServerCartProvider>
           <Toaster />
-          <main className={`max-w-screen min-h-screen flex flex-col flex-grow`}>
+          <main className={`max-w-screen flex min-h-screen flex-grow flex-col`}>
             <Navbar />
             {children}
           </main>

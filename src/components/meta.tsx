@@ -37,7 +37,7 @@ export default function Meta({ data }: any) {
   }, [searchParams]);
 
   return (
-    <div className={`flex justify-between items-center px-8 mb-4 w-full`}>
+    <div className={`mb-4 flex w-full items-center justify-between px-8`}>
       <div className={`text-base xl:ml-44`}>
         Сторінка -{" "}
         <span className="font-medium">{searchParams.get("page") || 1}</span>
@@ -47,12 +47,12 @@ export default function Meta({ data }: any) {
           {currentSortingTitle}
           <KeyboardArrowDownIcon />
         </div>
-        <div className="absolute mt-2 flex flex-col p-2 gap-2 border-2 rounded-lg group-hover:opacity-100 opacity-0 transition duration-50">
+        <div className="duration-50 absolute z-10 mt-2 flex flex-col gap-2 rounded-lg border-2 bg-white p-2 opacity-0 transition group-hover:opacity-100">
           <div
-            className="cursor-pointer hover:text-blue-600 transition"
+            className="cursor-pointer transition hover:text-blue-600"
             onClick={() =>
               router.push(
-                `${pathName}?sorting=price_asc&search=${search}&instock=${inStock}`
+                `${pathName}?sorting=price_asc&search=${search}&instock=${inStock}`,
               )
             }
           >
@@ -60,10 +60,10 @@ export default function Meta({ data }: any) {
           </div>
           <Divider />
           <div
-            className="cursor-pointer hover:text-blue-600 transition"
+            className="cursor-pointer transition hover:text-blue-600"
             onClick={() =>
               router.push(
-                `${pathName}?sorting=price_desc&search=${search}&instock=${inStock}`
+                `${pathName}?sorting=price_desc&search=${search}&instock=${inStock}`,
               )
             }
           >
@@ -71,7 +71,7 @@ export default function Meta({ data }: any) {
           </div>
           <Divider />
           <div
-            className="cursor-pointer hover:text-blue-600 transition"
+            className="cursor-pointer transition hover:text-blue-600"
             onClick={() =>
               router.push(`${pathName}?search=${search}&instock=${inStock}`)
             }

@@ -21,16 +21,11 @@ import Filters from "@/components/filters";
 import FiltersMobile from "@/components/filtersMobile";
 import FooterComponent from "@/components/footer";
 import RelatedProducts from "@/components/relatedProducts";
+import MySpinner from "@/components/base/Spinner";
 
 export default async function CatalogView({ data }: any) {
   return (
-    <Suspense
-      fallback={
-        <div className="mx-auto w-fit mt-10 mb-96">
-          <Spinner />
-        </div>
-      }
-    >
+    <Suspense fallback={<MySpinner />}>
       <SupportDrawer />
       <FiltersMobile />
       <Meta data={data} />

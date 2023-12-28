@@ -24,22 +24,23 @@ export default async function HomeScreen({ searchParams }: any) {
   const countriesOfManufacture = products.map(
     (product: any) =>
       product.info.filter(
-        (i: any) => i["g:attribute_name"]._text === "Країна виробник"
-      )[0]
+        (i: any) => i["g:attribute_name"]._text === "Країна виробник",
+      )[0],
   );
 
   return (
     <div className="bg-slate-100">
-      <RelatedProducts header="Новинки" />
-      <CarouselComponent />
-      <Suspense>
-        <RelatedProducts header="Рекомендації на основі ваших переглядів" />
-      </Suspense>
       <Suspense>
         <RelatedProducts header="Акційні пропозиції" />
+        <Suspense>
+          <CarouselComponent />
+          <RelatedProducts header="Новинки" />
+        </Suspense>
+        <Suspense>
+          <CategoryHeader title="Всі товари" />
+          <Catalog {...{ data }} />
+        </Suspense>
       </Suspense>
-      <CategoryHeader title="Всі товари" />
-      <Catalog {...{ data }} />
     </div>
   );
 }

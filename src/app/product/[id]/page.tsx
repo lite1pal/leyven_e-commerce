@@ -13,7 +13,7 @@ export default function ProductScreen({ params }: any) {
     <Suspense fallback={<MySpinner />}>
       <ProductView id={id} />
       <Suspense>
-        <RelatedProducts header={"Рекомендовані"} />
+        <RelatedProducts id={id} header={"Рекомендовані"} />
         <FooterComponent />
       </Suspense>
     </Suspense>

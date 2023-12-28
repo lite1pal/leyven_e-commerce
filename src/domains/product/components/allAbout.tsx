@@ -49,17 +49,17 @@ export default function AllAbout({ data }: any) {
         <div style={{ height: "30rem" }} className="mx-auto cursor-pointer">
           <Carousel theme={customCarouselTheme}>
             <img
-              className="p-4 rounded-t-lg mx-auto w-full h-full object-contain"
+              className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
               src={data.img}
               alt="product image"
             />
             <img
-              className="p-4 rounded-t-lg mx-auto w-full h-full object-contain"
+              className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
               src={data.img}
               alt="product image"
             />
             <img
-              className="p-4 rounded-t-lg mx-auto w-full h-full object-contain"
+              className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
               src={data.img}
               alt="product image"
             />
@@ -67,8 +67,8 @@ export default function AllAbout({ data }: any) {
         </div>
       </Grid>
       <Grid sx={{ width: "100%" }} xs={8} md={7}>
-        <div className="max-sm:text-lg text-2xl font-medium">{data.title}</div>
-        <div className="flex justify-between py-2 items-center">
+        <div className="text-2xl font-medium max-sm:text-lg">{data.title}</div>
+        <div className="flex items-center justify-between py-2">
           <Rating
             style={{
               paddingBlock: "0.5rem",
@@ -79,19 +79,19 @@ export default function AllAbout({ data }: any) {
               {data.rating}
             </p>
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-            <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
+            <a className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
               0 відгуків
             </a>
           </Rating>
-          <div className="max-sm:text-sm font-light text-slate-400 pr-10">
+          <div className="pr-10 font-light text-slate-400 max-sm:text-sm">
             Код: {data.id.slice(0, 12)}
           </div>
         </div>
         <Divider />
-        <div className="flex items-center pt-4 gap-5">
+        <div className="flex items-center gap-5 pt-4">
           <div>
             <div className="text-2xl font-semibold">{data.price}.00 UAH</div>
-            <div className="flex gap-1 items-center">
+            <div className="flex items-center gap-1">
               {data.availability === "in stock" ? (
                 <>
                   <UnarchiveIcon color="success" />
@@ -117,7 +117,7 @@ export default function AllAbout({ data }: any) {
             </Link>
           )}
         </div>
-        <BannerPromo />
+        {/* <BannerPromo /> */}
         <ProductInfoTable {...{ data }} />
       </Grid>
     </Grid>

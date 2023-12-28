@@ -10,7 +10,7 @@ export default function Filters() {
   return (
     <div
       style={{ marginLeft: "1rem" }}
-      className="bg-white flex flex-col gap-6 max-xl:hidden h-fit w-44 p-5 shadow rounded-lg max-w-sm border border-gray-200"
+      className="bg-white flex flex-col gap-6 max-xl:hidden h-fit w-48 p-5 shadow rounded-lg max-w-sm border border-gray-200"
     >
       <FilterRadioButton
         header="В наявності"

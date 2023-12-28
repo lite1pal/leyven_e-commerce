@@ -1,5 +1,6 @@
 import { wait } from "@/libs/utils";
 import { Footer } from "flowbite-react";
+import Link from "next/link";
 import {
   BsFacebook,
   BsInstagram,
@@ -17,20 +18,24 @@ export default async function FooterComponent() {
     >
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div className="max-md:p-4 max-md:mr-6">
-            <Footer.Brand
-              href="https://prom.ua/c3850164-leyven.html"
-              src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
-              alt="Flowbite Logo"
-              name="LeyVen"
-            />
+          <div className="max-md:mr-6 max-md:p-4">
+            <Link href="/">
+              <Footer.Brand
+                href="/"
+                src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
+                alt="Flowbite Logo"
+                name="LeyVen"
+              />
+            </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
               <Footer.Title title="Про нас" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#">Компанія</Footer.Link>
-                <Footer.Link href="#">Відгуки</Footer.Link>
+                <Link href="/about">Про компанію</Link>
+                <Link href="/contacts">Контакти</Link>
+                {/* <Footer.Link href="/about">Про компанію</Footer.Link>
+                <Footer.Link href="/contacts">Контакти</Footer.Link> */}
               </Footer.LinkGroup>
             </div>
             <div>
@@ -51,7 +56,7 @@ export default async function FooterComponent() {
         </div>
         <Footer.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="#" by="LeyVen™" year={2023} />
+          <Footer.Copyright by="LeyVen™" year={2023} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon href="#" icon={BsFacebook} />
             <Footer.Icon href="#" icon={BsInstagram} />
