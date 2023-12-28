@@ -24,7 +24,7 @@ export default function Contacts() {
         </p>
       </Card>
       <Suspense fallback={<MySpinner />}>
-        <RelatedProducts header="Рекомендовані" />
+        {/* <RelatedProducts header="Рекомендовані" /> */}
         <FooterComponent />
       </Suspense>
     </Suspense>
