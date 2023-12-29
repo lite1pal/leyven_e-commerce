@@ -10,6 +10,9 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: "desc" },
     });
 
+    if (!orders) {
+      return new NextResponse(JSON.stringify({}), { status: 200 });
+    }
     return new NextResponse(JSON.stringify(orders), { status: 200 });
   } catch (err) {
     console.log(err);
