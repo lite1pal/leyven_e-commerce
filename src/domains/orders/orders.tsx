@@ -10,7 +10,7 @@ export default async function OrdersView() {
   return (
     <div className="flex w-full flex-col gap-5 px-2">
       <div className="text-xl font-medium ">Замовлення</div>
-      <div className="text-sm">Кількість - {data.length}</div>
+      {/* <div className="text-sm">Кількість - {data.length}</div> */}
       {/* {data.length === 0 && <div>Немає замовлень</div>}
       {data?.map((order: any, i: number) => {
         return <CardOrder key={i} data={order} />;
