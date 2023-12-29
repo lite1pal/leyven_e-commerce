@@ -10,10 +10,15 @@ export async function GET(req: NextRequest) {
         JSON.stringify("id is not provided in search params"),
         {
           status: 404,
-        }
+        },
       );
     }
-    const product = await prisma.product.findUnique({ where: { id } });
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        reviews: { include: { user: true }, orderBy: { createdAt: "desc" } },
+      },
+    });
     return new NextResponse(JSON.stringify(product), {
       status: 200,
     });

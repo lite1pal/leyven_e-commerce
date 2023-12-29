@@ -43,6 +43,14 @@ const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
 export default function AllAbout({ data }: any) {
   const { addItem, inCart } = useCart();
   const router = useRouter();
+
+  const calculateAverageRating = (): string => {
+    let totalRating = 0;
+    data.reviews.forEach((review: any) => {
+      totalRating = totalRating + parseInt(review.rating);
+    });
+    return (totalRating / data.reviews.length).toFixed(1);
+  };
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       <Grid xs={8} marginInline="auto" md={4}>
@@ -76,11 +84,11 @@ export default function AllAbout({ data }: any) {
           >
             <Rating.Star />
             <p className="ml-1 text-sm font-bold text-gray-900 dark:text-white">
-              {data.rating}
+              {data?.reviews.length > 0 && calculateAverageRating()}
             </p>
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
             <a className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
-              0 відгуків
+              {data.reviews ? data?.reviews.length : "0"} відгуків
             </a>
           </Rating>
           <div className="pr-10 font-light text-slate-400 max-sm:text-sm">

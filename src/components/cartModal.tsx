@@ -41,11 +41,11 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
         }}
         className={`${
           inCart(data.id) &&
-          "bg-emerald-600 border-emerald-600 hover:text-emerald-600"
+          "border-emerald-600 bg-emerald-600 hover:text-emerald-600"
         } ${
           data.availability === "out of stock" &&
-          "pointer-events-none bg-slate-500 border-slate-500"
-        } max-sm:p-1 text-white p-2.5 lg:p-1.5 bg-blue-600 hover:text-blue-600 hover:bg-white transition border-2 border-blue-600 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+          "pointer-events-none border-slate-500 bg-slate-500"
+        } rounded border-2 border-blue-600 bg-blue-600 p-2.5 text-center text-sm font-medium text-white transition hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-0 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 max-sm:p-1 lg:p-1.5`}
       >
         {inCart(data.id) ? (
           <ShoppingCartIcon fontSize="small" />
@@ -55,19 +55,19 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
       </button>
 
       <dialog id="cartModal" className="modal">
-        <div className="modal-box bg-white text-black p-0">
-          <div className="flex justify-between sticky top-0 z-10 border-b-2 bg-white items-center p-6">
-            <h3 className="font-bold text-lg">Кошик</h3>
+        <div className="modal-box bg-white p-0 text-black">
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b-2 bg-white p-6">
+            <h3 className="text-lg font-bold">Кошик</h3>
             <form method="dialog">
-              <button className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100 p-1 rounded-lg h-fit">
+              <button className="h-fit cursor-pointer rounded-lg border-2 border-blue-600 border-opacity-0 p-1 transition duration-300 hover:border-opacity-100 hover:text-blue-600">
                 <CloseIcon />
               </button>
             </form>
           </div>
-          <div className="p-6 max-sm:p-1.5 border flex flex-col gap-5 max-sm:gap-2">
+          <div className="flex flex-col gap-5 border p-6 max-sm:gap-2 max-sm:p-1.5">
             {isEmpty && (
               <div className="space-y-6">
-                <p className="text-base leading-relaxed p-4 text-gray-500 dark:text-gray-400">
+                <p className="p-4 text-base leading-relaxed text-gray-500 dark:text-gray-400">
                   Пусто
                 </p>
               </div>
@@ -92,7 +92,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
                 })}
             </AnimatePresence>
           </div>
-          <footer className="max-sm:flex-col flex p-6 sticky bottom-0 z-10 items-center bg-white border-t-2 max-sm:gap-3 justify-between">
+          <footer className="sticky bottom-0 z-10 flex items-center justify-between border-t-2 bg-white p-6 max-sm:flex-col max-sm:gap-3">
             <div
               className={`${
                 items.length === 0 && "hidden"
@@ -106,7 +106,7 @@ export default function CartModal({ data, openModal, setOpenModal }: any) {
                 />
               </Link>
             </div>
-            <div className="max-sm:order-1 max-sm:text-xl max-sm:border-none border p-3 font-sans text-2xl font-semibold rounded">
+            <div className="rounded border p-3 font-sans text-2xl font-semibold max-sm:order-1 max-sm:border-none max-sm:text-xl">
               {cartTotal}.00 UAH
             </div>
           </footer>

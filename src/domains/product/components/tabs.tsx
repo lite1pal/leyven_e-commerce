@@ -8,8 +8,10 @@ import TabPanel from "@mui/joy/TabPanel";
 import AllAbout from "./allAbout";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Reviews from "./reviews";
+import { Chip } from "@mui/joy";
 
-export default function TabsComponent({ data }: any) {
+export default function TabsComponent({ data, session }: any) {
   const [index, setIndex] = useState(0);
   return (
     // <AnimatePresence>
@@ -54,17 +56,13 @@ export default function TabsComponent({ data }: any) {
           }}
         >
           <Tab indicatorInset>Все про товар </Tab>
-          <Tab indicatorInset>Характеристики </Tab>
-          {/* <Tab className="max-sm:hidden" indicatorInset>
+          {/* <Tab indicatorInset>Відгуки </Tab> */}
+          <Tab indicatorInset>
             Відгуки{" "}
-            <Chip
-              size="sm"
-              variant="soft"
-              color={index === 2 ? "primary" : "neutral"}
-            >
-              0
+            <Chip size="sm" variant="soft" color={"primary"}>
+              {data.reviews ? data?.reviews.length : "0"}
             </Chip>
-          </Tab> */}
+          </Tab>
         </TabList>
         <Box
           sx={(theme) => ({
@@ -76,8 +74,9 @@ export default function TabsComponent({ data }: any) {
           <TabPanel value={0}>
             <AllAbout data={data} />
           </TabPanel>
-          <TabPanel value={1}>Характеристики</TabPanel>
-          <TabPanel value={2}>Відгуки</TabPanel>
+          <TabPanel value={1}>
+            <Reviews data={data} session={session} />
+          </TabPanel>
         </Box>
       </Tabs>
     </Box>

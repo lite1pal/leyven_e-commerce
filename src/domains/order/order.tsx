@@ -46,7 +46,7 @@ export default function OrderView({ session }: { session: Session | null }) {
     try {
       if (items.length === 0) {
         toast.error(
-          "Додайте хоча б один товар до кошику, щоб зробити замовлення"
+          "Додайте хоча б один товар до кошику, щоб зробити замовлення",
         );
         return;
       }
@@ -69,7 +69,7 @@ export default function OrderView({ session }: { session: Session | null }) {
 
       if (!res.ok) {
         toast.error(
-          "Сталась якась помилка, перезавантажте сторінку та спробуйте ще раз"
+          "Сталась якась помилка, перезавантажте сторінку та спробуйте ще раз",
         );
         return;
       }
@@ -89,24 +89,12 @@ export default function OrderView({ session }: { session: Session | null }) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
         <Grid xs={11} marginInline="auto" sm={8} md={4} lg={6}>
-          <div className=" flex w-full mt-5 flex-col gap-3">
-            <div className="text-2xl font-semibold -ml-1">
+          <div className=" mt-5 flex w-full flex-col gap-3">
+            <div className="-ml-1 text-2xl font-semibold">
               Оформлення замовлення
             </div>
             <div className="text-lg font-medium">Ваші контактні дані</div>
-            <div className="flex max-w-2xl mb-6 flex-col gap-4">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="email" value="Ваша пошта" />
-                </div>
-                <TextInput
-                  id="email"
-                  type="email"
-                  placeholder={"name@gmail.com"}
-                  shadow
-                  {...register("email")}
-                />
-              </div>
+            <div className="mb-6 flex max-w-2xl flex-col gap-4">
               <div>
                 <div className="mb-2 block">
                   <Label htmlFor="phone" value="Ваш номер телефону" />
@@ -121,7 +109,19 @@ export default function OrderView({ session }: { session: Session | null }) {
                   })}
                 />
               </div>
-              <div className="flex gap-3 w-full">
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="email" value="Ваша пошта (необов`язково)" />
+                </div>
+                <TextInput
+                  id="email"
+                  type="email"
+                  placeholder={"name@gmail.com"}
+                  shadow
+                  {...register("email")}
+                />
+              </div>
+              <div className="flex w-full gap-3">
                 <div className="w-full">
                   <div className="mb-2 block">
                     <Label htmlFor="name" value="Ваше ім`я" />
@@ -162,7 +162,7 @@ export default function OrderView({ session }: { session: Session | null }) {
           </div>
         </Grid>
         <Grid sx={{ width: "100%" }} xs={10} md={7} lg={5}>
-          <div className="flex p-5 flex-col gap-3">
+          <div className="flex flex-col gap-3 p-5">
             <Card
               sx={{
                 width: "100%",
@@ -179,9 +179,9 @@ export default function OrderView({ session }: { session: Session | null }) {
                     variant="outlined"
                     sx={{ width: "100%", backgroundColor: "white" }}
                   >
-                    <div className="h-28 w-36 ml-3">
+                    <div className="ml-3 h-28 w-36">
                       <img
-                        className={`w-full h-36 object-contain rounded-lg`}
+                        className={`h-36 w-full rounded-lg object-contain`}
                         src={cartProduct.img}
                         loading="lazy"
                         alt=""
@@ -193,7 +193,7 @@ export default function OrderView({ session }: { session: Session | null }) {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-2xl max-sm:text-lg font-medium text-gray-900 dark:text-white">
+                        <span className="text-2xl font-medium text-gray-900 dark:text-white max-sm:text-lg">
                           {/* {cartProduct.product.price} */}
                           {cartProduct.itemTotal}.00 UAH
                         </span>
@@ -220,7 +220,7 @@ export default function OrderView({ session }: { session: Session | null }) {
               </div>
             </Card>
           </div>
-          <div className="mx-auto w-fit mb-5">
+          <div className="mx-auto mb-5 w-fit">
             <Button title="Замовити" type="submit" />
           </div>
           {/* <Button type="submit" className="mb-5 mx-auto text-xl w-fit">

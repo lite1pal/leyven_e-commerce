@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import SignInComponent from "./signIn";
 import { Avatar } from "flowbite-react";
+import Link from "next/link";
 
 export default function UserDropdown({ session }: any) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -33,8 +34,9 @@ export default function UserDropdown({ session }: any) {
             />
           </MenuButton>
           <Menu>
-            {/* <MenuItem>Історія замовлень</MenuItem>
-            <MenuItem>Збережені</MenuItem> */}
+            <Link href="/orders">
+              <MenuItem>Панель адміна</MenuItem>
+            </Link>
             <MenuItem onClick={() => signOut()}>Вийти</MenuItem>
           </Menu>
         </Dropdown>
