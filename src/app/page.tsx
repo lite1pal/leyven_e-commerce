@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 import { products } from "@/data";
 import RelatedProducts from "@/components/relatedProducts";
+import { Toaster } from "react-hot-toast";
 
 export default async function HomeScreen({ searchParams }: any) {
   const sorting = searchParams.sorting;
@@ -33,7 +34,7 @@ export default async function HomeScreen({ searchParams }: any) {
       <Suspense>
         <RelatedProducts header="Акційні пропозиції" />
         <Suspense>
-          <CarouselComponent />
+          {/* <CarouselComponent /> */}
           <RelatedProducts header="Новинки" />
         </Suspense>
         <Suspense>

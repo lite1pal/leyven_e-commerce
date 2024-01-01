@@ -21,7 +21,7 @@ export default function Card({
     <div
       className={`${
         type !== "catalog" && "max-w-xs"
-      } relative w-full hover:border-blue-600 transition duration-50 group mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+      } duration-50 group relative mx-auto w-full rounded-lg border border-gray-200 bg-white shadow transition hover:border-blue-600 dark:border-gray-700 dark:bg-gray-800`}
     >
       {/* <div className="absolute flex flex-col flex-end group-hover:opacity-100 w-full z-10 pb-10 border border-blue-600 rounded-lg opacity-0 transition duration-300">
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
@@ -33,21 +33,24 @@ export default function Card({
         <div
           className={`${data.availability === "out of stock" && "opacity-30"} ${
             type !== "catalog" && "xl:h-80"
-          } mx-auto max-sm:h-48 h-96 sm:h-80 md:h-64 lg:h-56 xl:h-40 cursor-pointer`}
+          } mx-auto h-96 cursor-pointer max-sm:h-48 sm:h-80 md:h-64 lg:h-56 xl:h-40`}
         >
-          <img
-            className={`p-4 group-hover:scale-105 transition duration-500 rounded-t-lg mx-auto w-full h-full object-contain`}
+          <Image
+            sizes="(max-width: 768px) 45vw, (max-width: 1200px) 50vw, 33vw"
+            className={`mx-auto h-full w-full rounded-t-lg object-contain p-4 transition duration-500 group-hover:scale-105`}
             src={data.img}
+            width={1920}
+            height={1080}
             alt="product image"
           />
         </div>
       </Link>
-      <div className="max-sm:px-2.5 max-sm:pb-2.5 px-4 relative pb-4 flex flex-col gap-1">
+      <div className="relative flex flex-col gap-1 px-4 pb-4 max-sm:px-2.5 max-sm:pb-2.5">
         <Link href={`/product/${data.id}`}>
           <h5
             title={data.title}
             style={{ animation: "move-words 20s linear infinite;" }}
-            className="max-sm:text-base text-lg xl:text-base whitespace-nowrap overflow-x-hidden hover:underline cursor-pointer font-medium tracking-tight text-gray-900 dark:text-white"
+            className="cursor-pointer overflow-x-hidden whitespace-nowrap text-lg font-medium tracking-tight text-gray-900 hover:underline dark:text-white max-sm:text-base xl:text-base"
           >
             {data.title}
           </h5>
@@ -74,8 +77,8 @@ export default function Card({
             8 reviews
           </a>
         </Rating> */}
-        <div className="max-sm:pt-2.5 flex items-center justify-between border-t-2 pt-4">
-          <span className="max-sm:text-base text-2xl font-sans lg:text-base font-medium text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between border-t-2 pt-4 max-sm:pt-2.5">
+          <span className="font-sans text-2xl font-medium text-gray-900 dark:text-white max-sm:text-base lg:text-base">
             {data.price}.00 UAH
           </span>
           <CartModal
