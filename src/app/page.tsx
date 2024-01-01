@@ -17,10 +17,10 @@ export default async function HomeScreen({ searchParams }: any) {
   const searchString = `?sorting=${sorting}&page=${page}&instock=${inStock}`;
 
   // gets products for the catalog
-  const res = await fetch(`${API_URL}/products${searchString}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
+  // const res = await fetch(`${API_URL}/products${searchString}`, {
+  //   cache: "no-store",
+  // });
+  // const data = await res.json();
 
   const countriesOfManufacture = products.map(
     (product: any) =>
@@ -39,7 +39,7 @@ export default async function HomeScreen({ searchParams }: any) {
         </Suspense>
         <Suspense>
           <CategoryHeader title="Всі товари" />
-          <Catalog {...{ data }} />
+          {/* <Catalog {...{ data }} /> */}
         </Suspense>
       </Suspense>
     </div>
