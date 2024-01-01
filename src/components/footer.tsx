@@ -20,12 +20,13 @@ export default async function FooterComponent() {
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="max-md:mr-6 max-md:p-4">
             <Link href="/">
-              <Footer.Brand
+              <div className="py-4 text-2xl font-medium">LeyVen</div>
+              {/* <Footer.Brand
                 href="/"
                 src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
                 alt="Flowbite Logo"
                 name="LeyVen"
-              />
+              /> */}
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
