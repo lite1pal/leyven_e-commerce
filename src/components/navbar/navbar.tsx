@@ -10,6 +10,7 @@ import { Footer } from "flowbite-react";
 import PlaceIcon from "@mui/icons-material/Place";
 import ExtraNavbar from "./components/extraNavbar";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 export default async function Navbar() {
   const session = await auth();
@@ -25,14 +26,21 @@ export default async function Navbar() {
         className={`flex items-center justify-between py-3 font-normal max-xl:py-4 max-sm:mb-3 max-sm:border-b-2`}
       >
         <Link href="/">
-          <div className="flex items-center gap-1.5">
-            <Footer.Brand
+          <div className="flex w-16 items-center gap-1.5 sm:w-36">
+            <Image
+              src="/small_logo.jpg"
+              alt="Leyven logo"
+              width={1920}
+              height={1080}
+              sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw, 33vw"
+            />
+            {/* <Footer.Brand
               href="/"
               src="/small_logo.jpg"
               alt="Flowbite Logo"
               name=""
               className="max-sm:pt-4"
-            />
+            /> */}
             <div className="hidden text-lg sm:flex">Головна</div>
             {/* <Sidebar {...{ session }} /> */}
           </div>
@@ -74,7 +82,7 @@ export default async function Navbar() {
       <div className="mx-auto mb-3 sm:hidden">
         <SearchInput />
       </div>
-      <ul className="flex items-center justify-center gap-5 border-t-2 p-4 text-lg max-sm:hidden sm:gap-20 xl:hidden">
+      <ul className="flex justify-between gap-5 border border-t-2 p-4 text-lg max-sm:hidden xl:hidden">
         <NavItem link="/catalog" title="Каталог" />
         <NavItem link="/veterynarny" title="Ветеринарія" />
         <NavItem link="/food" title="Годування" />
