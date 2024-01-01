@@ -10,6 +10,7 @@ import { products } from "@/data";
 import RelatedProducts from "@/components/relatedProducts";
 import { Toaster } from "react-hot-toast";
 import HomeView from "@/domains/home/home";
+import MySpinner from "@/components/base/Spinner";
 
 export default async function HomeScreen({ searchParams }: any) {
   // const countriesOfManufacture = products.map(
@@ -19,5 +20,9 @@ export default async function HomeScreen({ searchParams }: any) {
   //     )[0],
   // );
 
-  return <HomeView {...{ searchParams }} />;
+  return (
+    <Suspense fallback={<MySpinner />}>
+      <HomeView {...{ searchParams }} />;
+    </Suspense>
+  );
 }

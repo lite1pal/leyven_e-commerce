@@ -18,7 +18,7 @@ export default async function HomeView({ searchParams }: any) {
   const data = await res.json();
   return (
     <div className="bg-slate-100">
-      <Suspense fallback={<MySpinner />}>
+      <Suspense>
         <RelatedProducts header="Акційні пропозиції" />
         <Suspense>
           {/* <CarouselComponent /> */}
