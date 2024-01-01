@@ -30,7 +30,7 @@ export default function ExtraNavbar() {
 
   return (
     <div
-      className={`flex w-full flex-col items-center justify-between gap-3 border-b border-slate-300 py-2 transition sm:gap-0 lg:flex-row`}
+      className={`flex w-full flex-col items-center justify-between gap-3 border-b border-slate-300 py-2 transition sm:gap-1.5 lg:flex-row`}
     >
       <div className="flex gap-10 text-sm sm:text-base">
         <div className="w-fit cursor-pointer transition hover:text-blue-600">
@@ -41,7 +41,7 @@ export default function ExtraNavbar() {
           Дисконтна програма
         </div>
       </div>
-      <div className="flex flex-col items-center gap-8 sm:flex-row">
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-8">
         <div className="text-sm italic sm:text-base">
           <PlaceIcon />
           вул. Чернявського, 46, Звягель, Україна
