@@ -1,6 +1,6 @@
 import CategoryHeader from "@/components/categoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/domains/catalog/catalog";
+import CatalogView from "@/components/catalog";
 
 export default async function Outdoors({ searchParams }: any) {
   const sorting = searchParams.sorting;
@@ -14,7 +14,7 @@ export default async function Outdoors({ searchParams }: any) {
     `${API_URL}/products?category=outdoors${searchString}`,
     {
       cache: "no-store",
-    }
+    },
   );
   const data = await res.json();
   return (

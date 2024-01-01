@@ -1,6 +1,6 @@
 import CategoryHeader from "@/components/categoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/domains/catalog/catalog";
+import CatalogView from "@/components/catalog";
 
 export default async function Animalcare({ searchParams }: any) {
   const sorting = searchParams.sorting;
@@ -13,7 +13,7 @@ export default async function Animalcare({ searchParams }: any) {
     `${API_URL}/products?category=animalcare${searchString}`,
     {
       cache: "no-store",
-    }
+    },
   );
   const data = await res.json();
   return (

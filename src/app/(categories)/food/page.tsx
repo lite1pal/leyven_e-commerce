@@ -1,6 +1,6 @@
 import CategoryHeader from "@/components/categoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/domains/catalog/catalog";
+import CatalogView from "@/components/catalog";
 
 export default async function Food({ searchParams }: any) {
   const sorting = searchParams.sorting;

@@ -1,6 +1,6 @@
 import CategoryHeader from "@/components/categoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/domains/catalog/catalog";
+import CatalogView from "@/components/catalog";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -14,20 +14,20 @@ export default async function SearchScreen({ searchParams, params }: any) {
     `${API_URL}/products?search=${search}&sorting=${sorting}`,
     {
       cache: "no-store",
-    }
+    },
   );
   const data = await res.json();
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-grow flex-col">
       <CategoryHeader title="Результат пошуку" />
-      <div className="flex ml-10 gap-1 items-center pb-5">
+      <div className="ml-10 flex items-center gap-1 pb-5">
         <Link href="/">
-          <div className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100  p-1.5 rounded-lg">
+          <div className="cursor-pointer rounded-lg border-2 border-blue-600 border-opacity-0 p-1.5 transition duration-300  hover:border-opacity-100 hover:text-blue-600">
             <CloseIcon fontSize="small" />
           </div>
         </Link>
-        <div className="border-2 cursor-default p-2 rounded-lg w-fit text-lg">
+        <div className="w-fit cursor-default rounded-lg border-2 p-2 text-lg">
           {searchParams.search}
         </div>
       </div>

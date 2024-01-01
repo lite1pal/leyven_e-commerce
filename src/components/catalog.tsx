@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import GridComponent from "../../components/grid";
-import SupportDrawer from "../../components/supportDrawer";
+import GridComponent from "./grid";
+import SupportDrawer from "./supportDrawer";
 
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { API_URL } from "@/config/api";
