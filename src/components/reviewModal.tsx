@@ -13,8 +13,6 @@ export default function ReviewModal({ data, session }: any) {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
 
-  console.log(session);
-
   const leaveReview = async () => {
     try {
       if (!session) {

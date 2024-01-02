@@ -32,8 +32,8 @@ export default function Card({
       <Link href={`/product/${data.id}`}>
         <div
           className={`${data.availability === "out of stock" && "opacity-30"} ${
-            type !== "catalog" && "xl:h-80"
-          } mx-auto h-96 cursor-pointer max-sm:h-48 sm:h-80 md:h-64 lg:h-56 xl:h-40`}
+            type !== "catalog" && "h-80 sm:h-80 md:h-80 lg:h-80 xl:h-80"
+          } mx-auto h-48 cursor-pointer sm:h-80 md:h-64 lg:h-56 xl:h-40`}
         >
           <img
             // sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"

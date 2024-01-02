@@ -1,8 +1,5 @@
-import { auth } from "@/app/api/auth/[...nextauth]/auth";
-import Button from "@/components/base/Button";
 import CardReview from "@/components/cardReview";
 import ReviewModal from "@/components/reviewModal";
-import { Card, Rating } from "flowbite-react";
 
 export default async function Reviews({ data, session }: any) {
   return (

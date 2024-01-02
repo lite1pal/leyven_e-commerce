@@ -13,34 +13,36 @@ export default function SearchInput() {
 
   return (
     <>
-      <SearchIcon
-        onClick={() => {
-          (
-            document.getElementById("searchModal") as HTMLFormElement
-          ).showModal();
-        }}
-        className="flex transition hover:opacity-80 md:hidden"
-      />
+      <div className="md:hidden">
+        <SearchIcon
+          onClick={() => {
+            (
+              document.getElementById("searchModal") as HTMLFormElement
+            ).showModal();
+          }}
+          className="transition hover:opacity-80"
+        />
 
-      <dialog id="searchModal" className="modal">
-        <div className="modal-box flex bg-white">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && input) {
-                setInput("");
-                router.push(`/search?search=${input}`);
-                (
-                  document.getElementById("searchModal") as HTMLFormElement
-                ).close();
-              }
-            }}
-            type="text"
-            className="mx-auto w-full rounded-lg border-b-2 border-none bg-transparent focus:outline-none focus:ring-0"
-          />
-        </div>
-      </dialog>
+        <dialog id="searchModal" className="modal">
+          <div className="modal-box flex bg-white">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && input) {
+                  setInput("");
+                  router.push(`/search?search=${input}`);
+                  (
+                    document.getElementById("searchModal") as HTMLFormElement
+                  ).close();
+                }
+              }}
+              type="text"
+              className="mx-auto w-full rounded-lg border-b-2 border-none bg-transparent focus:outline-none focus:ring-0"
+            />
+          </div>
+        </dialog>
+      </div>
 
       <div
         className={`hidden items-center justify-between rounded-lg border p-1.5 text-lg shadow max-sm:w-72 md:flex`}
