@@ -35,14 +35,12 @@ export default function Card({
             type !== "catalog" && "xl:h-80"
           } mx-auto h-96 cursor-pointer max-sm:h-48 sm:h-80 md:h-64 lg:h-56 xl:h-40`}
         >
-          <Image
+          <img
             sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
             className={`mx-auto h-full w-full rounded-t-lg object-contain p-4 transition duration-500 group-hover:scale-105`}
             src={data.img}
-            width={1920}
-            height={1080}
             alt="product image"
-            priority={true}
+            // priority={true}
           />
         </div>
       </Link>
