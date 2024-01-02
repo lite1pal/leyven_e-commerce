@@ -13,8 +13,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
 export default async function Navbar() {
-  const session = await auth();
-
   return (
     <nav
       style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
@@ -77,7 +75,7 @@ export default async function Navbar() {
         <div className="mx-5 max-sm:hidden">
           <SearchInput />
         </div>
-        <Icons {...{ session }} />
+        <Icons />
       </div>
       <div className="mx-auto mb-3 sm:hidden">
         <SearchInput />

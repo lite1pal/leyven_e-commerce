@@ -6,8 +6,9 @@ import { useState } from "react";
 import SignInComponent from "./signIn";
 import { Avatar } from "flowbite-react";
 import Link from "next/link";
+import { Session } from "next-auth";
 
-export default function UserDropdown({ session }: any) {
+export default function UserDropdown({ session }: { session: Session | null }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   const toggleUserDropdown = () => {
@@ -15,7 +16,7 @@ export default function UserDropdown({ session }: any) {
   };
   return (
     <div className="flex items-center">
-      {session?.user.email ? (
+      {session?.user?.email ? (
         <Dropdown>
           <MenuButton
             sx={{
@@ -28,7 +29,7 @@ export default function UserDropdown({ session }: any) {
           >
             <Avatar
               onClick={toggleUserDropdown}
-              img={session?.user.image}
+              img={session?.user?.image!}
               rounded
               size={"sm"}
             />
