@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import SearchInput from "./components/searchInput";
 import Link from "next/link";
 import NavItem from "./components/navItem";
@@ -11,6 +11,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import ExtraNavbar from "./components/extraNavbar";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import MySpinner from "../base/Spinner";
 
 export default async function Navbar() {
   return (
@@ -75,7 +76,9 @@ export default async function Navbar() {
         <div className="mx-5 max-sm:hidden">
           <SearchInput />
         </div>
-        <Icons />
+        <Suspense>
+          <Icons />
+        </Suspense>
       </div>
       <div className="mx-auto mb-3 sm:hidden">
         <SearchInput />
