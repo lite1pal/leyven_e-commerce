@@ -19,9 +19,9 @@ export default async function HomeView({ searchParams }: any) {
   return (
     <Suspense fallback={<MySpinner />}>
       <div className="bg-slate-100">
-        <RelatedProducts header="Акційні пропозиції" />
         <Suspense>
           {/* <CarouselComponent /> */}
+          <RelatedProducts header="Акційні пропозиції" />
           <RelatedProducts header="Новинки" />
         </Suspense>
         <Suspense>
