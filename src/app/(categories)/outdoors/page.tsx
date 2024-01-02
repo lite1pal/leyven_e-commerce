@@ -19,7 +19,7 @@ export default async function Outdoors({ searchParams }: any) {
   const data = await res.json();
   return (
     <>
-      <CategoryHeader title="Товари для прогулянок та подорожей з домашніми тваринами" />
+      <CategoryHeader title="Прогулянки та подорожі з домашніми тваринами" />
       <CatalogView {...{ data }} />;
     </>
   );
