@@ -26,12 +26,11 @@ export default async function Navbar() {
       >
         <Link href="/">
           <div className="flex w-16 items-center gap-1.5 sm:w-36">
-            <Image
+            <img
               src="/small_logo.jpg"
               alt="Leyven logo"
-              width={1920}
-              height={1080}
-              sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw, 33vw"
+
+              // sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw, 33vw"
             />
             {/* <Footer.Brand
               href="/"
