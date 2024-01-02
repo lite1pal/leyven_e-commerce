@@ -93,6 +93,10 @@ export async function GET(req: NextRequest) {
       products = await prisma.product.findMany(
         filteringObject("Годування домашніх тварин і птахів"),
       );
+    } else if (category === "comfort") {
+      products = await prisma.product.findMany(
+        filteringObject("Товари для комфорту домашніх тварин"),
+      );
     }
 
     return new NextResponse(JSON.stringify(products), {
