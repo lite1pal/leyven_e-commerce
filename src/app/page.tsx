@@ -19,6 +19,6 @@ export default async function HomeScreen({ searchParams }: any) {
   //       (i: any) => i["g:attribute_name"]._text === "Країна виробник",
   //     )[0],
   // );
-  return <div>hello</div>;
+
   return <HomeView {...{ searchParams }} />;
 }

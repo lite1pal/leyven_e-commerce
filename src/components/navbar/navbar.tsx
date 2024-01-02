@@ -6,7 +6,7 @@ import Sidebar from "./components/sidebar";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import Icons from "./components/icons";
 import Contact from "./components/contact";
-import { Footer } from "flowbite-react";
+import { Footer, Spinner } from "flowbite-react";
 import PlaceIcon from "@mui/icons-material/Place";
 import ExtraNavbar from "./components/extraNavbar";
 import { AnimatePresence, motion } from "framer-motion";
@@ -76,7 +76,13 @@ export default async function Navbar() {
         <div className="mx-5 max-sm:hidden">
           <SearchInput />
         </div>
-        <Suspense>
+        <Suspense
+          fallback={
+            <div>
+              <Spinner />
+            </div>
+          }
+        >
           <Icons />
         </Suspense>
       </div>
