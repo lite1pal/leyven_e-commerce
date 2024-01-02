@@ -19,7 +19,7 @@ import CelebrationIcon from "@mui/icons-material/Celebration";
 import Link from "next/link";
 import { Session } from "next-auth";
 
-export default function Sidebar({ session }: { session: Session | null }) {
+export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer =
@@ -36,40 +36,26 @@ export default function Sidebar({ session }: { session: Session | null }) {
     };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <div className="flex md:hidden">
       <div
-        className="transition items-center font-medium rounded-lg cursor-pointer flex gap-2 text-lg duration-300 hover:scale-125"
+        className="flex cursor-pointer items-center gap-2 rounded-lg text-lg font-medium transition duration-300 hover:scale-125"
         onClick={toggleDrawer(true)}
-        onMouseEnter={toggleDrawer(true)}
+        // onMouseEnter={toggleDrawer(true)}
       >
         <MenuIcon />
-        Каталог
       </div>
       <Drawer size="sm" open={open} onClose={toggleDrawer(false)}>
         <Box
           role="presentation"
           onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-          onMouseLeave={toggleDrawer(false)}
+          // onKeyDown={toggleDrawer(false)}
+          // onMouseLeave={toggleDrawer(false)}
         >
-          <Link href="/" className="flex items-center">
-            <Footer.Brand
-              href="/"
-              src="https://images.prom.ua/4809555867_w100_h50_leyven.jpg"
-              alt="Flowbite Logo"
-              name=""
-              className="p-4"
-            />
+          {/* <Link href="/" className="flex w-full items-center gap-3 p-5">
+            <img src="/small_logo.jpg" alt="Leyven logo" className="w-20" />
             <div className="text-lg font-medium">Головна</div>
-          </Link>
-          {session?.user && (
-            <List>
-              <ListItem sx={{ padding: "1rem", paddingTop: "0" }}>
-                <Avatar img={session?.user?.image!} rounded size={"sm"} />
-                <div className="cursor-default">{session?.user?.name}</div>
-              </ListItem>
-            </List>
-          )}
+          </Link> */}
+
           <Divider />
           <List>
             <Link href="/food">
@@ -108,14 +94,10 @@ export default function Sidebar({ session }: { session: Session | null }) {
           <Divider />
           <List>
             <ListItem>
-              <a target="_blank" href="https://leyven.com.ua/ua/contacts">
-                Контакти
-              </a>
+              <Link href="contacts">Контакти</Link>
             </ListItem>
             <ListItem>
-              <a target="_blank" href="https://leyven.com.ua/ua/about_us">
-                Про компанію
-              </a>
+              <Link href="about">Про компанію</Link>
             </ListItem>
             {/* <ListItem>Відгуки</ListItem>
             <ListItem>Сертифікації</ListItem>
@@ -123,6 +105,6 @@ export default function Sidebar({ session }: { session: Session | null }) {
           </List>
         </Box>
       </Drawer>
-    </Box>
+    </div>
   );
 }

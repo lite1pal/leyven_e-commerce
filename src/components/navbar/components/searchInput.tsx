@@ -12,30 +12,63 @@ export default function SearchInput() {
   const pathName = usePathname();
 
   return (
-    <div className="flex items-center justify-between rounded-lg border p-1.5 text-lg shadow max-sm:w-72">
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && input) {
-            setInput("");
-            router.push(`/search?search=${input}`);
-          }
-        }}
-        className="max-h-5 w-full border-none focus:outline-none focus:ring-0"
-        type="text"
-        placeholder="Пошук"
-      />
-      <div
+    <>
+      <SearchIcon
         onClick={() => {
-          if (input) {
-            setInput("");
-            router.push(`/search?search=${input}`);
-          }
+          (
+            document.getElementById("searchModal") as HTMLFormElement
+          ).showModal();
         }}
+        className="flex transition hover:opacity-80 md:hidden"
+      />
+
+      <dialog id="searchModal" className="modal">
+        <div className="modal-box flex bg-white">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && input) {
+                setInput("");
+                router.push(`/search?search=${input}`);
+                (
+                  document.getElementById("searchModal") as HTMLFormElement
+                ).close();
+              }
+            }}
+            type="text"
+            className="mx-auto w-full rounded-lg border-b-2 border-none bg-transparent focus:outline-none focus:ring-0"
+          />
+        </div>
+      </dialog>
+
+      <div
+        className={`hidden items-center justify-between rounded-lg border p-1.5 text-lg shadow max-sm:w-72 md:flex`}
       >
-        <SearchIcon className="transition hover:opacity-80" />
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && input) {
+              setInput("");
+              router.push(`/search?search=${input}`);
+            }
+          }}
+          className="max-h-5 w-full border-none focus:outline-none focus:ring-0"
+          type="text"
+          placeholder="Пошук"
+        />
+        <div
+          onClick={() => {
+            if (input) {
+              setInput("");
+              router.push(`/search?search=${input}`);
+            }
+          }}
+        >
+          <SearchIcon className="transition hover:opacity-80" />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

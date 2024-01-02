@@ -30,7 +30,7 @@ export default function ExtraNavbar() {
 
   return (
     <div
-      className={`flex w-full flex-col items-center justify-between gap-3 border-b border-slate-300 py-2 transition sm:gap-1.5 lg:flex-row`}
+      className={`hidden w-full flex-col items-center justify-between gap-3 border-b border-slate-300 py-2 transition sm:flex sm:gap-1.5 lg:flex-row`}
     >
       <div className="flex gap-10 text-sm sm:text-base">
         <div className="w-fit cursor-pointer transition hover:text-blue-600">

@@ -31,13 +31,13 @@ export default function DrawerScrollable() {
   return (
     <Fragment>
       <div
-        className="transition flex text-lg gap-3 duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100  p-1.5 rounded-lg"
+        className="flex cursor-pointer gap-3 rounded-lg border-2 border-blue-600 border-opacity-0 p-1.5 text-lg transition duration-300  hover:border-opacity-100 hover:text-blue-600"
         onClick={() => setOpen(true)}
       >
         <Badge badgeContent={items.length} badgeInset="-20%">
           <ShoppingCartIcon />
         </Badge>
-        <div className="">Кошик</div>
+        <div className="hidden sm:flex">Кошик</div>
       </div>
 
       <Drawer
@@ -51,7 +51,7 @@ export default function DrawerScrollable() {
           Кошик{" "}
           <button
             onClick={emptyCart}
-            className="font-light underline text-sm ml-5"
+            className="ml-5 text-sm font-light underline"
           >
             Очистити кошик
           </button>
@@ -103,14 +103,14 @@ export default function DrawerScrollable() {
             </div>
           )} */}
           {!isEmpty && (
-            <div className="flex max-sm:flex-col max-sm:gap-3 fixed items-center bg-white z-20 bottom-0 p-5 border-2 right-0 w-full mt-5 mx-auto gap-5">
+            <div className="fixed bottom-0 right-0 z-20 mx-auto mt-5 flex w-full items-center gap-5 border-2 bg-white p-5 max-sm:flex-col max-sm:gap-3">
               <Link href="/order" className="max-sm:order-2">
                 <Button
                   title="Оформити замовлення"
                   onClick={() => setOpen(false)}
                 />
               </Link>
-              <div className="max-sm:order-1 max-sm:border-none max-sm:text-xl border p-3 text-slate-600 font-sans text-2xl font-semibold rounded">
+              <div className="rounded border p-3 font-sans text-2xl font-semibold text-slate-600 max-sm:order-1 max-sm:border-none max-sm:text-xl">
                 {cartTotal}.00 UAH
               </div>
             </div>
