@@ -20,5 +20,9 @@ export default async function HomeScreen({ searchParams }: any) {
   //     )[0],
   // );
 
-  return <HomeView {...{ searchParams }} />;
+  return (
+    <Suspense fallback={<MySpinner />}>
+      <HomeView {...{ searchParams }} />
+    </Suspense>
+  );
 }

@@ -17,18 +17,14 @@ export default async function HomeView({ searchParams }: any) {
   });
   const data = await res.json();
   return (
-    <Suspense fallback={<MySpinner />}>
-      <div className="bg-slate-100">
-        <Suspense>
-          {/* <CarouselComponent /> */}
-          <RelatedProducts header="Акційні пропозиції" />
-          <RelatedProducts header="Новинки" />
-        </Suspense>
-        <Suspense>
-          <CategoryHeader title="Всі товари" />
-          <Catalog {...{ data }} />
-        </Suspense>
-      </div>
-    </Suspense>
+    <div className="bg-slate-100">
+      {/* <CarouselComponent /> */}
+      <RelatedProducts header="Акційні пропозиції" />
+      <RelatedProducts header="Новинки" />
+      <CategoryHeader title="Всі товари" />
+      <Suspense>
+        <Catalog {...{ data }} />
+      </Suspense>
+    </div>
   );
 }
