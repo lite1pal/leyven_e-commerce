@@ -17,7 +17,7 @@ export default function Categories() {
             return (
               <Link
                 key={i}
-                className="rounded-lg border-2 p-2.5"
+                className="mx-1 rounded-lg border-2 p-2.5 text-center"
                 href={categories[params.category].subCategories[category].route}
               >
                 {categories[params.category].subCategories[category].name}
@@ -28,7 +28,7 @@ export default function Categories() {
             return (
               <Link
                 key={i}
-                className="rounded-lg border-2 p-2.5"
+                className="mx-1 rounded-lg border-2 p-2.5 text-center"
                 href={categories[category].route}
               >
                 {categories[category].name}
