@@ -1,6 +1,8 @@
 import MySpinner from "@/components/base/Spinner";
 import Catalog from "@/components/catalog";
+import Categories from "@/components/categories";
 import CategoryHeader from "@/components/categoryHeader";
+import DiscountProducts from "@/components/discountProducts";
 import RelatedProducts from "@/components/relatedProducts";
 import { API_URL } from "@/config/api";
 import { Suspense } from "react";
@@ -17,10 +19,11 @@ export default async function HomeView({ searchParams }: any) {
   });
   const data = await res.json();
   return (
-    <div className="bg-slate-100">
+    <div>
       {/* <CarouselComponent /> */}
-      <RelatedProducts header="Акційні пропозиції" />
+      {/* <DiscountProducts header="Акційні пропозиції" /> */}
       <RelatedProducts header="Новинки" />
+      <Categories />
       <CategoryHeader title="Всі товари" />
       <Suspense>
         <Catalog {...{ data }} />

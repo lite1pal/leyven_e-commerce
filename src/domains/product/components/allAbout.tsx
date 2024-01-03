@@ -9,6 +9,7 @@ import ProductInfoTable from "@/components/productInfoTable";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
+import { valueOfPercent } from "@/libs/utils";
 
 const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
   root: {
@@ -98,7 +99,21 @@ export default function AllAbout({ data }: any) {
         <Divider />
         <div className="flex items-center gap-5 pt-4">
           <div>
-            <div className="text-2xl font-semibold">{data.price}.00 UAH</div>
+            {/* <div className="text-2xl font-semibold">{data.price}.00 UAH</div> */}
+            <div
+              className={`flex gap-5 font-sans text-2xl font-semibold text-gray-900 dark:text-white max-sm:text-base lg:text-2xl`}
+            >
+              {data.discount && (
+                <span className="font-medium text-red-600">
+                  {data.price - valueOfPercent(data.discount, data.price)} UAH
+                </span>
+              )}
+              {data.discount ? (
+                <del className="">{data.price}.00 UAH </del>
+              ) : (
+                data.price + ".00 UAH"
+              )}
+            </div>
             <div className="flex items-center gap-1">
               {data.availability === "in stock" ? (
                 <>

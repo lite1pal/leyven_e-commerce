@@ -1,8 +1,13 @@
 import CategoryHeader from "@/components/categoryHeader";
 import { API_URL } from "@/config/api";
 import CatalogView from "@/components/catalog";
+import { categories } from "@/data/categories";
+import BasicBreadcrumbs from "@/components/breadCrumbs";
+import Categories from "@/components/categories";
 
-export default async function Animalcare({ searchParams }: any) {
+export default async function CategoryView({ params, searchParams }: any) {
+  const category = params.category;
+
   const sorting = searchParams.sorting;
   const page = searchParams.page;
   const inStock = searchParams.instock;
@@ -10,16 +15,20 @@ export default async function Animalcare({ searchParams }: any) {
 
   // gets products for the catalog
   const res = await fetch(
-    `${API_URL}/products?category=animalcare${searchString}`,
+    `${API_URL}/products?category=${category}${searchString}`,
     {
       cache: "no-store",
     },
   );
   const data = await res.json();
+
+  console.log(data);
   return (
     <>
-      <CategoryHeader title="Товари для догляду за домашніми тваринами" />
-      <CatalogView {...{ data }} />;
+      <Categories />
+      <BasicBreadcrumbs {...{ data }} />
+      <CategoryHeader title={categories[category].name} />
+      <CatalogView {...{ data }} />
     </>
   );
 }
