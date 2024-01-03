@@ -64,6 +64,7 @@ model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   price       Int
+  discount Int? @default(0)
   rating      String
   img String
   availability String
