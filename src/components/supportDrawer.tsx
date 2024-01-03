@@ -79,6 +79,7 @@ export default function SupportDrawer() {
           sx={{
             borderRadius: "md",
             p: 2,
+            m: 2,
             display: "flex",
             flexDirection: "column",
             gap: 2,
