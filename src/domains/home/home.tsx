@@ -21,7 +21,7 @@ export default async function HomeView({ searchParams }: any) {
   return (
     <div>
       {/* <CarouselComponent /> */}
-      {/* <DiscountProducts header="Акційні пропозиції" /> */}
+      <DiscountProducts header="Акційні пропозиції" />
       <RelatedProducts header="Новинки" />
       <Categories />
       <CategoryHeader title="Всі товари" />
