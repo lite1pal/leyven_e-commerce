@@ -47,7 +47,7 @@ export default function Meta({ data }: any) {
           {currentSortingTitle}
           <KeyboardArrowDownIcon />
         </div>
-        <div className="duration-50 absolute z-10 mt-2 flex flex-col gap-2 rounded-lg border-2 bg-white p-2 opacity-0 transition group-hover:opacity-100">
+        <div className="duration-50 absolute z-30 mt-2 flex flex-col gap-2 rounded-lg border-2 bg-white p-2 opacity-0 transition group-hover:opacity-100">
           <div
             className="cursor-pointer transition hover:text-blue-600"
             onClick={() =>
