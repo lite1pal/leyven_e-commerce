@@ -18,7 +18,7 @@ export default async function FooterComponent() {
     >
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-evenly md:flex md:grid-cols-1">
-          <div className="flex flex-col gap-3 max-md:mr-6 max-md:p-4">
+          <div className="mb-10 flex flex-col max-md:mr-6 max-md:p-4 sm:mb-0 sm:gap-3">
             <Link href="/">
               <div className="py-4 text-2xl font-medium">LeyVen</div>
               {/* <Footer.Brand
