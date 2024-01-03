@@ -1,4 +1,5 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
+import { categories } from "@/data/categories";
 import { convertXMLtoJSON } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -15,6 +16,7 @@ export async function GET(req: NextRequest) {
 
     // grabs each search param from search params object
     const category = url.searchParams.get("category");
+    const subCategory = url.searchParams.get("subCategory");
     const sorting = url.searchParams.get("sorting");
     const page = parseInt(url.searchParams.get("page") as string);
     const search = url.searchParams.get("search");
@@ -68,8 +70,32 @@ export async function GET(req: NextRequest) {
         };
       }
 
+      // console.log(
+      //   categories[category].name.toLowerCase(),
+      //   "fasdfsEFAS\n\n\n\n\n",
+      // );
+
+      if (subCategory) {
+        return {
+          where: {
+            breadcrumbs: {
+              contains: categories[category].subCategories[subCategory].name,
+              mode: "insensitive",
+            },
+          },
+          orderBy,
+          skip: page ? (page - 1) * 24 : 0,
+          take: 24,
+        };
+      }
+
       return {
-        where: { breadcrumbs: { contains: category } },
+        where: {
+          breadcrumbs: {
+            contains: categories[category].name,
+            mode: "insensitive",
+          },
+        },
         orderBy,
         skip: page ? (page - 1) * 24 : 0,
         take: 24,
@@ -77,26 +103,31 @@ export async function GET(req: NextRequest) {
     };
 
     // determines of which category to return products
+    // if (!category) {
+    //   products = await prisma.product.findMany(filteringObject());
+    // } else if (category === "veterynarny") {
+    //   products = await prisma.product.findMany(filteringObject("Ветеринарія"));
+    // } else if (category === "animalcare") {
+    //   products = await prisma.product.findMany(
+    //     filteringObject("товари для догляду за домашніми тваринами"),
+    //   );
+    // } else if (category === "outdoors") {
+    //   products = await prisma.product.findMany(
+    //     filteringObject("Товари для прогулянок і подорожей з тваринами"),
+    //   );
+    // } else if (category === "food") {
+    //   products = await prisma.product.findMany(
+    //     filteringObject("Годування домашніх тварин і птахів"),
+    //   );
+    // } else if (category === "comfort") {
+    //   products = await prisma.product.findMany(
+    //     filteringObject("Товари для комфорту домашніх тварин"),
+    //   );
+    // }
     if (!category) {
       products = await prisma.product.findMany(filteringObject());
-    } else if (category === "veterynarny") {
-      products = await prisma.product.findMany(filteringObject("Ветеринарія"));
-    } else if (category === "animalcare") {
-      products = await prisma.product.findMany(
-        filteringObject("товари для догляду за домашніми тваринами"),
-      );
-    } else if (category === "outdoors") {
-      products = await prisma.product.findMany(
-        filteringObject("Товари для прогулянок і подорожей з тваринами"),
-      );
-    } else if (category === "food") {
-      products = await prisma.product.findMany(
-        filteringObject("Годування домашніх тварин і птахів"),
-      );
-    } else if (category === "comfort") {
-      products = await prisma.product.findMany(
-        filteringObject("Товари для комфорту домашніх тварин"),
-      );
+    } else {
+      products = await prisma.product.findMany(filteringObject(category));
     }
 
     return new NextResponse(JSON.stringify(products), {
