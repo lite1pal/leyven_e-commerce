@@ -24,12 +24,12 @@ export default async function Navbar() {
       <div
         className={`flex items-center justify-between py-3 font-normal max-xl:py-3 max-sm:px-2`}
       >
-        <Link href="/" className="hidden md:flex">
+        <Link href="/" className="hidden xl:flex">
           <div className="flex w-16 items-center gap-2.5 sm:w-36">
             <img
-              src="/small_logo.jpg"
+              src="/logo-sunflower.png"
               alt="Leyven logo"
-              className="hidden w-20 sm:flex"
+              className="hidden w-10 sm:flex"
               // sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="hidden text-lg sm:flex">Головна</div>
@@ -43,22 +43,22 @@ export default async function Navbar() {
               Каталог
             </li>
           </Link>
-          <Link href="/veterynarny">
+          <Link href="/category/veterinarni-zasobi-preparati">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Ветеринарія
             </li>
           </Link>
-          <Link href="/food">
+          <Link href="/category/goduvannya-domashnih-tvarin">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Годування
             </li>
           </Link>
-          <Link href="/outdoors">
+          <Link href="/category/tovari-dlya-progulyanok">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Подорожі
             </li>
           </Link>
-          <Link href="/comfort">
+          <Link href="/category/tovari-dlya-komfortu">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Іграшки
             </li>
@@ -82,13 +82,13 @@ export default async function Navbar() {
       {/* <div className="mx-auto mb-3 sm:hidden">
         <SearchInput />
       </div> */}
-      <ul className="flex justify-between gap-5 border-t-2 p-4 text-lg max-sm:hidden xl:hidden">
+      {/* <ul className="flex justify-between gap-5 border-t-2 p-4 text-lg max-sm:hidden xl:hidden">
         <NavItem link="/catalog" title="Каталог" />
         <NavItem link="/veterynarny" title="Ветеринарія" />
         <NavItem link="/food" title="Годування" />
         <NavItem link="/outdoors" title="Подорожі" />
         <NavItem link="/comfort" title="Іграшки" />
-      </ul>
+      </ul> */}
     </nav>
   );
 }

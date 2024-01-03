@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 import GridComponent from "./grid";
 import SupportDrawer from "./supportDrawer";
@@ -14,8 +16,23 @@ import FiltersMobile from "@/components/filtersMobile";
 import FooterComponent from "@/components/footer";
 import RelatedProducts from "@/components/relatedProducts";
 import MySpinner from "@/components/base/Spinner";
+import Button from "./base/Button";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import CompanyLocation from "./companyLocation";
 
-export default async function CatalogView({ data }: any) {
+export default function CatalogView({ data }: any) {
+  const router = useRouter();
+  if (data.length === 0)
+    return (
+      <div className="flex flex-col items-center gap-5">
+        <div className="mx-auto w-fit text-xl font-medium">Немає товарів</div>
+        <Button
+          onClick={() => router.back()}
+          title="Повернутися до попередньої категорії"
+        />
+      </div>
+    );
   return (
     <Suspense fallback={<MySpinner />}>
       <SupportDrawer />
@@ -27,9 +44,12 @@ export default async function CatalogView({ data }: any) {
         <GridComponent data={data} />
       </div>
       <PaginationComponent data={data} />
-      <Suspense>
+      <Suspense fallback={<MySpinner />}>
         <RelatedProducts header="Вам може сподобатися" />
-        <FooterComponent />
+        <Suspense>
+          <CompanyLocation />
+          <FooterComponent />
+        </Suspense>
       </Suspense>
     </Suspense>
   );

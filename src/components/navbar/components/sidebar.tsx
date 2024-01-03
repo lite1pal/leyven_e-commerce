@@ -12,74 +12,73 @@ import FoodBankIcon from "@mui/icons-material/FoodBank";
 import HealingIcon from "@mui/icons-material/Healing";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { categories } from "@/data/categories";
 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
 
+  const params: any = useParams();
+  const mainCategories = Object.keys(categories);
+  const subCategories = params.category
+    ? Object.keys(categories[params.category].subCategories)
+    : [];
+
   const toggleDrawer =
     (inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      //   if (
-      //     event.type === "keydown" &&
-      //     ((event as React.KeyboardEvent).key === "Tab" ||
-      //       (event as React.KeyboardEvent).key === "Shift")
-      //   ) {
-      //     return;
-      //   }
-
       setOpen(inOpen);
     };
 
   return (
-    <div className="flex md:hidden">
+    <div className="flex xl:hidden">
       <div
         className="flex cursor-pointer items-center gap-2 rounded-lg text-lg font-medium transition duration-300 hover:scale-125"
         onClick={toggleDrawer(true)}
       >
         <MenuIcon />
       </div>
-      <Drawer size="sm" open={open} onClose={toggleDrawer(false)}>
+      <Drawer size="lg" open={open} onClose={toggleDrawer(false)}>
         <Box role="presentation" onClick={toggleDrawer(false)}>
           <Link href="/" className="flex w-full items-center gap-3 p-5">
-            <img src="/small_logo.jpg" alt="Leyven logo" className="w-20" />
+            <img src="/logo-sunflower.png" alt="Leyven logo" className="w-10" />
             <div className="text-lg font-medium">Головна</div>
           </Link>
 
           <Divider />
+          <div className="p-2 text-lg font-medium underline">Категорії</div>
           <List>
-            <Link href="/food">
-              <ListItem>
-                <ListItemButton sx={{ padding: "1rem" }}>
-                  <FoodBankIcon color="primary" />
-                  <div>Годування тварин</div>
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link href="/veterynarny">
-              <ListItem>
-                <ListItemButton sx={{ padding: "1rem" }}>
-                  <HealingIcon color="primary" />
-                  <div>Ветеринарні засоби</div>
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link href="/animalcare">
-              <ListItem>
-                <ListItemButton sx={{ padding: "1rem" }}>
-                  <CelebrationIcon color="primary" />
-                  <div>Товари для догляду</div>
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link href="/outdoors">
-              <ListItem>
-                <ListItemButton sx={{ padding: "1rem" }}>
-                  <CelebrationIcon color="primary" />
-                  <div>Товари для подорожей</div>
-                </ListItemButton>
-              </ListItem>
-            </Link>
+            {params.category
+              ? subCategories.map((category, i) => {
+                  return (
+                    <Link
+                      key={i}
+                      className="border-b-2 py-1"
+                      href={
+                        categories[params.category].subCategories[category]
+                          .route
+                      }
+                    >
+                      <ListItem>
+                        {
+                          categories[params.category].subCategories[category]
+                            .name
+                        }
+                      </ListItem>
+                    </Link>
+                  );
+                })
+              : mainCategories.map((category, i) => {
+                  return (
+                    <Link
+                      key={i}
+                      className="border-b-2 py-1"
+                      href={categories[category].route}
+                    >
+                      <ListItem>{categories[category].name}</ListItem>
+                    </Link>
+                  );
+                })}
           </List>
-          <Divider />
           <List>
             <ListItem>
               <Link href="contacts">Контакти</Link>

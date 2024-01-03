@@ -9,6 +9,7 @@ import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { valueOfPercent } from "@/libs/utils";
 
 export default function Card({
   data,
@@ -16,7 +17,6 @@ export default function Card({
   setOpenModal,
   type = "catalog",
 }: any) {
-  const router = useRouter();
   return (
     <div
       className={`${
@@ -29,6 +29,11 @@ export default function Card({
         </div>
       </div> */}
 
+      {data.discount > 0 && (
+        <div className="absolute left-1 top-1 z-20 flex items-center justify-center rounded-full bg-red-500 px-2 text-slate-50">
+          Акція
+        </div>
+      )}
       <Link href={`/product/${data.id}`}>
         <div
           className={`${data.availability === "out of stock" && "opacity-30"} ${
@@ -62,23 +67,37 @@ export default function Card({
               : "text-slate-700"
           } flex items-center gap-1`}
         >
-          {/* {data.availability === "in stock" && <UnarchiveIcon />} */}
           {data.availability === "in stock" ? "В наявності" : "Немає на складі"}
         </div>
 
-        {/* <Rating>
-          <Rating.Star />
-          <p className="text-sm mb-1 font-bold text-gray-900 dark:text-white">
-            {data.rating}
-          </p>
-          <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-          <a className="text-sm cursor-pointer font-medium text-gray-900 underline hover:no-underline dark:text-white">
-            8 reviews
-          </a>
-        </Rating> */}
+        {/* {data.reviews && data.reviews.length > 0 && (
+          <Rating>
+            <Rating.Star />
+            <p className="mb-1 text-sm font-bold text-gray-900 dark:text-white">
+              {data.rating}
+            </p>
+            <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
+            <a className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
+              {data?.reviews.length} reviews
+            </a>
+          </Rating>
+        )} */}
         <div className="flex items-center justify-between border-t-2 pt-4 max-sm:pt-2.5">
-          <span className="font-sans text-2xl font-medium text-gray-900 dark:text-white max-sm:text-base lg:text-base">
-            {data.price}.00 UAH
+          <span
+            className={`${
+              type === "catalog" ? "flex-col" : "gap-5"
+            } flex font-sans text-2xl font-medium text-gray-900 dark:text-white max-sm:text-base lg:text-base`}
+          >
+            {data.discount ? (
+              <del className="">{data.price}.00 UAH </del>
+            ) : (
+              data.price + ".00 UAH"
+            )}
+            {data.discount && (
+              <span className="font-medium text-red-600">
+                {data.price - valueOfPercent(data.discount, data.price)} UAH
+              </span>
+            )}
           </span>
           <CartModal
             data={data}
@@ -90,13 +109,13 @@ export default function Card({
             <SignInComponent icon="cart" />
           )} */}
         </div>
-        <AnimatePresence>
+        {/* <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           ></motion.div>
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </div>
   );

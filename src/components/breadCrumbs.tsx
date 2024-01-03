@@ -1,64 +1,100 @@
 "use client";
 
+import { categories } from "@/data/categories";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
 import Typography from "@mui/joy/Typography";
 import { Breadcrumb } from "flowbite-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { HiHome } from "react-icons/hi";
 
 export default function BasicBreadcrumbs({ data }: any) {
-  const breadcrumbs = useMemo(() => {
-    return data?.breadcrumbs.split(" > ");
-  }, [data]);
+  const pathName = usePathname();
+  const params: any = useParams();
 
   function capitalizeFirstLetter(string: string) {
+    if (!string) {
+      return "";
+    }
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  const pathName = usePathname();
-
-  const getBreadcrumbLink = (breadcrumb: string) => {
-    if (
-      breadcrumb == "ветеринарні засоби та препарати" ||
-      breadcrumb == "Ветеринарія"
-    ) {
-      return "/veterynarny";
-    } else if (breadcrumb == "годування домашніх тварин і птахів") {
-      return "/food";
-    } else if (breadcrumb == "Товари для прогулянок і подорожей з тваринами") {
-      return "/outdoors";
-    } else if (
-      breadcrumb == "домашні тварини та зоотовари" ||
-      breadcrumb == "товари для домашніх тварин і птахів"
-    ) {
-      return "/";
-    } else {
-      return pathName;
-    }
-  };
+  const breadcrumbs = useMemo(
+    params.id
+      ? () => {
+          return data?.breadcrumbs.split(" > ");
+        }
+      : () => {},
+    [data],
+  );
 
   return (
     <Breadcrumb
-      className="max-sm:px-5 px-7 py-6 max-w-screen overflow-x-scroll"
+      className="max-w-screen overflow-x-scroll px-7 py-6 max-sm:px-5"
       aria-label="Default breadcrumb example"
     >
-      <HiHome />
-      {breadcrumbs?.map((breadcrumb: any, i: number) => {
-        return (
-          <Breadcrumb.Item className="whitespace-nowrap" key={i} href="#">
-            <Link href={getBreadcrumbLink(breadcrumb) || "/"}>
-              {capitalizeFirstLetter(breadcrumb)}
-            </Link>
-          </Breadcrumb.Item>
-        );
-      })}
-      {/* <Breadcrumb.Item href="#" icon={HiHome}>
-        {data.breadcrumbs}
+      <Breadcrumb.Item>
+        <Link href="/">
+          <HiHome />
+        </Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Item href="#">Корм</Breadcrumb.Item>
-      <Breadcrumb.Item>Собака</Breadcrumb.Item> */}
+      <Breadcrumb.Item className="whitespace-nowrap" href="#">
+        <Link
+          className="transition duration-100 hover:text-blue-600"
+          href={"/catalog"}
+        >
+          Товари
+        </Link>
+      </Breadcrumb.Item>
+
+      {params.category && (
+        <Breadcrumb.Item className="whitespace-nowrap" href="#">
+          <Link
+            className="transition duration-100 hover:text-blue-600"
+            href={categories[params.category as string].route}
+          >
+            {categories[params.category as string].name}
+          </Link>
+        </Breadcrumb.Item>
+      )}
+
+      {params.subCategory && (
+        <Breadcrumb.Item className="whitespace-nowrap" href="#">
+          <Link
+            className="transition duration-100 hover:text-blue-600"
+            href={
+              categories[params.category].subCategories[params.subCategory]
+                .route
+            }
+          >
+            {categories[params.category].subCategories[params.subCategory].name}
+          </Link>
+        </Breadcrumb.Item>
+      )}
+
+      {params.id && (
+        <Breadcrumb.Item className="whitespace-nowrap" href="#">
+          <Link
+            href="/"
+            className="transition duration-100 hover:text-blue-600"
+          >
+            {capitalizeFirstLetter(breadcrumbs[2])}
+            {/* {categories[params.category].subCategories[params.subCategory].name} */}
+          </Link>
+        </Breadcrumb.Item>
+      )}
+      {params.id && (
+        <Breadcrumb.Item className="whitespace-nowrap" href="#">
+          <Link
+            href="/"
+            className="transition duration-100 hover:text-blue-600"
+          >
+            {capitalizeFirstLetter(breadcrumbs[3])}
+            {/* {categories[params.category].subCategories[params.subCategory].name} */}
+          </Link>
+        </Breadcrumb.Item>
+      )}
     </Breadcrumb>
   );
 }
