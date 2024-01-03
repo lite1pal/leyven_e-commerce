@@ -16,3 +16,7 @@ export const convertXMLtoJSON = async (xmlRes: Response) => {
 export function wait(milliseconds: number) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
+
+export function valueOfPercent(percent: number, totalValue: number) {
+  return (percent / 100) * totalValue;
+}
