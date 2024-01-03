@@ -17,8 +17,8 @@ export default async function FooterComponent() {
       container
     >
       <div className="w-full">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div className="max-md:mr-6 max-md:p-4">
+        <div className="grid w-full justify-between sm:flex sm:justify-evenly md:flex md:grid-cols-1">
+          <div className="flex flex-col gap-3 max-md:mr-6 max-md:p-4">
             <Link href="/">
               <div className="py-4 text-2xl font-medium">LeyVen</div>
               {/* <Footer.Brand
@@ -28,6 +28,12 @@ export default async function FooterComponent() {
                 name="LeyVen"
               /> */}
             </Link>
+            <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+              <Footer.Icon href="#" icon={BsFacebook} />
+              <Footer.Icon href="#" icon={BsInstagram} />
+              <Footer.Icon href="#" icon={BsTelegram} />
+              <Footer.Icon href="#" icon={BsWhatsapp} />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
@@ -55,16 +61,10 @@ export default async function FooterComponent() {
             </div>
           </div>
         </div>
-        <Footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
+        <div className="w-full pt-16 sm:flex sm:items-center sm:justify-center">
           <Footer.Copyright by="LeyVen™" year={2023} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTelegram} />
-            <Footer.Icon href="#" icon={BsWhatsapp} />
-          </div>
         </div>
+        {/* <Footer.Divider /> */}
       </div>
     </Footer>
   );
