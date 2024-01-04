@@ -7,16 +7,16 @@ export default function Testimonials() {
       <div className="text-2xl font-medium">Відгуки клієнтів</div>
       <div className="mask-inline-faded group flex w-full gap-3 overflow-x-hidden">
         <ul className="group-hover:play-state-paused motion-reduce:play-state-paused animate-marquee flex gap-3">
-          {testimonials.map((testimonial) => (
-            <CardTestimonial testimonial={testimonial} />
+          {testimonials.map((testimonial, i) => (
+            <CardTestimonial key={i} testimonial={testimonial} />
           ))}
         </ul>
         <ul
           aria-hidden="true"
           className="group-hover:play-state-paused motion-reduce:play-state-paused animate-marquee flex gap-3"
         >
-          {testimonials.map((testimonial) => (
-            <CardTestimonial testimonial={testimonial} />
+          {testimonials.map((testimonial, i) => (
+            <CardTestimonial key={i} testimonial={testimonial} />
           ))}
         </ul>
       </div>
