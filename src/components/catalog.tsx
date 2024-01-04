@@ -38,7 +38,7 @@ export default function CatalogView({ data }: any) {
       </div>
     );
   return (
-    <Suspense fallback={<MySpinner />}>
+    <Suspense>
       <SupportDrawer />
       <FiltersMobile />
       <Meta data={data} />

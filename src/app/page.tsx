@@ -11,7 +11,7 @@ import RelatedProducts from "@/components/relatedProducts";
 import { Toaster } from "react-hot-toast";
 import HomeView from "@/domains/home/home";
 import MySpinner from "@/components/base/Spinner";
-import BasicSkeleton from "@/components/base/Skeleton";
+import SkeletonHorizontalProducts from "@/components/base/Skeleton";
 
 export default async function HomeScreen({ searchParams }: any) {
   // const countriesOfManufacture = products.map(
@@ -22,14 +22,7 @@ export default async function HomeScreen({ searchParams }: any) {
   // );
 
   return (
-    <Suspense
-      fallback={
-        <div className="flex flex-col gap-10">
-          <BasicSkeleton />
-          <BasicSkeleton />
-        </div>
-      }
-    >
+    <Suspense fallback={<SkeletonHorizontalProducts />}>
       <HomeView {...{ searchParams }} />
     </Suspense>
   );
