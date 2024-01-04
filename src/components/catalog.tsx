@@ -20,6 +20,7 @@ import Button from "./base/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CompanyLocation from "./companyLocation";
+import Testimonials from "./sections/testimonials";
 
 export default function CatalogView({ data }: any) {
   const router = useRouter();
@@ -44,12 +45,13 @@ export default function CatalogView({ data }: any) {
         <GridComponent data={data} />
       </div>
       <PaginationComponent data={data} />
-      <Suspense fallback={<MySpinner />}>
+      <Suspense>
         <RelatedProducts header="Вам може сподобатися" />
-        <Suspense>
-          <CompanyLocation />
-          <FooterComponent />
-        </Suspense>
+      </Suspense>
+      <Suspense>
+        <Testimonials />
+        <CompanyLocation />
+        <FooterComponent />
       </Suspense>
     </Suspense>
   );

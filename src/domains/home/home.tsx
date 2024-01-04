@@ -4,6 +4,7 @@ import Categories from "@/components/categories";
 import CategoryHeader from "@/components/categoryHeader";
 import DiscountProducts from "@/components/discountProducts";
 import RelatedProducts from "@/components/relatedProducts";
+import Testimonials from "@/components/sections/testimonials";
 import { API_URL } from "@/config/api";
 import { Suspense } from "react";
 
