@@ -17,6 +17,22 @@ const config: Config = {
       scale: {
         "105": "1.05",
       },
+      keyframes: {
+        marquee: {
+          to: {
+            transform: "translateX(-100%)",
+          },
+        },
+      },
+      animation: {
+        "glitch-1": "glitch 4s linear infinite alternate-reverse",
+        "glitch-2": "glitch 2s linear infinite alternate-reverse",
+        marquee: "marquee 50s linear infinite",
+        "dialog-overlay-show": "dialog-overlay-show 0.5s",
+        "dialog-overlay-hide": "dialog-overlay-hide 0.5s",
+        "shiny-badge-slide": "shiny-badge-slide 6s infinite",
+        jiggle: "jiggle 0.6s cubic-bezier(0.85, 0, 0.15, 1)",
+      },
     },
   },
   plugins: [require("flowbite/plugin"), require("daisyui")],
