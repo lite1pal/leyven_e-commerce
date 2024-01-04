@@ -21,6 +21,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CompanyLocation from "./companyLocation";
 import Testimonials from "./sections/testimonials";
+import { Skeleton } from "@mui/joy";
+import BasicSkeleton from "./base/Skeleton";
+import SkeletonHorizontalProducts from "./base/Skeleton";
 
 export default function CatalogView({ data }: any) {
   const router = useRouter();
@@ -45,7 +48,7 @@ export default function CatalogView({ data }: any) {
         <GridComponent data={data} />
       </div>
       <PaginationComponent data={data} />
-      <Suspense>
+      <Suspense fallback={<SkeletonHorizontalProducts />}>
         <RelatedProducts header="Вам може сподобатися" />
       </Suspense>
       <Suspense>
