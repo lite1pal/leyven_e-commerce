@@ -20,7 +20,7 @@ export default async function CatalogView({ searchParams }: any) {
       <Categories />
       <BasicBreadcrumbs {...{ data }} />
       <CategoryHeader title="Каталог" />
-      <Catalog {...{ data }} />;
+      <Catalog {...{ data }} />
     </>
   );
 }

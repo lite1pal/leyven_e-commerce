@@ -5,7 +5,7 @@ import FooterComponent from "@/components/footer";
 import { Inter, Montserrat, Raleway, Wallpoet } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ServerCartProvider from "@/context/cart";
-import { Suspense } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "LeyVen",
@@ -22,6 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <SpeedInsights />
         <ServerCartProvider>
           <Toaster />
           <main className={`max-w-screen flex min-h-screen flex-grow flex-col`}>
