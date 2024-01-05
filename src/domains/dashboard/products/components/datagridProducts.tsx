@@ -174,7 +174,7 @@ export default function FullFeaturedCrudGrid({ data }: any) {
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
-          <Link href={`/dashboard/products/edit/${id}`}>
+          <Link key={1} href={`/dashboard/products/edit/${id}`}>
             <GridActionsCellItem
               icon={<EditIcon />}
               label="Edit"
@@ -183,6 +183,7 @@ export default function FullFeaturedCrudGrid({ data }: any) {
             />
           </Link>,
           <GridActionsCellItem
+            key={2}
             icon={<DeleteIcon />}
             label="Delete"
             color="inherit"
