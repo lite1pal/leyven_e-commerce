@@ -1,30 +1,55 @@
-import { Card } from "flowbite-react";
-import Link from "next/link";
 import { ReactNode } from "react";
+import type { Metadata } from "next";
+import "../globals.css";
+import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Link from "next/link";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import NavItem from "@/domains/dashboard/layout/components/navItem";
 
 const navigation = [
-  { name: "Замовлення", href: "/orders" },
-  { name: "Управління товарами", href: "/managing" },
+  { name: "Замовлення", href: "/dashboard/orders" },
+  {
+    name: "Управління товарами",
+    href: "/dashboard/products",
+  },
+  { name: "Аналітика", href: "/dashboard/orders" },
 ];
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return (
-    <div className="m-4 flex flex-col gap-3 lg:flex-row">
-      <Card className="flex h-fit w-3/12 flex-col gap-3">
-        <ul>
-          {navigation.map((nav, i) => {
-            return (
-              <Link key={i} href={nav.href}>
-                <li className="cursor-pointer border-2 border-blue-600 border-opacity-0 p-2.5 transition hover:border-opacity-100">
-                  {nav.name}
-                </li>
-              </Link>
-            );
-          })}
-        </ul>
-      </Card>
+export const metadata: Metadata = {
+  title: "Панель адміністрування Leyven",
+  description: "Панель для управління вебсайтом",
+};
 
-      <div className="w-9/12">{children}</div>
-    </div>
+const inter = Inter({ subsets: ["latin"] });
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <SpeedInsights />
+        <Toaster />
+
+        <div className="flex">
+          <div className="sticky top-0 flex h-screen w-2/12 flex-col gap-3 bg-slate-700 p-4 text-sm text-slate-300">
+            <Link
+              href="/catalog"
+              className="flex items-center gap-2 hover:text-white"
+            >
+              <ExitToAppIcon />
+              До сайту
+            </Link>
+            <ul className="flex flex-col gap-1">
+              {navigation.map((nav, i) => {
+                return <NavItem key={i} {...{ nav }} />;
+              })}
+            </ul>
+          </div>
+
+          <div className="w-10/12">{children}</div>
+        </div>
+      </body>
+    </html>
   );
 }

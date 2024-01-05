@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
       data: { text, rating: rating.toString(), userId: user?.id!, productId },
     });
 
-    console.log(review);
-
     return new NextResponse(JSON.stringify(review), { status: 200 });
   } catch (err) {
     return new NextResponse(JSON.stringify(err), { status: 500 });

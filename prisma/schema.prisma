@@ -120,6 +120,7 @@ model Order {
   lastName String
   city String
   warehouse String
+  totalPrice Int?
   orderProducts OrderProduct[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt

@@ -35,7 +35,7 @@ export default function UserDropdown({ session }: { session: Session | null }) {
             />
           </MenuButton>
           <Menu>
-            <Link href="/orders">
+            <Link target="_blank" href="/dashboard/orders">
               <MenuItem>Панель адміна</MenuItem>
             </Link>
             <MenuItem onClick={() => signOut()}>Вийти</MenuItem>

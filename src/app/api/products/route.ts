@@ -21,12 +21,19 @@ export async function GET(req: NextRequest) {
     const page = parseInt(url.searchParams.get("page") as string);
     const search = url.searchParams.get("search");
     const instock = url.searchParams.get("instock");
+    const getAll = url.searchParams.get("getAll");
 
     // console.log("page\n\n\n\n", search);
 
     // defines a products variable
     let products: any = [];
 
+    if (getAll) {
+      products = await prisma.product.findMany();
+      return new NextResponse(JSON.stringify(products), {
+        status: 200,
+      });
+    }
     // returns a filtering options object for prisma query based on search params
     const filteringObject: any = (category: string | null) => {
       let orderBy = {};
