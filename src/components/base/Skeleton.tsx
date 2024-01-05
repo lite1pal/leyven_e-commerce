@@ -6,9 +6,18 @@ export default function SkeletonHorizontalProducts() {
       </div>
       <div className="flex w-full gap-3">
         <div className="skeleton h-96 w-96  bg-slate-200" bg-slate-200></div>
-        <div className="skeleton h-96 w-96  bg-slate-200" bg-slate-200></div>
-        <div className="skeleton h-96 w-96  bg-slate-200" bg-slate-200></div>
-        <div className="skeleton h-96 w-96  bg-slate-200" bg-slate-200></div>
+        <div
+          className="skeleton hidden h-96 w-96 bg-slate-200  md:flex"
+          bg-slate-200
+        ></div>
+        <div
+          className="skeleton hidden h-96 w-96 bg-slate-200  lg:flex"
+          bg-slate-200
+        ></div>
+        <div
+          className="skeleton hidden h-96 w-96 bg-slate-200  xl:flex"
+          bg-slate-200
+        ></div>
       </div>
     </div>
   );
