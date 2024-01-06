@@ -93,7 +93,7 @@ export default function Card({
             ) : (
               data.price + ".00 UAH"
             )}
-            {data.discount && (
+            {data.discount !== 0 && (
               <span className="font-medium text-red-600">
                 {data.price - valueOfPercent(data.discount, data.price)} UAH
               </span>
