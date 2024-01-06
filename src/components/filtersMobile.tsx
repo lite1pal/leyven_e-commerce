@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import PriceFilter from "./filterPrice";
 import FilterRadioButton from "./filterRadioButton";
 import SwitchAvailability from "./switchAvailability";
 import { Accordion, AccordionContent, Modal } from "flowbite-react";
 import Button from "./base/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import PriceFilter from "./filterPrice";
 
 export default function FiltersMobile() {
   const [openModal, setOpenModal] = useState(false);
@@ -31,22 +31,24 @@ export default function FiltersMobile() {
       </div>
 
       <dialog id="filtersModal" className="modal px-3">
-        <div className="modal-box bg-white text-black flex flex-col gap-3 max-w-sm w-full">
-          <div className="flex justify-between sticky top-0 z-10 border-b-2 bg-white items-center pb-4">
-            <h3 className="font-bold text-lg">Фільтри</h3>
+        <div className="modal-box flex w-full max-w-sm flex-col gap-3 bg-white text-black">
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b-2 bg-white pb-4">
+            <h3 className="text-lg font-bold">Фільтри</h3>
             <form method="dialog">
-              <button className="transition duration-300 hover:text-blue-600 cursor-pointer border-2 border-blue-600 border-opacity-0 hover:border-opacity-100 p-1 rounded-lg h-fit">
+              <button className="h-fit cursor-pointer rounded-lg border-2 border-blue-600 border-opacity-0 p-1 transition duration-300 hover:border-opacity-100 hover:text-blue-600">
                 <CloseIcon />
               </button>
             </form>
           </div>
 
           <FilterRadioButton
+            type="instock"
             header="В наявності"
             labels={["Так", "Ні"]}
             link="?instock="
           />
           <FilterRadioButton
+            type="country"
             header="Країна виробник"
             labels={[
               "Німеччина",
@@ -59,6 +61,7 @@ export default function FiltersMobile() {
             ]}
           />
           <FilterRadioButton
+            type="brand"
             header="Виробник"
             labels={[
               "Happy Cat",

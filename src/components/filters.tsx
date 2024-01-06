@@ -1,25 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import PriceFilter from "./filterPrice";
 import FilterRadioButton from "./filterRadioButton";
-import SwitchAvailability from "./switchAvailability";
-import { Accordion, AccordionContent, Modal } from "flowbite-react";
 
 export default function Filters() {
   return (
     <div
       style={{ marginLeft: "1rem" }}
-      className="bg-white flex flex-col gap-6 max-xl:hidden h-fit w-48 p-5 shadow rounded-lg max-w-sm border border-gray-200"
+      className="flex h-fit w-48 max-w-sm flex-col gap-6 rounded-lg border border-gray-200 bg-white p-5 shadow max-xl:hidden"
     >
       <FilterRadioButton
+        type="instock"
         header="В наявності"
-        labels={["Так", "Ні"]}
-        link="?instock="
+        labels={["Всі", "Так", "Ні"]}
       />
       <FilterRadioButton
+        type="country"
         header="Країна виробник"
         labels={[
+          "Всі",
           "Німеччина",
           "Італія",
           "Словенія",
@@ -30,8 +29,10 @@ export default function Filters() {
         ]}
       />
       <FilterRadioButton
+        type="brand"
         header="Виробник"
         labels={[
+          "Всі",
           "Happy Cat",
           "Хома",
           "Tropiclean",

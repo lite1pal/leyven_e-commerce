@@ -1,25 +1,43 @@
 "use client";
 
+import {
+  changeArrayValue,
+  getArrayValueByKey,
+  getDecodedFilters,
+  getFiltersPathName,
+} from "@/libs/utils";
 import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/joy";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import * as React from "react";
 
 interface IProps {
+  type: "instock" | "country" | "brand";
   header: string;
   labels: String[];
   link?: string;
 }
 
-export default function FilterRadioButton({ header, labels, link }: IProps) {
-  const [value, setValue] = React.useState("");
+export default function FilterRadioButton({
+  type,
+  header,
+  labels,
+  link,
+}: IProps) {
+  const params = useParams();
+  // current filters
+  const filters = getDecodedFilters(params.filters as string);
+  const [value, setValue] = React.useState(
+    getArrayValueByKey(filters, type) || "Всі",
+  );
   const router = useRouter();
   const pathName = usePathname();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    if (link) {
-      router.push(`${pathName}${link}${event.target.value.toLowerCase()}`);
-    }
+
+    const newFilters = changeArrayValue(filters, type, event.target.value);
+
+    router.push(getFiltersPathName(newFilters, pathName));
   };
 
   return (

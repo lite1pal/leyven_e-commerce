@@ -1,18 +1,27 @@
 "use client";
 
+import {
+  changeArrayValue,
+  decodeURIParams,
+  getArrayValueByKey,
+  getDecodedFilters,
+  getFiltersPathName,
+} from "@/libs/utils";
 import Pagination from "@mui/material/Pagination";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 export default function PaginationComponent({ data }: any) {
-  const searchParams = useSearchParams();
-  const sorting = searchParams.get("sorting") as string;
-  const page = searchParams.get("page") as string;
-  const inStock = searchParams.get("instock") as string;
+  const params = useParams();
 
-  const searchString = `?sorting=${sorting}&`;
+  // current filters
+  const filters = getDecodedFilters(params.filters as string);
+
+  // current page
+  const page = parseInt(getArrayValueByKey(filters, "page"));
 
   const router = useRouter();
   const pathName = usePathname();
+
   return (
     <Pagination
       sx={{
@@ -20,18 +29,21 @@ export default function PaginationComponent({ data }: any) {
         marginBlock: "1.5rem",
         width: "fit-content",
       }}
-      page={parseInt(page) || 1}
+      page={page || 1}
       onChange={(e, value) => {
+        // scroll smoothly to the top
         window.scrollTo({ top: 0, behavior: "smooth" });
-        router.push(
-          `${pathName}${searchString}page=${value}&instock=${inStock}`
-        );
+
+        // updates filters value
+        const newFilters = changeArrayValue(filters, "page", value.toString());
+
+        router.push(getFiltersPathName(newFilters, pathName));
       }}
       siblingCount={1}
       boundaryCount={1}
       hidePrevButton
       hideNextButton
-      count={data?.length > 23 ? parseInt(page) + 1 || 2 : parseInt(page)}
+      count={data?.length > 23 ? page + 1 || 2 : page}
     />
   );
 }

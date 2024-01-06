@@ -42,7 +42,7 @@ export default function BasicBreadcrumbs({ data }: any) {
       <Breadcrumb.Item className="whitespace-nowrap" href="#">
         <Link
           className="transition duration-100 hover:text-blue-600"
-          href={"/catalog"}
+          href={"/allProducts"}
         >
           Товари
         </Link>

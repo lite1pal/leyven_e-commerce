@@ -2,31 +2,80 @@
 
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import { FormControl, FormLabel } from "@mui/joy";
+import { FormControl, FormLabel, Slider } from "@mui/joy";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import {
+  changeArrayValue,
+  getArrayValueByKey,
+  getDecodedFilters,
+  getFiltersPathName,
+} from "@/libs/utils";
 
 function valuetext(value: number) {
   return `${value}°C`;
 }
 
 export default function PriceFilter() {
-  const [value, setValue] = React.useState<number[]>([0, 10000]);
+  const router = useRouter();
+  const pathName = usePathname();
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const params = useParams();
+
+  // current filters
+  const filters = getDecodedFilters(params.filters as string);
+  const minValue = parseInt(getArrayValueByKey(filters, "price_from"));
+  const maxValue = parseInt(getArrayValueByKey(filters, "price_to"));
+
+  const [value, setValue] = React.useState<number[]>([
+    minValue || 0,
+    maxValue || 5000,
+  ]);
+
+  const handleChange = (
+    event: Event | React.SyntheticEvent<Element, Event>,
+    newValue: number | number[],
+  ) => {
     setValue(newValue as number[]);
+    console.log(newValue);
   };
 
   return (
     <FormControl>
       <FormLabel>Ціна</FormLabel>
       <Slider
-        size="small"
-        getAriaLabel={() => "Ціна"}
+        getAriaLabel={() => "Temperature range"}
         value={value}
+        onChangeCommitted={(e, newValue: any) => {
+          const newFilters = changeArrayValue(
+            filters,
+            "price_from",
+            newValue[0],
+          );
+          const newNewFilters = changeArrayValue(
+            newFilters,
+            "price_to",
+            newValue[1],
+          );
+
+          router.push(getFiltersPathName(newNewFilters, pathName));
+        }}
+        max={5000}
         onChange={handleChange}
         valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
+        // getAriaValueText={valueText}
       />
+      <div className="flex gap-3">
+        <input
+          value={value[0]}
+          className="pointer-events-none w-full border-0 border-b-2 p-3 text-xs"
+          type="text"
+        />
+        <input
+          value={value[1]}
+          className="pointer-events-none w-full border-0 border-b-2 p-3 text-xs"
+          type="text"
+        />
+      </div>
     </FormControl>
   );
 }

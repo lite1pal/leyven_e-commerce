@@ -20,10 +20,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 export default function DataGridOrders({ data }: any) {
   const columns: GridColDef[] = [
     {
-      field: "id",
+      field: "createdAt",
       headerName: "Товари",
       filterable: false,
-      sortable: false,
+      // sortable: false,
       width: 270,
       renderCell: (params: any) => {
         const orderProduct = params.row.orderProducts[0];

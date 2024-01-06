@@ -7,6 +7,14 @@ import SubCategoryView from "@/domains/shop/category/subCategory/subCategory";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";
 
+export async function generateMetadata({ params }: any) {
+  return {
+    title:
+      categories[params.category].subCategories[params.subCategory].name +
+      " від інтернет-магазину ЛейВен",
+  };
+}
+
 export default async function SubCategory({ params, searchParams }: any) {
   return (
     <Suspense fallback={<MySpinner />}>

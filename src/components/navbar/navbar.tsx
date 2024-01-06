@@ -38,7 +38,7 @@ export default async function Navbar() {
         <Sidebar />
         <ul className="flex w-1/2 items-center justify-evenly text-lg max-xl:hidden">
           <li className="h-5 w-3 border-r-2 border-black opacity-50"></li>
-          <Link href="/catalog">
+          <Link href="/allProducts">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Каталог
             </li>
@@ -83,7 +83,7 @@ export default async function Navbar() {
         <SearchInput />
       </div> */}
       {/* <ul className="flex justify-between gap-5 border-t-2 p-4 text-lg max-sm:hidden xl:hidden">
-        <NavItem link="/catalog" title="Каталог" />
+        <NavItem link="/allProducts" title="Каталог" />
         <NavItem link="/veterynarny" title="Ветеринарія" />
         <NavItem link="/food" title="Годування" />
         <NavItem link="/outdoors" title="Подорожі" />

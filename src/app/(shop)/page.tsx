@@ -13,17 +13,17 @@ import HomeView from "@/domains/shop/home/home";
 import MySpinner from "@/components/base/Spinner";
 import SkeletonHorizontalProducts from "@/components/base/Skeleton";
 
-export default async function HomeScreen({ searchParams }: any) {
-  // const countriesOfManufacture = products.map(
-  //   (product: any) =>
-  //     product.info.filter(
-  //       (i: any) => i["g:attribute_name"]._text === "Країна виробник",
-  //     )[0],
-  // );
+export async function generateMetadata({ params }: any) {
+  return {
+    title: `Інтернет зоомагазин Лейвен - Купити Товари для Тварин Онлайн: Ціни, Продаж, Відгуки`,
+    description: `Дізнайтеся про широкий вибір якісних товарів для тварин в інтернет-зоомагазині Лейвен. Купуйте онлайн зручно та швидко. Низькі ціни, акції, та висока якість обслуговування. Перегляньте відгуки клієнтів та зробіть свій вибір для здоров'я та комфорту вашого улюбленця.`,
+  };
+}
 
+export default async function HomeScreen() {
   return (
     <Suspense fallback={<SkeletonHorizontalProducts />}>
-      <HomeView {...{ searchParams }} />
+      <HomeView />
     </Suspense>
   );
 }

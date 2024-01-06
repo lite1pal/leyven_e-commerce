@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="flex">
           <div className="sticky top-0 flex h-screen w-2/12 flex-col gap-3 bg-slate-700 p-4 text-sm text-slate-300">
             <Link
-              href="/catalog"
+              href="/allProducts"
               className="flex items-center gap-2 hover:text-white"
             >
               <ExitToAppIcon />

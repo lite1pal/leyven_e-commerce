@@ -78,7 +78,6 @@ export default function OrderView({ session }: { session: Session | null }) {
       if (!res.ok) {
         toast.error(
           "Сталась якась помилка, перезавантажте сторінку та спробуйте ще раз",
-          parsedRes.message,
         );
         return;
       }
@@ -95,28 +94,28 @@ export default function OrderView({ session }: { session: Session | null }) {
         };
       });
 
-      // axios
-      //   .post(`${TELEGRAM_API_URL}${TELEGRAM_API_KEY}/sendMessage`, {
-      //     chat_id: TELEGRAM_CHAT_ID,
-      //     parse_mode: "html",
-      //     text: `Ім'я: ${
-      //       data.firstName + " " + data.lastName
-      //     }\n\nНомер телефону: ${data.phone}\n\nПошта: ${
-      //       data.email
-      //     }\n\nМісто: ${data.city}\n\nВідділення: ${
-      //       data.warehouse
-      //     }\n\nТовари: \n\n${JSON.stringify(formattedOrderProducts).replaceAll(
-      //       "},",
-      //       "\n\n\n",
-      //     )}`,
-      //   })
+      axios
+        .post(`${TELEGRAM_API_URL}${TELEGRAM_API_KEY}/sendMessage`, {
+          chat_id: TELEGRAM_CHAT_ID,
+          parse_mode: "html",
+          text: `Ім'я: ${
+            data.firstName + " " + data.lastName
+          }\n\nНомер телефону: ${data.phone}\n\nПошта: ${
+            data.email
+          }\n\nМісто: ${data.city}\n\nВідділення: ${
+            data.warehouse
+          }\n\nТовари: \n\n${JSON.stringify(formattedOrderProducts).replaceAll(
+            "},",
+            "\n\n\n",
+          )}`,
+        })
 
-      //   .then((response: any) => {})
-      //   .catch((err: any) =>
-      //     toast.error(
-      //       "Сталась якась помилка, перезавантажте сторінку та спробуйте ще раз",
-      //     ),
-      //   );
+        .then((response: any) => {})
+        .catch((err: any) =>
+          toast.error(
+            "Сталась якась помилка, перезавантажте сторінку та спробуйте ще раз",
+          ),
+        );
 
       router.push(`/order_success/${parsedRes.id}`);
       toast.success("Замовлення успішне!");

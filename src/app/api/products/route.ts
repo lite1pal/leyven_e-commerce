@@ -1,6 +1,6 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
 import { categories } from "@/data/categories";
-import { convertXMLtoJSON } from "@/libs/utils";
+import { convertXMLtoJSON, getArrayValueByKey } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 // type Category =
@@ -9,128 +9,150 @@ import { NextRequest, NextResponse } from "next/server";
 //   | "Товари для прогулянок і подорожей з тваринами"
 //   | "Годування домашніх тварин і птахів";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: any) {
   try {
     // creates an object URL to obtain search params
     const url = new URL(req.url);
 
+    // gets filters string from params
+    // const { filters } = params;
+
     // grabs each search param from search params object
     const category = url.searchParams.get("category");
     const subCategory = url.searchParams.get("subCategory");
-    const sorting = url.searchParams.get("sorting");
-    const page = parseInt(url.searchParams.get("page") as string);
+
+    // const category = params.category;
+    // const subCategory = params.subCategory;
+
+    // const sorting = url.searchParams.get("sorting");
+    // const page = parseInt(url.searchParams.get("page") as string);
     const search = url.searchParams.get("search");
-    const instock = url.searchParams.get("instock");
+    // const instock = url.searchParams.get("instock");
     const getAll = url.searchParams.get("getAll");
 
-    // console.log("page\n\n\n\n", search);
+    let filters: any = url.searchParams.get("filters") as string;
+    filters = filters?.includes(";") ? filters?.split(";") : [filters];
+
+    let page = 1;
+    let sorting = "";
+    let instock = "";
+    let country = "";
+    let brand = "";
+    let price_from = 0;
+    let price_to = 0;
+
+    if (filters[0]) {
+      page = parseInt(getArrayValueByKey(filters, "page")) || 1;
+      sorting = getArrayValueByKey(filters, "sort");
+      instock = getArrayValueByKey(filters, "instock");
+      country = getArrayValueByKey(filters, "country");
+      brand = getArrayValueByKey(filters, "brand");
+      price_from = parseInt(getArrayValueByKey(filters, "price_from"));
+      price_to = parseInt(getArrayValueByKey(filters, "price_to"));
+    }
 
     // defines a products variable
     let products: any = [];
 
     if (getAll) {
       products = await prisma.product.findMany();
+
       return new NextResponse(JSON.stringify(products), {
         status: 200,
       });
     }
+
     // returns a filtering options object for prisma query based on search params
     const filteringObject: any = (category: string | null) => {
       let orderBy = {};
+      let where: any = {};
+      let skip = page ? (page - 1) * 24 : 0;
+      let take = 24;
+
+      // main options object
+      // let options = { orderBy, skip, take };
+
+      // sorting
       if (sorting === "price_desc") {
         orderBy = { price: "desc" };
       } else if (sorting === "price_asc") {
         orderBy = { price: "asc" };
       }
 
-      if (instock === "так") {
-        return {
-          orderBy,
-          where: { availability: "in stock" },
-          skip: page ? (page - 1) * 24 : 0,
-          take: 24,
-        };
-      } else if (instock === "ні") {
-        return {
-          orderBy,
-          where: { availability: "out of stock" },
-          skip: page ? (page - 1) * 24 : 0,
-          take: 24,
-        };
+      // FILTERS
+      // instock filter
+      if (instock === "Так") {
+        where.availability = "in stock";
+      } else if (instock === "Ні") {
+        where.availability = "out of stock";
       }
 
+      // country filter
+      if (country && country !== "Всі") {
+        where.country = country;
+      }
+
+      // brand filter
+      if (brand && brand !== "Всі") {
+        where.brand = brand;
+      }
+
+      // price filter
+      if (price_from && price_to) {
+        where.AND = [
+          { price: { gt: price_from } },
+          { price: { lt: price_to } },
+        ];
+      }
+
+      // console.log("asdfsdaf\n\nasdfsadfsadf\n\n\n\n\nsdfasdf", where);
+
       if (search) {
+        where.title = { contains: search, mode: "insensitive" };
         return {
-          orderBy,
-          where: { title: { contains: search, mode: "insensitive" } },
-          skip: page ? (page - 1) * 24 : 0,
-          take: 24,
+          where,
+          skip,
+          take,
         };
       }
 
       // if search params don't contain category then return products of all categories
       if (!category) {
         return {
+          where,
           orderBy,
-          skip: page ? (page - 1) * 24 : 0,
-          take: 24,
+          skip,
+          take,
         };
       }
-
-      // console.log(
-      //   categories[category].name.toLowerCase(),
-      //   "fasdfsEFAS\n\n\n\n\n",
-      // );
 
       if (subCategory) {
+        where.breadcrumbs = {
+          contains: categories[category].subCategories[subCategory].name,
+          mode: "insensitive",
+        };
+
         return {
-          where: {
-            breadcrumbs: {
-              contains: categories[category].subCategories[subCategory].name,
-              mode: "insensitive",
-            },
-          },
+          where,
           orderBy,
-          skip: page ? (page - 1) * 24 : 0,
-          take: 24,
+          skip,
+          take,
         };
       }
 
+      where.breadcrumbs = {
+        contains: categories[category].name,
+        mode: "insensitive",
+      };
+
       return {
-        where: {
-          breadcrumbs: {
-            contains: categories[category].name,
-            mode: "insensitive",
-          },
-        },
+        where,
         orderBy,
-        skip: page ? (page - 1) * 24 : 0,
-        take: 24,
+        skip,
+        take,
       };
     };
 
-    // determines of which category to return products
-    // if (!category) {
-    //   products = await prisma.product.findMany(filteringObject());
-    // } else if (category === "veterynarny") {
-    //   products = await prisma.product.findMany(filteringObject("Ветеринарія"));
-    // } else if (category === "animalcare") {
-    //   products = await prisma.product.findMany(
-    //     filteringObject("товари для догляду за домашніми тваринами"),
-    //   );
-    // } else if (category === "outdoors") {
-    //   products = await prisma.product.findMany(
-    //     filteringObject("Товари для прогулянок і подорожей з тваринами"),
-    //   );
-    // } else if (category === "food") {
-    //   products = await prisma.product.findMany(
-    //     filteringObject("Годування домашніх тварин і птахів"),
-    //   );
-    // } else if (category === "comfort") {
-    //   products = await prisma.product.findMany(
-    //     filteringObject("Товари для комфорту домашніх тварин"),
-    //   );
-    // }
     if (!category) {
       products = await prisma.product.findMany(filteringObject());
     } else {
@@ -200,6 +222,8 @@ export async function POST(req: NextRequest) {
             availability: badProduct["g:availability"]._text,
             description: badProduct["g:description"]._text,
             breadcrumbs: badProduct["g:product_type"]._text,
+            country:
+              badProduct["g:product_detail"][0]["g:attribute_value"]._text,
             brand: badProduct["g:brand"]._text,
             rating: "4",
             info: badProduct["g:product_detail"],

@@ -7,6 +7,23 @@ import FooterComponent from "@/components/footer";
 import Card from "@/components/card";
 import RelatedProducts from "@/components/relatedProducts";
 
+export async function generateMetadata({ params }: any) {
+  const res = await fetch(`${API_URL}/product?id=${params.id}`, {
+    cache: "no-store",
+  });
+  const data = await res.json();
+
+  return {
+    title:
+      data.title +
+      "купити в інтернет-магазині ЛейВен, - " +
+      data.title +
+      " за низькою ціною в Києві, Харкові, Дніпрі, Одесі, Запоріжжі, Львові, Звягелі, Україні - " +
+      "фото, продаж, характеристики",
+    description: `Замовте найкращий ${data.title} в інтернет-зоомагазині Лейвен. Висока якість і збалансований склад. Низька ціна, швидка доставка та задоволені відгуки клієнтів. Зробіть вашого кота щасливим і здоровим сьогодні!`,
+  };
+}
+
 export default function ProductScreen({ params }: any) {
   const id = params.id;
   return (

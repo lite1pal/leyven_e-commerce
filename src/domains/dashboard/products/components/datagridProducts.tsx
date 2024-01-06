@@ -15,6 +15,7 @@ import {
   GridToolbarContainer,
   GridActionsCellItem,
   GridToolbarQuickFilter,
+  GridToolbarExport,
 } from "@mui/x-data-grid";
 import {
   randomCreatedDate,
@@ -90,10 +91,8 @@ function EditToolbar(props: EditToolbarProps) {
 
   return (
     <GridToolbarContainer className="flex w-full justify-between">
-      {/* <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Додати товар
-      </Button> */}
-      <Button title="Додати товар" onClick={handleClick} />
+      <Button title="Додати товар" />
+      <GridToolbarExport />
       <GridToolbarQuickFilter
         sx={{
           backgroundColor: "transparent",

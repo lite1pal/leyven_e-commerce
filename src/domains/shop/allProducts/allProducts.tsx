@@ -4,14 +4,9 @@ import Catalog from "@/components/catalog";
 import BasicBreadcrumbs from "@/components/breadCrumbs";
 import Categories from "@/components/categories";
 
-export default async function CatalogView({ searchParams }: any) {
-  const sorting = searchParams.sorting;
-  const page = searchParams.page;
-  const inStock = searchParams.instock;
-  const searchString = `?sorting=${sorting}&page=${page}&instock=${inStock}`;
-
+export default async function AllProductsView() {
   // gets products for the catalog
-  const res = await fetch(`${API_URL}/products${searchString}`, {
+  const res = await fetch(`${API_URL}/products`, {
     cache: "no-store",
   });
   const data = await res.json();

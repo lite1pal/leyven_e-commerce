@@ -14,33 +14,48 @@ import {
 } from "@mui/joy";
 import IconButton from "@mui/joy/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useMemo } from "react";
+import {
+  changeArrayValue,
+  decodeURIParams,
+  getArrayValueByKey,
+  getDecodedFilters,
+  getFiltersPathName,
+} from "@/libs/utils";
 
 // const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
 export default function Meta({ data }: any) {
   const router = useRouter();
   const pathName = usePathname();
-  const searchParams = useSearchParams();
+  const params = useParams();
 
-  const search = searchParams.get("search");
-  const inStock = searchParams.get("instock");
+  // current filters
+  const filters = getDecodedFilters(params.filters as string);
 
+  // returns current page
+  const page = parseInt(getArrayValueByKey(filters, "page"));
+
+  // returns current sorting method
   const currentSortingTitle = useMemo(() => {
-    if (searchParams.get("sorting") === "price_desc") {
+    if (getArrayValueByKey(filters, "sort") === "price_desc") {
       return "Від найдорожчих";
-    } else if (searchParams.get("sorting") === "price_asc") {
+    } else if (getArrayValueByKey(filters, "sort") === "price_asc") {
       return "Від найдешевших";
     }
     return "За популярністю";
-  }, [searchParams]);
+  }, [params]);
 
   return (
     <div className={`mb-4 flex w-full items-center justify-between px-8`}>
       <div className={`text-base xl:ml-44`}>
-        Сторінка -{" "}
-        <span className="font-medium">{searchParams.get("page") || 1}</span>
+        Сторінка - <span className="font-medium">{page || 1}</span>
       </div>
       <div className="group">
         <div className="cursor-pointer">
@@ -50,31 +65,40 @@ export default function Meta({ data }: any) {
         <div className="duration-50 absolute z-30 mt-2 flex flex-col gap-2 rounded-lg border-2 bg-white p-2 opacity-0 transition group-hover:opacity-100">
           <div
             className="cursor-pointer transition hover:text-blue-600"
-            onClick={() =>
-              router.push(
-                `${pathName}?sorting=price_asc&search=${search}&instock=${inStock}`,
-              )
-            }
+            onClick={() => {
+              // updates filters value
+              const newFilters = changeArrayValue(filters, "sort", "price_asc");
+
+              router.push(getFiltersPathName(newFilters, pathName));
+            }}
           >
             Від найдешевших
           </div>
           <Divider />
           <div
             className="cursor-pointer transition hover:text-blue-600"
-            onClick={() =>
-              router.push(
-                `${pathName}?sorting=price_desc&search=${search}&instock=${inStock}`,
-              )
-            }
+            onClick={() => {
+              // updates filters value
+              const newFilters = changeArrayValue(
+                filters,
+                "sort",
+                "price_desc",
+              );
+
+              router.push(getFiltersPathName(newFilters, pathName));
+            }}
           >
             Від найдорожчих
           </div>
           <Divider />
           <div
             className="cursor-pointer transition hover:text-blue-600"
-            onClick={() =>
-              router.push(`${pathName}?search=${search}&instock=${inStock}`)
-            }
+            onClick={() => {
+              // updates filters value
+              const newFilters = changeArrayValue(filters, "sort", "popular");
+
+              router.push(getFiltersPathName(newFilters, pathName));
+            }}
           >
             За популярністю
           </div>
