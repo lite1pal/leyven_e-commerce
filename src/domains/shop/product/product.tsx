@@ -3,18 +3,17 @@ import TabsComponent from "./components/tabs";
 import { API_URL } from "@/config/api";
 import parse from "html-react-parser";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import { type Product } from "@/types";
 
-interface IProps {
+type IProps = {
   id: string;
-}
+};
 
 export default async function ProductView({ id }: IProps) {
   const res = await fetch(`${API_URL}/product?id=${id}`, { cache: "no-store" });
-  const data = await res.json();
+  const data: Product = await res.json();
 
   const session = await auth();
-
-  const parsedHTML = parse(data.description.replace(/\./g, "<br />"));
 
   return (
     <div>

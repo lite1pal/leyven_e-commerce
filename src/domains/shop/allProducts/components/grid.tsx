@@ -1,23 +1,17 @@
 "use client";
 
-import { AspectRatio, Box, Card, Grid, Skeleton } from "@mui/joy";
+import { AspectRatio, Card, Grid, Skeleton } from "@mui/joy";
 import CardComponent from "../../../../components/cards/card";
 import { useEffect, useState } from "react";
-import { API_URL } from "@/config/api";
-import Meta from "./meta";
 import _ from "lodash";
-import { CartProvider } from "react-use-cart";
-import { useInView } from "react-intersection-observer";
-import { Spinner } from "flowbite-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { type Product } from "@/types";
 
-export default function GridComponent({ data }: any) {
+export default function GridComponent({ data }: { data: Product[] }) {
   const [openModal, setOpenModal] = useState(false);
 
   const [loading, setLoading] = useState(true);
-
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     setLoading(false);
@@ -28,7 +22,6 @@ export default function GridComponent({ data }: any) {
     <Grid
       container
       spacing={{ xs: 2, md: 2 }}
-      // columns={{ xs: 4, sm: 8, md: 14, lg: 15 }}
       sx={{
         flexGrow: 1,
         height: "fit-content",
@@ -59,6 +52,7 @@ export default function GridComponent({ data }: any) {
                         />
                       </Skeleton>
                     </AspectRatio>
+                    <div>hello</div>
                   </Card>
                 ) : (
                   <CardComponent

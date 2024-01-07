@@ -2,15 +2,15 @@
 
 import {
   changeArrayValue,
-  decodeURIParams,
   getArrayValueByKey,
   getDecodedFilters,
   getFiltersPathName,
 } from "@/libs/utils";
+import { type Product } from "@/types";
 import Pagination from "@mui/material/Pagination";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
-export default function PaginationComponent({ data }: any) {
+export default function PaginationComponent({ data }: { data: Product[] }) {
   const params = useParams();
 
   // current filters

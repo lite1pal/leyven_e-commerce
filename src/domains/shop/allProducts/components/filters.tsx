@@ -7,7 +7,7 @@ export default function Filters() {
   return (
     <div
       style={{ marginLeft: "1rem" }}
-      className="flex h-fit w-48 max-w-sm flex-col gap-6 rounded-lg border border-gray-200 bg-white p-5 shadow max-xl:hidden"
+      className="flex h-fit w-48 max-w-sm flex-col gap-5 rounded-lg border border-gray-200 bg-white p-5 shadow max-xl:hidden"
     >
       <FilterRadioButton
         type="instock"

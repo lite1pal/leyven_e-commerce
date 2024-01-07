@@ -1,21 +1,22 @@
-type Product = {
+export type Product = {
   id: string;
   title: string;
+  price: number;
   discount: number;
   rating: string;
   img: string;
-  availability: "instock" | "out of stock";
+  availability: "in stock" | "out of stock";
   description: string;
   breadcrumbs: string;
   country: string;
   brand: string;
   info: JSON[];
-  reviews?: [];
+  reviews?: Review[];
   cartProducts?: [];
   orderProducts?: [];
 };
 
-type Review = {
+export type Review = {
   id: string;
   text: string;
   rating: string | number;

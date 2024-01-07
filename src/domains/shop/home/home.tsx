@@ -5,17 +5,18 @@ import DiscountProducts from "@/components/sections/discountProducts";
 import RelatedProducts from "@/components/sections/relatedProducts";
 import { API_URL } from "@/config/api";
 import { Suspense } from "react";
+import { type Product } from "@/types";
+import SectionHeader from "@/components/base/SectionHeader";
 
 export default async function HomeView() {
   // gets products for the catalog
   const res = await fetch(`${API_URL}/products`, {
     cache: "no-store",
   });
-  const data = await res.json();
+  const data: Product[] = await res.json();
 
   return (
-    <div>
-      {/* <CarouselComponent /> */}
+    <>
       <DiscountProducts header="Акційні пропозиції" />
       <RelatedProducts header="Новинки" />
       <Categories />
@@ -23,6 +24,6 @@ export default async function HomeView() {
       <Suspense>
         <Catalog {...{ data }} />
       </Suspense>
-    </div>
+    </>
   );
 }

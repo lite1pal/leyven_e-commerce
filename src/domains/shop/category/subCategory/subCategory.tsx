@@ -3,8 +3,13 @@ import { API_URL } from "@/config/api";
 import CatalogView from "@/domains/shop/allProducts/components/catalog";
 import { categories } from "@/data/categories";
 import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
+import { type Product } from "@/types";
 
-export default async function SubCategoryView({ params, searchParams }: any) {
+export default async function SubCategoryView({
+  params,
+}: {
+  params: { category: string; subCategory: string };
+}) {
   const category = params.category;
   const subCategory = params.subCategory;
 
@@ -15,11 +20,11 @@ export default async function SubCategoryView({ params, searchParams }: any) {
       cache: "no-store",
     },
   );
-  const data = await res.json();
+  const data: Product[] = await res.json();
 
   return (
     <>
-      <BasicBreadcrumbs {...{ data }} />
+      <BasicBreadcrumbs />
       <CategoryHeader
         title={categories[category].subCategories[subCategory].name}
       />

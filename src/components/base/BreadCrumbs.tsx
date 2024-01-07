@@ -1,13 +1,14 @@
 "use client";
 
 import { categories } from "@/data/categories";
+import { type Product } from "@/types";
 import { Breadcrumb } from "flowbite-react";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { HiHome } from "react-icons/hi";
 
-export default function BasicBreadcrumbs({ data }: any) {
+export default function BasicBreadcrumbs({ data }: { data?: Product }) {
   const params: any = useParams();
 
   function capitalizeFirstLetter(string: string) {
@@ -17,14 +18,12 @@ export default function BasicBreadcrumbs({ data }: any) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  const breadcrumbs = useMemo(
-    params.id
-      ? () => {
-          return data?.breadcrumbs.split(" > ");
-        }
-      : () => {},
-    [data],
-  );
+  const breadcrumbs = useMemo((): string[] => {
+    if (data && params.id) {
+      return params.id ? data.breadcrumbs.split(" > ") : [""];
+    }
+    return [""];
+  }, [data]);
 
   return (
     <Breadcrumb

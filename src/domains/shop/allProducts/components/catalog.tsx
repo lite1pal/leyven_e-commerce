@@ -13,26 +13,21 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import CompanyLocation from "../../../../components/sections/companyLocation";
 import Testimonials from "../../../../components/sections/testimonials";
+import { type Product } from "@/types";
 
-export default function CatalogView({ data }: any) {
+export default function CatalogView({ data }: { data: Product[] }) {
   const router = useRouter();
   const pathName = usePathname();
-  // if (data.length === 0)
-  //   return (
-  //     <div className="flex flex-col items-center gap-5">
-  //       <div className="mx-auto w-fit text-xl font-medium">Немає товарів</div>
-  //       <Button onClick={() => router.back()} title="Крок назад" />
-  //     </div>
-  //   );
+
   return (
     <Suspense>
       <SupportDrawer />
       <FiltersMobile />
-      {pathName !== "/" && <Meta data={data} />}
+      {/* {pathName !== "/" && <Meta />} */}
 
       <div className="flex">
         {pathName !== "/" && <Filters />}
-        {}
+
         {data.length > 0 ? (
           <GridComponent data={data} />
         ) : (
@@ -52,9 +47,7 @@ export default function CatalogView({ data }: any) {
           </Link>
         </div>
       )}
-      {/* <Suspense fallback={<SkeletonHorizontalProducts />}>
-        <RelatedProducts header="Вам може сподобатися" />
-      </Suspense> */}
+
       <Suspense>
         <Testimonials />
         <CompanyLocation />

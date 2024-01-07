@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Box from "@mui/material/Box";
 import { FormControl, FormLabel, Slider } from "@mui/joy";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import {
@@ -10,10 +9,6 @@ import {
   getDecodedFilters,
   getFiltersPathName,
 } from "@/libs/utils";
-
-function valuetext(value: number) {
-  return `${value}°C`;
-}
 
 export default function PriceFilter() {
   const router = useRouter();
@@ -62,7 +57,6 @@ export default function PriceFilter() {
         max={5000}
         onChange={handleChange}
         valueLabelDisplay="auto"
-        // getAriaValueText={valueText}
       />
       <div className="flex gap-3">
         <input

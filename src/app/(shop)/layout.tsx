@@ -6,6 +6,8 @@ import { Inter, Montserrat, Raleway, Wallpoet } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ServerCartProvider from "@/context/cart";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
+import { GOOGLE_ANALYTICS_ID } from "@/config/api";
 
 export const metadata: Metadata = {
   title: "LeyVen",
@@ -22,6 +24,20 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Script
+          strategy="lazyOnload"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+        />
+        <Script strategy="lazyOnload">
+          {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                  
+                    gtag('config', '${GOOGLE_ANALYTICS_ID}');
+                `}
+        </Script>
+
         <SpeedInsights />
         <ServerCartProvider>
           <Toaster />

@@ -9,8 +9,15 @@ import AllAbout from "./allAbout";
 import { useState } from "react";
 import Reviews from "./reviews";
 import { Chip } from "@mui/joy";
+import { type Product } from "@/types";
+import { type Session } from "next-auth";
 
-export default function TabsComponent({ data, session }: any) {
+type IProps = {
+  data: Product;
+  session: Session | null;
+};
+
+export default function TabsComponent({ data, session }: IProps) {
   const [index, setIndex] = useState(0);
   return (
     // <AnimatePresence>

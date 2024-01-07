@@ -31,7 +31,7 @@ import {
 
 // const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
-export default function Meta({ data }: any) {
+export default function Meta() {
   const router = useRouter();
   const pathName = usePathname();
   const params = useParams();

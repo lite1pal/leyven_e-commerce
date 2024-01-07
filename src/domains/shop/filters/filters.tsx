@@ -4,8 +4,17 @@ import CatalogView from "@/domains/shop/allProducts/components/catalog";
 import { categories } from "@/data/categories";
 import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
 import Categories from "@/components/sections/categories";
+import { type Product } from "@/types";
 
-export default async function FiltersView({ params }: any) {
+export default async function FiltersView({
+  params,
+}: {
+  params: {
+    category: string | undefined;
+    subCategory: string | undefined;
+    filters: string;
+  };
+}) {
   const { category, subCategory, filters } = params;
 
   const queryString = `${category ? `&category=${category}` : ""}${
@@ -21,7 +30,7 @@ export default async function FiltersView({ params }: any) {
       cache: "no-store",
     },
   );
-  const data = await res.json();
+  const data: Product[] = await res.json();
 
   const categoryHeader = category
     ? subCategory
@@ -32,7 +41,7 @@ export default async function FiltersView({ params }: any) {
   return (
     <>
       <Categories />
-      <BasicBreadcrumbs {...{ data }} />
+      <BasicBreadcrumbs />
       <CategoryHeader title={categoryHeader} />
       <CatalogView {...{ data }} />
     </>

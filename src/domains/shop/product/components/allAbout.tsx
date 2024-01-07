@@ -7,6 +7,7 @@ import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
 import { valueOfPercent } from "@/libs/utils";
+import { Product } from "@/types";
 
 const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
   root: {
@@ -38,15 +39,23 @@ const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
   },
 };
 
-export default function AllAbout({ data }: any) {
+type Props = {
+  data: Product;
+};
+
+export default function AllAbout({ data }: Props) {
   const { addItem, inCart } = useCart();
 
   const calculateAverageRating = (): string => {
     let totalRating = 0;
-    data.reviews.forEach((review: any) => {
-      totalRating = totalRating + parseInt(review.rating);
-    });
-    return (totalRating / data.reviews.length).toFixed(1);
+
+    if (data.reviews) {
+      data.reviews.forEach((review: any) => {
+        totalRating = totalRating + parseInt(review.rating);
+      });
+      return (totalRating / data.reviews.length).toFixed(1);
+    }
+    return "5";
   };
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
@@ -81,7 +90,7 @@ export default function AllAbout({ data }: any) {
           >
             <Rating.Star />
             <p className="ml-1 text-sm font-bold text-gray-900 dark:text-white">
-              {data?.reviews.length > 0 && calculateAverageRating()}
+              {calculateAverageRating()}
             </p>
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
             <a className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
