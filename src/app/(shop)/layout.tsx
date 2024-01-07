@@ -23,21 +23,24 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Script
-        id="google-analytics-script-1"
-        strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
-      />
-      <Script id="google-analytics-script-2" strategy="lazyOnload">
-        {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                  
-                    gtag('config', '${GOOGLE_ANALYTICS_ID}');
-                `}
-      </Script>
       <body className={inter.className}>
+        <Script
+          id="google-analytics-script-1"
+          strategy="lazyOnload"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+        ></Script>
+        <Script
+          id="google-analytics-script-2"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', '${GOOGLE_ANALYTICS_ID}');`,
+          }}
+        ></Script>
         <SpeedInsights />
         <ServerCartProvider>
           <Toaster />
