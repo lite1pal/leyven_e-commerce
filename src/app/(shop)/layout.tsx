@@ -24,10 +24,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <Script
+        id="google-analytics-script-1"
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
       />
-      <Script strategy="lazyOnload">
+      <Script id="google-analytics-script-2" strategy="lazyOnload">
         {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
