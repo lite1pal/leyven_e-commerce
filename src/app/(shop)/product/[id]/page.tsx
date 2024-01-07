@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: data.title,
       description: `Купити ${data.title} в Інтернет-зоомагазині ЛейВен ✅ Доступна ціна ✅ Відгуки покупців ⚡ Доставка по всій Україні`,
-      images: [{ url: data.img }],
+      images: [{ url: data.img, width: 800, height: 600 }],
     },
   };
 }
