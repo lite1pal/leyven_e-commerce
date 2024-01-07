@@ -20,7 +20,9 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: "Інтернет-зоомагазин Лейвен ✅",
       description: `Дізнайтеся про широкий вибір якісних товарів для тварин в інтернет-зоомагазині Лейвен. Купуйте онлайн зручно та швидко. Низькі ціни, акції, та висока якість обслуговування.`,
-      images: [{ url: "/logo.jpg", width: 800, height: 600 }],
+      images: [
+        { url: "https://images.prom.ua/4809555867_w200_h50_lejven.jpg" },
+      ],
     },
   };
 }
