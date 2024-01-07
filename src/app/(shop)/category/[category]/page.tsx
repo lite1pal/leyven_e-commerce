@@ -5,7 +5,9 @@ import { categories } from "@/data/categories";
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: categories[params.category].name + " від інтернет-магазину ЛейВен",
+    title:
+      categories[params.category].name +
+      " від інтернет-магазину ЛейВен! ціни від 16 грн",
   };
 }
 

@@ -23,12 +23,6 @@ export default function Card({
         type !== "catalog" && "max-w-xs"
       } duration-50 group relative mx-auto w-full rounded-lg border border-gray-200 bg-white shadow transition hover:border-blue-600 dark:border-gray-700 dark:bg-gray-800`}
     >
-      {/* <div className="absolute flex flex-col flex-end group-hover:opacity-100 w-full z-10 pb-10 border border-blue-600 rounded-lg opacity-0 transition duration-300">
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-          hello
-        </div>
-      </div> */}
-
       {data.discount > 0 && (
         <div className="absolute left-1 top-1 z-20 flex items-center justify-center rounded-full bg-red-500 px-2 text-slate-50">
           Акція
@@ -88,7 +82,7 @@ export default function Card({
               type === "catalog" ? "flex-col" : "gap-5"
             } flex font-sans text-2xl font-medium text-gray-900 dark:text-white max-sm:text-base lg:text-base`}
           >
-            {data.discount ? (
+            {data.discount !== 0 ? (
               <del className="">{data.price}.00 UAH </del>
             ) : (
               data.price + ".00 UAH"
