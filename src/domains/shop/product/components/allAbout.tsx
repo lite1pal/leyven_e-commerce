@@ -103,12 +103,12 @@ export default function AllAbout({ data }: any) {
             <div
               className={`flex gap-5 font-sans text-2xl font-semibold text-gray-900 dark:text-white max-sm:text-base lg:text-2xl`}
             >
-              {data.discount && (
+              {data.discount !== 0 && (
                 <span className="font-medium text-red-600">
                   {data.price - valueOfPercent(data.discount, data.price)} UAH
                 </span>
               )}
-              {data.discount ? (
+              {data.discount !== 0 ? (
                 <del className="">{data.price}.00 UAH </del>
               ) : (
                 data.price + ".00 UAH"
