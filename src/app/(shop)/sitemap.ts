@@ -5,13 +5,13 @@ export default async function sitemap() {
   const allProducts = await res.json();
 
   const products = allProducts.map((product: any) => ({
-    url: `http://localhost:3000/product/${product.id}`,
+    url: `https://leyven.vercel.app/product/${product.id}`,
     lastModified: new Date().toISOString(),
   }));
 
   const routes = ["", "/product", "/about", "/contacts", "/category"].map(
     (route) => ({
-      url: `http://localhost:3000${route}`,
+      url: `https://leyven.vercel.app${route}`,
       lastModified: new Date().toISOString(),
     }),
   );
