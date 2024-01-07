@@ -25,9 +25,6 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: data.title,
       description: `${data.title} ✨ Доступна ціна ✅ Відгуки покупців ⚡ Доставка по всій Україні`,
-      type: "product",
-      // publishedTime: "2023-01-01T00:00:00.000Z",
-      // authors: ["Seb", "Josh"],
     },
   };
 }
