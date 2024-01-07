@@ -1,5 +1,3 @@
-import { MouseEventHandler } from "react";
-
 interface IProps {
   title: string;
   onClick?: () => void;
@@ -7,12 +5,7 @@ interface IProps {
   size?: "lg" | "sm";
 }
 
-export default function Button({
-  title,
-  onClick,
-  type = "button",
-  size = "sm",
-}: IProps) {
+export default function Button({ title, onClick, type = "button" }: IProps) {
   return (
     <button
       type={type}

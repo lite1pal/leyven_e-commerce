@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import Navbar from "@/components/navbar/navbar";
-import FooterComponent from "@/components/footer";
+import Navbar from "@/components/sections/navbar/navbar";
+import FooterComponent from "@/components/sections/footer/footer";
 import { Inter, Montserrat, Raleway, Wallpoet } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ServerCartProvider from "@/context/cart";

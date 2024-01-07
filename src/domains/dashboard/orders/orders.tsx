@@ -1,4 +1,4 @@
-import CardOrder from "@/components/cardOrder";
+import CardOrder from "@/components/cards/cardOrder";
 import { API_URL } from "@/config/api";
 import PageHeader from "../components/pageHeader";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";

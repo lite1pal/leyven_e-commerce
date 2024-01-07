@@ -1,11 +1,8 @@
-import { Box, Divider, Grid } from "@mui/joy";
+import { Divider, Grid } from "@mui/joy";
 import { Carousel, Rating } from "flowbite-react";
 import Link from "next/link";
 import type { CustomFlowbiteTheme } from "flowbite-react";
-
-import { useParams, useRouter } from "next/navigation";
-import BannerPromo from "@/components/bannerPromo";
-import ProductInfoTable from "@/components/productInfoTable";
+import ProductInfoTable from "@/domains/shop/product/components/productInfoTable";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
@@ -43,7 +40,6 @@ const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
 
 export default function AllAbout({ data }: any) {
   const { addItem, inCart } = useCart();
-  const router = useRouter();
 
   const calculateAverageRating = (): string => {
     let totalRating = 0;
@@ -99,7 +95,6 @@ export default function AllAbout({ data }: any) {
         <Divider />
         <div className="flex items-center gap-5 pt-4">
           <div>
-            {/* <div className="text-2xl font-semibold">{data.price}.00 UAH</div> */}
             <div
               className={`flex gap-5 font-sans text-2xl font-semibold text-gray-900 dark:text-white max-sm:text-base lg:text-2xl`}
             >
@@ -140,7 +135,6 @@ export default function AllAbout({ data }: any) {
             </Link>
           )}
         </div>
-        {/* <BannerPromo /> */}
         <ProductInfoTable {...{ data }} />
       </Grid>
     </Grid>

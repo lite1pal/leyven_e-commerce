@@ -1,6 +1,6 @@
-import CategoryHeader from "@/components/categoryHeader";
+import CategoryHeader from "@/components/base/CategoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/components/catalog";
+import CatalogView from "@/domains/shop/allProducts/components/catalog";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import { Suspense } from "react";

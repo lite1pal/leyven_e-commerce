@@ -1,5 +1,5 @@
 import Button from "@/components/base/Button";
-import FilterRadioButton from "@/components/filterRadioButton";
+import FilterRadioButton from "@/domains/shop/allProducts/components/filterRadioButton";
 import { Label, TextInput } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import PageHeader from "../components/pageHeader";

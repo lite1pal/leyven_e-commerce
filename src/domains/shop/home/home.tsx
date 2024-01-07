@@ -1,8 +1,8 @@
-import Catalog from "@/components/catalog";
-import Categories from "@/components/categories";
-import CategoryHeader from "@/components/categoryHeader";
-import DiscountProducts from "@/components/discountProducts";
-import RelatedProducts from "@/components/relatedProducts";
+import Catalog from "@/domains/shop/allProducts/components/catalog";
+import Categories from "@/components/sections/categories";
+import CategoryHeader from "@/components/base/CategoryHeader";
+import DiscountProducts from "@/components/sections/discountProducts";
+import RelatedProducts from "@/components/sections/relatedProducts";
 import { API_URL } from "@/config/api";
 import { Suspense } from "react";
 

@@ -1,8 +1,8 @@
-import CategoryHeader from "@/components/categoryHeader";
+import CategoryHeader from "@/components/base/CategoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/components/catalog";
+import CatalogView from "@/domains/shop/allProducts/components/catalog";
 import { categories } from "@/data/categories";
-import BasicBreadcrumbs from "@/components/breadCrumbs";
+import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
 import SubCategoryView from "@/domains/shop/category/subCategory/subCategory";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";

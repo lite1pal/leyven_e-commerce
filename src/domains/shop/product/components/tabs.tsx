@@ -7,7 +7,6 @@ import Tab, { tabClasses } from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 import AllAbout from "./allAbout";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import Reviews from "./reviews";
 import { Chip } from "@mui/joy";
 

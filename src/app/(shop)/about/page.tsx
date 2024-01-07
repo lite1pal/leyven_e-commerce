@@ -1,5 +1,5 @@
-import FooterComponent from "@/components/footer";
-import RelatedProducts from "@/components/relatedProducts";
+import FooterComponent from "@/components/sections/footer/footer";
+import RelatedProducts from "@/components/sections/relatedProducts";
 import { Info } from "@mui/icons-material";
 import { Card } from "flowbite-react";
 import { Suspense } from "react";

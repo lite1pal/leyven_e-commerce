@@ -1,6 +1,6 @@
 import MySpinner from "@/components/base/Spinner";
-import FooterComponent from "@/components/footer";
-import RelatedProducts from "@/components/relatedProducts";
+import FooterComponent from "@/components/sections/footer/footer";
+import RelatedProducts from "@/components/sections/relatedProducts";
 import { Card } from "flowbite-react";
 import { Suspense } from "react";
 

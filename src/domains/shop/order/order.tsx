@@ -1,15 +1,13 @@
 "use client";
 
 import { Session } from "next-auth";
-import { FormEvent, useEffect, useState } from "react";
-import { Card, CardContent, Divider, FormControl, Grid } from "@mui/joy";
-import InputLabel from "@mui/material/InputLabel";
-import CitySelect from "@/components/citySelect";
-import WarehouseSelect from "@/components/warehouseSelect";
-import { Checkbox, Label, TextInput } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { Card, CardContent, Divider, Grid } from "@mui/joy";
+import CitySelect from "@/domains/shop/order/components/citySelect";
+import WarehouseSelect from "@/domains/shop/order/components/warehouseSelect";
+import { Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { fetchCities } from "@/services/novaposhta";
-import { Formik } from "formik";
 import { useCart } from "react-use-cart";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";

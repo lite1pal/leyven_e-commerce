@@ -1,8 +1,7 @@
-import BasicBreadcrumbs from "@/components/breadCrumbs";
+import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
 import TabsComponent from "./components/tabs";
 import { API_URL } from "@/config/api";
 import parse from "html-react-parser";
-import { Suspense } from "react";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 
 interface IProps {

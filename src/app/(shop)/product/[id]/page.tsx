@@ -3,9 +3,9 @@ import { Suspense } from "react";
 import { API_URL } from "@/config/api";
 import { Spinner } from "flowbite-react";
 import MySpinner from "@/components/base/Spinner";
-import FooterComponent from "@/components/footer";
-import Card from "@/components/card";
-import RelatedProducts from "@/components/relatedProducts";
+import FooterComponent from "@/components/sections/footer/footer";
+import Card from "@/components/cards/card";
+import RelatedProducts from "@/components/sections/relatedProducts";
 
 export async function generateMetadata({ params }: any) {
   const res = await fetch(`${API_URL}/product?id=${params.id}`, {

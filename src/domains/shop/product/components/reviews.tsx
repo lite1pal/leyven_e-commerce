@@ -1,5 +1,5 @@
-import CardReview from "@/components/cardReview";
-import ReviewModal from "@/components/reviewModal";
+import CardReview from "@/components/cards/cardReview";
+import ReviewModal from "@/components/modals/reviewModal";
 
 export default async function Reviews({ data, session }: any) {
   return (
