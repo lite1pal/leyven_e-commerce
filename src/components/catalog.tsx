@@ -2,17 +2,17 @@
 
 import { Suspense } from "react";
 import GridComponent from "./grid";
-import SupportDrawer from "../../../../components/drawers/supportDrawer";
-import PaginationComponent from "@/domains/shop/allProducts/components/pagination";
-import Meta from "@/domains/shop/allProducts/components/meta";
-import Filters from "@/domains/shop/allProducts/components/filters";
-import FiltersMobile from "@/domains/shop/allProducts/components/filtersMobile";
+import SupportDrawer from "./drawers/supportDrawer";
+import PaginationComponent from "@/components/pagination";
+import Meta from "@/components/meta";
+import Filters from "@/components/filters";
+import FiltersMobile from "@/components/filtersMobile";
 import FooterComponent from "@/components/sections/footer/footer";
-import Button from "../../../../components/base/Button";
+import Button from "./base/Button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import CompanyLocation from "../../../../components/sections/companyLocation";
-import Testimonials from "../../../../components/sections/testimonials";
+import CompanyLocation from "./sections/companyLocation";
+import Testimonials from "./sections/testimonials";
 import { type Product } from "@/types";
 
 export default function CatalogView({ data }: { data: Product[] }) {
@@ -23,7 +23,7 @@ export default function CatalogView({ data }: { data: Product[] }) {
     <Suspense>
       <SupportDrawer />
       <FiltersMobile />
-      {/* {pathName !== "/" && <Meta />} */}
+      {pathName !== "/" && <Meta />}
 
       <div className="flex">
         {pathName !== "/" && <Filters />}

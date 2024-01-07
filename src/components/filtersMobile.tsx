@@ -3,7 +3,7 @@
 import { useState } from "react";
 import FilterRadioButton from "./filterRadioButton";
 import { Accordion, AccordionContent, Modal } from "flowbite-react";
-import Button from "../../../../components/base/Button";
+import Button from "./base/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import PriceFilter from "./filterPrice";
 

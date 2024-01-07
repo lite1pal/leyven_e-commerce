@@ -1,4 +1,4 @@
-import Catalog from "../../domains/shop/allProducts/components/catalog";
+import Catalog from "../../components/catalog";
 import CarouselComponent from "@/components/sections/carousel";
 import { auth } from "../api/auth/[...nextauth]/auth";
 import { API_URL } from "@/config/api";

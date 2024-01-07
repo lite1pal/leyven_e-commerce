@@ -1,4 +1,4 @@
-import Catalog from "@/domains/shop/allProducts/components/catalog";
+import Catalog from "@/components/catalog";
 import Categories from "@/components/sections/categories";
 import CategoryHeader from "@/components/base/CategoryHeader";
 import DiscountProducts from "@/components/sections/discountProducts";

@@ -76,6 +76,7 @@ model Product {
   reviews     Review[]
   cartProducts CartProduct[]
   orderProducts OrderProduct[]
+  updatedAt DateTime? @updatedAt
 }
 
 model Cart {

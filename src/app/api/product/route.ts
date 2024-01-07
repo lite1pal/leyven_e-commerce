@@ -28,3 +28,26 @@ export async function GET(req: NextRequest) {
     });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { id, title, price, availability, discount, img } = body;
+    console.log(body);
+    const updatedProduct = await prisma.product.update({
+      where: { id },
+      data: {
+        title,
+        price: parseInt(price),
+        availability,
+        discount: parseInt(discount),
+        img,
+      },
+    });
+    return new NextResponse(JSON.stringify(updatedProduct), { status: 200 });
+  } catch (err) {
+    return new NextResponse(JSON.stringify(err), {
+      status: 500,
+    });
+  }
+}

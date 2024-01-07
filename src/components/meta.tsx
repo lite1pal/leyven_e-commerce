@@ -1,35 +1,15 @@
 "use client";
 
-import { Roboto } from "next/font/google";
-import BasicBreadcrumbs from "../../../../components/base/BreadCrumbs";
-import {
-  AspectRatio,
-  Divider,
-  Dropdown,
-  Grid,
-  Menu,
-  MenuButton,
-  MenuItem,
-  Skeleton,
-} from "@mui/joy";
-import IconButton from "@mui/joy/IconButton";
+import { Divider } from "@mui/joy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
 import {
   changeArrayValue,
-  decodeURIParams,
   getArrayValueByKey,
   getDecodedFilters,
   getFiltersPathName,
 } from "@/libs/utils";
-
-// const roboto = Roboto({ subsets: ["latin"], weight: "300" });
 
 export default function Meta() {
   const router = useRouter();

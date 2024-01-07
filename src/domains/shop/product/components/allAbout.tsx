@@ -2,7 +2,7 @@ import { Divider, Grid } from "@mui/joy";
 import { Carousel, Rating } from "flowbite-react";
 import Link from "next/link";
 import type { CustomFlowbiteTheme } from "flowbite-react";
-import ProductInfoTable from "@/domains/shop/product/components/productInfoTable";
+import ProductInfoTable from "@/components/productInfoTable";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";

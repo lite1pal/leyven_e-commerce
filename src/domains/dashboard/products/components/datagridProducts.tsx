@@ -1,15 +1,10 @@
 "use client";
 
 import * as React from "react";
-import Box from "@mui/material/Box";
-import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 import {
-  GridRowsProp,
-  GridRowModesModel,
-  GridRowModes,
   DataGrid,
   GridColDef,
   GridToolbarContainer,
@@ -17,78 +12,12 @@ import {
   GridToolbarQuickFilter,
   GridToolbarExport,
 } from "@mui/x-data-grid";
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomId,
-  randomArrayItem,
-} from "@mui/x-data-grid-generator";
 import moment from "moment";
 import Button from "@/components/base/Button";
 import Link from "next/link";
+import { Product } from "@/types";
 
-const roles = ["Market", "Finance", "Development"];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
-
-const initialRows: GridRowsProp = [
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-];
-
-interface EditToolbarProps {
-  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-  setRowModesModel: (
-    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-  ) => void;
-}
-
-function EditToolbar(props: EditToolbarProps) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    }));
-  };
-
+function EditToolbar() {
   return (
     <GridToolbarContainer className="flex w-full justify-between">
       <Button title="Додати товар" />
@@ -102,15 +31,13 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function FullFeaturedCrudGrid({ data }: any) {
-  // const [rows, setRows] = React.useState(initialRows);
-
+export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
   const columns: GridColDef[] = [
     {
       field: "img",
       headerName: "",
       width: 250,
-      renderCell: (params: any) => {
+      renderCell: (params) => {
         const product = params.row;
         return (
           <div className="flex w-full justify-between">
@@ -127,11 +54,11 @@ export default function FullFeaturedCrudGrid({ data }: any) {
       field: "availability",
       headerName: "Статус",
       width: 120,
-      renderCell: (params: any) => {
+      renderCell: (params) => {
         return (
           <div
             className={`${
-              params.value === "in stock" ? "text-emerald-600" : "text-teal-700"
+              params.value === "in stock" ? "text-emerald-600" : "text-red-700"
             } font-bold`}
           >
             {params.value}
@@ -143,33 +70,54 @@ export default function FullFeaturedCrudGrid({ data }: any) {
       field: "price",
       headerName: "Ціна",
       width: 120,
-      renderCell: (params: any) => {
+      renderCell: (params) => {
         return (
           <div className="font-bold text-teal-700">{params.value} грн</div>
         );
       },
-      // valueOptions: ["Market", "Finance", "Development"],
     },
     {
-      field: "createdAt",
-      headerName: "Дата",
+      field: "discount",
+      headerName: "Знижка",
+      width: 100,
+      renderCell: (params) => {
+        return <div className="font-bold text-teal-700">{params.value} %</div>;
+      },
+    },
+    {
+      field: "updatedAt",
+      headerName: "Дата зміни",
       width: 150,
-      renderCell: (params: any) => {
+      renderCell: (params) => {
         const product = params.row;
         return (
           <div className="font-medium text-slate-600">
-            {moment(product.createdAt).format("hh:mm, DD.MM.YYYY")}
+            {product.updatedAt
+              ? moment(product.updatedAt).format("hh:mm a, DD.MM.YYYY")
+              : "Відсутня"}
           </div>
         );
       },
     },
+    // {
+    //   field: "updatedAt",
+    //   headerName: "Дата зміни",
+    //   width: 150,
+    //   renderCell: (params) => {
+    //     const product: Product = params.row;
+    //     return (
+    //       <div className="font-medium text-slate-600">
+    //         {moment(product.updatedAt).format("hh:mm, DD.MM.YYYY")}
+    //       </div>
+    //     );
+    //   },
+    // },
     {
       field: "actions",
       type: "actions",
       headerName: "Дії",
       width: 100,
       editable: true,
-      // valueOptions: ["Market", "Finance", "Development"],
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
@@ -206,7 +154,6 @@ export default function FullFeaturedCrudGrid({ data }: any) {
           toolbar: EditToolbar,
         }}
         initialState={{
-          ...data.initialState,
           pagination: { paginationModel: { pageSize: 10 } },
         }}
         pageSizeOptions={[10, 25, 50]}
