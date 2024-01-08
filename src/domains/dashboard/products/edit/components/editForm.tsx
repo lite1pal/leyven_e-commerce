@@ -98,7 +98,7 @@ export default function EditForm({ data }: { data: Product }) {
             </div>
             <select
               defaultValue={data.availability}
-              {...register("Наявність", { required: true })}
+              {...register("availability", { required: true })}
             >
               <option value="out of stock">Ні</option>
               <option value="in stock">Так</option>

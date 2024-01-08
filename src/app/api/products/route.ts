@@ -2,32 +2,19 @@ import { prisma } from "@/app/api/auth/[...nextauth]/auth";
 import { categories } from "@/data/categories";
 import { convertXMLtoJSON, getArrayValueByKey } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
-
-// type Category =
-//   | "Ветеринарія"
-//   | "товари для догляду за домашніми тваринами"
-//   | "Товари для прогулянок і подорожей з тваринами"
-//   | "Годування домашніх тварин і птахів";
+import { logger } from "../../../../logger";
 
 export async function GET(req: NextRequest, { params }: any) {
+  logger.info(`GET /api/products ${req}`);
   try {
     // creates an object URL to obtain search params
     const url = new URL(req.url);
-
-    // gets filters string from params
-    // const { filters } = params;
 
     // grabs each search param from search params object
     const category = url.searchParams.get("category");
     const subCategory = url.searchParams.get("subCategory");
 
-    // const category = params.category;
-    // const subCategory = params.subCategory;
-
-    // const sorting = url.searchParams.get("sorting");
-    // const page = parseInt(url.searchParams.get("page") as string);
     const search = url.searchParams.get("search");
-    // const instock = url.searchParams.get("instock");
     const getAll = url.searchParams.get("getAll");
 
     let filters: any = url.searchParams.get("filters") as string;
@@ -69,9 +56,6 @@ export async function GET(req: NextRequest, { params }: any) {
       let skip = page ? (page - 1) * 24 : 0;
       let take = 24;
 
-      // main options object
-      // let options = { orderBy, skip, take };
-
       // sorting
       if (sorting === "price_desc") {
         orderBy = { price: "desc" };
@@ -104,8 +88,6 @@ export async function GET(req: NextRequest, { params }: any) {
           { price: { lt: price_to } },
         ];
       }
-
-      // console.log("asdfsdaf\n\nasdfsadfsadf\n\n\n\n\nsdfasdf", where);
 
       if (search) {
         where.title = { contains: search, mode: "insensitive" };

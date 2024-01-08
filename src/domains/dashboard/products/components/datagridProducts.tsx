@@ -20,7 +20,9 @@ import { Product } from "@/types";
 function EditToolbar() {
   return (
     <GridToolbarContainer className="flex w-full justify-between">
-      <Button title="Додати товар" />
+      <Link href="/dashboard/products/add">
+        <Button title="Додати товар" />
+      </Link>
       <GridToolbarExport />
       <GridToolbarQuickFilter
         sx={{

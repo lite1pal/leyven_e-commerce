@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
+import { logger } from "../../../../logger";
 
 export async function GET(req: NextRequest) {
+  logger.info(`GET /api/order ${req}`);
   try {
     const orders = await prisma.order.findMany({
       include: {
