@@ -24,6 +24,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "JLTSwXlT0sRG6kVovctrOBXqForC6gMBF00to7EKzoM",
+  },
 };
 
 const inter = Inter({ subsets: ["latin"] });
