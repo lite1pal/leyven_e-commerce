@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import Navbar from "@/components/sections/navbar/navbar";
-import FooterComponent from "@/components/sections/footer/footer";
-import { Inter, Montserrat, Raleway, Wallpoet } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ServerCartProvider from "@/context/cart";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   description:
-    "Дізнайтеся про широкий вибір якісних товарів для тварин в інтернет-зоомагазині Лейвен. Купуйте онлайн зручно та швидко. Низькі ціни, акції, та висока якість обслуговування. Перегляньте відгуки клієнтів та зробіть свій вибір для здоров'я та комфорту вашого улюбленця.",
+    "Дізнайтеся про широкий вибір якісних товарів для тварин в Інтернет-зоомагазині Лейвен. Купуйте онлайн зручно та швидко. Низькі ціни, акції, та висока якість обслуговування. Перегляньте відгуки клієнтів та зробіть свій вибір для здоров'я та комфорту вашого улюбленця.",
   robots: {
     index: true,
     follow: true,
