@@ -36,9 +36,12 @@ export default function SearchInput() {
                 }
               }}
               type="text"
-              className="mx-auto w-full rounded-lg border-b-2 border-none bg-transparent focus:outline-none focus:ring-0"
+              className="mx-auto w-full rounded-lg border-b-2 border-none bg-transparent text-slate-900 focus:outline-none focus:ring-0"
             />
           </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
         </dialog>
       </div>
 

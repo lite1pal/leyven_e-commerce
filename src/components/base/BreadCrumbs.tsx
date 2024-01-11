@@ -25,6 +25,17 @@ export default function BasicBreadcrumbs({ data }: { data?: Product }) {
     return [""];
   }, [data]);
 
+  const getCategoryLink = (breadcrumb: string) => {
+    const category: any = Object.entries(categories).find(
+      ([path, { name }]: any): any =>
+        breadcrumb.toLowerCase() === name.toLowerCase(),
+    );
+    if (category) {
+      return category[1].route;
+    }
+    return "/";
+  };
+
   return (
     <Breadcrumb
       className="max-w-screen overflow-x-scroll px-7 py-6 max-sm:px-5"
@@ -72,7 +83,7 @@ export default function BasicBreadcrumbs({ data }: { data?: Product }) {
       {params.id && (
         <Breadcrumb.Item className="whitespace-nowrap" href="#">
           <Link
-            href="/"
+            href={getCategoryLink(breadcrumbs[2])}
             className="transition duration-100 hover:text-blue-600"
           >
             {capitalizeFirstLetter(breadcrumbs[2])}
@@ -82,7 +93,7 @@ export default function BasicBreadcrumbs({ data }: { data?: Product }) {
       {params.id && (
         <Breadcrumb.Item className="whitespace-nowrap" href="#">
           <Link
-            href="/"
+            href={getCategoryLink(breadcrumbs[2])}
             className="transition duration-100 hover:text-blue-600"
           >
             {capitalizeFirstLetter(breadcrumbs[3])}

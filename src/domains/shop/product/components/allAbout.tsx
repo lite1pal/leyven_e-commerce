@@ -49,19 +49,25 @@ export default function AllAbout({ data }: Props) {
   const calculateAverageRating = (): string => {
     let totalRating = 0;
 
-    if (data.reviews) {
+    if (data.reviews && data.reviews.length > 0) {
+      console.log(data.reviews);
       data.reviews.forEach((review: any) => {
         totalRating = totalRating + parseInt(review.rating);
       });
       return (totalRating / data.reviews.length).toFixed(1);
     }
-    return "5";
+    return "0";
   };
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      <Grid xs={8} marginInline="auto" md={4}>
-        <div style={{ height: "30rem" }} className="mx-auto cursor-pointer">
-          <Carousel theme={customCarouselTheme}>
+      <Grid xs={12} marginInline="auto" lg={6}>
+        <div className="min-h-96 mx-auto my-auto max-w-xl cursor-pointer">
+          <img
+            className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
+            src={data.img}
+            alt="product image"
+          />
+          {/* <Carousel theme={customCarouselTheme}>
             <img
               className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
               src={data.img}
@@ -72,15 +78,10 @@ export default function AllAbout({ data }: Props) {
               src={data.img}
               alt="product image"
             />
-            <img
-              className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
-              src={data.img}
-              alt="product image"
-            />
-          </Carousel>
+          </Carousel> */}
         </div>
       </Grid>
-      <Grid sx={{ width: "100%" }} xs={8} md={7}>
+      <Grid sx={{ width: "100%" }} marginInline="auto" xs={8} md={8} lg={5}>
         <div className="text-2xl font-medium max-sm:text-lg">{data.title}</div>
         <div className="flex items-center justify-between py-2">
           <Rating
@@ -89,11 +90,13 @@ export default function AllAbout({ data }: Props) {
             }}
           >
             <Rating.Star />
-            <p className="ml-1 text-sm font-bold text-gray-900 dark:text-white">
-              {calculateAverageRating()}
-            </p>
+            {data.reviews && data.reviews.length > 0 && (
+              <p className="ml-1 text-sm font-bold text-gray-900 dark:text-white">
+                {calculateAverageRating()}
+              </p>
+            )}
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-            <a className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
+            <a className="text-sm font-medium text-gray-900 dark:text-white">
               {data.reviews ? data?.reviews.length : "0"} відгуків
             </a>
           </Rating>

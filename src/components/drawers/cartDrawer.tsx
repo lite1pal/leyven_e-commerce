@@ -86,7 +86,7 @@ export default function CartDrawer() {
           </div>
 
           {!isEmpty && (
-            <div className="fixed bottom-0 right-0 z-20 mx-auto mt-5 flex w-full items-center gap-5 border-2 bg-white p-5 max-sm:flex-col max-sm:gap-3">
+            <div className="fixed bottom-0 right-0 z-20 mx-auto mt-5 flex w-full items-center gap-5 border-2 bg-white p-5 max-lg:flex-col max-lg:gap-3">
               <Link href="/order" className="max-sm:order-2">
                 <Button
                   title="Оформити замовлення"

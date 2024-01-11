@@ -8,10 +8,13 @@ import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { API_URL } from "@/config/api";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function ReviewModal({ data, session }: any) {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
+
+  const router = useRouter();
 
   const leaveReview = async () => {
     try {
@@ -36,6 +39,7 @@ export default function ReviewModal({ data, session }: any) {
       setRating(0);
       toast.success("Відгук залишено!");
       (document.getElementById("reviewModal") as HTMLFormElement).close();
+      router.refresh();
     } catch (err) {
       console.error(err);
     }
@@ -86,6 +90,9 @@ export default function ReviewModal({ data, session }: any) {
             <Button onClick={leaveReview} title="Залишити" />
           </div>
         </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
       </dialog>
     </>
   );

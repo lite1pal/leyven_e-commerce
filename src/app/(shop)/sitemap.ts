@@ -23,7 +23,7 @@ export default async function sitemap() {
     "/category/tovari-dlya-doglyadu",
     "/category/veterinarni-zasobi-preparati",
   ].map((route) => ({
-    url: `https://www.leyveb.com.ua${route}`,
+    url: `https://www.leyven.com.ua${route}`,
     lastModified: new Date().toISOString(),
   }));
 

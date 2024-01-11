@@ -87,7 +87,9 @@ export default function CartModal({ data }: any) {
             </div>
           </footer>
         </div>
-        <form method="dialog" className="modal-backdrop"></form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
       </dialog>
     </>
   );
