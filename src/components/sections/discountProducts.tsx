@@ -24,7 +24,7 @@ export default async function DiscountProducts({ header }: { header: string }) {
   return (
     <div className="flex flex-col gap-7 px-7 py-5">
       <SectionHeader>{header}</SectionHeader>
-      <div className="flex gap-2 overflow-x-scroll">
+      <div className="flex gap-2 overflow-x-hidden">
         <SwiperComponent data={data} type="discount products" />
       </div>
     </div>

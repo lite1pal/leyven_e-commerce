@@ -40,7 +40,7 @@ export default function BasicBreadcrumbs({ data }: { data?: Product }) {
     <Breadcrumb
       className={`${
         params.id && "border-none"
-      } max-w-screen overflow-x-scroll border-b border-t px-4 py-4 max-sm:px-5`}
+      } max-w-screen overflow-x-hidden border-b border-t px-4 py-4 max-sm:px-5`}
       aria-label="Default breadcrumb example"
     >
       <Breadcrumb.Item>
