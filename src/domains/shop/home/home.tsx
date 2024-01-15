@@ -7,6 +7,7 @@ import { API_URL } from "@/config/api";
 import { Suspense } from "react";
 import { type Product } from "@/types";
 import SectionHeader from "@/components/base/SectionHeader";
+import Hero from "@/components/sections/hero";
 
 export default async function HomeView() {
   // gets products for the catalog
@@ -20,7 +21,11 @@ export default async function HomeView() {
       <DiscountProducts header="Акційні пропозиції" />
       <RelatedProducts header="Новинки" />
       <Categories />
-      <CategoryHeader title="Вибір товарів" />
+      <div className="px-7 py-5">
+        <SectionHeader>Вибір товарів</SectionHeader>
+      </div>
+
+      {/* <CategoryHeader title="Вибір товарів" /> */}
       <Suspense>
         <Catalog {...{ data }} />
       </Suspense>

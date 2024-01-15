@@ -7,6 +7,7 @@ import ServerCartProvider from "@/context/cart";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import { GOOGLE_ANALYTICS_ID } from "@/config/api";
+import ExtraNavbar from "@/components/sections/navbar/components/extraNavbar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.leyven.com.ua"),
@@ -66,11 +67,15 @@ export default async function RootLayout({
           }}
         ></Script>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate-50`}>
         <SpeedInsights />
         <ServerCartProvider>
           <Toaster />
-          <main className={`max-w-screen flex min-h-screen flex-grow flex-col`}>
+          <main
+            className={`max-w-screen mx-auto flex min-h-screen flex-grow flex-col bg-slate-50 text-slate-900 xl:container`}
+          >
+            <ExtraNavbar />
+
             <Navbar />
             {children}
           </main>

@@ -37,11 +37,13 @@
     "react-hook-form": "^7.49.2",
     "react-hot-toast": "^2.4.1",
     "react-intersection-observer": "^9.5.3",
+    "react-photo-view": "^1.2.4",
     "react-slider": "^2.0.6",
     "react-social-login-buttons": "^3.9.1",
     "react-transition-group": "^4.4.5",
     "react-use-cart": "^1.13.0",
     "sass": "^1.69.5",
+    "swiper": "^11.0.5",
     "winston": "^3.11.0",
     "xml-js": "^1.6.11"
   },

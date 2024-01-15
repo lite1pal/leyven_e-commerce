@@ -116,7 +116,7 @@ export default function AddForm() {
           <div>
             <div className="mb-2 block">
               <label
-                className="font-medium text-gray-700"
+                className="font-medium text-slate-700"
                 htmlFor="description"
               >
                 Опис
@@ -165,7 +165,7 @@ export default function AddForm() {
           <div>
             <div className="mb-2 block">
               <label
-                className="font-medium text-gray-700"
+                className="font-medium text-slate-700"
                 htmlFor="availability"
               >
                 Наявність
@@ -197,7 +197,7 @@ export default function AddForm() {
 
           <div>
             <div className="mb-2 block">
-              <label className="font-medium text-gray-700" htmlFor="info">
+              <label className="text-state-700 font-medium" htmlFor="info">
                 Додати характеристики{" "}
                 <span className="font-light text-slate-600">
                   ( Приклад: Тип - Лікарська форма)
@@ -247,7 +247,7 @@ export default function AddForm() {
 
           <div>
             <div className="mb-2 block">
-              <label className="font-medium text-gray-700" htmlFor="category">
+              <label className="text-state-700 font-medium" htmlFor="category">
                 Категорія
               </label>
             </div>
@@ -275,7 +275,7 @@ export default function AddForm() {
             <div>
               <div className="mb-2 block">
                 <label
-                  className="font-medium text-gray-700"
+                  className="text-state-700 font-medium"
                   htmlFor="subCategory"
                 >
                   Підкатегорія

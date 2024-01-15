@@ -33,15 +33,19 @@ export default function Sidebar() {
       >
         <MenuIcon />
       </div>
-      <Drawer size="lg" open={open} onClose={toggleDrawer(false)}>
+      <Drawer size="md" open={open} onClose={toggleDrawer(false)}>
         <Box role="presentation" onClick={toggleDrawer(false)}>
           <Link href="/" className="flex w-full items-center gap-3 p-5">
-            <img src="/logo-sunflower.png" alt="Leyven logo" className="w-10" />
-            <div className="text-lg font-medium">Головна</div>
+            <img
+              src="/new-logo-remove-bg.png"
+              alt="Leyven logo"
+              className="w-10"
+            />
+            <div className="text-lg font-light">Лейвен</div>
           </Link>
 
           <Divider />
-          <div className="p-2 text-lg font-medium underline">Категорії</div>
+          <div className="p-2 text-lg font-semibold">Категорії</div>
           <List>
             {params.category
               ? subCategories.map((category, i) => {
@@ -75,7 +79,7 @@ export default function Sidebar() {
                   );
                 })}
           </List>
-          <List>
+          <List sx={{ marginTop: "1.5rem" }}>
             <ListItem>
               <Link href="contacts">Контакти</Link>
             </ListItem>

@@ -13,19 +13,19 @@ export default function Card({
   return (
     <div
       className={`${
-        type !== "catalog" && "max-w-xs"
-      } duration-50 group relative mx-auto w-full rounded-lg border border-gray-200 bg-white shadow transition hover:border-blue-600 dark:border-gray-700 dark:bg-gray-800`}
+        type !== "catalog" ? "w-52 max-w-xs" : "w-full"
+      } duration-50 group relative mx-auto rounded-lg border border-gray-200 border-opacity-0 bg-white transition hover:border-blue-600 hover:border-opacity-100 dark:border-gray-700 dark:bg-gray-800`}
     >
-      {data.discount > 0 && (
-        <div className="absolute left-1 top-1 z-20 flex items-center justify-center rounded-full bg-red-500 px-2 text-slate-50">
-          Акція
+      {/* {data.discount > 0 && (
+        <div className="absolute left-1 top-1 z-20 flex items-center justify-center rounded-full p-1.5 text-sm text-blue-600">
+          {data.discount}%
         </div>
-      )}
+      )} */}
       <Link href={`/product/${data.id}`}>
         <div
           className={`${data.availability === "out of stock" && "opacity-30"} ${
-            type !== "catalog" && "h-80 sm:h-80 md:h-80 lg:h-80 xl:h-80"
-          } mx-auto h-48 cursor-pointer sm:h-80 md:h-64 lg:h-56 xl:h-40`}
+            type !== "catalog" && "h-52"
+          }  mx-auto h-40 cursor-pointer sm:h-96 md:h-80 lg:h-72 xl:h-52`}
         >
           <img
             // sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
@@ -40,8 +40,8 @@ export default function Card({
         <Link href={`/product/${data.id}`}>
           <h5
             title={data.title}
-            style={{ animation: "move-words 20s linear infinite;" }}
-            className="cursor-pointer overflow-x-hidden whitespace-nowrap text-lg font-medium tracking-tight text-gray-900 hover:underline dark:text-white max-sm:text-base xl:text-base"
+            // style={{ animation: "move-words 20s linear infinite;" }}
+            className="overflow-x-hidden whitespace-nowrap text-lg font-medium tracking-tight dark:text-white max-sm:text-base xl:text-base"
           >
             {data.title}
           </h5>
@@ -51,7 +51,7 @@ export default function Card({
           className={`${
             data.availability === "in stock"
               ? "text-emerald-600"
-              : "text-slate-700"
+              : "text-slate-600"
           } flex items-center gap-1`}
         >
           {data.availability === "in stock" ? "В наявності" : "Немає на складі"}
@@ -71,19 +71,17 @@ export default function Card({
         )} */}
         <div className="flex items-center justify-between border-t-2 pt-4 max-sm:pt-2.5">
           <span
-            className={`${
-              type === "catalog" ? "flex-col" : "gap-5"
-            } flex font-sans text-2xl font-medium text-gray-900 dark:text-white max-sm:text-base lg:text-base`}
+            className={`flex flex-col font-sans text-2xl font-medium text-slate-900 dark:text-white max-sm:text-base lg:text-base`}
           >
-            {data.discount !== 0 ? (
-              <del className="">{data.price}.00 UAH </del>
-            ) : (
-              data.price + ".00 UAH"
-            )}
             {data.discount !== 0 && (
               <span className="font-medium text-red-600">
                 {data.price - valueOfPercent(data.discount, data.price)} UAH
               </span>
+            )}
+            {data.discount !== 0 ? (
+              <del className="">{data.price}.00 UAH </del>
+            ) : (
+              data.price + ".00 UAH"
             )}
           </span>
           <CartModal

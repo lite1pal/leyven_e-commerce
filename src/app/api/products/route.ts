@@ -42,7 +42,9 @@ export async function GET(req: NextRequest, { params }: any) {
     let products: any = [];
 
     if (getAll) {
-      products = await prisma.product.findMany();
+      products = await prisma.product.findMany({
+        orderBy: { updatedAt: "desc" },
+      });
 
       return new NextResponse(JSON.stringify(products), {
         status: 200,

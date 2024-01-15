@@ -9,11 +9,12 @@ import {
 
 export default async function FooterComponent() {
   return (
-    <Footer
-      style={{
-        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-      }}
-      container
+    <div
+      className="bg-slate-50 py-10"
+      // style={{
+      //   boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+      // }}
+      // container
     >
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-evenly md:flex md:grid-cols-1">
@@ -56,6 +57,6 @@ export default async function FooterComponent() {
           <Footer.Copyright by="LeyVen™" year={2023} />
         </div>
       </div>
-    </Footer>
+    </div>
   );
 }

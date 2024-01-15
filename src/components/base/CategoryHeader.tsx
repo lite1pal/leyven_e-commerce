@@ -7,8 +7,8 @@ export default function CategoryHeader({ title }: { title: string }) {
   return (
     <div
       className={`${
-        pathName === "/" && "mb-3 font-medium xl:ml-7"
-      } ml-8 py-5 font-sans text-2xl xl:ml-10`}
+        pathName === "/" && "mb-3 text-2xl"
+      } px-4 py-5 font-sans text-3xl font-medium text-slate-900`}
     >
       {title}
     </div>

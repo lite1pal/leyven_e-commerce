@@ -33,35 +33,34 @@ export default function GridComponent({ data }: { data: Product[] }) {
       <AnimatePresence>
         {data?.map((product: any, i: number) => {
           return (
-            <Grid key={i} xs={6} sm={6} md={4} lg={2}>
-              <motion.div
+            <Grid key={i} xs={6} sm={6} md={4} lg={3} xl={2}>
+              {/* <motion.div
                 key={product.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-              >
-                {loading ? (
-                  <Card sx={{ height: "12rem" }}>
-                    <AspectRatio variant="plain">
-                      <Skeleton loading={loading}>
-                        <img
-                          src={
-                            "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-                          }
-                          alt=""
-                        />
-                      </Skeleton>
-                    </AspectRatio>
-                    <div>hello</div>
-                  </Card>
-                ) : (
-                  <CardComponent
-                    data={product}
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}
-                  />
-                )}
-              </motion.div>
+              > */}
+              {loading ? (
+                <Card sx={{ height: "12rem" }}>
+                  <AspectRatio variant="plain">
+                    <Skeleton loading={loading}>
+                      <img
+                        src={
+                          "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                        }
+                        alt=""
+                      />
+                    </Skeleton>
+                  </AspectRatio>
+                </Card>
+              ) : (
+                <CardComponent
+                  data={product}
+                  openModal={openModal}
+                  setOpenModal={setOpenModal}
+                />
+              )}
+              {/* </motion.div> */}
             </Grid>
           );
         })}

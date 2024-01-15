@@ -28,7 +28,7 @@ export default function SignInComponent({ icon = "person" }) {
         <Modal.Header />
         <Modal.Body>
           <div className="flex flex-col items-center space-y-6">
-            <h3 className="w-fit text-xl font-medium text-gray-900 dark:text-white">
+            <h3 className="w-fit text-xl font-medium dark:text-white">
               Вхід до акаунту
             </h3>
             <p className="text-center text-slate-500">

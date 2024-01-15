@@ -1,3 +1,7 @@
+"use client";
+
+import "react-photo-view/dist/react-photo-view.css";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Divider, Grid } from "@mui/joy";
 import { Carousel, Rating } from "flowbite-react";
 import Link from "next/link";
@@ -60,28 +64,29 @@ export default function AllAbout({ data }: Props) {
   };
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      <Grid xs={12} marginInline="auto" lg={6}>
-        <div className="min-h-96 mx-auto my-auto max-w-xl cursor-pointer">
-          <img
-            className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
-            src={data.img}
-            alt="product image"
-          />
-          {/* <Carousel theme={customCarouselTheme}>
-            <img
-              className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
-              src={data.img}
-              alt="product image"
-            />
-            <img
-              className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
-              src={data.img}
-              alt="product image"
-            />
-          </Carousel> */}
-        </div>
+      <Grid
+        xs={12}
+        marginInline="auto"
+        marginBlock="auto"
+        bgcolor={"white"}
+        lg={4}
+      >
+        <PhotoProvider>
+          <div
+            // style={{ height: "40rem" }}
+            className="mx-auto my-auto max-w-lg cursor-pointer"
+          >
+            <PhotoView src={data.img}>
+              <img
+                className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
+                src={data.img}
+                alt="product image"
+              />
+            </PhotoView>
+          </div>
+        </PhotoProvider>
       </Grid>
-      <Grid sx={{ width: "100%" }} marginInline="auto" xs={8} md={8} lg={5}>
+      <Grid sx={{ width: "100%" }} xs={8} md={8} lg={6}>
         <div className="text-2xl font-medium max-sm:text-lg">{data.title}</div>
         <div className="flex items-center justify-between py-2">
           <Rating
@@ -91,12 +96,12 @@ export default function AllAbout({ data }: Props) {
           >
             <Rating.Star />
             {data.reviews && data.reviews.length > 0 && (
-              <p className="ml-1 text-sm font-bold text-gray-900 dark:text-white">
+              <p className="ml-1 text-sm font-bold text-slate-900 dark:text-white">
                 {calculateAverageRating()}
               </p>
             )}
             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-            <a className="text-sm font-medium text-gray-900 dark:text-white">
+            <a className="text-sm font-medium text-slate-900 dark:text-white">
               {data.reviews ? data?.reviews.length : "0"} відгуків
             </a>
           </Rating>
@@ -108,7 +113,7 @@ export default function AllAbout({ data }: Props) {
         <div className="flex items-center gap-5 pt-4">
           <div>
             <div
-              className={`flex gap-5 font-sans text-2xl font-semibold text-gray-900 dark:text-white max-sm:text-base lg:text-2xl`}
+              className={`flex gap-5 font-sans text-2xl font-semibold text-slate-900 dark:text-white max-sm:text-base lg:text-2xl`}
             >
               {data.discount !== 0 && (
                 <span className="font-medium text-red-600">

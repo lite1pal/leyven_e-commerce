@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import HomeView from "@/domains/shop/home/home";
 import MySpinner from "@/components/base/Spinner";
 import SkeletonHorizontalProducts from "@/components/base/Skeleton";
+import Hero from "@/components/sections/hero";
 
 export async function generateMetadata({ params }: any) {
   return {
@@ -28,8 +29,12 @@ export async function generateMetadata({ params }: any) {
 
 export default async function HomeScreen() {
   return (
-    <Suspense fallback={<SkeletonHorizontalProducts />}>
-      <HomeView />
-    </Suspense>
+    <>
+      <Hero />
+
+      <Suspense fallback={<SkeletonHorizontalProducts />}>
+        <HomeView />
+      </Suspense>
+    </>
   );
 }

@@ -30,16 +30,16 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
         </Link>
         <Rating style={{ paddingBlock: "0.5rem" }}>
           <Rating.Star />
-          <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+          <p className="ml-2 text-sm font-bold dark:text-white">
             {cartProduct.rating}
           </p>
           <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-          <a className="cursor-pointer text-sm font-medium text-gray-900 dark:text-white">
+          <a className="cursor-pointer text-sm font-medium dark:text-white">
             0 відгуків
           </a>
         </Rating>
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-medium text-gray-900 dark:text-white max-sm:text-lg">
+          <span className="text-2xl font-medium dark:text-white max-sm:text-lg">
             {/* {cartProduct.product.price} */}
             {cartProduct.itemTotal}.00 UAH
           </span>

@@ -35,7 +35,7 @@ export default function CartModal({ data }: any) {
       </button>
 
       <dialog id="cartModal" className="modal">
-        <div className="modal-box bg-white p-0 text-black">
+        <div className="modal-box max-w-4xl bg-white p-0 text-black">
           <div className="sticky top-0 z-10 flex items-center justify-between border-b-2 bg-white p-6">
             <h3 className="text-lg font-bold">Кошик</h3>
             <form method="dialog">
@@ -47,7 +47,7 @@ export default function CartModal({ data }: any) {
           <div className="flex flex-col gap-5 border p-6 max-sm:gap-2 max-sm:p-1.5">
             {isEmpty && (
               <div className="space-y-6">
-                <p className="p-4 text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                <p className="p-4 text-base leading-relaxed text-slate-500 dark:text-slate-400">
                   Пусто
                 </p>
               </div>

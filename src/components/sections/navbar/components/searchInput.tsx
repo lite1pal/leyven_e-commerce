@@ -46,8 +46,18 @@ export default function SearchInput() {
       </div>
 
       <div
-        className={`hidden items-center justify-between rounded-lg border p-1.5 text-lg shadow max-sm:w-72 md:flex`}
+        className={`hidden items-center justify-between rounded-lg border p-1.5 text-lg max-sm:w-72 md:flex`}
       >
+        <div
+          onClick={() => {
+            if (input) {
+              setInput("");
+              router.push(`/search?search=${input}`);
+            }
+          }}
+        >
+          <SearchIcon className="transition hover:opacity-80" />
+        </div>
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -59,18 +69,8 @@ export default function SearchInput() {
           }}
           className="max-h-5 w-full border-none focus:outline-none focus:ring-0"
           type="text"
-          placeholder="Пошук"
+          placeholder="Пошук..."
         />
-        <div
-          onClick={() => {
-            if (input) {
-              setInput("");
-              router.push(`/search?search=${input}`);
-            }
-          }}
-        >
-          <SearchIcon className="transition hover:opacity-80" />
-        </div>
       </div>
     </>
   );

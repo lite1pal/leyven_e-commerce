@@ -27,7 +27,7 @@ export default function TabsComponent({ data, session }: IProps) {
     //     transition={{ duration: 1 }}
     //   >
     <Box
-      bgcolor={"white"}
+      // bgcolor={"white"}
       sx={{
         flexGrow: 1,
         m: -2,
@@ -37,7 +37,7 @@ export default function TabsComponent({ data, session }: IProps) {
       <Tabs
         aria-label="Pipeline"
         value={index}
-        sx={{ backgroundColor: "white" }}
+        // sx={{ backgroundColor: "white" }}
         onChange={(event, value) => setIndex(value as number)}
       >
         <TabList

@@ -3,7 +3,7 @@ import { Rating } from "flowbite-react";
 
 export default function CardTestimonial({ testimonial }: any) {
   return (
-    <li className="relative h-full w-[32rem] rounded-lg border p-4">
+    <li className="relative h-full w-[32rem] rounded-lg border bg-white p-4">
       <article className="flex h-full flex-col justify-between gap-y-2">
         <blockquote className="max-w-prose text-sm/relaxed italic text-slate-700 lg:text-base/relaxed">
           &quot;{testimonial.quote}&quot;

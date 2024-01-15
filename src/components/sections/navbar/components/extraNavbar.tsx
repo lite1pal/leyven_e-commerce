@@ -2,6 +2,7 @@
 
 import PlaceIcon from "@mui/icons-material/Place";
 import { useState, useEffect } from "react";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 export default function ExtraNavbar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -29,9 +30,9 @@ export default function ExtraNavbar() {
 
   return (
     <div
-      className={`hidden w-full flex-col items-center justify-between gap-3 border-b border-slate-300 py-2 transition sm:gap-1.5 lg:flex lg:flex-row`}
+      className={`hidden w-full flex-col items-center justify-between gap-3 py-1 font-light text-slate-600 transition sm:gap-1.5 lg:flex lg:flex-row`}
     >
-      <div className="flex gap-10 text-sm sm:text-base">
+      <div className="flex gap-10 text-sm">
         <div className="w-fit cursor-pointer transition hover:text-blue-600">
           Оплата і доставка
         </div>
@@ -40,15 +41,20 @@ export default function ExtraNavbar() {
           Дисконтна програма
         </div>
       </div>
-      <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-8">
-        <div className="text-sm italic sm:text-base">
-          <PlaceIcon />
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
+        <div className="flex items-center gap-1 text-sm text-slate-600">
+          <div className="text-blue-600">
+            <PlaceIcon fontSize="small" />
+          </div>
           вул. Чернявського, 46, Звягель, Україна
         </div>
 
-        <div className="hidden h-5 w-3 border-r-2 border-black opacity-50 sm:flex"></div>
+        <div className="hidden h-5 w-3 border-r-2 border-slate-900 opacity-50 sm:flex"></div>
 
-        <div className="rounded-full border p-1 text-sm font-medium sm:text-base">
+        <div className="flex items-center gap-1 rounded-full  p-1.5 text-sm font-semibold text-slate-600 sm:text-base">
+          <div className="text-blue-600">
+            <LocalPhoneIcon fontSize="small" />
+          </div>
           +380 (50) 598-74-77
         </div>
       </div>

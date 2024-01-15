@@ -228,7 +228,7 @@ export default function OrderView({ session }: { session: Session | null }) {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-2xl font-medium text-gray-900 dark:text-white max-sm:text-lg">
+                        <span className="text-2xl font-medium text-slate-900 dark:text-white max-sm:text-lg">
                           {/* {cartProduct.product.price} */}
                           {cartProduct.itemTotal}.00 UAH
                         </span>

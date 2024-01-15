@@ -12,7 +12,7 @@ const SelectInput = ({ label, id, options, register, required }: Props) => {
   return (
     <div>
       <div className="mb-2 block">
-        <label htmlFor={id} className="block font-medium text-gray-700">
+        <label htmlFor={id} className="text-state-700 block font-medium">
           {label}
         </label>
       </div>
