@@ -14,7 +14,7 @@ export default function Card({
     <div
       className={`${
         type !== "catalog" ? "w-52 max-w-xs" : "w-full"
-      } duration-50 group relative mx-auto rounded-lg border border-gray-200 border-opacity-0 bg-white transition hover:border-blue-600 hover:border-opacity-100 dark:border-gray-700 dark:bg-gray-800`}
+      } duration-50 group relative mx-auto rounded-lg border border-gray-200 border-opacity-0 bg-white  transition hover:border-blue-600 hover:border-opacity-100 dark:border-gray-700 dark:bg-gray-800`}
     >
       {/* {data.discount > 0 && (
         <div className="absolute left-1 top-1 z-20 flex items-center justify-center rounded-full p-1.5 text-sm text-blue-600">

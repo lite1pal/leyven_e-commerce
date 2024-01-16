@@ -23,7 +23,7 @@ export default async function Navbar() {
               className="hidden w-10 sm:flex"
               // sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw, 33vw"
             />
-            <div className="hidden text-lg font-light transition duration-100 group-hover:text-blue-600 sm:flex">
+            <div className="hidden text-lg font-light text-blue-600 transition duration-100 sm:flex">
               Лейвен
             </div>
           </div>

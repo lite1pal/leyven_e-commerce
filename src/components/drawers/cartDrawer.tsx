@@ -25,7 +25,7 @@ export default function CartDrawer() {
         onClick={() => setOpen(true)}
       >
         <Badge badgeContent={items.length} badgeInset="-20%">
-          <ShoppingCartIcon />
+          <ShoppingCartIcon sx={{ color: "#2563eb" }} />
         </Badge>
         <div className="hidden sm:flex">Кошик</div>
       </div>

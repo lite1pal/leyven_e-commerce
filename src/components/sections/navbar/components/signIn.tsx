@@ -21,7 +21,7 @@ export default function SignInComponent({ icon = "person" }) {
         onClick={() => setOpenModal(true)}
         className={`flex cursor-pointer items-center gap-2.5 rounded-lg border-2 border-blue-600 border-opacity-0 p-1.5 text-center text-lg transition duration-300 hover:border-opacity-100 hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-0 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
       >
-        <PersonIcon />
+        <PersonIcon sx={{ color: "#2563eb" }} />
         <div>Вхід</div>
       </div>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
