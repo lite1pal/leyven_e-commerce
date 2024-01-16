@@ -22,7 +22,7 @@ export default function CatalogView({ data }: { data: Product[] }) {
   return (
     <Suspense>
       <SupportDrawer />
-      <FiltersMobile />
+      {pathName !== "/" && <FiltersMobile />}
       {pathName !== "/" && <Meta />}
 
       <div className="flex">
