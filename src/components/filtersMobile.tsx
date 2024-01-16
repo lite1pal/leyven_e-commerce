@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import FilterRadioButton from "./filterRadioButton";
-import { Accordion, AccordionContent, Modal } from "flowbite-react";
-import Button from "./base/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import PriceFilter from "./filterPrice";
+import TuneIcon from "@mui/icons-material/Tune";
 
 export default function FiltersMobile() {
   const [openModal, setOpenModal] = useState(false);
   return (
-    <div className="hidden items-center justify-center max-xl:flex">
+    <div className="pointer-events-none items-center justify-center opacity-0 max-xl:pointer-events-auto max-xl:opacity-100">
       {/* <div
         className="border-none bg-transparent"
         onClick={() => setOpenModal(true)}
@@ -18,15 +17,18 @@ export default function FiltersMobile() {
         Фільтри
       </div> */}
       <div className="mb-4">
-        <Button
+        <div
+          className="flex items-center gap-2.5"
           onClick={() => {
             setOpenModal(true);
             (
               document.getElementById("filtersModal") as HTMLFormElement
             ).showModal();
           }}
-          title="Фільтри"
-        />
+        >
+          Фільтри
+          <TuneIcon fontSize="small" />
+        </div>
       </div>
 
       <dialog id="filtersModal" className="modal px-3">

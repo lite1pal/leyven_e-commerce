@@ -10,6 +10,7 @@ import {
   getDecodedFilters,
   getFiltersPathName,
 } from "@/libs/utils";
+import FiltersMobile from "./filtersMobile";
 
 export default function Meta() {
   const router = useRouter();
@@ -33,10 +34,12 @@ export default function Meta() {
   }, [params]);
 
   return (
-    <div className={`mb-4 flex w-full items-center justify-between px-8`}>
-      <div className={`text-base opacity-0 xl:ml-44`}>
+    <div className={`mb-4 flex w-full justify-between px-8`}>
+      {/* <div className={`text-base opacity-0 xl:ml-44`}>
         Сторінка - <span className="font-medium">{page || 1}</span>
-      </div>
+      </div> */}
+      <FiltersMobile />
+
       <div className="group">
         <div className="cursor-pointer">
           {currentSortingTitle}
