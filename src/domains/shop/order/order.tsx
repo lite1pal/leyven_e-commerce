@@ -173,7 +173,7 @@ export default function OrderView({ session }: { session: Session | null }) {
                 </div>
                 <div className="w-full">
                   <div className="mb-2 block">
-                    <Label htmlFor="last-name" value="Ваша фамілія" />
+                    <Label htmlFor="last-name" value="Ваша прізвище" />
                   </div>
                   <TextInput
                     id="last-name"
