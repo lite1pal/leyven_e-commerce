@@ -16,7 +16,7 @@ export default async function FooterComponent() {
       // }}
       // container
     >
-      <div className="w-full">
+      <div className="w-full pl-6 sm:pl-0">
         <div className="grid w-full justify-between sm:flex sm:justify-evenly md:flex md:grid-cols-1">
           <div className="mb-10 flex flex-col max-md:mr-6 max-md:p-4 sm:mb-0 sm:gap-3">
             <Link href="/">
