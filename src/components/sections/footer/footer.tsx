@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   BsFacebook,
   BsInstagram,
+  BsTiktok,
   BsTelegram,
   BsWhatsapp,
 } from "react-icons/bs";
@@ -23,10 +24,18 @@ export default async function FooterComponent() {
               <div className="py-4 text-2xl font-medium">LeyVen</div>
             </Link>
             <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-              <Footer.Icon href="#" icon={BsFacebook} />
-              <Footer.Icon href="#" icon={BsInstagram} />
-              <Footer.Icon href="#" icon={BsTelegram} />
-              <Footer.Icon href="#" icon={BsWhatsapp} />
+              <Footer.Icon
+                href="https://www.facebook.com/profile.php?id=61550696317144"
+                icon={BsFacebook}
+              />
+              <Footer.Icon
+                href="https://www.instagram.com/zoo.leyven?igsh=MWpzZTlhbWZxempqYg=="
+                icon={BsInstagram}
+              />
+              <Footer.Icon
+                href="https://www.tiktok.com/@zoo.leyven?_t=8j8FrDinT9B&_r=1"
+                icon={BsTiktok}
+              />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
@@ -40,8 +49,12 @@ export default async function FooterComponent() {
             <div>
               <Footer.Title title="Підпишись" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#">Facebook</Footer.Link>
-                <Footer.Link href="#">Instagram</Footer.Link>
+                <Footer.Link href="https://www.facebook.com/profile.php?id=61550696317144">
+                  Facebook
+                </Footer.Link>
+                <Footer.Link href="https://www.instagram.com/zoo.leyven?igsh=MWpzZTlhbWZxempqYg==">
+                  Instagram
+                </Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
