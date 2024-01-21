@@ -1,14 +1,21 @@
-import Button from "@/components/base/Button";
-import FilterRadioButton from "@/components/filterRadioButton";
-import { Label, TextInput } from "flowbite-react";
-import { useForm } from "react-hook-form";
 import PageHeader from "../components/pageHeader";
 import SellIcon from "@mui/icons-material/Sell";
 import FullFeaturedCrudGrid from "./components/datagridProducts";
 import { API_URL } from "@/config/api";
 import { type Product } from "@/types";
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 
 export default async function ProductsView() {
+  const session = await auth();
+
+  if (
+    !process.env["NEXT_PUBLIC_ALLOWED_EMAILS"]
+      ?.split(", ")
+      .includes(session?.user?.email!)
+  ) {
+    return <div>ДОСТУП ДО ДАНОГО АДРЕСУ ОБМЕЖЕНИЙ</div>;
+  }
+
   const res = await fetch(`${API_URL}/products?getAll=true`, {
     cache: "no-store",
   });
