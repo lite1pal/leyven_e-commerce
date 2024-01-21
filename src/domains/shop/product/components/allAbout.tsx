@@ -68,13 +68,13 @@ export default function AllAbout({ data }: Props) {
         xs={12}
         marginInline="auto"
         marginBlock="auto"
-        bgcolor={"white"}
+        // bgcolor={"white"}
         lg={4}
       >
         <PhotoProvider>
           <div
             // style={{ height: "40rem" }}
-            className="mx-auto my-auto max-w-lg cursor-pointer"
+            className="mx-auto my-auto aspect-square h-96 max-w-lg cursor-pointer"
           >
             <PhotoView src={data.img}>
               <img

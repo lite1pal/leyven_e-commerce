@@ -5,6 +5,8 @@ import parse from "html-react-parser";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { type Product } from "@/types";
 import AllAbout from "./components/allAbout";
+import Reviews from "./components/reviews";
+import { Divider } from "@mui/material";
 
 type IProps = {
   id: string;
@@ -23,6 +25,7 @@ export default async function ProductView({ id }: IProps) {
         {/* <TabsComponent data={data} session={session} /> */}
         <AllAbout data={data} />
       </div>
+
       <div className="flex flex-col gap-3 px-7 py-10">
         <p className=" text-slate-700 lg:w-1/2 xl:w-1/2">
           <strong>Застереження!</strong> Будь ласка, перед купівлею зверніться
@@ -32,6 +35,7 @@ export default async function ProductView({ id }: IProps) {
           улюбленцю!
         </p>
       </div>
+      <Reviews {...{ data, session }} />
     </div>
   );
 }
