@@ -1,4 +1,5 @@
-import { Card, Rating } from "flowbite-react";
+import { Rating } from "@mui/material";
+import { Card } from "flowbite-react";
 
 export default async function CardReview({ review }: any) {
   return (
@@ -14,16 +15,23 @@ export default async function CardReview({ review }: any) {
           })}
         </div>
       </div>
-      <Rating>
+      <div className="align-items flex gap-3">
+        <Rating
+          // name="half-rating-read"
+          defaultValue={review.rating}
+          value={review.rating}
+          precision={0.5}
+          readOnly
+        />
+        {/* <p className="font-medium dark:text-gray-400">{review.rating} з 5</p> */}
+      </div>
+      {/* <Rating>
         <Rating.Star />
         <Rating.Star />
         <Rating.Star />
         <Rating.Star />
         <Rating.Star />
-        <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-          {review.rating} з 5
-        </p>
-      </Rating>
+      </Rating> */}
       <div>{review.text}</div>
     </Card>
   );
