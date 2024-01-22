@@ -7,6 +7,7 @@ import { type Product } from "@/types";
 import AllAbout from "./components/allAbout";
 import Reviews from "./components/reviews";
 import { Divider } from "@mui/material";
+import { valueOfPercent } from "@/libs/utils";
 
 type IProps = {
   id: string;
@@ -18,8 +19,32 @@ export default async function ProductView({ id }: IProps) {
 
   const session = await auth();
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: data.title,
+    description: data.description,
+    image: data.img,
+    offers: {
+      "@type": "AggregateOffer",
+      availability:
+        data.availability === "in stock"
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      priceCurrency: "UAH",
+      highPrice: data.price,
+      lowPrice: data.price - valueOfPercent(data.discount, data.price),
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd),
+        }}
+      />
       <BasicBreadcrumbs {...{ data }} />
       <div className="px-7 py-10">
         {/* <TabsComponent data={data} session={session} /> */}
