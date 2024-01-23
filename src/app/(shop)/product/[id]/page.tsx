@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: any) {
 }
 
 export default function ProductScreen({ params }: any) {
-  const id = params.id;
+  const id = params.id.split("-")[0];
   return (
     <Suspense fallback={<MySpinner />}>
       <ProductView id={id} />

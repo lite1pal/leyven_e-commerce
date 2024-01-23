@@ -1,28 +1,64 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { XMLBuilder, XMLParser } from "fast-xml-parser";
+import { prisma } from "../auth/[...nextauth]/auth";
+import slugify from "slugify";
 
 export async function GET(req: NextRequest) {
   try {
-    const res = await fetch(
-      "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
-    );
+    const products = await prisma.product.findMany();
 
-    const parser = new XMLParser();
-    const xmlText = await res.text();
+    let textXML =
+      '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel>';
 
-    let jObj = parser.parse(xmlText);
+    products.forEach((product) => {
+      const link =
+        "https://www.leyven.com.ua/product/" +
+        product.id +
+        "-" +
+        slugify(product.title, {
+          strict: true,
+          lower: true,
+        }).slice(0, 14) +
+        "?source=merchant_center";
 
-    const builder = new XMLBuilder();
-    const xmlContent = builder.build(jObj); // Parse the text using fast-xml-parser
+      textXML =
+        textXML +
+        `<item><g:id>${product.id}</g:id><g:title>${
+          product.title
+        }</g:title><g:description>${
+          product.description
+        }</g:description><g:price>${
+          product.price.toString() + " UAH"
+        }</g:price><g:link>${link}</g:link><g:image_link>${
+          product.img
+        }</g:image_link><g:availability>${
+          product.availability
+        }</g:availability><g:brand>${
+          product.brand
+        }</g:brand><g:identifier_exists>no</g:identifier_exists><g:condition>new</g:condition><g:ads_redirect>${link}</g:ads_redirect><g:product_type>${
+          product.breadcrumbs
+        }</g:product_type></item>`;
+      //   return {
+      //     "g:id": product.id,
+      //     "g:title": product.title,
+      //     "g:description": product.description,
+      //     "g:price": product.price.toString() + " UAH",
+      //     "g:link": link,
+      //     "g:image_link": product.img,
+      //     "g:availability": product.availability,
+      //     "g:brand": product.brand,
+      //     "g:identifier_exists": "no",
+      //     "g:condition": "new",
+      //     "g:ads_redirect": link,
+      //     "g:product_type": product.breadcrumbs,
+      //   };
+    });
 
-    console.log(typeof xmlContent);
+    // const xml = js2xml(products, {
+    //   compact: true,
+    //   spaces: 2,
+    // });
 
-    const replacedXmlContent = xmlContent.replace(
-      "https://leyven.prom.ua/",
-      "https://www.leyven.com.ua/",
-    );
-
-    return new Response(replacedXmlContent, {
+    return new Response(textXML + "</channel></rss>", {
       status: 200,
     });
   } catch (err) {

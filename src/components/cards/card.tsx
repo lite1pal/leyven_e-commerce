@@ -3,6 +3,7 @@
 import CartModal from "../modals/cartModal";
 import Link from "next/link";
 import { valueOfPercent } from "@/libs/utils";
+import slugify from "slugify";
 
 export default function Card({
   data,
@@ -21,7 +22,12 @@ export default function Card({
           {data.discount}%
         </div>
       )} */}
-      <Link href={`/product/${data.id}`}>
+      <Link
+        href={`/product/${data.id}-${slugify(data.title, {
+          strict: true,
+          lower: true,
+        }).slice(0, 14)}`}
+      >
         <div
           className={`${data.availability === "out of stock" && "opacity-30"} ${
             type !== "catalog" && "h-52"
