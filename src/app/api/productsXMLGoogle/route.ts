@@ -40,15 +40,17 @@ export async function GET(req: NextRequest) {
         }</g:product_type></item>`;
     });
 
+    const safeXML = textXML.replaceAll("&", "-");
+
     // Specify the file path where you want to save the text file
     const filePath = "public/googleMerchant.txt";
 
     // Write the content to the file, overwriting if it already exists
-    await fs.writeFile(filePath, textXML + "</channel></rss>", "utf-8");
+    await fs.writeFile(filePath, safeXML + "</channel></rss>", "utf-8");
 
     // Write the content to the file, overwriting if it already exists
     // await fs.writeFile(filePath, textXML, "utf-8");
-    return new Response(textXML + "</channel></rss>", {
+    return new Response(safeXML + "</channel></rss>", {
       status: 200,
       headers: {
         "Content-Type": "text/xml",
