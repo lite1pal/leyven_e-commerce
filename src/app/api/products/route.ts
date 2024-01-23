@@ -156,7 +156,7 @@ export async function GET(req: NextRequest, { params }: any) {
 export async function POST(req: NextRequest) {
   try {
     const res = await fetch(
-      "https://leyven.com.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
+      "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
     );
 
     const badFormatData = await convertXMLtoJSON(res);
