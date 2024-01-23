@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import slugify from "slugify";
+import fs from "fs/promises";
 
 export async function GET(req: NextRequest) {
   try {
@@ -37,29 +38,18 @@ export async function GET(req: NextRequest) {
         }</g:brand><g:identifier_exists>no</g:identifier_exists><g:condition>new</g:condition><g:ads_redirect>${link}</g:ads_redirect><g:product_type>${
           product.breadcrumbs
         }</g:product_type></item>`;
-      //   return {
-      //     "g:id": product.id,
-      //     "g:title": product.title,
-      //     "g:description": product.description,
-      //     "g:price": product.price.toString() + " UAH",
-      //     "g:link": link,
-      //     "g:image_link": product.img,
-      //     "g:availability": product.availability,
-      //     "g:brand": product.brand,
-      //     "g:identifier_exists": "no",
-      //     "g:condition": "new",
-      //     "g:ads_redirect": link,
-      //     "g:product_type": product.breadcrumbs,
-      //   };
     });
 
-    // const xml = js2xml(products, {
-    //   compact: true,
-    //   spaces: 2,
-    // });
+    // const filePath = "../../../public/googleMerchant.xml";
+
+    // // Write the content to the file, overwriting if it already exists
+    // await fs.writeFile(filePath, textXML, "utf-8");
 
     return new Response(textXML + "</channel></rss>", {
       status: 200,
+      headers: {
+        "Content-Type": "text/xml",
+      },
     });
   } catch (err) {
     return new NextResponse(JSON.stringify(err), { status: 500 });
