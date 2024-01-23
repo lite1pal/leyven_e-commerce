@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     const products = await prisma.product.findMany();
 
     let textXML =
-      '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel>';
+      '<rss version="2.0"><channel><title>Лейвен</title><link>https://www.leyven.com.ua/</link><g:description>RSS 2.0 product data feed</g:description>';
 
     products.forEach((product) => {
       const link =
