@@ -167,52 +167,124 @@ export async function POST(req: NextRequest) {
 
     const badFormatData = await convertXMLtoJSON(res);
 
-    if (badFormatData.length === 0) {
-      return new NextResponse(
-        JSON.stringify({ message: "Імпорт наразі неможливий" }),
-        {
-          status: 200,
+    const productIds = badFormatData.map(
+      (badProduct: any) => badProduct["g:id"]._text,
+    );
+
+    // if (badFormatData.length === 0) {
+    //   return new NextResponse(
+    //     JSON.stringify({ message: "Імпорт наразі неможливий" }),
+    //     {
+    //       status: 200,
+    //     },
+    //   );
+    // }
+
+    // const promises = badFormatData.map(async (badProduct: any) => {
+    //   try {
+    //     // const product = await prisma.product.findFirst({
+    //     //   where: {
+    //     //     unique_id: badProduct["g:id"]._text,
+    //     //   },
+    //     // });
+
+    //     const existingProduct = existingProducts.find(
+    //       (product) => product.unique_id === badProduct["g:id"]._text,
+    //     );
+
+    //     if (existingProduct) {
+    //       return;
+    //     }
+
+    //     const productPrice = parseInt(
+    //       badProduct["g:price"]._text.split(" ")[0],
+    //     );
+
+    //     const getProductCountry = () => {
+    //       if (Array.isArray(badProduct["g:product_detail"])) {
+    //         return badProduct["g:product_detail"][0]["g:attribute_name"]
+    //           ._text === "Країна виробник"
+    //           ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
+    //           : "Немає";
+    //       }
+    //       if (
+    //         badProduct["g:product_detail"]["g:attribute_name"]._text ===
+    //         "Країна виробник"
+    //       ) {
+    //         return badProduct["g:product_detail"]["g:attribute_value"]._text;
+    //       }
+
+    //       return "Немає";
+    //     };
+
+    //     return prisma.product.create({
+    //       data: {
+    //         title: badProduct["g:title"]._text,
+    //         unique_id: badProduct["g:id"]._text,
+    //         img: badProduct["g:image_link"]._text,
+    //         price: productPrice,
+    //         availability: badProduct["g:availability"]._text,
+    //         description: badProduct["g:description"]._text,
+    //         breadcrumbs: badProduct["g:product_type"]._text,
+    //         country: getProductCountry(),
+    //         brand: badProduct["g:brand"]._text,
+    //         rating: "4",
+    //         info: Array.isArray(badProduct["g:product_detail"])
+    //           ? badProduct["g:product_detail"]
+    //           : [badProduct["g:product_detail"]],
+    //       },
+    //     });
+    //   } catch (err) {
+    //     console.error(err, "ERROR");
+    //   }
+    // });
+
+    // const result = await Promise.all(promises);
+
+    const existingProducts = await prisma.product.findMany({
+      where: {
+        unique_id: {
+          in: productIds,
         },
+      },
+    });
+
+    const result = [];
+    for (const badProduct of badFormatData) {
+      const productId = badProduct["g:id"]._text;
+
+      // Check if product already exists
+      const existingProduct = existingProducts.find(
+        (p) => p.unique_id === productId,
       );
-    }
+      if (existingProduct) {
+        continue;
+      }
 
-    const promises = badFormatData.map(async (badProduct: any) => {
-      try {
-        const product = await prisma.product.findFirst({
-          where: {
-            unique_id: badProduct["g:id"]._text,
-          },
-        });
+      const productPrice = parseInt(badProduct["g:price"]._text.split(" ")[0]);
 
-        if (product) {
-          return;
+      const getProductCountry = () => {
+        if (Array.isArray(badProduct["g:product_detail"])) {
+          return badProduct["g:product_detail"][0]["g:attribute_name"]._text ===
+            "Країна виробник"
+            ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
+            : "Немає";
+        }
+        if (
+          badProduct["g:product_detail"]["g:attribute_name"]._text ===
+          "Країна виробник"
+        ) {
+          return badProduct["g:product_detail"]["g:attribute_value"]._text;
         }
 
-        const productPrice = parseInt(
-          badProduct["g:price"]._text.split(" ")[0],
-        );
+        return "Немає";
+      };
 
-        const getProductCountry = () => {
-          if (Array.isArray(badProduct["g:product_detail"])) {
-            return badProduct["g:product_detail"][0]["g:attribute_name"]
-              ._text === "Країна виробник"
-              ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
-              : "Немає";
-          }
-          if (
-            badProduct["g:product_detail"]["g:attribute_name"]._text ===
-            "Країна виробник"
-          ) {
-            return badProduct["g:product_detail"]["g:attribute_value"]._text;
-          }
-
-          return "Немає";
-        };
-
-        return prisma.product.create({
+      result.push(
+        prisma.product.create({
           data: {
             title: badProduct["g:title"]._text,
-            unique_id: badProduct["g:id"]._text,
+            unique_id: productId,
             img: badProduct["g:image_link"]._text,
             price: productPrice,
             availability: badProduct["g:availability"]._text,
@@ -225,15 +297,13 @@ export async function POST(req: NextRequest) {
               ? badProduct["g:product_detail"]
               : [badProduct["g:product_detail"]],
           },
-        });
-      } catch (err) {
-        console.error(err, "ERROR");
-      }
-    });
+        }),
+      );
+    }
 
-    const result = await Promise.all(promises);
+    const createdProducts = await Promise.all(result);
 
-    return new NextResponse(JSON.stringify(result), {
+    return new NextResponse(JSON.stringify(createdProducts), {
       status: 200,
     });
   } catch (err) {
