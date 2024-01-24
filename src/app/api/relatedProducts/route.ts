@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     if (!id) {
       products = await prisma.product.findMany({
         take: 10,
+        orderBy: { updatedAt: "desc" },
       });
 
       return new NextResponse(JSON.stringify(products), {

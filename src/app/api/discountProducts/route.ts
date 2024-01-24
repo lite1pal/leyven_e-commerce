@@ -6,6 +6,7 @@ export async function GET(req: NextRequest) {
     const products = await prisma.product.findMany({
       where: { discount: { not: 0 } },
       take: 10,
+      // orderBy: { updatedAt: "desc" },
     });
 
     return new NextResponse(JSON.stringify(products), {
