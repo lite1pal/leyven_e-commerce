@@ -184,12 +184,6 @@ export async function POST(req: NextRequest) {
 
     const promises = badFormatData.map(async (badProduct: any) => {
       try {
-        // const product = await prisma.product.findFirst({
-        //   where: {
-        //     unique_id: badProduct["g:id"]._text,
-        //   },
-        // });
-
         const existingProduct = existingProducts.find(
           (product) => product.unique_id === badProduct["g:id"]._text,
         );
@@ -242,68 +236,6 @@ export async function POST(req: NextRequest) {
     });
 
     const result = await Promise.all(promises);
-
-    // const existingProducts = await prisma.product.findMany({
-    //   where: {
-    //     unique_id: {
-    //       in: productIds,
-    //     },
-    //   },
-    // });
-
-    // const result = [];
-    // for (const badProduct of badFormatData) {
-    //   const productId = badProduct["g:id"]._text;
-
-    //   // Check if product already exists
-    //   const existingProduct = existingProducts.find(
-    //     (p) => p.unique_id === productId,
-    //   );
-    //   if (existingProduct) {
-    //     continue;
-    //   }
-
-    //   const productPrice = parseInt(badProduct["g:price"]._text.split(" ")[0]);
-
-    //   const getProductCountry = () => {
-    //     if (Array.isArray(badProduct["g:product_detail"])) {
-    //       return badProduct["g:product_detail"][0]["g:attribute_name"]._text ===
-    //         "Країна виробник"
-    //         ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
-    //         : "Немає";
-    //     }
-    //     if (
-    //       badProduct["g:product_detail"]["g:attribute_name"]._text ===
-    //       "Країна виробник"
-    //     ) {
-    //       return badProduct["g:product_detail"]["g:attribute_value"]._text;
-    //     }
-
-    //     return "Немає";
-    //   };
-
-    //   result.push(
-    //     prisma.product.create({
-    //       data: {
-    //         title: badProduct["g:title"]._text,
-    //         unique_id: productId,
-    //         img: badProduct["g:image_link"]._text,
-    //         price: productPrice,
-    //         availability: badProduct["g:availability"]._text,
-    //         description: badProduct["g:description"]._text,
-    //         breadcrumbs: badProduct["g:product_type"]._text,
-    //         country: getProductCountry(),
-    //         brand: badProduct["g:brand"]._text,
-    //         rating: "4",
-    //         info: Array.isArray(badProduct["g:product_detail"])
-    //           ? badProduct["g:product_detail"]
-    //           : [badProduct["g:product_detail"]],
-    //       },
-    //     }),
-    //   );
-    // }
-
-    // const createdProducts = await Promise.all(result);
 
     return new NextResponse(JSON.stringify(result), {
       status: 200,

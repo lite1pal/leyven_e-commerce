@@ -43,35 +43,24 @@ function EditToolbar() {
     try {
       setLoading(true);
 
-      // Set a timeout of 10 seconds
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Timeout")), 20000),
-      );
-
       // Make the actual fetch request
-      const fetchPromise = fetch(`${API_URL}/products`, { method: "POST" });
-
-      // Use Promise.race to handle the timeout
-      const res = await Promise.race([fetchPromise, timeoutPromise]);
+      const res = await fetch(`${API_URL}/products`, { method: "POST" });
 
       // Check if the result is from the fetch request
-      if (res instanceof Response) {
-        const parsedRes = await res.json();
-        console.log(parsedRes);
+      if (res.ok) {
         setLoading(false);
         toast.success(
           "Дані з leyven.prom.ua імпортовані успішно. Все синхронізовано",
           { duration: 7000 },
         );
-      } else {
-        // Handle timeout
-        console.log("Request timed out");
-        setLoading(false);
-        toast.error("Request timed out");
+        return;
       }
+      // Handle timeout
+      setLoading(false);
+      toast.error("Спробуйте пізніше");
     } catch (err: any) {
       console.log(err);
-      toast.error(err.message);
+      toast.error("Надто багато імпортів, спробуйте ще раз через годину");
       setLoading(false);
     }
   };

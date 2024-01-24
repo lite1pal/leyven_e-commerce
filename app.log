@@ -1442,3 +1442,6 @@
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-01-24T12:22:55.783Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-01-24T12:23:06.785Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-01-24T12:23:06.860Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-01-24T13:51:45.779Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-01-24T13:51:54.588Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-01-24T13:52:28.800Z"}
