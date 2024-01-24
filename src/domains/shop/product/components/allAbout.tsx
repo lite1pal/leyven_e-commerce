@@ -157,7 +157,7 @@ export default function AllAbout({ data }: Props) {
             )}
           {data.breadcrumbs.includes("Ветеринарія") && (
             <div className="w-52 text-center text-sm font-medium text-slate-600">
-              Замовлення можливе тільки через звінок менеджеру -{" "}
+              Замовлення можливе тільки через дзвінок менеджеру -{" "}
               <span className="font-semibold text-slate-900">
                 +380 (50) 598-74-77
               </span>
