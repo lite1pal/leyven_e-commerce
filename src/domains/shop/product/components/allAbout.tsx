@@ -57,7 +57,6 @@ export default function AllAbout({ data }: Props) {
     let totalRating = 0;
 
     if (data.reviews && data.reviews.length > 0) {
-      console.log(data.reviews);
       data.reviews.forEach((review: any) => {
         totalRating = totalRating + parseInt(review.rating);
       });
@@ -66,7 +65,6 @@ export default function AllAbout({ data }: Props) {
     return "0";
   };
 
-  console.log(data.breadcrumbs);
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       <Grid
@@ -158,7 +156,7 @@ export default function AllAbout({ data }: Props) {
               </Link>
             )}
           {data.breadcrumbs.includes("Ветеринарія") && (
-            <div className="text-center font-medium text-slate-600">
+            <div className="w-52 text-center text-sm font-medium text-slate-600">
               Замовлення можливе тільки через звінок менеджеру -{" "}
               <span className="font-semibold text-slate-900">
                 +380 (50) 598-74-77
