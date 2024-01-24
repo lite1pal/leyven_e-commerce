@@ -19,13 +19,16 @@ export default function BasicBreadcrumbs({ data }: { data?: Product }) {
   }
 
   const breadcrumbs = useMemo((): string[] => {
-    if (data && params.id) {
-      return params.id ? data.breadcrumbs.split(" > ") : [""];
+    if (data && params.id && data.breadcrumbs) {
+      return params.id ? data.breadcrumbs?.split(" > ") : [""];
     }
     return [""];
   }, [data]);
 
   const getCategoryLink = (breadcrumb: string) => {
+    if (!breadcrumb) {
+      return "/";
+    }
     const category: any = Object.entries(categories).find(
       ([path, { name }]: any): any =>
         breadcrumb.toLowerCase() === name.toLowerCase(),

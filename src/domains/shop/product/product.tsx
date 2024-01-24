@@ -59,7 +59,14 @@ export default async function ProductView({ id }: IProps) {
           застосування без призначення, адже Ви ризикуєте зашкодити своєму
           улюбленцю!
         </p>
+
+        <p className="pointer-events-none absolute left-0 top-0 text-slate-700 opacity-0">
+          {data.description?.slice(0, 12) === "Застереження"
+            ? data.description?.slice(257)
+            : data.description}
+        </p>
       </div>
+
       <Reviews {...{ data, session }} />
     </div>
   );

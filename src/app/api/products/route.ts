@@ -159,58 +159,71 @@ export async function POST(req: NextRequest) {
       "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
     );
 
+    if (!res.ok) {
+      return new NextResponse(JSON.stringify({ message: "Невірний ресурс" }), {
+        status: 200,
+      });
+    }
+
     const badFormatData = await convertXMLtoJSON(res);
 
-    // badFormatData.forEach((badProduct: any) => {
-    //   console.log("something", badProduct.slice(0, 20));
-    // });
+    if (badFormatData.length === 0) {
+      return new NextResponse(
+        JSON.stringify({ message: "Імпорт наразі неможливий" }),
+        {
+          status: 200,
+        },
+      );
+    }
 
-    // badFormatData.slice(0, 10).forEach(async (badProduct: any) => {
-    //   const productPrice = parseInt(badProduct["g:price"]._text.split(" ")[0]);
-    //   console.log(badProduct["g:product_detail"]);
-    // });
-
-    // return new NextResponse(JSON.stringify(badFormatData), {
-    //   status: 200,
-    // });
-
-    // const goodFormatData = badFormatData.map((badProduct: any) => {
-    //   const productPrice = parseInt(badProduct["g:price"]._text.split(" ")[0]);
-    //   return {
-    //     title: badProduct["g:title"]._text,
-    //     img: badProduct["g:image_link"]._text,
-    //     price: productPrice,
-    //     availability: badProduct["g:availability"]._text,
-    //     description: badProduct["g:description"]._text,
-    //     breadcrumbs: badProduct["g:product_type"]._text,
-    //     brand: badProduct["g:brand"]._text,
-    //     rating: "4",
-    //     info: badProduct["g:product_detail"],
-    //   };
-    // });
-
-    // const result = await prisma.product.createMany({
-    //   data: goodFormatData,
-    // });
-
-    const promises = badFormatData.forEach(async (badProduct: any) => {
+    const promises = badFormatData.map(async (badProduct: any) => {
       try {
+        const product = await prisma.product.findFirst({
+          where: {
+            unique_id: badProduct["g:id"]._text,
+          },
+        });
+
+        if (product) {
+          return;
+        }
+
         const productPrice = parseInt(
           badProduct["g:price"]._text.split(" ")[0],
         );
-        await prisma.product.create({
+
+        const getProductCountry = () => {
+          if (Array.isArray(badProduct["g:product_detail"])) {
+            return badProduct["g:product_detail"][0]["g:attribute_name"]
+              ._text === "Країна виробник"
+              ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
+              : "Немає";
+          }
+          if (
+            badProduct["g:product_detail"]["g:attribute_name"]._text ===
+            "Країна виробник"
+          ) {
+            return badProduct["g:product_detail"]["g:attribute_value"]._text;
+          }
+
+          return "Немає";
+        };
+
+        return prisma.product.create({
           data: {
             title: badProduct["g:title"]._text,
+            unique_id: badProduct["g:id"]._text,
             img: badProduct["g:image_link"]._text,
             price: productPrice,
             availability: badProduct["g:availability"]._text,
             description: badProduct["g:description"]._text,
             breadcrumbs: badProduct["g:product_type"]._text,
-            country:
-              badProduct["g:product_detail"][0]["g:attribute_value"]._text,
+            country: getProductCountry(),
             brand: badProduct["g:brand"]._text,
             rating: "4",
-            info: badProduct["g:product_detail"],
+            info: Array.isArray(badProduct["g:product_detail"])
+              ? badProduct["g:product_detail"]
+              : [badProduct["g:product_detail"]],
           },
         });
       } catch (err) {
@@ -218,12 +231,53 @@ export async function POST(req: NextRequest) {
       }
     });
 
-    await Promise.all(promises);
+    const result = await Promise.all(promises);
 
-    return new NextResponse(JSON.stringify(badFormatData), {
+    return new NextResponse(JSON.stringify(result), {
       status: 200,
     });
   } catch (err) {
+    // console.log(err);
+    return new NextResponse(JSON.stringify(err), { status: 500 });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const res = await fetch(
+      "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
+    );
+
+    const badFormatData = await convertXMLtoJSON(res);
+
+    const promises = badFormatData.map(async (badProduct: any) => {
+      try {
+        const product = await prisma.product.findFirst({
+          where: {
+            title: { equals: badProduct["g:title"]._text },
+          },
+        });
+
+        if (!product) {
+          return;
+        }
+
+        return prisma.product.update({
+          where: { id: product.id },
+          data: { unique_id: badProduct["g:id"]._text },
+        });
+      } catch (err) {
+        console.error(err, "ERROR");
+      }
+    });
+
+    const result = await Promise.all(promises);
+
+    return new NextResponse(JSON.stringify(result), {
+      status: 200,
+    });
+  } catch (err) {
+    // console.log(err);
     return new NextResponse(JSON.stringify(err), { status: 500 });
   }
 }

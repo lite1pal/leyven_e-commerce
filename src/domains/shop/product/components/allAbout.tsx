@@ -106,7 +106,7 @@ export default function AllAbout({ data }: Props) {
             </a>
           </Rating>
           <div className="pr-10 font-light text-slate-400 max-sm:text-sm">
-            Код: {data.id.slice(0, 12)}
+            Артикул: {data.unique_id?.slice(0, 12)}
           </div>
         </div>
         <Divider />

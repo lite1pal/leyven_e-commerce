@@ -62,6 +62,7 @@ model VerificationToken {
 // Models
 model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  unique_id String? @unique
   title       String
   price       Int
   discount Int? @default(0)

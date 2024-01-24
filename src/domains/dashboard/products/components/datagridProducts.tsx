@@ -14,16 +14,72 @@ import {
 } from "@mui/x-data-grid";
 import moment from "moment";
 import Button from "@/components/base/Button";
+import ButtonMUI from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
 import { Product } from "@/types";
+import AddIcon from "@mui/icons-material/Add";
+import { API_URL } from "@/config/api";
+import toast from "react-hot-toast";
+import MySpinner from "@/components/base/Spinner";
+import { Spinner } from "flowbite-react";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 function EditToolbar() {
+  const [loading, setLoading] = React.useState(false);
+
+  const handleImport = async (e: any) => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${API_URL}/products`, { method: "POST" });
+      const parsedRes = await res.json();
+      console.log(parsedRes);
+      setLoading(false);
+      toast.success(
+        "Дані з leyven.prom.ua імпортовані успішно. Все синхронизовано",
+        { duration: 7000 },
+      );
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err);
+      setLoading(false);
+      return;
+    }
+  };
+
   return (
     <GridToolbarContainer className="flex w-full justify-between">
       <Link href="/dashboard/products/add">
         <Button title="Додати товар" />
       </Link>
-      <GridToolbarExport />
+      <div className="flex gap-3">
+        {loading ? (
+          <div className="flex gap-3 text-lg text-slate-500">
+            Не робіть ніяких дій, поки відбувається імпорт
+            <Spinner />
+          </div>
+        ) : (
+          <ButtonMUI
+            onClick={(e) => handleImport(e)}
+            startIcon={<AddIcon />}
+            variant="text"
+          >
+            import
+          </ButtonMUI>
+        )}
+        <GridToolbarExport />
+      </div>
       <GridToolbarQuickFilter
         sx={{
           backgroundColor: "transparent",

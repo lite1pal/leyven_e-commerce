@@ -14,7 +14,6 @@ const navigation = [
     name: "Управління товарами",
     href: "/dashboard/products",
   },
-  { name: "Аналітика", href: "/dashboard/orders" },
 ];
 
 export const metadata: Metadata = {

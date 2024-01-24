@@ -47,6 +47,7 @@
     "slugify": "^1.6.6",
     "swiper": "^11.0.5",
     "winston": "^3.11.0",
+    "xlsx": "^0.18.5",
     "xml-beautify": "^1.2.3",
     "xml-formatter": "^3.6.2",
     "xml-js": "^1.6.11"
@@ -56,6 +57,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/xlsx": "^0.0.36",
     "autoprefixer": "^10.0.1",
     "daisyui": "^4.4.20",
     "eslint": "^8",

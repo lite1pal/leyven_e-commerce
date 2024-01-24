@@ -4,10 +4,10 @@ import { Table } from "flowbite-react";
 
 export default function ProductInfoTable({ data }: any) {
   return (
-    <div className="overflow-x-auto mt-5">
+    <div className="mt-5 overflow-x-auto">
       <Table>
         <Table.Body className="divide-y">
-          {data.info.map((info: any, i: number) => {
+          {data?.info?.map((info: any, i: number) => {
             return (
               <Table.Row key={i}>
                 <Table.Cell className="whitespace-nowrap p-0 font-bold text-slate-600">
