@@ -1,11 +1,18 @@
 import { API_URL } from "@/config/api";
+import slugify from "slugify";
 
 export default async function sitemap() {
   const res = await fetch(`${API_URL}/products?getAll=true`);
   const allProducts = await res.json();
 
   const products = allProducts.map((product: any) => ({
-    url: `https://www.leyven.com.ua/product/${product.id}`,
+    url: `https://www.leyven.com.ua/product/${product.id}-${slugify(
+      product.title,
+      {
+        strict: true,
+        lower: true,
+      },
+    ).slice(0, 14)}`,
     lastModified: new Date().toISOString(),
   }));
 

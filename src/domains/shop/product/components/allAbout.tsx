@@ -12,6 +12,7 @@ import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
 import { valueOfPercent } from "@/libs/utils";
 import { Product } from "@/types";
+import { useParams } from "next/navigation";
 
 const customCarouselTheme: CustomFlowbiteTheme["carousel"] = {
   root: {
@@ -50,6 +51,8 @@ type Props = {
 export default function AllAbout({ data }: Props) {
   const { addItem, inCart } = useCart();
 
+  const params = useParams();
+
   const calculateAverageRating = (): string => {
     let totalRating = 0;
 
@@ -62,6 +65,8 @@ export default function AllAbout({ data }: Props) {
     }
     return "0";
   };
+
+  console.log(data.breadcrumbs);
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       <Grid
@@ -143,13 +148,22 @@ export default function AllAbout({ data }: Props) {
             } mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400`}
           />
 
-          {data.availability === "in stock" && (
-            <Link
-              onClick={() => !inCart(data.id) && addItem(data)}
-              href="/order"
-            >
-              <Button title="Купити" />
-            </Link>
+          {data.availability === "in stock" &&
+            !data.breadcrumbs.includes("Ветеринарія") && (
+              <Link
+                onClick={() => !inCart(data.id) && addItem(data)}
+                href="/order"
+              >
+                <Button title="Купити" />
+              </Link>
+            )}
+          {data.breadcrumbs.includes("Ветеринарія") && (
+            <div className="text-center font-medium text-slate-600">
+              Замовлення можливе тільки через звінок менеджеру -{" "}
+              <span className="font-semibold text-slate-900">
+                +380 (50) 598-74-77
+              </span>
+            </div>
           )}
         </div>
         <ProductInfoTable {...{ data }} />
