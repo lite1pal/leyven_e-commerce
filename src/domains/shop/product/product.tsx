@@ -47,7 +47,7 @@ export default async function ProductView({ id }: IProps) {
 
   const session = await auth();
 
-  let productJsonLd = {
+  let productJsonLd: any = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: data.title,
@@ -64,8 +64,6 @@ export default async function ProductView({ id }: IProps) {
       highPrice: data.price,
       lowPrice: data.price - valueOfPercent(data.discount, data.price),
     },
-    review: {},
-    aggregateRating: {},
   };
 
   if (data.reviews && data?.reviews?.length > 0) {
