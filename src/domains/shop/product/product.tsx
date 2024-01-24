@@ -65,11 +65,7 @@ export default async function ProductView({ id }: IProps) {
       lowPrice: data.price - valueOfPercent(data.discount, data.price),
     },
     review: {},
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: calculateAverageRating(),
-      reviewCount: data?.reviews?.length,
-    },
+    aggregateRating: {},
   };
 
   if (data.reviews && data?.reviews?.length > 0) {
@@ -84,6 +80,11 @@ export default async function ProductView({ id }: IProps) {
         "@type": "Person",
         name: data?.reviews[0]?.user?.name!,
       },
+    };
+    productJsonLd.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: calculateAverageRating(),
+      reviewCount: data?.reviews?.length,
     };
   }
 
