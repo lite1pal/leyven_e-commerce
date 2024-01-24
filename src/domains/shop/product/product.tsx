@@ -17,9 +17,37 @@ export default async function ProductView({ id }: IProps) {
   const res = await fetch(`${API_URL}/product?id=${id}`, { cache: "no-store" });
   const data: Product = await res.json();
 
+  console.log(data.reviews);
+
+  const calculateAverageRating = (): number => {
+    let totalRating = 0;
+
+    if (data.reviews && data.reviews.length > 0) {
+      data.reviews.forEach((review: any) => {
+        totalRating = totalRating + parseInt(review.rating);
+      });
+      return parseInt((totalRating / data.reviews.length).toFixed(1));
+    }
+    return 0;
+  };
+
+  const getBestRating = (): number => {
+    let bestRating = 0;
+
+    if (data.reviews && data.reviews.length > 0) {
+      data.reviews.forEach((review: any) => {
+        if (parseInt(review.rating) > bestRating) {
+          bestRating = parseInt(review.rating);
+        }
+      });
+      return bestRating;
+    }
+    return 5;
+  };
+
   const session = await auth();
 
-  const productJsonLd = {
+  let productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: data.title,
@@ -32,10 +60,32 @@ export default async function ProductView({ id }: IProps) {
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
       priceCurrency: "UAH",
+      offerCount: 1,
       highPrice: data.price,
       lowPrice: data.price - valueOfPercent(data.discount, data.price),
     },
+    review: {},
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: calculateAverageRating(),
+      reviewCount: data?.reviews?.length,
+    },
   };
+
+  if (data.reviews && data?.reviews?.length > 0) {
+    productJsonLd.review = {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: parseInt(data?.reviews[0].rating.toString()),
+        bestRating: getBestRating(),
+      },
+      author: {
+        "@type": "Person",
+        name: data?.reviews[0]?.user?.name!,
+      },
+    };
+  }
 
   return (
     <div>

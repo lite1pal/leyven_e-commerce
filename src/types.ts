@@ -23,7 +23,7 @@ export type Review = {
   id: string;
   text: string;
   rating: string | number;
-  user?: {};
+  user?: { name: string };
   userId: string;
   product?: {};
   productId: string;
