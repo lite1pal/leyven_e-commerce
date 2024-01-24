@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import slugify from "slugify";
 import fs from "fs/promises";
+import { slugifyString } from "@/libs/utils";
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,10 +16,7 @@ export async function GET(req: NextRequest) {
         "https://www.leyven.com.ua/product/" +
         product.id +
         "-" +
-        slugify(product.title, {
-          strict: true,
-          lower: true,
-        }).slice(0, 14) +
+        slugifyString(product.title) +
         "?source=merchant_center";
 
       textXML =

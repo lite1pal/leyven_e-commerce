@@ -1,4 +1,5 @@
 import { API_URL } from "@/config/api";
+import { slugifyString } from "@/libs/utils";
 import slugify from "slugify";
 
 export default async function sitemap() {
@@ -6,13 +7,9 @@ export default async function sitemap() {
   const allProducts = await res.json();
 
   const products = allProducts.map((product: any) => ({
-    url: `https://www.leyven.com.ua/product/${product.id}-${slugify(
+    url: `https://www.leyven.com.ua/product/${product.id}-${slugifyString(
       product.title,
-      {
-        strict: true,
-        lower: true,
-      },
-    ).slice(0, 14)}`,
+    )}`,
     lastModified: new Date().toISOString(),
   }));
 

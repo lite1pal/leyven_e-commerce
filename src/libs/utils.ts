@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import convert from "xml-js";
 
 export const convertXMLtoJSON = async (xmlRes: Response) => {
@@ -62,3 +63,14 @@ export function getFiltersPathName(newFilters: string[], pathName: string) {
 export function getDecodedFilters(filters: string) {
   return filters ? decodeURIParams(filters.toString()) : [];
 }
+
+export const slugifyString = (text: string) =>
+  slugify(text, { lower: true })
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-");

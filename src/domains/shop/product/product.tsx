@@ -6,8 +6,8 @@ import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { type Product } from "@/types";
 import AllAbout from "./components/allAbout";
 import Reviews from "./components/reviews";
-import { Divider } from "@mui/material";
 import { valueOfPercent } from "@/libs/utils";
+import slugify from "slugify";
 
 type IProps = {
   id: string;
