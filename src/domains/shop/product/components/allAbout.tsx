@@ -90,7 +90,9 @@ export default function AllAbout({ data }: Props) {
         </PhotoProvider>
       </Grid>
       <Grid sx={{ width: "100%" }} xs={8} md={8} lg={6}>
-        <div className="text-2xl font-medium max-sm:text-lg">{data.title}</div>
+        <div className="mx-auto text-2xl font-medium max-sm:text-lg">
+          {data.title}
+        </div>
         <div className="flex items-center justify-between py-2">
           <Rating
             style={{
@@ -114,9 +116,9 @@ export default function AllAbout({ data }: Props) {
         </div>
         <Divider />
         <div className="flex items-center gap-5 pt-4">
-          <div>
+          <div className="flex flex-col gap-3">
             <div
-              className={`flex gap-5 font-sans text-2xl font-semibold text-slate-900 dark:text-white max-sm:text-base lg:text-2xl`}
+              className={`flex flex-col gap-0 font-sans text-2xl font-semibold text-slate-900 dark:text-white max-sm:text-base sm:flex-row sm:gap-5 lg:text-2xl`}
             >
               {data.discount !== 0 && (
                 <span className="font-medium text-red-600">
@@ -129,10 +131,10 @@ export default function AllAbout({ data }: Props) {
                 data.price + ".00 UAH"
               )}
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 text-xs sm:text-base">
               {data.availability === "in stock" ? (
                 <>
-                  <UnarchiveIcon color="success" />
+                  <UnarchiveIcon color="success" fontSize="small" />
                   <div className="text-green-500">В наявності</div>
                 </>
               ) : (
@@ -142,7 +144,9 @@ export default function AllAbout({ data }: Props) {
           </div>
           <span
             className={`${
-              data.availability === "out of stock" && "hidden"
+              (data.availability === "out of stock" ||
+                data.breadcrumbs.includes("Ветеринарія")) &&
+              "hidden"
             } mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400`}
           />
 
@@ -156,7 +160,7 @@ export default function AllAbout({ data }: Props) {
               </Link>
             )}
           {data.breadcrumbs.includes("Ветеринарія") && (
-            <div className="w-52 text-center text-sm font-medium text-slate-600">
+            <div className="w-44 text-center text-xs font-medium text-slate-600">
               Замовлення можливе тільки через дзвінок менеджеру -{" "}
               <span className="font-semibold text-slate-900">
                 +380 (50) 598-74-77

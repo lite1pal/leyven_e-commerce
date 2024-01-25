@@ -101,7 +101,7 @@ export default async function ProductView({ id }: IProps) {
       </div>
 
       <div className="flex flex-col gap-3 px-7 py-10">
-        <p className=" text-slate-700 lg:w-1/2 xl:w-1/2">
+        <p className="text-slate-700 xl:w-1/2">
           <strong>Застереження!</strong> Будь ласка, перед купівлею зверніться
           до ветеринарного лікаря за рекомендацією! Ми не надаємо консультацій
           щодо підбору препаратів та не несемо відповідальності за їх
