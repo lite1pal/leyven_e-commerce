@@ -1,6 +1,5 @@
 import { API_URL } from "@/config/api";
 import { slugifyString } from "@/libs/utils";
-import slugify from "slugify";
 
 export default async function sitemap() {
   const res = await fetch(`${API_URL}/products?getAll=true`);

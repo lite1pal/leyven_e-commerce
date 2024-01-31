@@ -88,24 +88,20 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { jsonData } = body;
+    // const body = await req.json();
+    // const { jsonData } = body;
 
-    const promises = jsonData.slice(1).map(async (badProduct: any) => {
+    const products = await prisma.product.findMany();
+
+    const promises = products.map(async (product: any) => {
       try {
-        const product = await prisma.product.findFirst({
-          where: {
-            unique_id: { equals: badProduct[24].toString() },
-          },
-        });
-
-        if (!product) {
+        if (product.unique_id) {
           return;
         }
 
         return prisma.product.update({
           where: { id: product.id },
-          data: { unique_id_1c: badProduct[25] },
+          data: { unique_id: "miss" },
         });
       } catch (err) {
         console.error(err, "ERROR");
