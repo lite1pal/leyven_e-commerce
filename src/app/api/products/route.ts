@@ -153,98 +153,105 @@ export async function GET(req: NextRequest, { params }: any) {
   }
 }
 
-export async function POST(req: NextRequest) {
-  try {
-    const res = await fetch(
-      "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
-    );
+// syncs with prom.ua website's database
+// export async function POST(req: NextRequest) {
+//   try {
+//     const res = await fetch(
+//       "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
+//     );
 
-    if (!res.ok) {
-      return new NextResponse(JSON.stringify({ message: "Невірний ресурс" }), {
-        status: 200,
-      });
-    }
+//     if (!res.ok) {
+//       return new NextResponse(JSON.stringify({ message: "Невірний ресурс" }), {
+//         status: 200,
+//       });
+//     }
 
-    const badFormatData = await convertXMLtoJSON(res);
+//     const badFormatData = await convertXMLtoJSON(res);
 
-    // const productIds = badFormatData.map(
-    //   (badProduct: any) => badProduct["g:id"]._text,
-    // );
+//     if (badFormatData.length === 0) {
+//       return new NextResponse(
+//         JSON.stringify({ message: "Імпорт наразі неможливий" }),
+//         {
+//           status: 200,
+//         },
+//       );
+//     }
 
-    if (badFormatData.length === 0) {
-      return new NextResponse(
-        JSON.stringify({ message: "Імпорт наразі неможливий" }),
-        {
-          status: 200,
-        },
-      );
-    }
+//     const existingProducts = await prisma.product.findMany();
 
-    const existingProducts = await prisma.product.findMany();
+//     const promises = badFormatData.map(async (badProduct: any) => {
+//       try {
+//         const existingProduct = existingProducts.find(
+//           (product) => product.unique_id === badProduct["g:id"]._text,
+//         );
 
-    const promises = badFormatData.map(async (badProduct: any) => {
-      try {
-        const existingProduct = existingProducts.find(
-          (product) => product.unique_id === badProduct["g:id"]._text,
-        );
+//         const productPrice = parseInt(
+//           badProduct["g:price"]._text.split(" ")[0],
+//         );
 
-        if (existingProduct) {
-          return;
-        }
+//         if (existingProduct) {
+//           return prisma.product.update({
+//             where: { id: existingProduct.id },
+//             data: {
+//               title: badProduct["g:title"]._text,
+//               img: badProduct["g:image_link"]._text,
+//               price: productPrice,
+//               availability: badProduct["g:availability"]._text,
+//               description: badProduct["g:description"]._text,
+//               breadcrumbs: badProduct["g:product_type"]._text,
+//             },
+//           });
+//         }
 
-        const productPrice = parseInt(
-          badProduct["g:price"]._text.split(" ")[0],
-        );
+//         const getProductCountry = () => {
+//           if (Array.isArray(badProduct["g:product_detail"])) {
+//             return badProduct["g:product_detail"][0]["g:attribute_name"]
+//               ._text === "Країна виробник"
+//               ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
+//               : "Немає";
+//           }
+//           if (
+//             badProduct["g:product_detail"]["g:attribute_name"]._text ===
+//             "Країна виробник"
+//           ) {
+//             return badProduct["g:product_detail"]["g:attribute_value"]._text;
+//           }
 
-        const getProductCountry = () => {
-          if (Array.isArray(badProduct["g:product_detail"])) {
-            return badProduct["g:product_detail"][0]["g:attribute_name"]
-              ._text === "Країна виробник"
-              ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
-              : "Немає";
-          }
-          if (
-            badProduct["g:product_detail"]["g:attribute_name"]._text ===
-            "Країна виробник"
-          ) {
-            return badProduct["g:product_detail"]["g:attribute_value"]._text;
-          }
+//           return "Немає";
+//         };
 
-          return "Немає";
-        };
+//         return prisma.product.create({
+//           data: {
+//             title: badProduct["g:title"]._text,
+//             unique_id: badProduct["g:id"]._text,
+//             img: badProduct["g:image_link"]._text,
+//             price: productPrice,
+//             availability: badProduct["g:availability"]._text,
+//             description: badProduct["g:description"]._text,
+//             breadcrumbs: badProduct["g:product_type"]._text,
+//             country: getProductCountry(),
+//             brand: badProduct["g:brand"]._text,
+//             rating: "4",
+//             info: Array.isArray(badProduct["g:product_detail"])
+//               ? badProduct["g:product_detail"]
+//               : [badProduct["g:product_detail"]],
+//           },
+//         });
+//       } catch (err) {
+//         console.error(err, "ERROR");
+//       }
+//     });
 
-        return prisma.product.create({
-          data: {
-            title: badProduct["g:title"]._text,
-            unique_id: badProduct["g:id"]._text,
-            img: badProduct["g:image_link"]._text,
-            price: productPrice,
-            availability: badProduct["g:availability"]._text,
-            description: badProduct["g:description"]._text,
-            breadcrumbs: badProduct["g:product_type"]._text,
-            country: getProductCountry(),
-            brand: badProduct["g:brand"]._text,
-            rating: "4",
-            info: Array.isArray(badProduct["g:product_detail"])
-              ? badProduct["g:product_detail"]
-              : [badProduct["g:product_detail"]],
-          },
-        });
-      } catch (err) {
-        console.error(err, "ERROR");
-      }
-    });
+//     const result = await Promise.all(promises);
 
-    const result = await Promise.all(promises);
-
-    return new NextResponse(JSON.stringify(result), {
-      status: 200,
-    });
-  } catch (err) {
-    // console.log(err);
-    return new NextResponse(JSON.stringify(err), { status: 500 });
-  }
-}
+//     return new NextResponse(JSON.stringify(result), {
+//       status: 200,
+//     });
+//   } catch (err) {
+//     // console.log(err);
+//     return new NextResponse(JSON.stringify(err), { status: 500 });
+//   }
+// }
 
 export async function PUT(req: NextRequest) {
   try {
@@ -258,17 +265,17 @@ export async function PUT(req: NextRequest) {
       try {
         const product = await prisma.product.findFirst({
           where: {
-            title: { equals: badProduct["g:title"]._text },
+            unique_id: { equals: badProduct["g:id"]._text },
           },
         });
 
-        if (!product) {
+        if (!product || product.unique_id) {
           return;
         }
 
         return prisma.product.update({
           where: { id: product.id },
-          data: { unique_id: badProduct["g:id"]._text },
+          data: { unique_id_1c: badProduct["g:id"]._text },
         });
       } catch (err) {
         console.error(err, "ERROR");

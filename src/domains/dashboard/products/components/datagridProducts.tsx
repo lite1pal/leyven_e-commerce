@@ -15,26 +15,13 @@ import {
 import moment from "moment";
 import Button from "@/components/base/Button";
 import ButtonMUI from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
 import Link from "next/link";
 import { Product } from "@/types";
 import AddIcon from "@mui/icons-material/Add";
 import { API_URL } from "@/config/api";
 import toast from "react-hot-toast";
-import MySpinner from "@/components/base/Spinner";
 import { Spinner } from "flowbite-react";
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+import { convertXLSXtoJSON } from "@/libs/utils";
 
 function EditToolbar() {
   const [loading, setLoading] = React.useState(false);
@@ -65,6 +52,29 @@ function EditToolbar() {
     }
   };
 
+  const handleImport1C = async (e: any) => {
+    try {
+      setLoading(true);
+      const file = e.target.files[0];
+
+      const jsonData: any = await convertXLSXtoJSON(file);
+
+      const res = await fetch(`${API_URL}/products1C`, {
+        method: "POST",
+        body: JSON.stringify({ jsonData }),
+      });
+
+      const parsedRes = await res.json();
+      console.log(parsedRes);
+      toast(parsedRes);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Надто багато імпортів, спробуйте ще раз через годину");
+      setLoading(false);
+    }
+  };
+
   return (
     <GridToolbarContainer className="flex w-full justify-between">
       <Link href="/dashboard/products/add">
@@ -78,12 +88,18 @@ function EditToolbar() {
           </div>
         ) : (
           <ButtonMUI
-            onClick={(e) => handleImport(e)}
+            // onClick={(e) => handleImport(e)}
+            onClick={() =>
+              console.log(
+                "Триває інтеграція з базою 1с, тому функція тимчасово не працює",
+              )
+            }
             startIcon={<AddIcon />}
             variant="text"
           >
             import
           </ButtonMUI>
+          // <input type="file" onChange={(e) => handleImport1C(e)} />
         )}
         <GridToolbarExport />
       </div>

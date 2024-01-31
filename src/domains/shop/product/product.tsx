@@ -47,6 +47,43 @@ export default async function ProductView({ id }: IProps) {
 
   const session = await auth();
 
+  const FormattedDescription = ({ description }: any) => {
+    const strongParags = [
+      "Протипоказання",
+      "Дози та спосіб застосування",
+      "Показання",
+      "Фармакологічні властивості",
+      "Склад",
+      "Склад корму",
+      "Опис",
+      "Особливі вказівки",
+      "Особливості застосування",
+      "Побічні явища",
+      "Умови зберігання",
+      "Форма випуску",
+      "Вид тварин",
+      "Заходи особистої гігієни",
+      "Застосування",
+      "Дозування",
+    ];
+    const paragraphs = description
+      .split(/(?<=\s)(?=[\u0410-\u042F])/u)
+      .map((paragraph: string, index: number) => (
+        <p
+          className={`${
+            strongParags.includes(paragraph.trim().replace(":", "")) &&
+            "mb-5 mt-5 text-xl font-semibold"
+          } mt-1.5`}
+          key={index}
+        >
+          {!strongParags.includes(paragraph.trim()) && "- "}
+          {paragraph}
+        </p>
+      ));
+
+    return <div>{paragraphs}</div>;
+  };
+
   let productJsonLd: any = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -109,10 +146,12 @@ export default async function ProductView({ id }: IProps) {
           улюбленцю!
         </p>
 
-        <p className="pointer-events-none absolute left-0 top-0 text-slate-700 opacity-0">
-          {data.description?.slice(0, 12) === "Застереження"
+        <p className="text-slate-700">
+          {/* <FormattedDescription description={data.description} /> */}
+          <div>{data.description}</div>
+          {/* {data.description?.slice(0, 12) === "Застереження"
             ? data.description?.slice(257)
-            : data.description}
+            : data.description} */}
         </p>
       </div>
 

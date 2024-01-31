@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import convert from "xml-js";
+import * as XLSX from "xlsx";
 
 export const convertXMLtoJSON = async (xmlRes: Response) => {
   const xmlText = await xmlRes.text();
@@ -12,6 +13,31 @@ export const convertXMLtoJSON = async (xmlRes: Response) => {
   const parsedXML = await JSON.parse(xmlString);
 
   return parsedXML.rss.channel.item;
+};
+
+export const convertXLSXtoJSON = async (file: any) => {
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    let jsonData: any = [];
+
+    reader.onload = function (e: any) {
+      try {
+        var data = e.target.result;
+        let readedData = XLSX.read(data, { type: "binary" });
+        const wsname = readedData.SheetNames[0];
+        const ws = readedData.Sheets[wsname];
+
+        /* Convert array to json*/
+        const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
+        jsonData = dataParse;
+        resolve(jsonData);
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    reader.readAsBinaryString(file);
+  });
 };
 
 export function wait(milliseconds: number) {
