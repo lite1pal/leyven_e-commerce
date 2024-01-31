@@ -91,17 +91,25 @@ export async function PUT(req: NextRequest) {
     // const body = await req.json();
     // const { jsonData } = body;
 
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      where: { unique_id: { equals: "miss" } },
+    });
 
     const promises = products.map(async (product: any) => {
       try {
-        if (product.unique_id) {
-          return;
-        }
+        // if (product.rating) {
+        //   return;
+        // }
 
         return prisma.product.update({
           where: { id: product.id },
-          data: { unique_id: "miss" },
+          data: {
+            img: "miss",
+            description: "miss",
+            breadcrumbs: "miss",
+            country: "miss",
+            brand: "miss",
+          },
         });
       } catch (err) {
         console.error(err, "ERROR");
