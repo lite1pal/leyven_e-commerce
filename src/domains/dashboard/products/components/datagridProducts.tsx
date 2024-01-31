@@ -90,7 +90,7 @@ function EditToolbar() {
           <ButtonMUI
             // onClick={(e) => handleImport(e)}
             onClick={() =>
-              console.log(
+              toast(
                 "Триває інтеграція з базою 1с, тому функція тимчасово не працює",
               )
             }
