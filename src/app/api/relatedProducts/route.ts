@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
 
     if (!id) {
       products = await prisma.product.findMany({
+        where: { img: { not: null } },
         take: 10,
         orderBy: { updatedAt: "desc" },
       });
@@ -23,7 +24,11 @@ export async function GET(req: NextRequest) {
     const product = await prisma.product.findUnique({ where: { id } });
 
     products = await prisma.product.findMany({
-      where: { breadcrumbs: product?.breadcrumbs },
+      where: {
+        breadcrumbs: product?.breadcrumbs,
+        img: { not: null },
+        availability: "in stock",
+      },
       take: 10,
     });
 

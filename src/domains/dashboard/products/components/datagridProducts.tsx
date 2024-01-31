@@ -26,7 +26,7 @@ import { convertXLSXtoJSON } from "@/libs/utils";
 function EditToolbar() {
   const [loading, setLoading] = React.useState(false);
 
-  const handleImport = async (e: any) => {
+  const handleImportProm = async () => {
     try {
       setLoading(true);
 
@@ -52,7 +52,7 @@ function EditToolbar() {
     }
   };
 
-  const handleImport1C = async (e: any) => {
+  const handleXLSXUpload = async (e: any) => {
     try {
       setLoading(true);
       const file = e.target.files[0];
@@ -60,14 +60,42 @@ function EditToolbar() {
       const jsonData: any = await convertXLSXtoJSON(file);
 
       const res = await fetch(`${API_URL}/products1C`, {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify({ jsonData }),
       });
 
       const parsedRes = await res.json();
-      console.log(parsedRes);
-      toast(parsedRes);
       setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error("Надто багато імпортів, спробуйте ще раз через годину");
+      setLoading(false);
+    }
+  };
+
+  const handleImport1C = async (e: any) => {
+    try {
+      setLoading(true);
+      const file = e.target.files[0];
+
+      const xmlText = await file.text();
+
+      const res = await fetch(`${API_URL}/products1C`, {
+        method: "POST",
+        body: JSON.stringify({ xmlText }),
+      });
+
+      // Check if the result is from the fetch request
+      if (res.ok) {
+        setLoading(false);
+        toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
+        return;
+      }
+      // Handle timeout
+      setLoading(false);
+      toast.error(
+        "Файл має бути формату XML. Спробуйте пізніше, якщо ви завантажували вірний формат",
+      );
     } catch (err) {
       console.log(err);
       toast.error("Надто багато імпортів, спробуйте ще раз через годину");
@@ -80,7 +108,7 @@ function EditToolbar() {
       <Link href="/dashboard/products/add">
         <Button title="Додати товар" />
       </Link>
-      <div className="flex gap-3">
+      <div className="flex items-center gap-3">
         {loading ? (
           <div className="flex gap-3 text-lg text-slate-500">
             Не робіть ніяких дій, поки відбувається імпорт
@@ -88,20 +116,27 @@ function EditToolbar() {
           </div>
         ) : (
           <ButtonMUI
-            // onClick={(e) => handleImport(e)}
-            onClick={() =>
-              toast(
-                "Триває інтеграція з базою 1с, тому функція тимчасово не працює",
-              )
-            }
+            onClick={handleImportProm}
             startIcon={<AddIcon />}
             variant="text"
           >
-            import
+            Sync with Prom
           </ButtonMUI>
-          // <input type="file" onChange={(e) => handleImport1C(e)} />
         )}
-        <GridToolbarExport />
+        {/* <GridToolbarExport /> */}
+        {!loading && (
+          <ButtonMUI startIcon={<AddIcon />}>
+            <label className="cursor-pointer" htmlFor="file">
+              Upload data from 1C
+            </label>
+            <input
+              id="file"
+              className="hidden"
+              type="file"
+              onChange={(e) => handleImport1C(e)}
+            />
+          </ButtonMUI>
+        )}
       </div>
       <GridToolbarQuickFilter
         sx={{

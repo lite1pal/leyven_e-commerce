@@ -20,6 +20,10 @@ export default async function RelatedProducts({
 
   const data = await res.json();
 
+  if (!Array.isArray(data)) {
+    return <div className="my-10 py-10"></div>;
+  }
+
   return (
     <div className="flex flex-col gap-7 px-7 py-5">
       <SectionHeader>{header}</SectionHeader>

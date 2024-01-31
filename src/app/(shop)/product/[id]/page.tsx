@@ -6,6 +6,8 @@ import MySpinner from "@/components/base/Spinner";
 import FooterComponent from "@/components/sections/footer/footer";
 import Card from "@/components/cards/card";
 import RelatedProducts from "@/components/sections/relatedProducts";
+import { redirect } from "next/navigation";
+import { slugifyString } from "@/libs/utils";
 
 export async function generateMetadata({ params }: any) {
   const res = await fetch(`${API_URL}/product?id=${params.id}`, {
@@ -32,9 +34,11 @@ export async function generateMetadata({ params }: any) {
 
 export default function ProductScreen({ params }: any) {
   const id = params.id.split("-")[0];
+  const slugishTitle = params.id.split("-").slice(1).join("-");
+
   return (
     <Suspense fallback={<MySpinner />}>
-      <ProductView id={id} />
+      <ProductView id={id} slugishTitle={slugishTitle} />
       <Suspense>
         <RelatedProducts id={id} header={"Рекомендовані"} />
         <FooterComponent />

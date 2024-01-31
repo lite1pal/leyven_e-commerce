@@ -1,23 +1,34 @@
 import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
-import TabsComponent from "./components/tabs";
 import { API_URL } from "@/config/api";
-import parse from "html-react-parser";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { type Product } from "@/types";
 import AllAbout from "./components/allAbout";
 import Reviews from "./components/reviews";
-import { valueOfPercent } from "@/libs/utils";
+import { slugifyString, valueOfPercent } from "@/libs/utils";
 import slugify from "slugify";
+import { redirect } from "next/navigation";
+import SectionHeader from "@/components/base/SectionHeader";
 
 type IProps = {
   id: string;
+  slugishTitle: string;
 };
 
-export default async function ProductView({ id }: IProps) {
+export default async function ProductView({ id, slugishTitle }: IProps) {
   const res = await fetch(`${API_URL}/product?id=${id}`, { cache: "no-store" });
   const data: Product = await res.json();
 
-  console.log(data.reviews);
+  if (!data.title) {
+    return (
+      <div className="mb-10 py-10 text-center text-3xl font-semibold">
+        404 Not found
+      </div>
+    );
+  }
+
+  if (slugifyString(data.title) !== slugishTitle) {
+    redirect(`/product/${id}-${slugifyString(data.title)}`);
+  }
 
   const calculateAverageRating = (): number => {
     let totalRating = 0;
@@ -99,7 +110,9 @@ export default async function ProductView({ id }: IProps) {
       priceCurrency: "UAH",
       offerCount: 1,
       highPrice: data.price,
-      lowPrice: data.price - valueOfPercent(data.discount, data.price),
+      lowPrice: data.discount
+        ? data.price - valueOfPercent(data.discount, data.price)
+        : data.price,
     },
   };
 
@@ -137,7 +150,8 @@ export default async function ProductView({ id }: IProps) {
         <AllAbout data={data} />
       </div>
 
-      <div className="flex flex-col gap-3 px-7 py-10">
+      <div className="flex flex-col gap-5 px-7 py-10">
+        <SectionHeader>Опис</SectionHeader>
         <p className="text-slate-700 xl:w-1/2">
           <strong>Застереження!</strong> Будь ласка, перед купівлею зверніться
           до ветеринарного лікаря за рекомендацією! Ми не надаємо консультацій
@@ -146,7 +160,7 @@ export default async function ProductView({ id }: IProps) {
           улюбленцю!
         </p>
 
-        <p className="text-slate-700">
+        <p className="text-slate-700 xl:w-1/2">
           {/* <FormattedDescription description={data.description} /> */}
           <div>{data.description}</div>
           {/* {data.description?.slice(0, 12) === "Застереження"

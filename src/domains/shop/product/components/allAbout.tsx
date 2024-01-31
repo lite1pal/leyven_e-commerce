@@ -111,7 +111,7 @@ export default function AllAbout({ data }: Props) {
             </a>
           </Rating>
           <div className="pr-10 font-light text-slate-400 max-sm:text-sm">
-            Артикул: {data.unique_id?.slice(0, 12)}
+            Артикул: {data?.artycul}
           </div>
         </div>
         <Divider />
@@ -122,7 +122,12 @@ export default function AllAbout({ data }: Props) {
             >
               {data.discount !== 0 && (
                 <span className="font-medium text-red-600">
-                  {data.price - valueOfPercent(data.discount, data.price)} UAH
+                  {data.price -
+                    valueOfPercent(
+                      data.discount ? data.discount : 0,
+                      data.price,
+                    )}{" "}
+                  UAH
                 </span>
               )}
               {data.discount !== 0 ? (
@@ -144,29 +149,27 @@ export default function AllAbout({ data }: Props) {
           </div>
           <span
             className={`${
-              (data.availability === "out of stock" ||
-                data.breadcrumbs.includes("Ветеринарія")) &&
-              "hidden"
+              data.availability === "out of stock" && "hidden"
             } mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400`}
           />
 
-          {data.availability === "in stock" &&
-            !data.breadcrumbs.includes("Ветеринарія") && (
-              <Link
-                onClick={() => !inCart(data.id) && addItem(data)}
-                href="/order"
-              >
-                <Button title="Купити" />
-              </Link>
-            )}
-          {data.breadcrumbs.includes("Ветеринарія") && (
+          {data.availability === "in stock" && (
+            <Link
+              onClick={() => !inCart(data.id) && addItem(data)}
+              href="/order"
+            >
+              <Button title="Купити" />
+            </Link>
+          )}
+
+          {/* {data.breadcrumbs.includes("Ветеринарія") && (
             <div className="w-44 text-center text-xs font-medium text-slate-600">
               Замовлення можливе тільки через дзвінок менеджеру -{" "}
               <span className="font-semibold text-slate-900">
                 +380 (50) 598-74-77
               </span>
             </div>
-          )}
+          )} */}
         </div>
         <ProductInfoTable {...{ data }} />
       </Grid>
