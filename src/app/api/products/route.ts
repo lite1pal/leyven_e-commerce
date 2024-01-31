@@ -54,7 +54,7 @@ export async function GET(req: NextRequest, { params }: any) {
     // returns a filtering options object for prisma query based on search params
     const filteringObject: any = (category: string | null) => {
       let orderBy: any = { updatedAt: "desc" };
-      let where: any = { img: { not: null } };
+      let where: any = { img: { not: "miss" } };
       let skip = page ? (page - 1) * 24 : 0;
       let take = 24;
 

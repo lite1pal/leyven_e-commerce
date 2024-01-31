@@ -4,7 +4,7 @@ import { prisma } from "../auth/[...nextauth]/auth";
 export async function GET(req: NextRequest) {
   try {
     const products = await prisma.product.findMany({
-      where: { discount: { not: 0 }, img: { not: null } },
+      where: { discount: { not: 0 }, img: { not: "miss" } },
       take: 10,
       // orderBy: { updatedAt: "desc" },
     });

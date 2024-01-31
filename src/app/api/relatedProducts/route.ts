@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
 
     if (!id) {
       products = await prisma.product.findMany({
-        where: { img: { not: null } },
+        where: { img: { not: "miss" } },
         take: 10,
         orderBy: { updatedAt: "desc" },
       });
