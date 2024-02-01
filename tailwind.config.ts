@@ -23,6 +23,11 @@ const config: Config = {
             transform: "translateX(-100%)",
           },
         },
+        stop: {
+          to: {
+            transform: "translateX(0%)",
+          },
+        },
       },
       animation: {
         "glitch-1": "glitch 4s linear infinite alternate-reverse",

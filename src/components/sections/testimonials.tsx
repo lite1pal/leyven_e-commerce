@@ -1,3 +1,5 @@
+"use client";
+
 import { testimonials } from "@/data/testimonials";
 import CardTestimonial from "../cards/cardTestimonial";
 import SectionHeader from "../base/SectionHeader";

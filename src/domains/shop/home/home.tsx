@@ -8,6 +8,9 @@ import { Suspense } from "react";
 import { type Product } from "@/types";
 import SectionHeader from "@/components/base/SectionHeader";
 import Hero from "@/components/sections/hero";
+import Testimonials from "@/components/sections/testimonials";
+import CompanyLocation from "@/components/sections/companyLocation";
+import FooterComponent from "@/components/sections/footer/footer";
 
 export default async function HomeView() {
   // gets products for the catalog
@@ -28,6 +31,9 @@ export default async function HomeView() {
       {/* <CategoryHeader title="Вибір товарів" /> */}
       <Suspense>
         <Catalog {...{ data }} />
+        <Testimonials />
+        <CompanyLocation />
+        <FooterComponent />
       </Suspense>
     </>
   );
