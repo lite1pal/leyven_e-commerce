@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, Divider, Grid } from "@mui/joy";
 import CitySelect from "@/domains/shop/order/components/citySelect";
 import WarehouseSelect from "@/domains/shop/order/components/warehouseSelect";
-import { Label, TextInput } from "flowbite-react";
+import { Label, TextInput, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { fetchCities } from "@/services/novaposhta";
 import { useCart } from "react-use-cart";
@@ -135,6 +135,7 @@ export default function OrderView({ session }: { session: Session | null }) {
                   <Label htmlFor="phone" value="Ваш номер телефону" />
                 </div>
                 <TextInput
+                  placeholder="+380"
                   id="phone"
                   type="tel"
                   required
@@ -144,18 +145,7 @@ export default function OrderView({ session }: { session: Session | null }) {
                   })}
                 />
               </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="email" value="Ваша пошта (необов`язково)" />
-                </div>
-                <TextInput
-                  id="email"
-                  type="email"
-                  placeholder={"name@gmail.com"}
-                  shadow
-                  {...register("email")}
-                />
-              </div>
+
               <div className="flex w-full gap-3">
                 <div className="w-full">
                   <div className="mb-2 block">
@@ -185,6 +175,34 @@ export default function OrderView({ session }: { session: Session | null }) {
                     })}
                   />
                 </div>
+              </div>
+
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="email" value="Ваша пошта (необов`язково)" />
+                </div>
+                <TextInput
+                  id="email"
+                  type="email"
+                  placeholder={"name@gmail.com"}
+                  shadow
+                  {...register("email")}
+                />
+              </div>
+
+              <div className="w-full">
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="comment"
+                    value="Коментар до замовлення (необов`язково)"
+                  />
+                </div>
+                <Textarea
+                  rows={7}
+                  id="comment"
+                  shadow
+                  {...register("comment")}
+                />
               </div>
               <div className="text-lg font-medium">Доставка Нова пошта</div>
               <CitySelect
