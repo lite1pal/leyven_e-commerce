@@ -6,10 +6,17 @@ import Icons from "./components/icons";
 import { Spinner } from "flowbite-react";
 import ExtraNavbar from "./components/extraNavbar";
 
+const navItems = [
+  { route: "/allProducts", name: "Каталог" },
+  { route: "/category/veterinarni-zasobi-preparati", name: "Ветеринарія" },
+  { route: "/category/goduvannya-domashnih-tvarin", name: "Годування" },
+  { route: "/category/tovari-dlya-progulyanok", name: "Подорожі" },
+  { route: "/category/tovari-dlya-komfortu", name: "Іграшки" },
+];
+
 export default async function Navbar() {
   return (
     <nav
-      // style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
       className={`sticky top-0 z-50 flex flex-col rounded-lg bg-white px-2 shadow transition sm:px-8`}
     >
       <div
@@ -31,11 +38,21 @@ export default async function Navbar() {
         <Sidebar />
         <ul className="flex w-1/2 items-center justify-evenly text-lg max-xl:hidden">
           {/* <li className="h-5 w-3 border-r-2 border-black opacity-50"></li> */}
-          <Link href="/allProducts">
+          {navItems.map((item) => {
+            return (
+              <NavItem key={item.route} route={item.route} name={item.name} />
+            );
+          })}
+          {/* <Link href="/allProducts">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Каталог
             </li>
           </Link>
+          <a href="#" className="group text-sky-600 transition duration-300">
+            Link
+            <span className="block h-0.5 max-w-0 bg-sky-600 transition-all duration-500 group-hover:max-w-full"></span>
+          </a>
+
           <Link href="/category/veterinarni-zasobi-preparati">
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Ветеринарія
@@ -55,7 +72,7 @@ export default async function Navbar() {
             <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
               Іграшки
             </li>
-          </Link>
+          </Link> */}
         </ul>
         <div className="flex items-center gap-1">
           <div className="mx-5">
@@ -73,5 +90,16 @@ export default async function Navbar() {
         </div>
       </div>
     </nav>
+  );
+}
+
+function NavItem({ route, name }: { route: string; name: string }) {
+  return (
+    <Link href={route}>
+      <li className="group cursor-default border-opacity-0 transition duration-300 hover:border-opacity-100 hover:text-blue-600">
+        {name}
+        <span className="block h-0.5 max-w-0 bg-blue-600 transition-all duration-300 group-hover:max-w-full"></span>
+      </li>
+    </Link>
   );
 }
