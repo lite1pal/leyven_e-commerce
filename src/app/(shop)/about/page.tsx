@@ -1,24 +1,22 @@
 import FooterComponent from "@/components/sections/footer/footer";
-import RelatedProducts from "@/components/sections/relatedProducts";
-import { Info } from "@mui/icons-material";
 import { Card } from "flowbite-react";
 import { Suspense } from "react";
 
 export default function About() {
   return (
     <Suspense>
-      <Card className="m-4  mx-auto flex min-h-screen w-full flex-col gap-5 sm:w-1/2">
+      <Card className="m-4 mx-auto flex min-h-screen w-full flex-col gap-5 sm:w-1/2">
         <div className="flex flex-col gap-7">
-          <div className="mx-auto text-xl font-bold">ЛейВен</div>
+          <div className="mx-auto text-xl font-bold">Лейвен</div>
           <p>
-            Ласкаво просимо до магазину {'"'}ЛейВен{'"'} – вашого надійного
+            Ласкаво просимо до магазину {'"'}Лейвен{'"'} – вашого надійного
             партнера у світі догляду за тваринами та ветеринарії! Ми розуміємо,
             наскільки важливі ваші сімейні улюбленці, і саме тому ми створили
-            цей магазин, щоб забезпечити їхні потреби та ваш спокій.
+            цей інтернет-зоомагазин, щоб забезпечити їхні потреби та ваш спокій.
           </p>
           <p>
             <span className="font-bold">Наш асортимент:</span> У магазині
-            {'"'}ЛейВен{'"'} ви знайдете широкий вибір товарів для догляду за
+            {'"'}Лейвен{'"'} ви знайдете широкий вибір товарів для догляду за
             вашими тваринами. Ми спеціалізуємося на кормах від провідних
             брендів, ветеринарних засобах та аксесуарах, щоб ваші улюбленці
             почували себе щасливими та здоровими.
@@ -34,7 +32,7 @@ export default function About() {
             час.
           </p>
           <p>
-            Магазин {'"'}ЛейВен{'"'} – це місце, де ваші тварини отримають
+            Зоомагазин {'"'}Лейвен{'"'} – це місце, де ваші тварини отримають
             найкращий догляд, а ви – найкращий сервіс. Давайте разом робити
             життя ваших улюбленців яскравим і здоровим!
           </p>

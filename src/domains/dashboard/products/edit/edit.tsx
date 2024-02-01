@@ -2,7 +2,6 @@ import PageHeader from "../../components/pageHeader";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { API_URL } from "@/config/api";
 import { type Product } from "@/types";
-import { Label, TextInput } from "flowbite-react";
 import EditForm from "./components/editForm";
 
 interface IProps {
