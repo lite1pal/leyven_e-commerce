@@ -30,7 +30,7 @@ export default async function HomeView() {
 
       {/* <CategoryHeader title="Вибір товарів" /> */}
       <Suspense>
-        <Catalog {...{ data }} />
+        <Catalog data={data.slice(0, 12)} />
         <Testimonials />
         <CompanyLocation />
         <FooterComponent />
