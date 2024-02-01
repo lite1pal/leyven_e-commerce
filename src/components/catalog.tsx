@@ -47,11 +47,11 @@ export default function CatalogView({ data }: { data: Product[] }) {
         </div>
       )}
 
-      <Suspense>
-        <Testimonials />
-        <CompanyLocation />
-        <FooterComponent />
-      </Suspense>
+      {pathName !== "/" && (
+        <Suspense>
+          <FooterComponent />
+        </Suspense>
+      )}
     </Suspense>
   );
 }
