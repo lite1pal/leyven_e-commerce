@@ -62,21 +62,21 @@ model VerificationToken {
 // Models
 model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  unique_id String?
+  unique_id String? @default("miss")
   unique_id_1c String? @unique
   title       String
   price       Int
   discount Int? @default(0)
   quantity Int? @default(0)
-  barcode String?
-  artycul String?
-  rating      String?
-  img String?
+  barcode String? @default("miss")
+  artycul String? @default("miss")
+  rating      String? @default("4")
+  img String? @default("miss")
   availability String
-  description String?
-  breadcrumbs String?
-  country String?
-  brand String?
+  description String? @default("miss")
+  breadcrumbs String? @default("miss")
+  country String? @default("miss")
+  brand String? @default("miss")
   info Json[]
   reviews     Review[]
   cartProducts CartProduct[]
