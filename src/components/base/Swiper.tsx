@@ -29,8 +29,6 @@ export default function SwiperComponent({ data, type, children }: Props) {
       spaceBetween={15}
       navigation
       scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
     >
       {data.slice(0, 10).map((product: any) => {
         return (
