@@ -2,13 +2,15 @@
 
 import Button from "@/components/base/Button";
 import { API_URL } from "@/config/api";
-import { categories } from "@/data/categories";
 import { type Product } from "@/types";
 import { Divider } from "@mui/material";
 import { Label, TextInput, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import FormHeader from "./formHeader";
+import FormField from "./formField";
+import FormSelectField from "./formSelectField";
 
 export default function EditForm({ data }: { data: Product }) {
   const router = useRouter();
@@ -35,207 +37,140 @@ export default function EditForm({ data }: { data: Product }) {
     return "";
   };
 
+  console.log(data);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-4">
-      <div className=" mt-5 flex w-full flex-col gap-3">
-        <div className="text-lg font-medium">Змінити товар</div>
-        <Divider />
-        <div className="mb-6 flex max-w-2xl flex-col gap-4">
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="title" value="Назва" />
-            </div>
-            <TextInput
-              defaultValue={data.title}
-              id="title"
-              type="text"
-              required
-              shadow
-              {...register("title", {
-                required: true,
-              })}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="description" value="Опис" />
-            </div>
-            <Textarea
-              rows={15}
-              defaultValue={data.description}
-              id="description"
-              // type="text"
-              required
-              shadow
-              {...register("description", {
-                required: true,
-              })}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="price" value="Ціна" />
-            </div>
-            <TextInput
-              defaultValue={data.price}
-              className="w-fit"
-              id="price"
-              type="number"
-              shadow
-              {...register("price")}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="img" value="Посилання на картинку" />
-            </div>
-            <TextInput
-              defaultValue={data.img}
-              id="img"
-              type="text"
-              shadow
-              {...register("img")}
-            />
-          </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="px-4 pb-4">
+      <FormHeader>Змінити товар</FormHeader>
+      <Divider />
+      <div className="mb-6 flex max-w-2xl flex-col gap-4">
+        <FormField
+          id="title"
+          label="Назва"
+          defaultValue={data.title}
+          required
+          register={register}
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="img" value="Знижка %" />
-            </div>
-            <TextInput
-              defaultValue={data.discount}
-              id="discount"
-              type="number"
-              shadow
-              {...register("discount")}
-            />
-          </div>
+        <FormField
+          id="description"
+          label="Опис"
+          type="textarea"
+          register={register}
+          defaultValue={data.description}
+          required
+          rows={15}
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="unique_id" value="Унікальне id, Prom.ua" />
-            </div>
-            <TextInput
-              disabled
-              defaultValue={data.unique_id}
-              id="unique_id"
-              type="text"
-              shadow
-              // {...register("description", {
-              //   required: true,
-              // })}
-            />
-          </div>
+        <FormField
+          id="price"
+          label="Ціна"
+          defaultValue={data.price}
+          type={"number"}
+          required
+          register={register}
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="unique_id_1c" value="Унікальне id, 1C" />
-            </div>
-            <TextInput
-              disabled
-              defaultValue={data.unique_id_1c}
-              id="unique_id_1c"
-              type="text"
-              shadow
-              // {...register("description", {
-              //   required: true,
-              // })}
-            />
-          </div>
+        <FormField
+          id="img"
+          label="Посилання на картинку"
+          defaultValue={data.img}
+          disabled
+          register={register}
+          required
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="barcode" value="Штрихкод" />
-            </div>
-            <TextInput
-              defaultValue={data.barcode}
-              id="barcode"
-              type="text"
-              disabled
-              shadow
-            />
-          </div>
+        <FormField
+          id="discount"
+          label="Знижка %"
+          defaultValue={data.discount}
+          register={register}
+          type="number"
+          required
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="artycul" value="Артикул" />
-            </div>
-            <TextInput
-              defaultValue={data.artycul}
-              id="artycul"
-              type="text"
-              disabled
-              shadow
-            />
-          </div>
+        <FormField
+          id="unique_id"
+          label="Унікальне id, Prom.ua"
+          register={register}
+          defaultValue={data.unique_id}
+          disabled
+          required
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="quantity" value="Кількість" />
-            </div>
-            <TextInput
-              defaultValue={data.quantity}
-              id="quantity"
-              type="text"
-              required
-              shadow
-              {...register("quantity", {
-                required: true,
-              })}
-            />
-          </div>
+        <FormField
+          id="unique_id_1c"
+          label="Унікальне id, 1C"
+          register={register}
+          defaultValue={data.unique_id_1c}
+          disabled
+          required
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="img" value="Наявність" />
-            </div>
-            <select
-              defaultValue={data.availability}
-              {...register("availability", { required: true })}
-            >
-              <option value="out of stock">Ні</option>
-              <option value="in stock">Так</option>
-            </select>
-          </div>
+        <FormField
+          id="barcode"
+          label="Штрихкод"
+          register={register}
+          defaultValue={data.barcode!}
+          disabled
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="img" value="Характеристики" />
-            </div>
-            <div className="mt-5 flex flex-col gap-2">
-              {data.info.map((item: any, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="flex w-fit cursor-default gap-2 rounded-lg border-2 p-3"
-                  >
-                    <div>{item["g:attribute_name"]._text}</div>
-                    <div>{"-"}</div>
-                    <div>{item["g:attribute_value"]._text}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <FormField
+          id="artycul"
+          label="Артикул"
+          register={register}
+          defaultValue={data.artycul!}
+          disabled
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="category" value="Категорія" />
-            </div>
-            <TextInput
-              defaultValue={data.breadcrumbs}
-              id="category"
-              type="text"
-              disabled
-              shadow
-              {...register("category", {
-                required: true,
-              })}
-            />
+        <FormField
+          id="quantity"
+          label="Кількість"
+          type="number"
+          register={register}
+          defaultValue={data.quantity}
+          required
+        />
+
+        <FormSelectField
+          id="availability"
+          label="Наявність"
+          register={register}
+        >
+          <option value="out of stock">Ні</option>
+          <option value="in stock">Так</option>
+        </FormSelectField>
+
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="img" value="Характеристики" />
+          </div>
+          <div className="mt-5 flex flex-col gap-2">
+            {data.info.map((item: any, i) => {
+              return (
+                <div
+                  key={i}
+                  className="flex w-fit cursor-default gap-2 rounded-lg border-2 p-3"
+                >
+                  <div>{item["g:attribute_name"]._text}</div>
+                  <div>{"-"}</div>
+                  <div>{item["g:attribute_value"]._text}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
-        <Button type="submit" title="Змінити" />
+
+        <FormField
+          id="breadcrumbs"
+          label="Категорія"
+          register={register}
+          defaultValue={data.breadcrumbs}
+          disabled
+          required
+        />
       </div>
+      <Button type="submit" title="Змінити" />
     </form>
   );
 }
