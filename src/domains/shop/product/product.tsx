@@ -5,10 +5,7 @@ import { type Product } from "@/types";
 import AllAbout from "./components/allAbout";
 import Reviews from "./components/reviews";
 import { slugifyString, valueOfPercent } from "@/libs/utils";
-import slugify from "slugify";
 import { redirect } from "next/navigation";
-import SectionHeader from "@/components/base/SectionHeader";
-import Warning from "./components/warning";
 import Description from "./components/description";
 
 type IProps = {
@@ -59,43 +56,6 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
   };
 
   const session = await auth();
-
-  const FormattedDescription = ({ description }: any) => {
-    const strongParags = [
-      "Протипоказання",
-      "Дози та спосіб застосування",
-      "Показання",
-      "Фармакологічні властивості",
-      "Склад",
-      "Склад корму",
-      "Опис",
-      "Особливі вказівки",
-      "Особливості застосування",
-      "Побічні явища",
-      "Умови зберігання",
-      "Форма випуску",
-      "Вид тварин",
-      "Заходи особистої гігієни",
-      "Застосування",
-      "Дозування",
-    ];
-    const paragraphs = description
-      .split(/(?<=\s)(?=[\u0410-\u042F])/u)
-      .map((paragraph: string, index: number) => (
-        <p
-          className={`${
-            strongParags.includes(paragraph.trim().replace(":", "")) &&
-            "mb-5 mt-5 text-xl font-semibold"
-          } mt-1.5`}
-          key={index}
-        >
-          {!strongParags.includes(paragraph.trim()) && "- "}
-          {paragraph}
-        </p>
-      ));
-
-    return <div>{paragraphs}</div>;
-  };
 
   let productJsonLd: any = {
     "@context": "https://schema.org",
@@ -151,9 +111,11 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
         <AllAbout data={data} />
       </div>
 
-      <Description {...{ data }} />
+      <div className="flex flex-col lg:flex-row">
+        <Description {...{ data }} />
 
-      <Reviews {...{ data, session }} />
+        <Reviews {...{ data, session }} />
+      </div>
     </div>
   );
 }

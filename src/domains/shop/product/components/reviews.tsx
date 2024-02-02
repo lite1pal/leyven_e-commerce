@@ -1,24 +1,47 @@
+"use client";
+
 import SectionHeader from "@/components/base/SectionHeader";
 import CardReview from "@/components/cards/cardReview";
 import ReviewModal from "@/components/modals/reviewModal";
+import { useRef, useState } from "react";
 
 export default async function Reviews({ data, session }: any) {
+  const [showMore, setShowMore] = useState(false);
+
   return (
-    <div className="flex flex-col gap-5 px-7 py-5">
-      <SectionHeader>
-        Відгуки товару ({data.reviews ? data.reviews.length : 0})
-      </SectionHeader>
+    <div className="flex w-full flex-col gap-5 px-7 pt-5 lg:w-1/2">
+      <div className="flex justify-between">
+        <SectionHeader>
+          Відгуки ({data.reviews ? data.reviews.length : 0})
+        </SectionHeader>
+
+        <ReviewModal data={data} session={session} />
+      </div>
       {data.reviews && data?.reviews.length === 0 && (
-        <div className="py-3 text-lg font-medium">
-          Будьте першим, хто залишить відгук!
+        <div className="py-3 text-lg font-medium text-slate-600">
+          Будьте першим, хто залишить відгук 👋
         </div>
       )}
-      <ReviewModal data={data} session={session} />
       <div className="flex flex-col gap-3">
         {data.reviews &&
-          data?.reviews.map((review: any) => {
+          data.reviews.slice(0, 2).map((review: any) => {
             return <CardReview key={review.id} review={review} />;
           })}
+
+        {showMore &&
+          data.reviews &&
+          data.reviews.slice(2).map((review: any) => {
+            return <CardReview key={review.id} review={review} />;
+          })}
+
+        {!showMore && data.reviews && data.reviews.length > 2 && (
+          <div
+            onClick={() => setShowMore(true)}
+            className="mx-auto w-fit cursor-pointer text-lg text-blue-600"
+          >
+            Показати більше
+          </div>
+        )}
       </div>
     </div>
   );
