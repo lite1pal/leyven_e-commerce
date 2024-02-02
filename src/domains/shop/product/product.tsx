@@ -8,6 +8,8 @@ import { slugifyString, valueOfPercent } from "@/libs/utils";
 import slugify from "slugify";
 import { redirect } from "next/navigation";
 import SectionHeader from "@/components/base/SectionHeader";
+import Warning from "./components/warning";
+import Description from "./components/description";
 
 type IProps = {
   id: string;
@@ -146,28 +148,10 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
       />
       <BasicBreadcrumbs {...{ data }} />
       <div className="px-7 py-10">
-        {/* <TabsComponent data={data} session={session} /> */}
         <AllAbout data={data} />
       </div>
 
-      <div className="flex flex-col gap-5 px-7 py-10">
-        <SectionHeader>Опис</SectionHeader>
-        <p className="text-slate-700 xl:w-1/2">
-          <strong>Застереження!</strong> Будь ласка, перед купівлею зверніться
-          до ветеринарного лікаря за рекомендацією! Ми не надаємо консультацій
-          щодо підбору препаратів та не несемо відповідальності за їх
-          застосування без призначення, адже Ви ризикуєте зашкодити своєму
-          улюбленцю!
-        </p>
-
-        <p className="text-slate-700 xl:w-1/2">
-          {/* <FormattedDescription description={data.description} /> */}
-          <div>{data.description}</div>
-          {/* {data.description?.slice(0, 12) === "Застереження"
-            ? data.description?.slice(257)
-            : data.description} */}
-        </p>
-      </div>
+      <Description {...{ data }} />
 
       <Reviews {...{ data, session }} />
     </div>
