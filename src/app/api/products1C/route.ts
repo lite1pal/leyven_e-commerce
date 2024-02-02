@@ -31,15 +31,20 @@ export async function POST(req: NextRequest) {
 
     const existingProducts = await prisma.product.findMany();
 
+    let count = 0;
+
     const promises = badFormatData.map(async (badProduct: any) => {
       try {
         const existingProduct = existingProducts.find(
-          (product) => product.unique_id_1c === badProduct["Ид"]._text,
+          (product) =>
+            product.unique_id_1c === badProduct["Ид"]._text ||
+            product.barcode === badProduct["ШтрихКод"]._text,
         );
 
         // return;
 
         if (existingProduct) {
+          count++;
           return;
           // return prisma.product.update({
           //   where: { id: existingProduct.id },
@@ -53,6 +58,7 @@ export async function POST(req: NextRequest) {
           //   },
           // });
         }
+        return;
         return prisma.product.create({
           data: {
             unique_id_1c: badProduct["Ид"]._text,
@@ -79,7 +85,14 @@ export async function POST(req: NextRequest) {
 
     const result = await Promise.all(promises);
 
-    return new NextResponse(JSON.stringify(result), { status: 200 });
+    console.log(
+      "Existing products: ",
+      count,
+      " Products from 2-nd 1c database",
+      badFormatData.length,
+    );
+
+    return new NextResponse(JSON.stringify(count), { status: 200 });
   } catch (err) {
     console.error("Invalid file format");
     return new NextResponse(JSON.stringify(err), { status: 500 });

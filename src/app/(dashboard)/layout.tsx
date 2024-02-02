@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SpeedInsights />
         <Toaster />
 
-        <div className="flex">
-          <div className="sticky top-0 flex h-screen w-2/12 flex-col gap-3 bg-slate-700 p-4 text-sm text-slate-300">
+        <div className="flex min-h-screen">
+          <div className="sticky top-0 hidden h-screen w-2/12 flex-col gap-3 bg-slate-700 p-4 text-sm text-slate-300 sm:flex">
             <Link
               href="/allProducts"
               className="flex items-center gap-2 hover:text-white"
@@ -46,7 +46,44 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
 
-          <div className="w-10/12">{children}</div>
+          <div className="w-full sm:w-10/12">{children}</div>
+
+          <div className="dropdown dropdown-end dropdown-bottom absolute right-0 top-2 flex  bg-white sm:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-circle btn-ghost"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content z-[1] w-52 rounded-box bg-slate-50 p-2 shadow"
+            >
+              <li>
+                <Link href="/">До сайту</Link>
+              </li>
+              <li>
+                <Link href="/dashboard/orders">Замовлення</Link>
+              </li>
+              <li>
+                <Link href="/dashboard/products">Управління товарами</Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </body>
     </html>

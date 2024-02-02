@@ -108,7 +108,7 @@ function EditToolbar() {
       <Link href="/dashboard/products/add">
         <Button title="Додати товар" />
       </Link>
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-center">
         {loading ? (
           <div className="flex gap-3 text-lg text-slate-500">
             Не робіть ніяких дій, поки відбувається імпорт
