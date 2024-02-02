@@ -1,8 +1,9 @@
 "use client";
 
+import { type Product } from "@/types";
 import { Table } from "flowbite-react";
 
-export default function ProductInfoTable({ data }: any) {
+export default function ProductInfoTable({ data }: { data: Product }) {
   return (
     <div className="mt-5 overflow-x-auto">
       <Table>

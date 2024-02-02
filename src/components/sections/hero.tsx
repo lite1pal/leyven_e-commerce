@@ -9,7 +9,7 @@ export default function Hero() {
         <div className="text-3xl font-semibold sm:text-4xl">
           Купуйте товари для своїх домашніх улюбленців
         </div>
-        <div className="text-xl font-medium text-slate-600">
+        <div className="text-xl font-medium text-slate-500">
           Знайдіть ідеальні продукти для своїх пухнастих друзів
         </div>
         <div className="mb-10">
