@@ -65,10 +65,10 @@ export async function POST(req: NextRequest) {
                 : parseInt(badProduct["Количество"]._text),
             barcode: badProduct["ШтрихКод"]._text
               ? badProduct["ШтрихКод"]._text
-              : null,
+              : "miss",
             artycul: badProduct["Артикул"]._text
               ? badProduct["Артикул"]._text
-              : null,
+              : "miss",
             info: [],
           },
         });
