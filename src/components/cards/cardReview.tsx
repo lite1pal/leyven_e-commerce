@@ -3,7 +3,7 @@ import { Card } from "flowbite-react";
 
 export default async function CardReview({ review }: any) {
   return (
-    <Card className="flex w-full flex-col gap-3 p-3 lg:w-2/3 xl:w-1/2">
+    <div className="flex w-full flex-col gap-3 rounded-lg bg-white p-5">
       <div className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="text-lg font-medium">{review.user.name}</div>
         <div className="text-sm font-medium text-slate-500">
@@ -33,6 +33,6 @@ export default async function CardReview({ review }: any) {
         <Rating.Star />
       </Rating> */}
       <div>{review.text}</div>
-    </Card>
+    </div>
   );
 }
