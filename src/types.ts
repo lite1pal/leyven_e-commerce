@@ -19,7 +19,6 @@ export type Product = {
   reviews?: Review[];
   cartProducts?: [];
   orderProducts?: [];
-  createdAt?: Date;
   updatedAt?: Date;
 };
 

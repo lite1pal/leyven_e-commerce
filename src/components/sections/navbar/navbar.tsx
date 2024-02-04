@@ -1,10 +1,9 @@
 import React, { Suspense } from "react";
-import SearchInput from "./components/searchInput";
+import SearchInput from "./components/search/search";
 import Link from "next/link";
 import Sidebar from "./components/sidebar";
 import Icons from "./components/icons";
 import { Spinner } from "flowbite-react";
-import ExtraNavbar from "./components/extraNavbar";
 
 const navItems = [
   { route: "/allProducts", name: "Каталог" },
