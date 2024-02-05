@@ -20,7 +20,7 @@ export default function Contacts() {
         </p>
 
         <p>
-          Веб-сайт: <a href="http://leyven.com.ua/ua">leyven.com.ua/ua</a>
+          Веб-сайт: <a href="http://www.leyven.com.ua">www.leyven.com.ua</a>
         </p>
       </Card>
       <Suspense fallback={<MySpinner />}>
