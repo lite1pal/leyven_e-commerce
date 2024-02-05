@@ -32,8 +32,13 @@ export async function POST(req: NextRequest) {
           );
 
           if (existingProduct) {
-            return 0;
+            return prisma.product.update({
+              where: { id: existingProduct.id },
+              data: { title: existingProduct.title.replaceAll("&quot;", "'") },
+            });
           }
+
+          return;
 
           const getProductQuantity = () => {
             if (badProduct["quantityInStock"]._text) {
