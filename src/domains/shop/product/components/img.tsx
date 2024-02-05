@@ -5,12 +5,13 @@ export default function ProductImg({ data }: { data: Product }) {
   return (
     <PhotoProvider>
       <div
-        // style={{ height: "40rem" }}
-        className="mx-auto my-auto aspect-square h-96 max-w-lg cursor-pointer"
+        // style={{ maxHeight: "30rem" }}
+        className="mx-auto aspect-square h-full w-full max-w-lg cursor-pointer lg:w-1/2"
       >
         <PhotoView src={data.img}>
           <img
-            className="mx-auto h-full w-full rounded-t-lg object-contain p-4"
+            style={{ maxHeight: "40rem" }}
+            className="mx-auto h-full w-full rounded-t-lg object-contain"
             src={data.img}
             alt="product image"
           />

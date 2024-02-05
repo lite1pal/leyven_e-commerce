@@ -179,7 +179,7 @@ export default function OrderView({ session }: { session: Session | null }) {
 
               <div>
                 <div className="mb-2 block">
-                  <Label htmlFor="email" value="Ваша пошта (необов`язково)" />
+                  <Label htmlFor="email" value="Ваша пошта *" />
                 </div>
                 <TextInput
                   id="email"
@@ -192,10 +192,7 @@ export default function OrderView({ session }: { session: Session | null }) {
 
               <div className="w-full">
                 <div className="mb-2 block">
-                  <Label
-                    htmlFor="comment"
-                    value="Коментар до замовлення (необов`язково)"
-                  />
+                  <Label htmlFor="comment" value="Коментар до замовлення *" />
                 </div>
                 <Textarea
                   rows={7}

@@ -8,9 +8,7 @@ interface IProps {
 export default function NavItem({ nav }: any) {
   return (
     <Link href={nav.href}>
-      <li className="cursor-pointer p-1 transition hover:text-white">
-        {nav.name}
-      </li>
+      <li className="p-1 transition hover:text-gray-900">{nav.name}</li>
     </Link>
   );
 }

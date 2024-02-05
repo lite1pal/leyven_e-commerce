@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import convert from "xml-js";
 
+/*
+  Parses uploaded XML file into JSON.
+  Creates new products bypassing existing ones by 'unique_id_1c' field in order to avoid duplicates.
+*/
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -31,8 +36,6 @@ export async function POST(req: NextRequest) {
 
     const existingProducts = await prisma.product.findMany();
 
-    let count = 0;
-
     const promises = badFormatData.map(async (badProduct: any) => {
       try {
         const existingProduct = existingProducts.find(
@@ -41,23 +44,11 @@ export async function POST(req: NextRequest) {
             product.barcode === badProduct["ШтрихКод"]._text,
         );
 
-        // return;
-
+        // returns nothing if product already exists to avoid duplicates
         if (existingProduct) {
-          count++;
           return;
-          // return prisma.product.update({
-          //   where: { id: existingProduct.id },
-          //   data: {
-          //     quantity:
-          //       badProduct["Количество"]._text === "0"
-          //         ? 1
-          //         : parseInt(badProduct["Количество"]._text),
-          //     barcode: badProduct["ШтрихКод"]._text,
-          //     artycul: badProduct["Артикул"]._text,
-          //   },
-          // });
         }
+
         return prisma.product.create({
           data: {
             unique_id_1c: badProduct["Ид"]._text,
@@ -84,56 +75,9 @@ export async function POST(req: NextRequest) {
 
     const result = await Promise.all(promises);
 
-    console.log(
-      "Existing products: ",
-      count,
-      " Products from 2-nd 1c database",
-      badFormatData.length,
-    );
-
-    console.log(result);
-
     return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {
     console.error("Invalid file format");
-    return new NextResponse(JSON.stringify(err), { status: 500 });
-  }
-}
-
-export async function PUT(req: NextRequest) {
-  try {
-    // const body = await req.json();
-    // const { jsonData } = body;
-
-    const products = await prisma.product.findMany({
-      where: { unique_id: { equals: "miss" } },
-    });
-
-    const promises = products.map(async (product: any) => {
-      try {
-        // if (product.rating) {
-        //   return;
-        // }
-
-        return prisma.product.update({
-          where: { id: product.id },
-          data: {
-            img: "miss",
-            description: "miss",
-            breadcrumbs: "miss",
-            country: "miss",
-            brand: "miss",
-          },
-        });
-      } catch (err) {
-        console.error(err, "ERROR");
-      }
-    });
-
-    const result = await Promise.all(promises);
-
-    return new NextResponse(JSON.stringify(result), { status: 200 });
-  } catch (err) {
     return new NextResponse(JSON.stringify(err), { status: 500 });
   }
 }

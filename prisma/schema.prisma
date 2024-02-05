@@ -63,7 +63,7 @@ model VerificationToken {
 model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   unique_id String @default("miss")
-  unique_id_1c String @unique
+  unique_id_1c String @default("miss")
   title       String
   price       Int
   discount Int @default(0)

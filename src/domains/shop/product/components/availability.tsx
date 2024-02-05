@@ -6,7 +6,7 @@ export default function ProductAvailability({ data }: { data: Product }) {
     <div className="flex items-center gap-1 text-xs sm:text-base">
       {data.availability === "in stock" ? (
         <>
-          <UnarchiveIcon color="success" fontSize="small" />
+          {/* <UnarchiveIcon color="success" fontSize="small" /> */}
           <div className="text-green-500">В наявності</div>
         </>
       ) : (

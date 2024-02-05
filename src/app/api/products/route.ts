@@ -3,6 +3,13 @@ import { categories } from "@/data/categories";
 import { convertXMLtoJSON, getArrayValueByKey } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "../../../../logger";
+import { PROM_UA_API_URL } from "@/config/api";
+
+/*
+  Returns 24 products based on filters, categories and subcategories.
+  If 'getAll=true' param is provided, it'll return all products that don't have images.
+  To return products without images, 'dashboard=true' must be provided.
+*/
 
 export async function GET(req: NextRequest, { params }: any) {
   logger.info(`GET /api/products ${req}`);
@@ -159,12 +166,14 @@ export async function GET(req: NextRequest, { params }: any) {
   }
 }
 
-// syncs with prom.ua website's database
-export async function POST(req: NextRequest) {
+/*
+  Fetches and parses data from Prom's api.
+  Syncs fetched data with MongoDB's data that have 'unique_id' value.
+*/
+
+export async function PUT(req: NextRequest) {
   try {
-    const res = await fetch(
-      "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
-    );
+    const res = await fetch(PROM_UA_API_URL);
 
     if (!res.ok) {
       return new NextResponse(JSON.stringify({ message: "Невірний ресурс" }), {
@@ -211,22 +220,22 @@ export async function POST(req: NextRequest) {
 
         return;
 
-        const getProductCountry = () => {
-          if (Array.isArray(badProduct["g:product_detail"])) {
-            return badProduct["g:product_detail"][0]["g:attribute_name"]
-              ._text === "Країна виробник"
-              ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
-              : "Немає";
-          }
-          if (
-            badProduct["g:product_detail"]["g:attribute_name"]._text ===
-            "Країна виробник"
-          ) {
-            return badProduct["g:product_detail"]["g:attribute_value"]._text;
-          }
+        // const getProductCountry = () => {
+        //   if (Array.isArray(badProduct["g:product_detail"])) {
+        //     return badProduct["g:product_detail"][0]["g:attribute_name"]
+        //       ._text === "Країна виробник"
+        //       ? badProduct["g:product_detail"][0]["g:attribute_value"]._text
+        //       : "Немає";
+        //   }
+        //   if (
+        //     badProduct["g:product_detail"]["g:attribute_name"]._text ===
+        //     "Країна виробник"
+        //   ) {
+        //     return badProduct["g:product_detail"]["g:attribute_value"]._text;
+        //   }
 
-          return "Немає";
-        };
+        //   return "Немає";
+        // };
 
         // return prisma.product.create({
         //   data: {
@@ -245,46 +254,6 @@ export async function POST(req: NextRequest) {
         //       : [badProduct["g:product_detail"]],
         //   },
         // });
-      } catch (err) {
-        console.error(err, "ERROR");
-      }
-    });
-
-    const result = await Promise.all(promises);
-
-    return new NextResponse(JSON.stringify(result), {
-      status: 200,
-    });
-  } catch (err) {
-    // console.log(err);
-    return new NextResponse(JSON.stringify(err), { status: 500 });
-  }
-}
-
-export async function PUT(req: NextRequest) {
-  try {
-    const res = await fetch(
-      "https://leyven.prom.ua/google_merchant_center.xml?hash_tag=7cc3f8ae16866ff2c378c11cbcaa52ca&product_ids=&label_ids=&export_lang=uk&group_ids=",
-    );
-
-    const badFormatData = await convertXMLtoJSON(res);
-
-    const promises = badFormatData.map(async (badProduct: any) => {
-      try {
-        const product = await prisma.product.findFirst({
-          where: {
-            unique_id: { equals: badProduct["g:id"]._text },
-          },
-        });
-
-        if (!product || product.unique_id) {
-          return;
-        }
-
-        return prisma.product.update({
-          where: { id: product.id },
-          data: { unique_id_1c: badProduct["g:id"]._text },
-        });
       } catch (err) {
         console.error(err, "ERROR");
       }

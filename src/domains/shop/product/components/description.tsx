@@ -22,15 +22,17 @@ export default function Description({ data }: { data: Product }) {
       <p className="font-medium text-slate-600">
         {showMore
           ? formatDescription(data.description)
-          : formatDescription(data.description.slice(0, 450))}
-        {showMore ? " " : "... "}
+          : formatDescription(data.description.slice(0, 450) + "... ")}
+        {/* {!showMore && data.description.length > 450 && "... "} */}
         {data.breadcrumbs.includes("Ветеринарія") && showMore && <Warning />}
-        <span
-          className="cursor-pointer text-blue-600 hover:underline"
-          onClick={handleShowMore}
-        >
-          читати {showMore ? "менше" : "повністю"}
-        </span>
+        {data.description.length > 450 && (
+          <span
+            className="cursor-pointer text-blue-600 hover:underline"
+            onClick={handleShowMore}
+          >
+            читати {showMore ? "менше" : "повністю"}
+          </span>
+        )}
       </p>
     </div>
   );
@@ -58,6 +60,7 @@ const formatDescription = (description: string) => {
     "Чому варто купити?",
     "Як використовувати",
     "Склад",
+    "Переваги",
   ];
   const paragraphs = description
     .split(/(?<=\s)(?=[\u0410-\u042F])/u)

@@ -7,6 +7,7 @@ import Reviews from "./components/reviews";
 import { slugifyString, valueOfPercent } from "@/libs/utils";
 import { redirect } from "next/navigation";
 import Description from "./components/description";
+import ProductInfoTable from "@/components/productInfoTable";
 
 type IProps = {
   id: string;
@@ -107,9 +108,9 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
         }}
       />
       <BasicBreadcrumbs {...{ data }} />
-      <div className="px-7 py-10">
-        <AllAbout data={data} />
-      </div>
+      <AllAbout data={data} />
+
+      <ProductInfoTable {...{ data }} />
 
       <div className="flex flex-col lg:flex-row">
         <Description {...{ data }} />

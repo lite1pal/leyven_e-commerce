@@ -32,7 +32,7 @@ function EditToolbar() {
       setLoading(true);
 
       // Make the actual fetch request
-      const res = await fetch(`${API_URL}/products`, { method: "POST" });
+      const res = await fetch(`${API_URL}/products`, { method: "PUT" });
 
       // Check if the result is from the fetch request
       if (res.ok) {
@@ -177,11 +177,9 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       headerName: "Назва",
       width: 300,
       renderCell: (params) => {
-        return <div className="font-bold text-emerald-600">{params.value}</div>;
+        return <Value>{params.value}</Value>;
       },
     },
-    { field: "unique_id_1c", headerName: "1C, id", width: 300 },
-    { field: "unique_id", headerName: "Prom.ua, id", width: 120 },
     {
       field: "availability",
       headerName: "Статус",
@@ -191,7 +189,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
           <div
             className={`${
               params.value === "in stock" ? "text-emerald-600" : "text-red-700"
-            } font-bold`}
+            }`}
           >
             {params.value}
           </div>
@@ -204,9 +202,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       headerName: "Ціна",
       width: 120,
       renderCell: (params) => {
-        return (
-          <div className="font-bold text-teal-700">{params.value} грн</div>
-        );
+        return <Value>{params.value}</Value>;
       },
     },
     {
@@ -214,12 +210,14 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       headerName: "Знижка",
       width: 100,
       renderCell: (params) => {
-        return <div className="font-bold text-teal-700">{params.value} %</div>;
+        return <div className="text-teal-700">{params.value} %</div>;
       },
     },
+    { field: "quantity", headerName: "К-сть", width: 60 },
     { field: "barcode", headerName: "Штрихкод", width: 150 },
     { field: "artycul", headerName: "Артикул", width: 130 },
-    { field: "quantity", headerName: "К-сть", width: 60 },
+    { field: "unique_id_1c", headerName: "1C, id", width: 300 },
+    { field: "unique_id", headerName: "Prom.ua, id", width: 120 },
 
     {
       field: "updatedAt",
@@ -236,19 +234,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
         );
       },
     },
-    // {
-    //   field: "updatedAt",
-    //   headerName: "Дата зміни",
-    //   width: 150,
-    //   renderCell: (params) => {
-    //     const product: Product = params.row;
-    //     return (
-    //       <div className="font-medium text-slate-600">
-    //         {moment(product.updatedAt).format("hh:mm, DD.MM.YYYY")}
-    //       </div>
-    //     );
-    //   },
-    // },
+
     {
       field: "actions",
       type: "actions",
@@ -278,8 +264,8 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
   ];
 
   return (
-    <div className="mx-auto w-full">
-      <div className="pb-4 font-medium">{data.length} позицій</div>
+    <div className="mx-auto flex w-full flex-col">
+      <div className="pb-4 text-gray-500">{data.length} позицій</div>
       <DataGrid
         sx={{ border: "none" }}
         // getRowHeight={() => "auto"}
@@ -298,4 +284,8 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       />
     </div>
   );
+}
+
+function Value({ children }: { children: React.ReactNode }) {
+  return <div className="text-gray-900">{children}</div>;
 }

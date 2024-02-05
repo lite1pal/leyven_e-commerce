@@ -15,6 +15,8 @@ import ProductTitle from "./title";
 import ProductAvailability from "./availability";
 import ProductPrice from "./price";
 import ProductArtycul from "./artycul";
+import Payment from "./payment";
+import Shipping from "./shipping";
 
 type Props = {
   data: Product;
@@ -24,19 +26,17 @@ export default function AllAbout({ data }: Props) {
   const { addItem, inCart } = useCart();
 
   return (
-    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      <Grid xs={12} marginInline="auto" marginBlock="auto" lg={4}>
-        <ProductImg {...{ data }} />
-      </Grid>
-      <Grid sx={{ width: "100%" }} xs={8} md={8} lg={6}>
+    <div className="mb-10 flex flex-col gap-5 px-7 pt-5 lg:flex-row">
+      <ProductImg {...{ data }} />
+      <div className="w-full  lg:w-1/2">
         <ProductTitle {...{ data }} />
         <div className="flex items-center justify-between py-2">
           <ProductRating {...{ data }} />
           <ProductArtycul {...{ data }} />
         </div>
         <Divider />
-        <div className="flex items-center gap-5 pt-4">
-          <div className="flex flex-col gap-3">
+        <div className="flex items-center gap-5 py-4">
+          <div className="flex flex-col gap-1">
             <ProductPrice {...{ data }} />
             <ProductAvailability {...{ data }} />
           </div>
@@ -55,18 +55,12 @@ export default function AllAbout({ data }: Props) {
               <Button title="Купити" />
             </Link>
           )}
-
-          {/* {data.breadcrumbs.includes("Ветеринарія") && (
-            <div className="w-44 text-center text-xs font-medium text-slate-600">
-              Замовлення можливе тільки через дзвінок менеджеру -{" "}
-              <span className="font-semibold text-slate-900">
-                +380 (50) 598-74-77
-              </span>
-            </div>
-          )} */}
         </div>
-        <ProductInfoTable {...{ data }} />
-      </Grid>
-    </Grid>
+        <Divider />
+        <Payment />
+        <Divider />
+        <Shipping />
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
-import slugify from "slugify";
 import fs from "fs/promises";
 import { slugifyString } from "@/libs/utils";
 

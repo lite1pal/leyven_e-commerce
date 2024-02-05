@@ -56,6 +56,7 @@ export async function POST(req: NextRequest) {
         orderProducts: { createMany: { data: products } },
       },
     });
+
     // products.forEach(async (product: any) => {
     //   await prisma.orderProduct.createMany({ data: product });
     // });

@@ -31,15 +31,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Toaster />
 
         <div className="flex min-h-screen">
-          <div className="sticky top-0 hidden h-screen w-2/12 flex-col gap-3 bg-slate-700 p-4 text-sm text-slate-300 sm:flex">
+          <div className="sticky top-0 hidden h-screen w-2/12 flex-col gap-3 bg-gray-50 py-4 text-sm text-gray-500 sm:flex">
             <Link
               href="/allProducts"
-              className="flex items-center gap-2 hover:text-white"
+              className="flex items-center gap-2 border-b pb-4 pl-4 hover:text-gray-900"
             >
-              <ExitToAppIcon />
+              <ExitToAppIcon fontSize="small" />
               До сайту
             </Link>
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-1 pl-4">
               {navigation.map((nav, i) => {
                 return <NavItem key={i} {...{ nav }} />;
               })}
@@ -69,6 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 />
               </svg>
             </div>
+
             <ul
               tabIndex={0}
               className="menu dropdown-content z-[1] w-52 rounded-box bg-slate-50 p-2 shadow"
