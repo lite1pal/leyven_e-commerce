@@ -9,7 +9,8 @@ export default function Shipping() {
         <div className="text-blue-600">
           <LocalShippingIcon fontSize="small" />
         </div>
-        Доставка
+        Доставка{" "}
+        <span className="text-sm text-slate-600">(безкоштовна від 500грн)</span>
       </div>
       <div className="flex flex-col gap-5 text-sm">
         <div className="flex gap-2">
