@@ -22,18 +22,18 @@ export default function Description({ data }: { data: Product }) {
       <p className="font-medium text-slate-600">
         {showMore
           ? formatDescription(data.description)
-          : formatDescription(data.description.slice(0, 450) + "... ")}
+          : formatDescription(data.description.slice(0, 500))}
         {/* {!showMore && data.description.length > 450 && "... "} */}
         {data.breadcrumbs.includes("Ветеринарія") && showMore && <Warning />}
-        {data.description.length > 450 && (
-          <span
-            className="cursor-pointer text-blue-600 hover:underline"
-            onClick={handleShowMore}
-          >
-            читати {showMore ? "менше" : "повністю"}
-          </span>
-        )}
       </p>
+      {data.description.length >= 500 && (
+        <div
+          className="cursor-pointer text-lg text-blue-600"
+          onClick={handleShowMore}
+        >
+          Читати {showMore ? "менше" : "повністю"}
+        </div>
+      )}
     </div>
   );
 }

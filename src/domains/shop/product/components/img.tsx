@@ -6,7 +6,7 @@ export default function ProductImg({ data }: { data: Product }) {
     <PhotoProvider>
       <div
         // style={{ maxHeight: "30rem" }}
-        className="mx-auto aspect-square h-full w-full max-w-lg cursor-pointer lg:w-1/2"
+        className="mx-auto aspect-square h-full w-full max-w-lg cursor-pointer"
       >
         <PhotoView src={data.img}>
           <img

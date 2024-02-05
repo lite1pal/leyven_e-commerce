@@ -110,13 +110,11 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
       <BasicBreadcrumbs {...{ data }} />
       <AllAbout data={data} />
 
-      <ProductInfoTable {...{ data }} />
-
       <div className="flex flex-col lg:flex-row">
         <Description {...{ data }} />
-
-        <Reviews {...{ data, session }} />
+        <ProductInfoTable {...{ data }} />
       </div>
+      <Reviews {...{ data, session }} />
     </div>
   );
 }

@@ -26,9 +26,12 @@ export default function AllAbout({ data }: Props) {
   const { addItem, inCart } = useCart();
 
   return (
-    <div className="mb-10 flex flex-col gap-10 px-7 pt-5 lg:flex-row">
-      <ProductImg {...{ data }} />
-      <div className="w-full lg:w-1/2">
+    <div className="mb-10 flex w-full flex-col gap-10 px-7 pt-5 lg:flex-row">
+      <div className="w-full">
+        <ProductImg {...{ data }} />
+      </div>
+
+      <div className="w-full">
         <ProductTitle {...{ data }} />
         <div className="flex items-center justify-between py-2">
           <ProductRating {...{ data }} />
