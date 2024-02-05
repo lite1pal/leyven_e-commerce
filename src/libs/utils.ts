@@ -2,7 +2,7 @@ import slugify from "slugify";
 import convert from "xml-js";
 import * as XLSX from "xlsx";
 
-export const convertXMLtoJSON = async (xmlRes: Response) => {
+export const convertXMLtoJSON = async (xmlRes: Response, resource = "prom") => {
   const xmlText = await xmlRes.text();
 
   const xmlString = convert.xml2json(xmlText, {
@@ -12,7 +12,15 @@ export const convertXMLtoJSON = async (xmlRes: Response) => {
 
   const parsedXML = await JSON.parse(xmlString);
 
-  return parsedXML.rss.channel.item;
+  if (resource === "prom") {
+    return parsedXML.rss.channel.item;
+  }
+
+  if (resource === "collar") {
+    return parsedXML["yml_catalog"]["shop"]["offers"]["offer"];
+  }
+
+  return parsedXML;
 };
 
 export const convertXLSXtoJSON = async (file: any) => {

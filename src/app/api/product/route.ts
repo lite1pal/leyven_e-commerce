@@ -6,6 +6,8 @@ export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
+    const isDashboard = url.searchParams.get("dashboard");
+
     if (!id) {
       return new NextResponse(
         JSON.stringify("id is not provided in search params"),
@@ -15,11 +17,17 @@ export async function GET(req: NextRequest) {
       );
     }
     const product = await prisma.product.findUnique({
-      where: { id: id.split("-")[0] },
+      where: { id: id.split("-")[0], img: { not: "miss" } },
       include: {
         reviews: { include: { user: true }, orderBy: { createdAt: "desc" } },
       },
     });
+
+    if (!product && !isDashboard) {
+      return new NextResponse(JSON.stringify("product not found"), {
+        status: 404,
+      });
+    }
     return new NextResponse(JSON.stringify(product), {
       status: 200,
     });

@@ -16,7 +16,7 @@ export default async function ProductsView() {
     return <div>ДОСТУП ДО ДАНОГО АДРЕСУ ОБМЕЖЕНИЙ</div>;
   }
 
-  const res = await fetch(`${API_URL}/products?getAll=true`, {
+  const res = await fetch(`${API_URL}/products?getAll=true&dashboard=true`, {
     cache: "no-store",
   });
   const data: Product[] = await res.json();

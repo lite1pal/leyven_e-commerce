@@ -9,7 +9,9 @@ interface IProps {
 }
 
 export default async function EditProductView({ id }: IProps) {
-  const res = await fetch(`${API_URL}/product?id=${id}`, { cache: "no-store" });
+  const res = await fetch(`${API_URL}/product?id=${id}&dashboard=true`, {
+    cache: "no-store",
+  });
   const data: Product = await res.json();
   return (
     <div className="flex flex-col gap-4">

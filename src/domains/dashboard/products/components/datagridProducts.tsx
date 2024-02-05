@@ -11,6 +11,7 @@ import {
   GridActionsCellItem,
   GridToolbarQuickFilter,
   GridToolbarExport,
+  GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 import moment from "moment";
 import Button from "@/components/base/Button";
@@ -89,6 +90,8 @@ function EditToolbar() {
       if (res.ok) {
         setLoading(false);
         toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
+        const parsedRes = await res.json();
+        console.log(parsedRes);
         return;
       }
       // Handle timeout
@@ -138,6 +141,7 @@ function EditToolbar() {
           </ButtonMUI>
         )}
       </div>
+      <GridToolbarFilterButton />
       <GridToolbarQuickFilter
         sx={{
           backgroundColor: "transparent",

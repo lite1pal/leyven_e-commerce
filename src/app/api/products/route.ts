@@ -16,6 +16,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
     const search = url.searchParams.get("search");
     const getAll = url.searchParams.get("getAll");
+    const isDashboard = url.searchParams.get("dashboard");
 
     let filters: any = url.searchParams.get("filters") as string;
     filters = filters?.includes(";") ? filters?.split(";") : [filters];
@@ -42,8 +43,13 @@ export async function GET(req: NextRequest, { params }: any) {
     let products: any = [];
 
     if (getAll) {
+      let where: any = {};
+      if (!isDashboard) {
+        where = { img: { not: "miss" } };
+      }
       products = await prisma.product.findMany({
         orderBy: { updatedAt: "desc" },
+        where,
       });
 
       return new NextResponse(JSON.stringify(products), {
@@ -222,23 +228,23 @@ export async function POST(req: NextRequest) {
           return "Немає";
         };
 
-        return prisma.product.create({
-          data: {
-            title: badProduct["g:title"]._text,
-            unique_id: badProduct["g:id"]._text,
-            img: badProduct["g:image_link"]._text,
-            price: productPrice,
-            availability: badProduct["g:availability"]._text,
-            description: badProduct["g:description"]._text,
-            breadcrumbs: badProduct["g:product_type"]._text,
-            country: getProductCountry(),
-            brand: badProduct["g:brand"]._text,
-            rating: "4",
-            info: Array.isArray(badProduct["g:product_detail"])
-              ? badProduct["g:product_detail"]
-              : [badProduct["g:product_detail"]],
-          },
-        });
+        // return prisma.product.create({
+        //   data: {
+        //     title: badProduct["g:title"]._text,
+        //     unique_id: badProduct["g:id"]._text,
+        //     img: badProduct["g:image_link"]._text,
+        //     price: productPrice,
+        //     availability: badProduct["g:availability"]._text,
+        //     description: badProduct["g:description"]._text,
+        //     breadcrumbs: badProduct["g:product_type"]._text,
+        //     country: getProductCountry(),
+        //     brand: badProduct["g:brand"]._text,
+        //     rating: "4",
+        //     info: Array.isArray(badProduct["g:product_detail"])
+        //       ? badProduct["g:product_detail"]
+        //       : [badProduct["g:product_detail"]],
+        //   },
+        // });
       } catch (err) {
         console.error(err, "ERROR");
       }

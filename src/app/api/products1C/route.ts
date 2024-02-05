@@ -58,7 +58,6 @@ export async function POST(req: NextRequest) {
           //   },
           // });
         }
-        return;
         return prisma.product.create({
           data: {
             unique_id_1c: badProduct["Ид"]._text,
@@ -92,7 +91,9 @@ export async function POST(req: NextRequest) {
       badFormatData.length,
     );
 
-    return new NextResponse(JSON.stringify(count), { status: 200 });
+    console.log(result);
+
+    return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {
     console.error("Invalid file format");
     return new NextResponse(JSON.stringify(err), { status: 500 });

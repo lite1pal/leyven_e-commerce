@@ -6,7 +6,9 @@ import { slugifyString } from "@/libs/utils";
 
 export async function GET(req: NextRequest) {
   try {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      where: { img: { not: "miss" } },
+    });
 
     let textXML =
       '<?xml version="1.0"?><rss xmlns:g="http://base.google.com/ns/1.0" version="2.0"><channel><title>Лейвен</title><link>https://www.leyven.com.ua/</link><g:description>RSS 2.0 product data feed</g:description>';
