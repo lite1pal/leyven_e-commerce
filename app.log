@@ -2433,3 +2433,7 @@
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T15:49:50.632Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T15:50:20.218Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T15:59:55.088Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T16:35:52.932Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T16:35:58.485Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T16:36:09.078Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T16:36:09.941Z"}

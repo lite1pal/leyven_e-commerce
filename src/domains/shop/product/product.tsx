@@ -19,11 +19,12 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
   const data: Product = await res.json();
 
   if (!data.title) {
-    return (
-      <div className="mb-10 py-10 text-center text-3xl font-semibold">
-        404 Not found
-      </div>
-    );
+    redirect("/allProducts");
+    // return (
+    //   <div className="mb-10 py-10 text-center text-3xl font-semibold">
+    //     404 Not found
+    //   </div>
+    // );
   }
 
   if (slugifyString(data.title) !== slugishTitle) {
