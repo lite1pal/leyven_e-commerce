@@ -58,14 +58,25 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, title, price, availability, discount, img } = body;
+    const {
+      id,
+      title,
+      description,
+      price,
+      availability,
+      quantity,
+      discount,
+      img,
+    } = body;
 
     const updatedProduct = await prisma.product.update({
       where: { id },
       data: {
         title,
+        description,
         price: parseInt(price),
         availability,
+        quantity,
         discount: parseInt(discount),
         img,
       },
