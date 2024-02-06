@@ -21,14 +21,21 @@ export async function GET(req: NextRequest) {
         },
       );
     }
+
+    let where: any = { id: id.split("-")[0], img: { not: "miss" } };
+
+    if (isDashboard) {
+      where = { id };
+    }
+
     const product = await prisma.product.findUnique({
-      where: { id: id.split("-")[0], img: { not: "miss" } },
+      where,
       include: {
         reviews: { include: { user: true }, orderBy: { createdAt: "desc" } },
       },
     });
 
-    if (!product && !isDashboard) {
+    if (!product) {
       return new NextResponse(JSON.stringify("product not found"), {
         status: 404,
       });

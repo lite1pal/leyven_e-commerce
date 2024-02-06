@@ -107,7 +107,7 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <BasicBreadcrumbs {...{ data }} />
+      {data.breadcrumbs !== "miss" && <BasicBreadcrumbs {...{ data }} />}
       <AllAbout data={data} />
 
       <div className="flex flex-col lg:flex-row">

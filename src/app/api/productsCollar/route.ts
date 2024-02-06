@@ -23,69 +23,66 @@ export async function POST(req: NextRequest) {
 
     const existingProducts = await prisma.product.findMany();
 
-    const promises = badFormatData
-      .slice(0, 1001)
-      .map(async (badProduct: any) => {
-        try {
-          const existingProduct = existingProducts.find(
-            (product) => product.barcode == badProduct["ean13"]._text,
-          );
+    const promises = badFormatData.map(async (badProduct: any) => {
+      try {
+        const existingProduct = existingProducts.find(
+          (product) => product.barcode == badProduct["ean13"]._text,
+        );
 
-          if (existingProduct) {
-            return prisma.product.update({
-              where: { id: existingProduct.id },
-              data: { title: existingProduct.title.replaceAll("&quot;", "'") },
-            });
-          }
-
-          return;
-
-          const getProductQuantity = () => {
-            if (badProduct["quantityInStock"]._text) {
-              return parseInt(
-                badProduct["quantityInStock"]._text.split(".")[0],
-              );
-            }
-            return 1;
-          };
-
-          const getProductPrice = () => {
-            if (badProduct["price"]._text) {
-              return parseInt(badProduct["price"]._text.split(".")[0]);
-            }
-            return 0;
-          };
-
-          const getProductInfo = () => {
-            return badProduct["param"].map((info: any) => {
-              return {
-                "g:attribute_name": { _text: info["_attributes"].name },
-                "g:attribute_value": { _text: info["_cdata"] },
-              };
-            });
-          };
-
-          return prisma.product.create({
-            data: {
-              title: badProduct["name"]["_cdata"],
-              price: getProductPrice(),
-              description: badProduct["description"]["_cdata"],
-              artycul: badProduct["vendorCode"]._text,
-              barcode: badProduct["ean13"]._text,
-              quantity: getProductQuantity(),
-              img: badProduct["picture"][0]._text,
-              info: getProductInfo(),
-              availability: "in stock",
-              discount: 0,
-              unique_id_1c: "miss",
-              unique_id: "miss",
-            },
-          });
-        } catch (err: any) {
-          console.error(err);
-          return err.message;
+        if (existingProduct) {
+          // return existingProduct.title.replaceAll("&quot;", "'");
+          // return prisma.product.update({
+          //   where: { id: existingProduct.id },
+          //   data: { title: existingProduct.title.replaceAll("&quot;", "'") },
+          // });
         }
-      });
+
+        return;
+
+        const getProductQuantity = () => {
+          if (badProduct["quantityInStock"]._text) {
+            return parseInt(badProduct["quantityInStock"]._text.split(".")[0]);
+          }
+          return 1;
+        };
+
+        const getProductPrice = () => {
+          if (badProduct["price"]._text) {
+            return parseInt(badProduct["price"]._text.split(".")[0]);
+          }
+          return 0;
+        };
+
+        const getProductInfo = () => {
+          return badProduct["param"].map((info: any) => {
+            return {
+              "g:attribute_name": { _text: info["_attributes"].name },
+              "g:attribute_value": { _text: info["_cdata"] },
+            };
+          });
+        };
+
+        return prisma.product.create({
+          data: {
+            title: badProduct["name"]["_cdata"],
+            price: getProductPrice(),
+            description: badProduct["description"]["_cdata"],
+            artycul: badProduct["vendorCode"]._text,
+            barcode: badProduct["ean13"]._text,
+            quantity: getProductQuantity(),
+            img: badProduct["picture"][0]._text,
+            info: getProductInfo(),
+            availability: "in stock",
+            discount: 0,
+            unique_id_1c: "miss",
+            unique_id: "miss",
+          },
+        });
+      } catch (err: any) {
+        console.error(err);
+        return err.message;
+      }
+    });
 
     const result = await Promise.all(promises);
 

@@ -2277,3 +2277,5 @@
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-05T10:14:18.403Z"}
 {"level":"info","message":"GET /api/order [object Request]","timestamp":"2024-02-05T10:15:15.743Z"}
 {"level":"info","message":"GET /api/order [object Request]","timestamp":"2024-02-05T10:18:27.557Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T09:11:40.998Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-06T09:13:28.235Z"}
