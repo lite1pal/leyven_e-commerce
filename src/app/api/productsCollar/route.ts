@@ -29,15 +29,14 @@ export async function POST(req: NextRequest) {
           (product) => product.barcode == badProduct["ean13"]._text,
         );
 
-        if (existingProduct) {
-          // return existingProduct.title.replaceAll("&quot;", "'");
-          // return prisma.product.update({
-          //   where: { id: existingProduct.id },
-          //   data: { title: existingProduct.title.replaceAll("&quot;", "'") },
-          // });
-        }
-
-        return;
+        const getProductInfo = () => {
+          return badProduct["param"].map((info: any) => {
+            return {
+              "g:attribute_name": { _text: info["_attributes"].name },
+              "g:attribute_value": { _text: info["_cdata"] },
+            };
+          });
+        };
 
         const getProductQuantity = () => {
           if (badProduct["quantityInStock"]._text) {
@@ -53,24 +52,32 @@ export async function POST(req: NextRequest) {
           return 0;
         };
 
-        const getProductInfo = () => {
-          return badProduct["param"].map((info: any) => {
-            return {
-              "g:attribute_name": { _text: info["_attributes"].name },
-              "g:attribute_value": { _text: info["_cdata"] },
-            };
-          });
+        const getProductImg = () => {
+          return Array.isArray(badProduct["picture"])
+            ? badProduct["picture"][0]._text
+            : badProduct["picture"]._text;
         };
+
+        if (existingProduct) {
+          return prisma.product.update({
+            where: { id: existingProduct.id },
+            data: {
+              img: getProductImg(),
+              description: badProduct["description"]["_cdata"],
+              info: getProductInfo(),
+            },
+          });
+        }
 
         return prisma.product.create({
           data: {
-            title: badProduct["name"]["_cdata"],
+            title: badProduct["name"]["_cdata"].replaceAll("&quot;", "'"),
             price: getProductPrice(),
             description: badProduct["description"]["_cdata"],
             artycul: badProduct["vendorCode"]._text,
             barcode: badProduct["ean13"]._text,
             quantity: getProductQuantity(),
-            img: badProduct["picture"][0]._text,
+            img: getProductImg(),
             info: getProductInfo(),
             availability: "in stock",
             discount: 0,
