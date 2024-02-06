@@ -23,7 +23,7 @@ export default function Payment() {
   );
 }
 
-const paymentImages = [
+export const paymentImages = [
   {
     alt: "Google pay image",
     src: "https://i.citrus.world/uploads/promo/PaymentMethods/google-pay-logo.svg",
@@ -51,6 +51,6 @@ const paymentImages = [
   },
 ];
 
-function PaymentImg({ children }: { children: ReactNode }) {
+export function PaymentImg({ children }: { children: ReactNode }) {
   return <div className="w-fit px-2">{children}</div>;
 }

@@ -7,20 +7,39 @@ import { Suspense } from "react";
 export default function Contacts() {
   return (
     <Suspense>
-      <Card className="m-4 mx-auto mb-52 flex w-full flex-col gap-5 sm:w-1/2">
+      <Card className="m-4 mx-auto mb-24 flex w-full flex-col gap-5 sm:w-1/2">
         <div className="mx-auto text-xl font-bold">Контакти</div>
 
-        <p>Адреса: вул. Чернявського, 46, Звягель, Україна</p>
-
-        <p>Телефон: +380 (50) 598-74-77</p>
-
         <p>
-          Менеджер магазину:{" "}
-          <a href="mailto:leyvenzoo@gmail.com">leyvenzoo@gmail.com</a>
+          Адреса:{" "}
+          <span className="font-medium text-blue-600">
+            вул. Чернявського, 46, Звягель, Україна
+          </span>
         </p>
 
         <p>
-          Веб-сайт: <a href="http://www.leyven.com.ua">www.leyven.com.ua</a>
+          Телефон:{" "}
+          <span className="font-medium text-blue-600">+380 (50) 598-74-77</span>
+        </p>
+
+        <p>
+          Менеджер магазину:{" "}
+          <a
+            href="mailto:leyvenzoo@gmail.com"
+            className="font-medium text-blue-600"
+          >
+            leyvenzoo@gmail.com
+          </a>
+        </p>
+
+        <p>
+          Веб-сайт:{" "}
+          <a
+            href="http://www.leyven.com.ua"
+            className="font-medium text-blue-600"
+          >
+            www.leyven.com.ua
+          </a>
         </p>
       </Card>
       <Suspense fallback={<MySpinner />}>

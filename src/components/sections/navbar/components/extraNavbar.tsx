@@ -3,6 +3,7 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { useState, useEffect } from "react";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import Link from "next/link";
 
 export default function ExtraNavbar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -33,9 +34,12 @@ export default function ExtraNavbar() {
       className={`hidden w-full flex-col items-center justify-between gap-3 py-1 font-light text-slate-600 transition sm:gap-1.5 lg:flex lg:flex-row`}
     >
       <div className="flex gap-10 text-sm">
-        <div className="w-fit cursor-pointer transition hover:text-blue-600">
+        <Link
+          href="/paymentAndShipping"
+          className="w-fit cursor-pointer transition hover:text-blue-600"
+        >
           Оплата і доставка
-        </div>
+        </Link>
 
         <div className="w-fit cursor-pointer transition hover:text-blue-600">
           Дисконтна програма

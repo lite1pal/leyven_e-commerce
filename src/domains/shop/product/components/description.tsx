@@ -4,6 +4,19 @@ import SectionHeader from "@/components/base/SectionHeader";
 import Warning from "./warning";
 import { type Product } from "@/types";
 import { useState } from "react";
+import { Textarea } from "flowbite-react";
+
+// function insertLineBreaks(text, maxLength) {
+//   let result = "";
+//   let i = 0;
+
+//   while (i < text.length) {
+//     result += text.slice(i, i + maxLength) + "\n";
+//     i += maxLength;
+//   }
+
+//   return result;
+// }
 
 export default function Description({ data }: { data: Product }) {
   const [showMore, setShowMore] = useState(false);
@@ -19,7 +32,15 @@ export default function Description({ data }: { data: Product }) {
     <div className="flex w-full flex-col gap-5 px-7 py-5 lg:w-1/2">
       <SectionHeader>Опис</SectionHeader>
 
-      <p className="font-medium text-slate-600">
+      {/* <Textarea
+        defaultValue={data.description}
+        className="overflow-y-scroll border-none p-0 text-base text-slate-900 focus:pointer-events-none"
+        rows={5}
+      /> */}
+
+      {/* <p>{insertLineBreaks(data.description, 100)}</p> */}
+
+      <p className="prose font-medium text-slate-600">
         {showMore
           ? formatDescription(data.description)
           : formatDescription(data.description.slice(0, 500))}
