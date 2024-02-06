@@ -9,8 +9,8 @@ export default async function Reviews({ data, session }: any) {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="flex w-full flex-col gap-5 px-7 pt-5 lg:w-1/2">
-      <div className="flex justify-between">
+    <div className="flex w-fit flex-col gap-5 px-7 pt-5">
+      <div className="flex flex-col justify-between gap-12 lg:flex-row">
         <SectionHeader>
           Відгуки ({data.reviews ? data.reviews.length : 0})
         </SectionHeader>
