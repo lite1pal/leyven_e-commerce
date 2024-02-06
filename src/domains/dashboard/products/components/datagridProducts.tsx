@@ -3,153 +3,16 @@
 import * as React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbarContainer,
-  GridActionsCellItem,
-  GridToolbarQuickFilter,
-  GridToolbarExport,
-  GridToolbarFilterButton,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import moment from "moment";
-import Button from "@/components/base/Button";
-import ButtonMUI from "@mui/material/Button";
 import Link from "next/link";
 import { Product } from "@/types";
-import AddIcon from "@mui/icons-material/Add";
+import EditToolbar from "./editToolbar";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { API_URL } from "@/config/api";
-import toast from "react-hot-toast";
-import { Spinner } from "flowbite-react";
-import { convertXLSXtoJSON } from "@/libs/utils";
-
-function EditToolbar() {
-  const [loading, setLoading] = React.useState(false);
-
-  const handleImportProm = async () => {
-    try {
-      setLoading(true);
-
-      // Make the actual fetch request
-      const res = await fetch(`${API_URL}/products`, { method: "PUT" });
-
-      // Check if the result is from the fetch request
-      if (res.ok) {
-        setLoading(false);
-        toast.success(
-          "Дані з leyven.prom.ua імпортовані успішно. Все синхронізовано",
-          { duration: 7000 },
-        );
-        return;
-      }
-      // Handle timeout
-      setLoading(false);
-      toast.error("Спробуйте пізніше");
-    } catch (err: any) {
-      console.log(err);
-      toast.error("Надто багато імпортів, спробуйте ще раз через годину");
-      setLoading(false);
-    }
-  };
-
-  const handleXLSXUpload = async (e: any) => {
-    try {
-      setLoading(true);
-      const file = e.target.files[0];
-
-      const jsonData: any = await convertXLSXtoJSON(file);
-
-      const res = await fetch(`${API_URL}/products1C`, {
-        method: "PUT",
-        body: JSON.stringify({ jsonData }),
-      });
-
-      const parsedRes = await res.json();
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      toast.error("Надто багато імпортів, спробуйте ще раз через годину");
-      setLoading(false);
-    }
-  };
-
-  const handleImport1C = async (e: any) => {
-    try {
-      setLoading(true);
-      const file = e.target.files[0];
-
-      const xmlText = await file.text();
-
-      const res = await fetch(`${API_URL}/products1C`, {
-        method: "POST",
-        body: JSON.stringify({ xmlText }),
-      });
-
-      // Check if the result is from the fetch request
-      if (res.ok) {
-        setLoading(false);
-        toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
-        const parsedRes = await res.json();
-        console.log(parsedRes);
-        return;
-      }
-      // Handle timeout
-      setLoading(false);
-      toast.error(
-        "Файл має бути формату XML. Спробуйте пізніше, якщо ви завантажували вірний формат",
-      );
-    } catch (err) {
-      console.log(err);
-      toast.error("Надто багато імпортів, спробуйте ще раз через годину");
-      setLoading(false);
-    }
-  };
-
-  return (
-    <GridToolbarContainer className="flex w-full justify-between">
-      <Link href="/dashboard/products/add">
-        <Button title="Додати товар" />
-      </Link>
-      <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-center">
-        {loading ? (
-          <div className="flex gap-3 text-lg text-slate-500">
-            Не робіть ніяких дій, поки відбувається імпорт
-            <Spinner />
-          </div>
-        ) : (
-          <ButtonMUI
-            onClick={handleImportProm}
-            startIcon={<AddIcon />}
-            variant="text"
-          >
-            Sync with Prom
-          </ButtonMUI>
-        )}
-        {/* <GridToolbarExport /> */}
-        {!loading && (
-          <ButtonMUI startIcon={<AddIcon />}>
-            <label className="cursor-pointer" htmlFor="file">
-              Upload data from 1C
-            </label>
-            <input
-              id="file"
-              className="hidden"
-              type="file"
-              onChange={(e) => handleImport1C(e)}
-            />
-          </ButtonMUI>
-        )}
-      </div>
-      <GridToolbarFilterButton />
-      <GridToolbarQuickFilter
-        sx={{
-          backgroundColor: "transparent",
-        }}
-      />
-    </GridToolbarContainer>
-  );
-}
+import { useEffect, useState } from "react";
+import { getDecodedFilters, getFiltersPathName } from "@/libs/utils";
+import { filter } from "lodash";
 
 export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
   const columns: GridColDef[] = [
@@ -263,13 +126,58 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
     },
   ];
 
+  const [rows, setRows] = useState([]);
+
+  const [rowCountState, setRowCountState] = useState(0);
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 20,
+  });
+  const [filterModel, setFilterModel] = useState<any>({
+    items: [],
+  });
+  const [sortModel, setSortModel] = useState<any>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const resOptions = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            page: paginationModel.page,
+            pageSize: paginationModel.pageSize,
+            sortModel,
+            filterModel,
+          }),
+        };
+
+        const res = await fetch(`${API_URL}/productsDatagrid`, resOptions);
+
+        if (!res.ok) {
+          console.error("Failed to fetch data");
+          return;
+        }
+
+        const parsedRes = await res.json();
+
+        setRows(parsedRes.products);
+        setRowCountState(parsedRes.productsCount);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, [sortModel, filterModel, paginationModel]);
+
   return (
     <div className="mx-auto flex w-full flex-col">
-      <div className="pb-4 text-gray-500">{data.length} позицій</div>
+      <div className="pb-4 text-gray-500">{rowCountState} позицій</div>
       <DataGrid
         sx={{ border: "none" }}
-        // getRowHeight={() => "auto"}
-        rows={data}
+        rows={rows || []}
         columns={columns}
         showCellVerticalBorder
         disableRowSelectionOnClick
@@ -277,10 +185,19 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
         slots={{
           toolbar: EditToolbar,
         }}
-        initialState={{
-          pagination: { paginationModel: { pageSize: 10 } },
-        }}
-        pageSizeOptions={[10, 25, 50, 100]}
+        // initialState={{
+        //   pagination: { paginationModel: { pageSize: 20 } },
+        // }}
+        pagination
+        pageSizeOptions={[20, 50, 100]}
+        sortingMode="server"
+        filterMode="server"
+        paginationMode="server"
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        onSortModelChange={setSortModel}
+        onFilterModelChange={setFilterModel}
+        rowCount={rowCountState}
       />
     </div>
   );

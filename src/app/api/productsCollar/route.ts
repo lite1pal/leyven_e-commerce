@@ -21,8 +21,11 @@ export async function POST(req: NextRequest) {
 
     const badFormatData = await convertXMLtoJSON(res, "collar");
 
-    const existingProducts = await prisma.product.findMany();
+    const existingProducts = await prisma.product.findMany({
+      where: { unique_id: { equals: "miss" } },
+    });
 
+    let count = 0;
     const promises = badFormatData.map(async (badProduct: any) => {
       try {
         const existingProduct = existingProducts.find(
@@ -59,16 +62,18 @@ export async function POST(req: NextRequest) {
         };
 
         if (existingProduct) {
-          return prisma.product.update({
-            where: { id: existingProduct.id },
-            data: {
-              img: getProductImg(),
-              description: badProduct["description"]["_cdata"],
-              info: getProductInfo(),
-            },
-          });
+          count++;
+          return 0;
+          // return prisma.product.update({
+          //   where: { id: existingProduct.id },
+          //   data: {
+          //     img: getProductImg(),
+          //     description: badProduct["description"]["_cdata"],
+          //     info: getProductInfo(),
+          //   },
+          // });
         }
-
+        // return 1;
         return prisma.product.create({
           data: {
             title: badProduct["name"]["_cdata"].replaceAll("&quot;", "'"),
