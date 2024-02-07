@@ -88,10 +88,20 @@ export function getArrayValueByKey(array: string[], key: string) {
   // return array.filter((item) => item.includes(key))[0].split("=")[1];
 }
 
-export function getFiltersPathName(newFilters: string[], pathName: string) {
-  return pathName.includes("filters")
+export function getFiltersPathName(
+  newFilters: string[],
+  pathName: string,
+  search?: string | null,
+) {
+  const filtersPathName = pathName.includes("filters")
     ? pathName.split("/filters/")[0] + "/filters/" + newFilters.join(";")
     : `${pathName}/filters/${newFilters.join(";")}`;
+
+  if (search) {
+    return filtersPathName + `?search=${search}`;
+  }
+
+  return filtersPathName;
 }
 
 export function getDecodedFilters(filters: string) {

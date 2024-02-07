@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { FormControl, FormLabel, Slider } from "@mui/joy";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import {
   changeArrayValue,
   getArrayValueByKey,
@@ -15,6 +20,9 @@ export default function PriceFilter() {
   const pathName = usePathname();
 
   const params = useParams();
+
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
 
   // current filters
   const filters = getDecodedFilters(params.filters as string);
@@ -52,7 +60,7 @@ export default function PriceFilter() {
             newValue[1],
           );
 
-          router.push(getFiltersPathName(newNewFilters, pathName));
+          router.push(getFiltersPathName(newNewFilters, pathName, search));
         }}
         max={5000}
         onChange={handleChange}

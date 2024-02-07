@@ -7,7 +7,12 @@ import {
   getFiltersPathName,
 } from "@/libs/utils";
 import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/joy";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import * as React from "react";
 
 interface IProps {
@@ -24,6 +29,8 @@ export default function FilterRadioButton({
   link,
 }: IProps) {
   const params = useParams();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
   // current filters
   const filters = getDecodedFilters(params.filters as string);
   const [value, setValue] = React.useState(
@@ -37,7 +44,7 @@ export default function FilterRadioButton({
 
     const newFilters = changeArrayValue(filters, type, event.target.value);
 
-    router.push(getFiltersPathName(newFilters, pathName));
+    router.push(getFiltersPathName(newFilters, pathName, search));
   };
 
   return (

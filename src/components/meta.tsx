@@ -2,7 +2,12 @@
 
 import { Divider } from "@mui/joy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useMemo } from "react";
 import {
   changeArrayValue,
@@ -16,6 +21,8 @@ export default function Meta() {
   const router = useRouter();
   const pathName = usePathname();
   const params = useParams();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
 
   // current filters
   const filters = getDecodedFilters(params.filters as string);
@@ -52,7 +59,7 @@ export default function Meta() {
               // updates filters value
               const newFilters = changeArrayValue(filters, "sort", "price_asc");
 
-              router.push(getFiltersPathName(newFilters, pathName));
+              router.push(getFiltersPathName(newFilters, pathName, search));
             }}
           >
             Від найдешевших
@@ -68,7 +75,7 @@ export default function Meta() {
                 "price_desc",
               );
 
-              router.push(getFiltersPathName(newFilters, pathName));
+              router.push(getFiltersPathName(newFilters, pathName, search));
             }}
           >
             Від найдорожчих
@@ -80,7 +87,7 @@ export default function Meta() {
               // updates filters value
               const newFilters = changeArrayValue(filters, "sort", "popular");
 
-              router.push(getFiltersPathName(newFilters, pathName));
+              router.push(getFiltersPathName(newFilters, pathName, search));
             }}
           >
             За популярністю

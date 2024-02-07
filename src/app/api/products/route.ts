@@ -106,8 +106,10 @@ export async function GET(req: NextRequest, { params }: any) {
 
       if (search) {
         where.title = { contains: search, mode: "insensitive" };
+
         return {
           where,
+          orderBy,
           skip,
           take,
         };

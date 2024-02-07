@@ -8,10 +8,17 @@ import {
 } from "@/libs/utils";
 import { type Product } from "@/types";
 import Pagination from "@mui/material/Pagination";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 
 export default function PaginationComponent({ data }: { data: Product[] }) {
   const params = useParams();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
 
   // current filters
   const filters = getDecodedFilters(params.filters as string);
@@ -37,7 +44,7 @@ export default function PaginationComponent({ data }: { data: Product[] }) {
         // updates filters value
         const newFilters = changeArrayValue(filters, "page", value.toString());
 
-        router.push(getFiltersPathName(newFilters, pathName));
+        router.push(getFiltersPathName(newFilters, pathName, search));
       }}
       siblingCount={1}
       boundaryCount={1}
