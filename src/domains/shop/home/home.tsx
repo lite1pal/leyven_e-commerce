@@ -26,8 +26,7 @@ export default async function HomeView() {
     <>
       <DiscountProducts header="Акційні пропозиції" />
       <RelatedProducts header="Новинки" />
-      {/* <Categories /> */}
-      <ParentCategories />
+      {/* <ParentCategories /> */}
 
       <div className="px-7 py-5">
         <SectionHeader>Вибір товарів</SectionHeader>
