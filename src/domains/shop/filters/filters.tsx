@@ -7,6 +7,8 @@ import Categories from "@/components/sections/categories";
 import { type Product } from "@/types";
 import Link from "next/link";
 import CloseIcon from "@mui/icons-material/Close";
+import { ChildCategories } from "@/components/sections/childCategories";
+import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
 
 export default async function FiltersView({
   params,
@@ -14,19 +16,18 @@ export default async function FiltersView({
 }: {
   params: {
     category: string | undefined;
-    subCategory: string | undefined;
     filters: string;
   };
   searchParams: {
     search: string;
   };
 }) {
-  const { category, subCategory, filters } = params;
+  const { category, filters } = params;
 
   const { search } = searchParams;
 
-  const queryString = `${category ? `&category=${category}` : ""}${
-    subCategory ? `&subCategory=${subCategory}` : ""
+  const queryString = `${
+    category ? `&categoryId=${category.split("-")[0]}` : ""
   }${filters ? `&filters=${filters}` : ""}${search ? `&search=${search}` : ""}`;
 
   // gets products for the catalog
@@ -40,17 +41,15 @@ export default async function FiltersView({
   );
   const data: Product[] = await res.json();
 
-  const categoryHeader = category
-    ? subCategory
-      ? categories[category].subCategories[subCategory].name
-      : categories[category].name
-    : "Каталог";
-
   return (
     <>
       {search ? (
         <>
-          <CategoryHeader title="Результат пошуку" />
+          <div
+            className={`px-4 py-5 font-sans text-3xl font-medium text-slate-900`}
+          >
+            Результати пошуку
+          </div>
           <div className="ml-10 flex items-center gap-1 pb-5">
             <Link href="/">
               <div className="cursor-pointer rounded-lg border-2 border-blue-600 border-opacity-0 p-1.5 transition duration-300  hover:border-opacity-100 hover:text-blue-600">
@@ -64,11 +63,23 @@ export default async function FiltersView({
         </>
       ) : (
         <>
-          <Categories />
-          <BasicBreadcrumbs />
+          {category && (
+            <>
+              <BreadcrumbsCategory categoryId={category.split("-")[0]} />
+              <ChildCategories params={params} />
+            </>
+          )}
         </>
       )}
-      <CategoryHeader title={categoryHeader} />
+      {category ? (
+        <CategoryHeader categoryId={category.split("-")[0]} />
+      ) : (
+        <div
+          className={`px-4 py-5 font-sans text-3xl font-medium text-slate-900`}
+        >
+          Каталог
+        </div>
+      )}
       <CatalogView {...{ data }} />
     </>
   );

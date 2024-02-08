@@ -14,11 +14,11 @@ import { categories } from "@/data/categories";
 export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
 
-  const params: any = useParams();
-  const mainCategories = Object.keys(categories);
-  const subCategories = params.category
-    ? Object.keys(categories[params.category].subCategories)
-    : [];
+  // const params: any = useParams();
+  // const mainCategories = Object.keys(categories);
+  // const subCategories = params.category
+  //   ? Object.keys(categories[params.category].subCategories)
+  //   : [];
 
   const toggleDrawer =
     (inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -46,7 +46,7 @@ export default function Sidebar() {
 
           <Divider />
           <div className="p-2 text-lg font-semibold">Категорії</div>
-          <List>
+          {/* <List>
             {params.category
               ? subCategories.map((category, i) => {
                   return (
@@ -78,7 +78,7 @@ export default function Sidebar() {
                     </Link>
                   );
                 })}
-          </List>
+          </List> */}
           <List sx={{ marginTop: "1.5rem" }}>
             <ListItem>
               <Link href="contacts">Контакти</Link>

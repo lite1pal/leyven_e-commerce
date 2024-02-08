@@ -7,10 +7,22 @@ import { Spinner } from "flowbite-react";
 
 const navItems = [
   { route: "/allProducts", name: "Каталог" },
-  { route: "/category/veterinarni-zasobi-preparati", name: "Ветеринарія" },
-  { route: "/category/goduvannya-domashnih-tvarin", name: "Годування" },
-  { route: "/category/tovari-dlya-progulyanok", name: "Подорожі" },
-  { route: "/category/tovari-dlya-komfortu", name: "Іграшки" },
+  {
+    route: "/category/105-veterinarni-zasobi-ta-preparati",
+    name: "Ветеринарія",
+  },
+  {
+    route: "/category/91-goduvannya-domashnih-tvarin-i-ptahiv",
+    name: "Годування",
+  },
+  {
+    route: "/category/96-tovari-dlya-progulyanok-i-podorozhej-z-tvarinami",
+    name: "Подорожі",
+  },
+  {
+    route: "/category/99-tovari-dlya-komfortu-domashnih-tvarin",
+    name: "Іграшки",
+  },
 ];
 
 export default async function Navbar() {
@@ -42,36 +54,6 @@ export default async function Navbar() {
               <NavItem key={item.route} route={item.route} name={item.name} />
             );
           })}
-          {/* <Link href="/allProducts">
-            <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
-              Каталог
-            </li>
-          </Link>
-          <a href="#" className="group text-sky-600 transition duration-300">
-            Link
-            <span className="block h-0.5 max-w-0 bg-sky-600 transition-all duration-500 group-hover:max-w-full"></span>
-          </a>
-
-          <Link href="/category/veterinarni-zasobi-preparati">
-            <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
-              Ветеринарія
-            </li>
-          </Link>
-          <Link href="/category/goduvannya-domashnih-tvarin">
-            <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
-              Годування
-            </li>
-          </Link>
-          <Link href="/category/tovari-dlya-progulyanok">
-            <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
-              Подорожі
-            </li>
-          </Link>
-          <Link href="/category/tovari-dlya-komfortu">
-            <li className="duration-400 cursor-default border-b-2 border-b-blue-600 border-opacity-0 transition hover:border-opacity-100 hover:text-blue-600">
-              Іграшки
-            </li>
-          </Link> */}
         </ul>
         <div className="flex items-center gap-1">
           <div className="mx-5">

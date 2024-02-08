@@ -4,6 +4,7 @@ import Catalog from "@/components/catalog";
 import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
 import Categories from "@/components/sections/categories";
 import { type Product } from "@/types";
+import { ParentCategories } from "@/components/sections/parentCategories";
 
 export default async function AllProductsView() {
   // gets products for the catalog
@@ -13,9 +14,10 @@ export default async function AllProductsView() {
   const data: Product[] = await res.json();
   return (
     <>
-      <Categories />
-      <BasicBreadcrumbs />
-      <CategoryHeader title="Каталог" />
+      <ParentCategories />
+      <div className={`px-4 font-sans text-3xl font-medium text-slate-900`}>
+        Каталог
+      </div>
       <Catalog {...{ data }} />
     </>
   );

@@ -8,6 +8,8 @@ import { slugifyString, valueOfPercent } from "@/libs/utils";
 import { redirect } from "next/navigation";
 import Description from "./components/description";
 import ProductInfoTable from "@/components/productInfoTable";
+import BreadcrumbsProduct from "@/components/sections/breadcrumbsProduct";
+import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
 
 type IProps = {
   id: string;
@@ -108,7 +110,8 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      {data.breadcrumbs !== "miss" && <BasicBreadcrumbs {...{ data }} />}
+      <BreadcrumbsProduct categoryId={data.categoryId} />
+      {/* {data.breadcrumbs !== "miss" && <BasicBreadcrumbs {...{ data }} />} */}
       <AllAbout data={data} />
 
       <div className="flex flex-col lg:flex-row">
