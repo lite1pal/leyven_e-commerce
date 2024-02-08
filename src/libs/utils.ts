@@ -1,4 +1,4 @@
-import slugify from "slugify";
+import slugify from "slugify"; // "slugify": "^1.6.6",
 import convert from "xml-js";
 import * as XLSX from "xlsx";
 

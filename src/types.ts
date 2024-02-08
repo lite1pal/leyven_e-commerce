@@ -4,6 +4,7 @@ export type Product = {
   unique_id_1c: string;
   title: string;
   price: number;
+  categoryId: string;
   quantity: number;
   barcode?: string;
   artycul?: string;

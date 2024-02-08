@@ -18,7 +18,21 @@ export async function GET(req: NextRequest, { params }: any) {
     const url = new URL(req.url);
 
     // grabs each search param from search params object
-    const category = url.searchParams.get("category");
+    const categoryId = url.searchParams.get("categoryId");
+
+    // if provided category id is a parent category, then return products of all its child categories
+    let arrayOfChildCategories: any = [];
+    if (categoryId) {
+      const childCategories = await prisma.category.findMany({
+        where: { parentId: { equals: categoryId } },
+      });
+
+      arrayOfChildCategories =
+        childCategories.length > 0
+          ? childCategories.map((childCategory) => childCategory.categoryId)
+          : [];
+    }
+
     const subCategory = url.searchParams.get("subCategory");
 
     const search = url.searchParams.get("search");
@@ -65,7 +79,7 @@ export async function GET(req: NextRequest, { params }: any) {
     }
 
     // returns a filtering options object for prisma query based on search params
-    const filteringObject: any = (category: string | null) => {
+    const filteringObject: any = () => {
       let orderBy: any = { updatedAt: "desc" };
       let where: any = { img: { not: "miss" } };
       let skip = page ? (page - 1) * 24 : 0;
@@ -115,8 +129,10 @@ export async function GET(req: NextRequest, { params }: any) {
         };
       }
 
+      console.log("CATEGErsfsf", arrayOfChildCategories);
+
       // if search params don't contain category then return products of all categories
-      if (!category) {
+      if (!categoryId) {
         return {
           where,
           orderBy,
@@ -125,25 +141,35 @@ export async function GET(req: NextRequest, { params }: any) {
         };
       }
 
-      if (subCategory) {
-        where.breadcrumbs = {
-          contains: categories[category].subCategories[subCategory].name,
-          mode: "insensitive",
-        };
+      // if (subCategory) {
+      //   where.breadcrumbs = {
+      //     contains: categories[pategoryId].subCategories[subCategory].name,
+      //     mode: "insensitive",
+      //   };
 
-        return {
-          where,
-          orderBy,
-          skip,
-          take,
-        };
-      }
+      //   return {
+      //     where,
+      //     orderBy,
+      //     skip,
+      //     take,
+      //   };
+      // }
 
-      where.breadcrumbs = {
-        contains: categories[category].name,
-        mode: "insensitive",
-      };
+      // where.breadcrumbs = {
+      //   contains: categories[categoryId].name,
+      //   mode: "insensitive",
+      // };
 
+      // where.OR = [
+      //   { categoryId: { equals: categoryId } },
+      //   { categoryId: { equals: parentCategory.categoryId } },
+      // ];
+
+      // if category id is provided
+      where.OR = [
+        { categoryId: { in: arrayOfChildCategories } },
+        { categoryId: { equals: categoryId } },
+      ];
       return {
         where,
         orderBy,
@@ -152,11 +178,11 @@ export async function GET(req: NextRequest, { params }: any) {
       };
     };
 
-    if (!category) {
-      products = await prisma.product.findMany(filteringObject());
-    } else {
-      products = await prisma.product.findMany(filteringObject(category));
-    }
+    products = await prisma.product.findMany(filteringObject());
+    // if (!category) {
+    // } else {
+    //   products = await prisma.product.findMany(filteringObject(category));
+    // }
 
     return new NextResponse(JSON.stringify(products), {
       status: 200,

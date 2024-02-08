@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
 
     products = await prisma.product.findMany({
       where: {
-        breadcrumbs: product?.breadcrumbs,
+        categoryId: product?.categoryId,
         img: { not: "miss" },
         availability: "in stock",
       },
