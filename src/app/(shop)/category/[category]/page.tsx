@@ -2,12 +2,18 @@ import CategoryView from "@/domains/shop/category/category";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";
 import { categories } from "@/data/categories";
+import { API_URL } from "@/config/api";
 
 export async function generateMetadata({ params }: any) {
+  const res = await fetch(`${API_URL}/categories`);
+  const categories = await res.json();
+
+  const category = categories.find(
+    (category: any) => category.categoryId === params.category.split("-")[0],
+  );
+
   return {
-    title:
-      categories[params.category].name +
-      " від інтернет-магазину ЛейВен! ціни від 16 грн",
+    title: category.title + " від інтернет-магазину ЛейВен!",
   };
 }
 
