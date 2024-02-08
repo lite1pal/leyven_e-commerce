@@ -26,13 +26,12 @@ export default async function HomeView() {
     <>
       <DiscountProducts header="Акційні пропозиції" />
       <RelatedProducts header="Новинки" />
-      {/* <ParentCategories /> */}
+      <ParentCategories />
 
       <div className="px-7 py-5">
         <SectionHeader>Вибір товарів</SectionHeader>
       </div>
 
-      {/* <CategoryHeader title="Вибір товарів" /> */}
       <Suspense>
         <Catalog data={data.slice(0, 12)} />
         <Testimonials />

@@ -65,8 +65,8 @@ export default async function FiltersView({
         <>
           {category && (
             <>
-              {/* <BreadcrumbsCategory categoryId={category.split("-")[0]} />
-              <ChildCategories params={params} /> */}
+              <BreadcrumbsCategory categoryId={category.split("-")[0]} />
+              <ChildCategories params={params} />
             </>
           )}
         </>

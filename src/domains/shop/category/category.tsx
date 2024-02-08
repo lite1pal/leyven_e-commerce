@@ -22,10 +22,9 @@ export default async function CategoryView({ params }: any) {
 
   return (
     <>
-      {/* <BreadcrumbsCategory categoryId={categoryId} />
-      <ChildCategories {...{ params }} /> */}
-      {/* <Categories /> */}
-      {/* <BasicBreadcrumbs /> */}
+      <BreadcrumbsCategory categoryId={categoryId} />
+      <ChildCategories {...{ params }} />
+
       <CategoryHeader categoryId={categoryId} />
       <CatalogView {...{ data }} />
     </>
