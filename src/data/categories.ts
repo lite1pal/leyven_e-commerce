@@ -96,9 +96,4 @@ export const categories: any = {
       },
     },
   },
-  //   "veterinarni-instrumenti-inventar": {
-  //     name: "Ветеринарні інструменти та інвентар",
-  //     route:
-  //       "/category/veterinarni-zasobi-preparati/veterinarni-instrumenti-inventar",
-  //   },
 };

@@ -23,6 +23,19 @@ export const convertXMLtoJSON = async (xmlRes: Response, resource = "prom") => {
   return parsedXML;
 };
 
+export const getCategoriesFromCollar = async (xmlRes: Response) => {
+  const xmlText = await xmlRes.text();
+
+  const xmlString = convert.xml2json(xmlText, {
+    compact: true,
+    spaces: 4,
+  });
+
+  const parsedXML = await JSON.parse(xmlString);
+
+  return parsedXML["yml_catalog"]["shop"]["categories"]["category"];
+};
+
 export const convertXLSXtoJSON = async (file: any) => {
   return new Promise((resolve, reject) => {
     var reader = new FileReader();

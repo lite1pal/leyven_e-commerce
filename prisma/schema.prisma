@@ -75,6 +75,7 @@ model Product {
   availability String
   description String @default("miss")
   breadcrumbs String @default("miss")
+  categoryId String? @default("miss")
   country String? @default("miss")
   brand String? @default("miss")
   info Json[]
@@ -82,6 +83,13 @@ model Product {
   cartProducts CartProduct[]
   orderProducts OrderProduct[]
   updatedAt DateTime? @updatedAt
+}
+
+model Category {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId String
+  parentId String?
+  title String
 }
 
 model Cart {

@@ -1,6 +1,5 @@
 import { convertXMLtoJSON } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
-import convert from "xml-js";
 import { prisma } from "../auth/[...nextauth]/auth";
 import { COLLAR_API_URL } from "@/config/api";
 
@@ -62,43 +61,42 @@ export async function POST(req: NextRequest) {
         };
 
         if (existingProduct) {
-          count++;
-          return 0;
-          // return prisma.product.update({
-          //   where: { id: existingProduct.id },
-          //   data: {
-          //     img: getProductImg(),
-          //     description: badProduct["description"]["_cdata"],
-          //     info: getProductInfo(),
-          //   },
-          // });
+          return prisma.product.update({
+            where: { id: existingProduct.id },
+            data: {
+              categoryId: badProduct["categoryId"]._text,
+              // img: getProductImg(),
+              // description: badProduct["description"]["_cdata"],
+              // info: getProductInfo(),
+            },
+          });
         }
-        // return 1;
-        return prisma.product.create({
-          data: {
-            title: badProduct["name"]["_cdata"].replaceAll("&quot;", "'"),
-            price: getProductPrice(),
-            description: badProduct["description"]["_cdata"],
-            artycul: badProduct["vendorCode"]._text,
-            barcode: badProduct["ean13"]._text,
-            quantity: getProductQuantity(),
-            img: getProductImg(),
-            info: getProductInfo(),
-            availability: "in stock",
-            discount: 0,
-            unique_id_1c: "miss",
-            unique_id: "miss",
-          },
-        });
+        return 0;
+        // return prisma.product.create({
+        //   data: {
+        //     title: badProduct["name"]["_cdata"].replaceAll("&quot;", "'"),
+        //     price: getProductPrice(),
+        //     description: badProduct["description"]["_cdata"],
+        //     artycul: badProduct["vendorCode"]._text,
+        //     barcode: badProduct["ean13"]._text,
+        //     quantity: getProductQuantity(),
+        //     img: getProductImg(),
+        //     info: getProductInfo(),
+        //     availability: "in stock",
+        //     discount: 0,
+        //     unique_id_1c: "miss",
+        //     unique_id: "miss",
+        //   },
+        // });
       } catch (err: any) {
         console.error(err);
-        return err.message;
+        return 0;
       }
     });
 
     const result = await Promise.all(promises);
 
-    return new NextResponse(JSON.stringify(result), {
+    return new NextResponse(JSON.stringify(badFormatData.length), {
       status: 200,
     });
   } catch (err) {
