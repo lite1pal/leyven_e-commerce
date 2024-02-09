@@ -20,7 +20,9 @@ export async function POST(req: NextRequest) {
           return prisma.product.update({
             where: { id: existingProduct.id },
             data: {
-              description: product[6],
+              description: existingProduct.description.includes("<p>")
+                ? existingProduct.description
+                : product[6],
               keywords: product[4],
             },
           });

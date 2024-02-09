@@ -100,7 +100,7 @@ export default function EditToolbar() {
         <Button title="Додати товар" />
       </Link>
       <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-center">
-        {loading ? (
+        {/* {loading ? (
           <div className="flex gap-3 text-lg text-slate-500">
             Не робіть ніяких дій, поки відбувається імпорт
             <Spinner />
@@ -114,8 +114,7 @@ export default function EditToolbar() {
             Sync with Prom
           </ButtonMUI>
         )}
-        {/* <GridToolbarExport /> */}
-        {/* {!loading && (
+        {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>
             <label className="cursor-pointer" htmlFor="file">
               Upload data from 1C
@@ -127,7 +126,7 @@ export default function EditToolbar() {
               onChange={(e) => handleImport1C(e)}
             />
           </ButtonMUI>
-        )} */}
+        )}
 
         {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>
@@ -141,7 +140,7 @@ export default function EditToolbar() {
               onChange={(e) => handleXLSXUpload(e)}
             />
           </ButtonMUI>
-        )}
+        )} */}
       </div>
       {/* <GridToolbarFilterButton /> */}
       <GridToolbarQuickFilter
