@@ -45,12 +45,15 @@ export default function EditToolbar() {
 
       const jsonData: any = await convertXLSXtoJSON(file);
 
-      const res = await fetch(`${API_URL}/products1C`, {
-        method: "PUT",
+      const res = await fetch(`${API_URL}/productsXLSX`, {
+        method: "POST",
         body: JSON.stringify({ jsonData }),
       });
 
+      toast.success("success");
+
       const parsedRes = await res.json();
+      console.log(parsedRes);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -112,7 +115,7 @@ export default function EditToolbar() {
           </ButtonMUI>
         )}
         {/* <GridToolbarExport /> */}
-        {!loading && (
+        {/* {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>
             <label className="cursor-pointer" htmlFor="file">
               Upload data from 1C
@@ -122,6 +125,20 @@ export default function EditToolbar() {
               className="hidden"
               type="file"
               onChange={(e) => handleImport1C(e)}
+            />
+          </ButtonMUI>
+        )} */}
+
+        {!loading && (
+          <ButtonMUI startIcon={<AddIcon />}>
+            <label className="cursor-pointer" htmlFor="file">
+              Upload data from XLSX
+            </label>
+            <input
+              id="file"
+              className="hidden"
+              type="file"
+              onChange={(e) => handleXLSXUpload(e)}
             />
           </ButtonMUI>
         )}

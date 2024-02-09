@@ -73,6 +73,7 @@ model Product {
   rating      String? @default("4")
   img String @default("miss")
   availability String
+  keywords String? @default("miss")
   description String @default("miss")
   breadcrumbs String @default("miss")
   categoryId String? @default("miss")

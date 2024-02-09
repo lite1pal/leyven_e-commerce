@@ -4,6 +4,7 @@ import SectionHeader from "@/components/base/SectionHeader";
 import Warning from "./warning";
 import { type Product } from "@/types";
 import { useState } from "react";
+import parse from "html-react-parser";
 
 export default function Description({ data }: { data: Product }) {
   const [showMore, setShowMore] = useState(false);
@@ -18,32 +19,42 @@ export default function Description({ data }: { data: Product }) {
 
   const paragraphs = data.description.split("\n");
 
-  return (
-    <div className="flex w-full flex-col gap-5 px-7 py-5 lg:w-1/2">
-      <SectionHeader>Опис</SectionHeader>
+  console.log(data.description);
 
-      {paragraphs.length > 1 ? (
-        paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)
-      ) : (
-        <>
-          <p className="prose font-medium text-slate-600">
-            {showMore
-              ? formatDescription(data.description)
-              : formatDescription(data.description.slice(0, 500))}
-            {data.breadcrumbs.includes("Ветеринарія") && showMore && (
-              <Warning />
-            )}
-          </p>
-          {data.description.length >= 500 && (
-            <div
-              className="cursor-pointer text-lg text-blue-600"
-              onClick={handleShowMore}
-            >
-              Читати {showMore ? "менше" : "повністю"}
-            </div>
-          )}
-        </>
-      )}
+  return (
+    <div className="flex w-full  flex-col gap-5 px-7 py-5 text-sm lg:w-1/2">
+      <SectionHeader>Опис</SectionHeader>
+      {data.unique_id !== "miss"
+        ? parse(
+            data.description
+              .replaceAll("<h1>", "<strong>")
+              .replaceAll("</h1>", "</strong>")
+              .replaceAll("<h2>", "<strong>")
+              .replaceAll("</h2>", "</strong>")
+              .replaceAll("<h3>", "<strong>")
+              .replaceAll("</h3>", "</strong>")
+              .replaceAll("<li>", "<li> - "),
+            { trim: true },
+          )
+        : paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+      {/* // <>
+        //   <p className="prose font-medium text-slate-600">
+        //     {showMore
+        //       ? formatDescription(data.description)
+        //       : formatDescription(data.description.slice(0, 500))}
+        //     {data.breadcrumbs.includes("Ветеринарія") && showMore && (
+        //       <Warning />
+        //     )}
+        //   </p>
+        //   {data.description.length >= 500 && (
+        //     <div
+        //       className="cursor-pointer text-lg text-blue-600"
+        //       onClick={handleShowMore}
+        //     >
+        //       Читати {showMore ? "менше" : "повністю"}
+        //     </div>
+        //   )}
+        // </> */}
     </div>
   );
 }

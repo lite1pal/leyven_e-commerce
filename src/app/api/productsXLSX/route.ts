@@ -6,30 +6,34 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { jsonData } = body;
 
-    // const existingProducts = await prisma.product.findMany();
+    const existingProducts = await prisma.product.findMany({
+      where: { unique_id: { not: "miss" } },
+    });
 
-    // const promises = badFormatData.map(async (badProduct: any) => {
-    //   try {
-    //     const existingProduct = existingProducts.find(
-    //       (product) =>
-    //         product.unique_id_1c === badProduct["Ид"]._text ||
-    //         product.barcode === badProduct["ШтрихКод"]._text,
-    //     );
+    const promises = jsonData.slice(1).map(async (product: any) => {
+      try {
+        const existingProduct = existingProducts.find(
+          (p) => p.unique_id === product[24].toString(),
+        );
 
-    //     // returns nothing if product already exists to avoid duplicates
-    //     if (existingProduct) {
-    //       return;
-    //     }
+        if (existingProduct) {
+          return prisma.product.update({
+            where: { id: existingProduct.id },
+            data: {
+              description: product[6],
+              keywords: product[4],
+            },
+          });
+        }
+        return 0;
+      } catch (err) {
+        console.error(err);
+      }
+    });
 
-    //     return;
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // });
+    const result = await Promise.all(promises);
 
-    // const result = await Promise.all(promises);
-
-    return new NextResponse(JSON.stringify(jsonData), { status: 200 });
+    return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {
     console.error("Invalid file format");
     return new NextResponse(JSON.stringify(err), { status: 500 });

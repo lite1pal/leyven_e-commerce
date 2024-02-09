@@ -221,7 +221,6 @@ export async function PUT(req: NextRequest) {
     }
 
     const existingProducts = await prisma.product.findMany();
-
     const promises = badFormatData.map(async (badProduct: any) => {
       try {
         const existingProduct = existingProducts.find(
@@ -232,7 +231,7 @@ export async function PUT(req: NextRequest) {
           badProduct["g:price"]._text.split(" ")[0],
         );
 
-        if (existingProduct) {
+        if (existingProduct && !existingProduct.description) {
           return prisma.product.update({
             where: { id: existingProduct.id },
             data: {
@@ -240,13 +239,11 @@ export async function PUT(req: NextRequest) {
               img: badProduct["g:image_link"]._text,
               price: productPrice,
               availability: badProduct["g:availability"]._text,
-              description: badProduct["g:description"]._text,
               breadcrumbs: badProduct["g:product_type"]._text,
             },
           });
         }
-
-        return;
+        return 0;
 
         // const getProductCountry = () => {
         //   if (Array.isArray(badProduct["g:product_detail"])) {
@@ -284,6 +281,7 @@ export async function PUT(req: NextRequest) {
         // });
       } catch (err) {
         console.error(err, "ERROR");
+        return "error";
       }
     });
 

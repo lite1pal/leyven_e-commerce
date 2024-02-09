@@ -110,7 +110,7 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <BreadcrumbsProduct categoryId={data.categoryId} />
+      {data.categoryId && <BreadcrumbsProduct categoryId={data.categoryId} />}
       {/* {data.breadcrumbs !== "miss" && <BasicBreadcrumbs {...{ data }} />} */}
       <AllAbout data={data} />
 

@@ -12,6 +12,7 @@ export type Product = {
   rating?: string;
   img: string;
   availability: "in stock" | "out of stock";
+  keywords?: string;
   description: string;
   breadcrumbs: string;
   country?: string;
