@@ -37,7 +37,7 @@ export default async function Navbar() {
           <div className="group flex w-16 items-center gap-2.5 sm:w-36">
             <img
               src="/new-logo-remove-bg.png"
-              alt="Leyven logo"
+              alt="Лейвен логотип"
               className="hidden w-10 sm:flex"
               // sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw, 33vw"
             />

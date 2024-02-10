@@ -10,7 +10,7 @@ export default function Hero() {
           Купуйте товари для своїх домашніх улюбленців
         </h1>
         <h3 className="text-xl font-medium text-slate-500">
-          Знайдіть ідеальні продукти для своїх пухнастих друзів
+          Знайдіть ідеальні продукти для своїх пухнастих друзів у Лейвен
         </h3>
         <div className="mb-10">
           <Link href="/allProducts">
