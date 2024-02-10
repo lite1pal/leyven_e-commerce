@@ -13,7 +13,7 @@ export default function ProductImg({ data }: { data: Product }) {
             style={{ maxHeight: "40rem" }}
             className="mx-auto h-full w-full rounded-t-lg object-contain"
             src={data.img}
-            alt="product image"
+            alt={data.title + "- фото продукту Лейвен"}
           />
         </PhotoView>
       </div>

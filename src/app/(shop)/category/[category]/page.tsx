@@ -13,7 +13,15 @@ export async function generateMetadata({ params }: any) {
   );
 
   return {
-    title: category.title + " від інтернет-магазину ЛейВен!",
+    title: `${category.title} | Лейвен`,
+    description: `${category.title} в Інтернет-зоомагазині Лейвен | Найкраща ціна в Україні, Швидка доставка ⚡️`,
+    keywords: category.title,
+
+    openGraph: {
+      title: category.title,
+      description: `${category.title} в Інтернет-зоомагазині Лейвен ✅ Доступна ціна ⚡ Доставка по всій Україні`,
+      siteName: "Leyven.com.ua",
+    },
   };
 }
 

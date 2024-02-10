@@ -32,8 +32,7 @@ export default function Card({
             // sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
             className={`res mx-auto h-full w-full rounded-t-lg object-contain p-4 transition duration-500 group-hover:scale-105`}
             src={data.img}
-            alt="product image"
-            // priority={true}
+            alt={data.title + " - фото продукту Лейвен"}
           />
         </div>
       </Link>

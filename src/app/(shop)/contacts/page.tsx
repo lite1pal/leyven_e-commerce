@@ -4,6 +4,15 @@ import RelatedProducts from "@/components/sections/relatedProducts";
 import { Card } from "flowbite-react";
 import { Suspense } from "react";
 
+export async function generateMetadata() {
+  return {
+    title: "Про компанію | Лейвен",
+    description: `У Лейвен ви знайдете широкий асортимент якісних кормів, ветеринарних препаратів, іграшок та аксесуарів для всіх видів домашніх тварин`,
+    keywords:
+      "лейвен, leyven, лейвен про компанію, leyven про компанію, лейвен про нас, leyven про нас",
+  };
+}
+
 export default function Contacts() {
   return (
     <Suspense>

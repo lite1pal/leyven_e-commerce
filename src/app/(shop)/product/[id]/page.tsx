@@ -8,26 +8,31 @@ import Card from "@/components/cards/card";
 import RelatedProducts from "@/components/sections/relatedProducts";
 import { redirect } from "next/navigation";
 import { slugifyString } from "@/libs/utils";
+import { Metadata } from "next";
+import { type Product } from "@/types";
 
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({
+  params,
+}: any): Promise<Metadata | undefined> {
   const res = await fetch(`${API_URL}/product?id=${params.id}`, {
     cache: "no-store",
   });
-  const data = await res.json();
+  const data: Product = await res.json();
 
   return {
     title:
       "Купити " +
       data.title +
       " в інтернет-магазині ЛейВен, - " +
-      data.title +
-      " за низькою ціною в Києві, Харкові, Дніпрі, Одесі, Запоріжжі, Львові, Звягелі, Україні - " +
-      "фото, продаж, характеристики",
-    description: `Замовте найкращий ${data.title} в інтернет-зоомагазині Лейвен. Висока якість і збалансований склад. Низька ціна, швидка доставка та задоволені відгуки клієнтів. Зробіть вашого кота щасливим і здоровим сьогодні!`,
+      " за низькою ціною в Україні",
+    description: `Купити ${data.title} в Інтернет-зоомагазині Лейвен | Найкраща ціна в Україні, Швидка доставка ⚡️`,
+    keywords: data.keywords,
+
     openGraph: {
       title: data.title,
-      description: `Купити ${data.title} в Інтернет-зоомагазині ЛейВен ✅ Доступна ціна ✅ Відгуки покупців ⚡ Доставка по всій Україні`,
+      description: `Купити ${data.title} в Інтернет-зоомагазині Лейвен ✅ Доступна ціна ⚡ Доставка по всій Україні`,
       images: [{ url: data.img }],
+      siteName: "Leyven.com.ua",
     },
   };
 }

@@ -33,7 +33,7 @@ function OriginalPrice({ data }: { data: Product }) {
 
 export default function ProductPrice({ data }: { data: Product }) {
   return (
-    <div
+    <h2
       className={`flex flex-col gap-0 font-sans text-3xl font-medium text-slate-900 dark:text-white max-sm:text-base sm:flex-row sm:gap-3 lg:text-2xl`}
     >
       {data.discount !== 0 && <DiscountPrice {...{ data }} />}
@@ -43,6 +43,6 @@ export default function ProductPrice({ data }: { data: Product }) {
       ) : (
         data.price + ".00 UAH"
       )} */}
-    </div>
+    </h2>
   );
 }
