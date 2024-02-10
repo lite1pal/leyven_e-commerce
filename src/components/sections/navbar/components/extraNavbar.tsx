@@ -40,10 +40,6 @@ export default function ExtraNavbar() {
         >
           Оплата і доставка
         </Link>
-
-        <div className="w-fit cursor-pointer transition hover:text-blue-600">
-          Дисконтна програма
-        </div>
       </div>
       <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
         <div className="flex items-center gap-1 text-sm text-slate-600">

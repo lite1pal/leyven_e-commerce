@@ -6,12 +6,12 @@ export default function Hero() {
   return (
     <div className="flex flex-col xl:flex-row">
       <div className="order-2 mx-auto my-auto flex w-full flex-col items-center gap-6 px-10 pt-10 text-center lg:order-1 xl:w-5/12 xl:items-start xl:px-[2%] xl:pt-0 xl:text-start">
-        <div className="text-3xl font-semibold sm:text-4xl">
+        <h1 className="text-3xl font-semibold sm:text-4xl">
           Купуйте товари для своїх домашніх улюбленців
-        </div>
-        <div className="text-xl font-medium text-slate-500">
+        </h1>
+        <h3 className="text-xl font-medium text-slate-500">
           Знайдіть ідеальні продукти для своїх пухнастих друзів
-        </div>
+        </h3>
         <div className="mb-10">
           <Link href="/allProducts">
             <Button title="Перейти до каталогу" />
@@ -25,7 +25,7 @@ export default function Hero() {
           width={1920}
           height={1080}
           sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 75vw"
-          alt="hero-image"
+          alt="Картинка на головній сторінці Лейвен"
         />
       </div>
     </div>
