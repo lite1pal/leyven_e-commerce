@@ -2,62 +2,72 @@
 
 import * as React from "react";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Autocomplete, FormLabel } from "@mui/joy";
+import { Autocomplete } from "@mui/joy";
 import { Label } from "flowbite-react";
+import { FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { fetchCities, fetchWarehouses } from "@/services/novaposhta";
 
 export default function CitySelect({
-  cityInput,
-  setCityInput,
-  setWarehouseInput,
-  cities,
+  id,
+  label,
+  setCity,
+  required = false,
+  register,
 }: {
-  cityInput: string;
-  setCityInput: React.Dispatch<React.SetStateAction<string>>;
-  setWarehouseInput: React.Dispatch<React.SetStateAction<string>>;
-  cities: any;
+  id: "city" | "warehouse";
+  label: string;
+  setCity: Dispatch<SetStateAction<string>>;
+  required?: boolean;
+  register: UseFormRegister<FieldValues>;
 }) {
-  const handleChange = (event: SelectChangeEvent, newValue: any) => {
-    setCityInput(newValue["Description"]);
-    setWarehouseInput("");
+  const [selects, setSelects] = useState([]);
+
+  const handleOnChange = (
+    e: React.SyntheticEvent<Element, Event>,
+    newValue: any,
+  ) => {
+    setCity(newValue["Description"]);
   };
+
+  useEffect(() => {
+    const getCities = async () => {
+      const data = await fetchCities();
+      setSelects(data);
+    };
+
+    const getWarehouses = async () => {
+      // if (watch) {
+      //   const data = await fetchWarehouses(watch("city"));
+      //   setSelects(data);
+      // }
+    };
+
+    if (id === "city") {
+      getCities();
+    } else if (id === "warehouse") {
+      getWarehouses();
+    }
+  }, []);
 
   return (
     <Box>
       <FormControl fullWidth>
         <div className="mb-2 block">
-          <Label value="Місто" />
+          <Label value={label} />
         </div>
         <Autocomplete
-          className="py-3.5 rounded shadow-none border-gray-300 bg-white"
-          onChange={(e: any, newValue) => handleChange(e, newValue)}
-          options={cities}
+          required
+          id={id}
+          style={{ boxShadow: "none" }}
+          options={selects}
+          onChange={(e, newValue) => handleOnChange(e, newValue)}
           getOptionLabel={(option: any) => option["Description"]}
+          // {...register(id, {
+          //   required,
+          // })}
         />
-        {/* <InputLabel id="demo-simple-select-label">Місто</InputLabel>
-        <Select
-          defaultValue={cityInput}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={cityInput}
-          label="Місто"
-          onChange={handleChange}
-        >
-          {cities.length > 0 &&
-            cities.map((city: any) => {
-              return (
-                <MenuItem
-                  key={city["Ref"]}
-                  value={city["Description"].toLowerCase()}
-                >
-                  {city["Description"]}
-                </MenuItem>
-              );
-            })}
-        </Select> */}
       </FormControl>
     </Box>
   );

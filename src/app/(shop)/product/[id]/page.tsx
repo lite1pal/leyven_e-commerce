@@ -44,10 +44,6 @@ export default function ProductScreen({ params }: any) {
   return (
     <Suspense fallback={<MySpinner />}>
       <ProductView id={id} slugishTitle={slugishTitle} />
-      <Suspense>
-        <RelatedProducts id={id} header={"Рекомендовані"} />
-        <FooterComponent />
-      </Suspense>
     </Suspense>
   );
 }

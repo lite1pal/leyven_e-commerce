@@ -5,11 +5,12 @@ type Props = {
   id: string;
   label: string;
   defaultValue: string | number;
-  type?: "text" | "number" | "textarea";
+  type?: "text" | "number" | "textarea" | "email";
   register: UseFormRegister<FieldValues>;
   rows?: number;
   required?: boolean;
   disabled?: boolean;
+  placeholder?: string;
 };
 
 export default function FormField({
@@ -21,9 +22,10 @@ export default function FormField({
   rows,
   required = false,
   disabled = false,
+  placeholder,
 }: Props) {
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-2 block">
         <Label htmlFor={id} value={label} />
       </div>
@@ -33,6 +35,7 @@ export default function FormField({
           defaultValue={defaultValue}
           rows={rows}
           disabled={disabled}
+          style={{ border: "none" }}
           required={required}
           shadow
           {...register(id, { required })}
@@ -41,9 +44,11 @@ export default function FormField({
         <TextInput
           id={id}
           defaultValue={defaultValue}
+          placeholder={placeholder}
           type={type}
           required={required}
           disabled={disabled}
+          style={{ border: "none" }}
           shadow
           {...register(id, {
             required,

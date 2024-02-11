@@ -1,4 +1,3 @@
-import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
 import { API_URL } from "@/config/api";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { type Product } from "@/types";
@@ -10,6 +9,9 @@ import Description from "./components/description";
 import ProductInfoTable from "@/components/productInfoTable";
 import BreadcrumbsProduct from "@/components/sections/breadcrumbsProduct";
 import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
+import { Suspense } from "react";
+import RelatedProducts from "@/components/sections/relatedProducts";
+import FooterComponent from "@/components/sections/footer/footer";
 
 type IProps = {
   id: string;
@@ -111,7 +113,6 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
         }}
       />
       {data.categoryId && <BreadcrumbsProduct categoryId={data.categoryId} />}
-      {/* {data.breadcrumbs !== "miss" && <BasicBreadcrumbs {...{ data }} />} */}
       <AllAbout data={data} />
 
       <div className="flex flex-col lg:flex-row">
@@ -119,6 +120,10 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
         <ProductInfoTable {...{ data }} />
       </div>
       <Reviews {...{ data, session }} />
+      <Suspense>
+        <RelatedProducts id={id} header={"Рекомендовані"} />
+        <FooterComponent />
+      </Suspense>
     </div>
   );
 }

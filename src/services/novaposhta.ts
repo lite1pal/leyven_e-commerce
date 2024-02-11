@@ -1,6 +1,6 @@
 import { NOVAPOSHTA_API_KEY, NOVAPOSHTA_API_URL } from "@/config/api";
 
-export async function fetchWarehouses(city: string) {
+export async function fetchWarehouses(city: string, shippingType: string) {
   try {
     const res = await fetch(NOVAPOSHTA_API_URL, {
       method: "POST",
@@ -16,10 +16,24 @@ export async function fetchWarehouses(city: string) {
       }),
     });
     const data = await res.json();
-    const filteredData = data.data.filter(
-      (warehouse: any) => warehouse["CategoryOfWarehouse"] === "Branch"
-    );
-    return filteredData;
+
+    let filteredData = [];
+    if (shippingType === "Нова пошта Відділення") {
+      filteredData = data.data.filter(
+        (warehouse: any) =>
+          warehouse["CategoryOfWarehouse"] === "Branch" &&
+          warehouse["WarehouseStatus"] === "Working",
+      );
+    } else if (shippingType === "Нова пошта Поштомат") {
+      filteredData = data.data.filter(
+        (warehouse: any) =>
+          warehouse["CategoryOfWarehouse"] === "Postomat" &&
+          warehouse["WarehouseStatus"] === "Working",
+      );
+    }
+
+    console.log(data);
+    return filteredData.length > 0 ? filteredData : data.data;
   } catch (err) {
     console.error(err);
   }
@@ -39,7 +53,7 @@ export async function fetchCities() {
     const data = await res.json();
 
     const filteredData = data.data.filter(
-      (city: any) => city["SettlementTypeDescription"] === "місто"
+      (city: any) => city["SettlementTypeDescription"] === "місто",
     );
 
     return filteredData;

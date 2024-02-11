@@ -6,14 +6,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { fetchWarehouses } from "@/services/novaposhta";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { Label, Spinner } from "flowbite-react";
+import { Autocomplete } from "@mui/joy";
 
 export default function WarehouseSelect({
   cityInput,
+  shippingType,
   warehouseInput,
   setWarehouseInput,
 }: {
+  shippingType: string;
   cityInput: string;
   warehouseInput: string;
   setWarehouseInput: React.Dispatch<React.SetStateAction<string>>;
@@ -24,7 +27,8 @@ export default function WarehouseSelect({
   const getWarehouses = async () => {
     if (cityInput) {
       setLoading(true);
-      const data = await fetchWarehouses(cityInput);
+      const data = await fetchWarehouses(cityInput, shippingType);
+
       setWarehouses(data);
       setLoading(false);
     }
@@ -32,42 +36,37 @@ export default function WarehouseSelect({
 
   useEffect(() => {
     getWarehouses();
-  }, [cityInput]);
+  }, [cityInput, shippingType]);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setWarehouseInput(event.target.value as string);
+  const handleChange = (e: SyntheticEvent<Element, Event>, newValue: any) => {
+    setWarehouseInput(newValue["Description"]);
   };
 
   return (
     <Box>
       {warehouses.length > 0 && (
         <FormControl fullWidth>
-          {/* <div className="mb-2 block">
-            <Label value="Відділення нової пошти" />
-          </div> */}
-          <InputLabel id="demo-simple-select-label">
-            Відділення нової пошти
-          </InputLabel>
-          <Select
-            defaultValue={warehouseInput}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={warehouseInput}
-            label="Відділення нової пошти"
-            onChange={handleChange}
-            className={`${loading && "pointer-events-none"}`}
-          >
-            {warehouses.map((warehouse, i) => {
-              return (
-                <MenuItem key={i} value={warehouse["Description"]}>
-                  {warehouse["Description"]}
-                </MenuItem>
-              );
-            })}
-          </Select>
+          <div className="mb-2 block">
+            <Label
+              value={
+                shippingType === "Нова пошта Відділення"
+                  ? "Відділення нової пошти"
+                  : "Поштомат нової пошти"
+              }
+            />
+          </div>
+
+          <Autocomplete
+            required
+            id="warehouse"
+            style={{ boxShadow: "none" }}
+            options={warehouses}
+            onChange={(e, newValue) => handleChange(e, newValue)}
+            getOptionLabel={(option: any) => option["Description"]}
+          />
         </FormControl>
       )}
-      {cityInput && warehouses.length === 0 && (
+      {cityInput && !loading && warehouses.length === 0 && (
         <InputLabel sx={{ color: "red" }} id="demo-simple-select-label">
           На жаль, відділення у цьому місті наразі не працюють
         </InputLabel>

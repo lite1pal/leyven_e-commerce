@@ -1,6 +1,7 @@
 import { API_URL } from "@/config/api";
 import { slugifyString } from "@/libs/utils";
 import Link from "next/link";
+import Button from "../base/Button";
 
 export async function ChildCategories({ params }: any) {
   const res = await fetch(`${API_URL}/categories`);
@@ -20,9 +21,10 @@ export async function ChildCategories({ params }: any) {
               href={`/category/${category.categoryId}-${slugifyString(
                 category.title,
               )}`}
-              className="mx-1 rounded-lg border-2 border-blue-600 bg-blue-600 p-2.5 text-center text-white transition duration-100 hover:bg-slate-50 hover:text-blue-600"
+              // className="mx-1 rounded-lg border-2 border-blue-600 bg-blue-600 p-2.5 text-center text-white transition duration-100 hover:bg-slate-50 hover:text-blue-600"
             >
-              {category.title}
+              <Button title={category.title} />
+              {/* {category.title} */}
             </Link>
           );
         })}
