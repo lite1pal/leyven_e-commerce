@@ -14,6 +14,7 @@ import FooterComponent from "@/components/sections/footer/footer";
 import Link from "next/link";
 import { slugifyString } from "@/libs/utils";
 import { ParentCategories } from "@/components/sections/parentCategories";
+import AboutView from "../about/about";
 
 export default async function HomeView() {
   // gets products for the catalog
@@ -34,6 +35,8 @@ export default async function HomeView() {
 
       <Suspense>
         <Catalog data={data.slice(0, 12)} />
+
+        <AboutView />
         <Testimonials />
         <CompanyLocation />
         <FooterComponent />

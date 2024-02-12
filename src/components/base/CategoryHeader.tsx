@@ -9,7 +9,9 @@ export default async function CategoryHeader({
   const data = await res.json();
   const { category } = data;
   return (
-    <div className={`px-4 font-sans text-3xl font-medium text-slate-900`}>
+    <div
+      className={`px-4 font-sans text-3xl font-medium text-slate-900 max-sm:py-5`}
+    >
       {category.title}
     </div>
   );

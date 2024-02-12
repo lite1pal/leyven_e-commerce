@@ -67,12 +67,12 @@ export default async function RootLayout({
           }}
         ></Script>
       </head>
-      <body className={`${inter.className} bg-slate-50`}>
+      <body className={`${inter.className} bg-slate-200`}>
         <SpeedInsights />
         <ServerCartProvider>
           <Toaster />
           <main
-            className={`max-w-screen mx-auto flex min-h-screen flex-grow flex-col bg-slate-50 text-slate-900 xl:container`}
+            className={`max-w-screen mx-auto flex min-h-screen flex-grow flex-col bg-slate-200 text-slate-900 xl:container`}
           >
             <ExtraNavbar />
 

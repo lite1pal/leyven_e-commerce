@@ -31,9 +31,9 @@ export default function ExtraNavbar() {
 
   return (
     <div
-      className={`hidden w-full flex-col items-center justify-between gap-3 py-1 font-light text-slate-600 transition sm:gap-1.5 lg:flex lg:flex-row`}
+      className={`w-full flex-col items-center justify-between gap-3 py-1 font-light text-slate-600 transition sm:gap-1.5 lg:flex lg:flex-row`}
     >
-      <div className="flex gap-10 text-sm">
+      <div className="max-sm flex gap-10 p-1.5 text-sm">
         <Link
           href="/paymentAndShipping"
           className="w-fit cursor-pointer transition hover:text-blue-600"
@@ -41,7 +41,7 @@ export default function ExtraNavbar() {
           Оплата і доставка
         </Link>
       </div>
-      <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
+      <div className="hidden flex-col items-center gap-3 sm:gap-5 lg:flex lg:flex-row">
         <div className="flex items-center gap-1 text-sm text-slate-600">
           <div className="text-blue-600">
             <PlaceIcon fontSize="small" />

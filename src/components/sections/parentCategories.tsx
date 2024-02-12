@@ -3,6 +3,7 @@ import SectionHeader from "../base/SectionHeader";
 import Link from "next/link";
 import { slugifyString } from "@/libs/utils";
 import Button from "../base/Button";
+import BreadcrumbsCategory from "./breadcrumbsCategory";
 
 export async function ParentCategories() {
   const res = await fetch(`${API_URL}/categories`);
@@ -14,7 +15,7 @@ export async function ParentCategories() {
 
   return (
     <div className="flex flex-col gap-7 px-7 py-5">
-      <SectionHeader>Категорії</SectionHeader>
+      {/* <SectionHeader>Категорії</SectionHeader> */}
       <div className="flex flex-wrap justify-center gap-5">
         {parentCategories.map((category: any) => {
           return (

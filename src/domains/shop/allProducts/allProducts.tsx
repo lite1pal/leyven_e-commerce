@@ -15,7 +15,9 @@ export default async function AllProductsView() {
   return (
     <>
       <ParentCategories />
-      <div className={`px-4 font-sans text-3xl font-medium text-slate-900`}>
+      <div
+        className={`px-4 py-5 font-sans text-3xl font-medium text-slate-900`}
+      >
         Каталог
       </div>
       <Catalog {...{ data }} />
