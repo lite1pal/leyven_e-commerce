@@ -17,6 +17,32 @@ import { filter } from "lodash";
 export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
   const columns: GridColDef[] = [
     {
+      field: "actions",
+      type: "actions",
+      headerName: "Дії",
+      width: 100,
+      editable: true,
+      cellClassName: "actions",
+      getActions: ({ id }) => {
+        return [
+          <Link key={1} href={`/dashboard/products/edit/${id}`}>
+            <GridActionsCellItem
+              icon={<EditIcon />}
+              label="Edit"
+              className="textPrimary"
+              color="inherit"
+            />
+          </Link>,
+          // <GridActionsCellItem
+          //   key={2}
+          //   icon={<DeleteIcon />}
+          //   label="Delete"
+          //   color="inherit"
+          // />,
+        ];
+      },
+    },
+    {
       field: "img",
       headerName: "Картинка",
       width: 250,
@@ -95,33 +121,6 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
               : "Відсутня"}
           </div>
         );
-      },
-    },
-
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Дії",
-      width: 100,
-      editable: true,
-      cellClassName: "actions",
-      getActions: ({ id }) => {
-        return [
-          <Link key={1} href={`/dashboard/products/edit/${id}`}>
-            <GridActionsCellItem
-              icon={<EditIcon />}
-              label="Edit"
-              className="textPrimary"
-              color="inherit"
-            />
-          </Link>,
-          <GridActionsCellItem
-            key={2}
-            icon={<DeleteIcon />}
-            label="Delete"
-            color="inherit"
-          />,
-        ];
       },
     },
   ];
