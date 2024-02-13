@@ -9,13 +9,15 @@ export default async function Reviews({ data, session }: any) {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="flex w-fit flex-col gap-5 px-7 pt-5">
+    <div className="flex flex-col gap-5 rounded-lg bg-white px-7 pt-5">
       <div className="flex flex-col justify-between gap-12 lg:flex-row">
         <SectionHeader>
           Відгуки ({data.reviews ? data.reviews.length : 0})
         </SectionHeader>
 
         <ReviewModal data={data} session={session} />
+        <div className="hidden opacity-0 lg:flex">1</div>
+        <div className="hidden opacity-0 lg:flex">2</div>
       </div>
       {data.reviews && data?.reviews.length === 0 && (
         <div className="py-3 text-lg font-medium text-slate-600">

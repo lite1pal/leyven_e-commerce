@@ -6,7 +6,7 @@ import SectionHeader from "./base/SectionHeader";
 
 export default function ProductInfoTable({ data }: { data: Product }) {
   return (
-    <div className="flex w-full flex-col gap-5 px-7 py-5">
+    <div className="flex w-full flex-col gap-5 rounded-lg bg-white px-7 py-5">
       <SectionHeader>Характеристики</SectionHeader>
 
       <div className="overflow-x-hidden">

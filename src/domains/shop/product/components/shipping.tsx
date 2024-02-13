@@ -61,7 +61,7 @@ export default function Shipping() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <div className="w-6">
             <img
               className="rounded-full"
@@ -71,11 +71,8 @@ export default function Shipping() {
           </div>
           <div>
             <div>Відділення Укрпошта</div>
-            {/* <Link href="/" className="text-xs text-blue-600">
-              Дивитися на мапі
-            </Link> */}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

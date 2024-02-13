@@ -34,6 +34,10 @@ export async function generateMetadata({
       images: [{ url: data.img }],
       siteName: "Leyven.com.ua",
     },
+    robots: {
+      index: data.title ? true : false,
+      follow: data.title ? true : false,
+    },
   };
 }
 

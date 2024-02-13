@@ -19,10 +19,8 @@ export default function Description({ data }: { data: Product }) {
 
   const paragraphs = data.description.split("\n");
 
-  console.log(data.description);
-
   return (
-    <div className="flex w-full  flex-col gap-5 px-7 py-5 text-sm lg:w-1/2">
+    <div className="flex w-full flex-col gap-5  rounded-lg bg-white px-7 py-5 text-sm lg:w-1/2">
       <SectionHeader>Опис</SectionHeader>
       {data.unique_id !== "miss"
         ? parse(

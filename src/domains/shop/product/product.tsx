@@ -12,6 +12,7 @@ import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
 import { Suspense } from "react";
 import RelatedProducts from "@/components/sections/relatedProducts";
 import FooterComponent from "@/components/sections/footer/footer";
+import { notFound } from "next/navigation";
 
 type IProps = {
   id: string;
@@ -23,7 +24,8 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
   const data: Product = await res.json();
 
   if (!data.title) {
-    redirect("/allProducts");
+    notFound();
+    // redirect("/allProducts");
     // return (
     //   <div className="mb-10 py-10 text-center text-3xl font-semibold">
     //     404 Not found
@@ -115,7 +117,7 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
       {data.categoryId && <BreadcrumbsProduct categoryId={data.categoryId} />}
       <AllAbout data={data} />
 
-      <div className="flex flex-col lg:flex-row">
+      <div className="mb-5 flex flex-col gap-5 lg:flex-row">
         <Description {...{ data }} />
         <ProductInfoTable {...{ data }} />
       </div>
