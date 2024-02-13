@@ -38,7 +38,7 @@ export default function UserDropdown({ session }: { session: Session | null }) {
             {process.env["NEXT_PUBLIC_ALLOWED_EMAILS"]
               ?.split(", ")
               .includes(session.user.email) && (
-              <Link target="_blank" href="/dashboard/orders">
+              <Link target="_blank" href="/dashboard/products">
                 <MenuItem>Панель адміна</MenuItem>
               </Link>
             )}
