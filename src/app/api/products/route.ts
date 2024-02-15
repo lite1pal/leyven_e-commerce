@@ -129,8 +129,6 @@ export async function GET(req: NextRequest, { params }: any) {
         };
       }
 
-      console.log("CATEGErsfsf", arrayOfChildCategories);
-
       // if search params don't contain category then return products of all categories
       if (!categoryId) {
         return {
