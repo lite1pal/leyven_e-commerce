@@ -27,7 +27,7 @@ export default async function ProductsView() {
   return (
     <div className="flex flex-col gap-4">
       <PageHeader Icon={SellIcon}>Управління товарами</PageHeader>
-      <div className="px-4">
+      <div className="px-4 ">
         <FullFeaturedCrudGrid data={[]} />
       </div>
     </div>

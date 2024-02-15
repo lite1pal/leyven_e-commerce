@@ -11,6 +11,7 @@ export type Product = {
   discount: number;
   rating?: string;
   img: string;
+  images: string[];
   availability: "in stock" | "out of stock";
   keywords?: string;
   description: string;

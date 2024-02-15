@@ -72,6 +72,7 @@ model Product {
   artycul String? @default("miss")
   rating      String? @default("4")
   img String @default("miss")
+  images String[] @default([])
   availability String
   keywords String? @default("miss")
   description String @default("miss")

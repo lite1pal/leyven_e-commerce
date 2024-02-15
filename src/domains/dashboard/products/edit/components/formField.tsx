@@ -27,7 +27,7 @@ export default function FormField({
   return (
     <div className="w-full">
       <div className="mb-2 block">
-        <Label htmlFor={id} value={label} />
+        <Label className="text-slate-900" htmlFor={id} value={label} />
       </div>
       {type === "textarea" ? (
         <Textarea

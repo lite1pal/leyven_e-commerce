@@ -2,17 +2,13 @@
 
 import * as React from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import moment from "moment";
 import Link from "next/link";
 import { Product } from "@/types";
 import EditToolbar from "./editToolbar";
-import { useParams, usePathname, useRouter } from "next/navigation";
 import { API_URL } from "@/config/api";
 import { useEffect, useState } from "react";
-import { getDecodedFilters, getFiltersPathName } from "@/libs/utils";
-import { filter } from "lodash";
 
 export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
   const columns: GridColDef[] = [
@@ -20,8 +16,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       field: "actions",
       type: "actions",
       headerName: "Дії",
-      width: 100,
-      editable: true,
+      width: 30,
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
@@ -42,25 +37,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
         ];
       },
     },
-    {
-      field: "img",
-      headerName: "Картинка",
-      width: 250,
-      renderCell: (params) => {
-        const product = params.row;
-        return (
-          <div className="flex h-48 max-h-48 w-48 flex-col items-center justify-between">
-            <img
-              className="mx-auto h-full w-full object-contain"
-              src={product.img}
-            />
-            <div className="h-16 w-full overflow-hidden whitespace-normal p-2 text-slate-400">
-              {product.img !== "miss" && product.img}
-            </div>
-          </div>
-        );
-      },
-    },
+
     {
       field: "title",
       headerName: "Назва",
@@ -99,7 +76,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       headerName: "Знижка",
       width: 100,
       renderCell: (params) => {
-        return <div className="text-teal-700">{params.value} %</div>;
+        return <div>{params.value} %</div>;
       },
     },
     { field: "quantity", headerName: "К-сть", width: 60 },
@@ -107,7 +84,25 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
     { field: "artycul", headerName: "Артикул", width: 130 },
     { field: "unique_id_1c", headerName: "1C, id", width: 300 },
     { field: "unique_id", headerName: "Prom.ua, id", width: 120 },
-
+    {
+      field: "img",
+      headerName: "Картинка",
+      width: 250,
+      renderCell: (params) => {
+        const product = params.row;
+        return (
+          <div className="flex h-48 max-h-48 w-48 flex-col items-center justify-between bg-white">
+            <img
+              className="mx-auto h-full w-full object-contain"
+              src={product.img}
+            />
+            <div className="h-16 w-full overflow-hidden whitespace-normal p-2 text-slate-400">
+              {product.img !== "miss" && product.img}
+            </div>
+          </div>
+        );
+      },
+    },
     {
       field: "updatedAt",
       headerName: "Дата зміни",
@@ -115,7 +110,7 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       renderCell: (params) => {
         const product = params.row;
         return (
-          <div className="font-medium text-slate-600">
+          <div className="font-medium text-slate-900">
             {product.updatedAt
               ? moment(product.updatedAt).format("hh:mm a, DD.MM.YYYY")
               : "Відсутня"}
@@ -173,9 +168,13 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
 
   return (
     <div className="mx-auto flex w-full flex-col">
-      <div className="pb-4 text-gray-500">{rowCountState} позицій</div>
+      <div className="pb-4 text-slate-500">{rowCountState} позицій</div>
       <DataGrid
-        sx={{ border: "none" }}
+        sx={{
+          "&, [class^=MuiDataGrid]": { border: "none" },
+          border: "none",
+          color: "rgb(15 23 42)",
+        }}
         rows={rows || []}
         columns={columns}
         showCellVerticalBorder
@@ -184,9 +183,6 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
         slots={{
           toolbar: EditToolbar,
         }}
-        // initialState={{
-        //   pagination: { paginationModel: { pageSize: 20 } },
-        // }}
         pagination
         pageSizeOptions={[20, 50, 100]}
         sortingMode="server"
@@ -203,5 +199,5 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
 }
 
 function Value({ children }: { children: React.ReactNode }) {
-  return <div className="text-gray-900">{children}</div>;
+  return <div className="text-slate-900">{children}</div>;
 }

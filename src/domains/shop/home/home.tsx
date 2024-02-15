@@ -1,18 +1,13 @@
 import Catalog from "@/components/catalog";
-import Categories from "@/components/sections/categories";
-import CategoryHeader from "@/components/base/CategoryHeader";
 import DiscountProducts from "@/components/sections/discountProducts";
 import RelatedProducts from "@/components/sections/relatedProducts";
 import { API_URL } from "@/config/api";
 import { Suspense } from "react";
 import { type Product } from "@/types";
 import SectionHeader from "@/components/base/SectionHeader";
-import Hero from "@/components/sections/hero";
 import Testimonials from "@/components/sections/testimonials";
 import CompanyLocation from "@/components/sections/companyLocation";
 import FooterComponent from "@/components/sections/footer/footer";
-import Link from "next/link";
-import { slugifyString } from "@/libs/utils";
 import { ParentCategories } from "@/components/sections/parentCategories";
 import AboutView from "../about/about";
 

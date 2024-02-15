@@ -41,8 +41,8 @@ export default function EditForm({ data }: { data: Product }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-4 pb-4">
-      <FormHeader>Змінити товар</FormHeader>
-      <Divider />
+      {/* <FormHeader>Змінити товар</FormHeader>
+      <Divider /> */}
       <div className="mb-6 flex max-w-2xl flex-col gap-4">
         <FormField
           id="title"
@@ -143,14 +143,18 @@ export default function EditForm({ data }: { data: Product }) {
 
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="img" value="Характеристики" />
+            <Label
+              className="text-slate-900"
+              htmlFor="img"
+              value="Характеристики"
+            />
           </div>
-          <div className="mt-5 flex flex-col gap-2">
+          <div className="mt-5 flex flex-col gap-3">
             {data.info.map((item: any, i) => {
               return (
                 <div
                   key={i}
-                  className="flex w-fit cursor-default gap-2 rounded-lg border-2 p-3"
+                  className="flex w-fit cursor-default gap-2 rounded-lg border p-1 text-slate-900"
                 >
                   <div>{item["g:attribute_name"]._text}</div>
                   <div>{"-"}</div>

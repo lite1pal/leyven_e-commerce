@@ -18,10 +18,10 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-      <div className="order-1  w-full lg:order-2 xl:w-7/12">
+      <div className="order-1 w-full lg:order-2 xl:w-7/12">
         <Image
           className="object-cover px-2 sm:px-20 xl:px-0"
-          src="/hero-2.png"
+          src="/hero-2.webp"
           width={1920}
           height={1080}
           sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 75vw"

@@ -31,10 +31,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Toaster />
 
         <div className="flex min-h-screen">
-          <div className="sticky top-0 hidden h-screen w-2/12 flex-col gap-3 bg-gray-50 py-4 text-sm text-gray-500 sm:flex">
+          <div className="sticky top-0 hidden h-screen w-2/12 flex-col gap-3 border-r border-gray-500 border-opacity-20 bg-gray-100 py-4 text-sm text-slate-900 sm:flex">
             <Link
               href="/allProducts"
-              className="flex items-center gap-2 border-b pb-4 pl-4 hover:text-gray-900"
+              className="flex items-center gap-2 border-b border-gray-500 border-opacity-20 pb-4 pl-4 hover:text-slate-700"
             >
               <ExitToAppIcon fontSize="small" />
               До сайту
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
 
-          <div className="w-full sm:w-10/12">{children}</div>
+          <div className="w-full bg-gray-100 sm:w-10/12">{children}</div>
 
           <div className="dropdown dropdown-end dropdown-bottom absolute right-0 top-2 flex  bg-white sm:hidden">
             <div

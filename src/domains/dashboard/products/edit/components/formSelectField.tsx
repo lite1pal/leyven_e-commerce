@@ -22,7 +22,7 @@ export default function FormSelectField({
   return (
     <div>
       <div className="mb-2 block">
-        <Label htmlFor={id} value={label} />
+        <Label className="text-slate-900" htmlFor={id} value={label} />
       </div>
       <select disabled={disabled} {...register(id, { required })}>
         {children}
