@@ -1,5 +1,6 @@
 import { Label, TextInput, Textarea } from "flowbite-react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
+import LabelField from "./label";
 
 type Props = {
   id: string;

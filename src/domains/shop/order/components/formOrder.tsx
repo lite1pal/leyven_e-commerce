@@ -36,8 +36,6 @@ export default function FormOrder() {
   const watchShippingType = watch("shippingType");
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-    return;
     try {
       if (items.length === 0) {
         toast.error(

@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
         textXML +
         `<item><g:id>${product.id}</g:id><g:title>${
           product.title
-        }</g:title><g:description>${
+        }</g:title><g:mpn>${product.barcode}</g:mpn><g:description>${
           product.description
         }</g:description><g:price>${
           product.price.toString() + " UAH"

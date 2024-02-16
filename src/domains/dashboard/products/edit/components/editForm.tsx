@@ -3,20 +3,21 @@
 import Button from "@/components/base/Button";
 import { API_URL } from "@/config/api";
 import { type Product } from "@/types";
-import { Divider } from "@mui/material";
-import { Label, TextInput, Textarea } from "flowbite-react";
+import { Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import FormHeader from "./formHeader";
 import FormField from "./formField";
 import FormSelectField from "./formSelectField";
+import TextEditor from "./textEditor";
+import EditKeywords from "./editKeywords";
+import { useState } from "react";
 
 export default function EditForm({ data }: { data: Product }) {
   const router = useRouter();
-  const { register, handleSubmit, getFieldState, watch } = useForm();
+  const { register, handleSubmit } = useForm();
 
-  const watchCategory = watch("category", ""); // you can supply default value as second argument
+  const [keywords, setKeywords] = useState(data.keywords || "");
 
   const onSubmit = async (fields: FieldValues) => {
     try {
@@ -37,13 +38,9 @@ export default function EditForm({ data }: { data: Product }) {
     return "";
   };
 
-  console.log(data);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-4 pb-4">
-      {/* <FormHeader>Змінити товар</FormHeader>
-      <Divider /> */}
-      <div className="mb-6 flex max-w-2xl flex-col gap-4">
+      <div className="mb-6 flex max-w-2xl flex-col gap-10">
         <FormField
           id="title"
           label="Назва"
@@ -52,15 +49,18 @@ export default function EditForm({ data }: { data: Product }) {
           register={register}
         />
 
-        <FormField
-          id="description"
-          label="Опис"
-          type="textarea"
-          register={register}
-          defaultValue={data.description}
-          required
-          rows={15}
-        />
+        {/* Description Text Editor */}
+        {/* <div className="w-full">
+          <div className="mb-2 block">
+            <Label
+              className="text-slate-900"
+              htmlFor={"description"}
+              value={"Опис"}
+            />
+          </div>
+
+          <TextEditor description={data.description} register={register} />
+        </div> */}
 
         <FormField
           id="price"
@@ -140,6 +140,12 @@ export default function EditForm({ data }: { data: Product }) {
           <option value="out of stock">Ні</option>
           <option value="in stock">Так</option>
         </FormSelectField>
+
+        <EditKeywords
+          setKeywords={setKeywords}
+          keywords={keywords}
+          register={register}
+        />
 
         <div>
           <div className="mb-2 block">
