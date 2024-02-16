@@ -1,12 +1,7 @@
 import CategoryHeader from "@/components/base/CategoryHeader";
 import { API_URL } from "@/config/api";
 import CatalogView from "@/components/catalog";
-import { categories } from "@/data/categories";
-import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
-import Categories from "@/components/sections/categories";
 import { type Product } from "@/types";
-import Link from "next/link";
-import { slugifyString } from "@/libs/utils";
 import { ChildCategories } from "@/components/sections/childCategories";
 import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
 

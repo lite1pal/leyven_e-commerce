@@ -1,8 +1,5 @@
-import CategoryHeader from "@/components/base/CategoryHeader";
 import { API_URL } from "@/config/api";
 import Catalog from "@/components/catalog";
-import BasicBreadcrumbs from "@/components/base/BreadCrumbs";
-import Categories from "@/components/sections/categories";
 import { type Product } from "@/types";
 import { ParentCategories } from "@/components/sections/parentCategories";
 
