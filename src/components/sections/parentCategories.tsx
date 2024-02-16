@@ -6,7 +6,9 @@ import Button from "../base/Button";
 import BreadcrumbsCategory from "./breadcrumbsCategory";
 
 export async function ParentCategories() {
-  const res = await fetch(`${API_URL}/categories`);
+  const res = await fetch(`${API_URL}/categories`, {
+    next: { revalidate: 360 },
+  });
   const categories = await res.json();
 
   const parentCategories = categories.filter(

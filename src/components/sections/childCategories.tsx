@@ -4,7 +4,9 @@ import Link from "next/link";
 import Button from "../base/Button";
 
 export async function ChildCategories({ params }: any) {
-  const res = await fetch(`${API_URL}/categories`);
+  const res = await fetch(`${API_URL}/categories`, {
+    next: { revalidate: 360 },
+  });
   const data = await res.json();
 
   const categories = data.filter(

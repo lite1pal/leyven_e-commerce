@@ -35,6 +35,7 @@ export default function ExtraNavbar() {
     >
       <div className="max-sm flex gap-10 p-1.5 text-sm">
         <Link
+          prefetch={false}
           href="/paymentAndShipping"
           className="w-fit cursor-pointer transition hover:text-blue-600"
         >
