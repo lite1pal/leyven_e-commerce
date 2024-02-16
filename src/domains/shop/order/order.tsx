@@ -1,4 +1,3 @@
-import SectionHeader from "@/components/base/SectionHeader";
 import FormOrder from "./components/formOrder";
 
 export default function OrderView() {

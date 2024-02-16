@@ -1,7 +1,6 @@
 "use client";
 
 import SectionHeader from "@/components/base/SectionHeader";
-import Warning from "./warning";
 import { type Product } from "@/types";
 import { useState } from "react";
 import parse from "html-react-parser";

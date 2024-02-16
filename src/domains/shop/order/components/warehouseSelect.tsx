@@ -2,12 +2,10 @@
 
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { fetchWarehouses } from "@/services/novaposhta";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { Label, Spinner } from "flowbite-react";
+import { Label } from "flowbite-react";
 import { Autocomplete } from "@mui/joy";
 
 export default function WarehouseSelect({

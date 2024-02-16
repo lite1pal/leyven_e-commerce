@@ -1,13 +1,7 @@
 import ProductView from "@/domains/shop/product/product";
 import { Suspense } from "react";
 import { API_URL } from "@/config/api";
-import { Spinner } from "flowbite-react";
 import MySpinner from "@/components/base/Spinner";
-import FooterComponent from "@/components/sections/footer/footer";
-import Card from "@/components/cards/card";
-import RelatedProducts from "@/components/sections/relatedProducts";
-import { redirect } from "next/navigation";
-import { slugifyString } from "@/libs/utils";
 import { Metadata } from "next";
 import { type Product } from "@/types";
 

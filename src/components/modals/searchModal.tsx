@@ -1,16 +1,12 @@
 import SearchIcon from "@mui/icons-material/Search";
-
 import { SearchInputProps } from "../sections/navbar/components/search/search";
 import { getProducts } from "@/app/actions";
 import { ChangeEvent, useState } from "react";
-import { type Product } from "@/types";
 import SearchInput from "../sections/navbar/components/search/components/searchInput";
 import SearchResults from "../sections/navbar/components/search/components/searchResults";
-import { useRouter } from "next/navigation";
 
 export default function SearchModal({ input, setInput }: SearchInputProps) {
   const [searchResults, setSearchResults] = useState<any>([]);
-  const router = useRouter();
 
   const searchProducts = async (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);

@@ -1,5 +1,4 @@
 import { Rating } from "@mui/material";
-import { Card } from "flowbite-react";
 
 export default async function CardReview({ review }: any) {
   return (

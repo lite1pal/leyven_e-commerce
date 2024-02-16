@@ -33,10 +33,6 @@ export default function SupportDrawer() {
         onClick={() => setOpen(true)}
         className="animate fixed bottom-3 right-3 z-10 flex cursor-pointer gap-1 rounded-full border-2 border-blue-600 bg-blue-600 p-2.5 text-lg text-white transition hover:bg-white hover:text-blue-600 md:bottom-10 md:right-10"
       >
-        {/* <span
-          style={{ animation: "ping 5s cubic-bezier(0, 0, 0.2, 1) infinite" }}
-          className="absolute left-0 top-0 h-full w-full rounded-full bg-sky-600 opacity-50"
-        ></span> */}
         <QuestionMarkIcon fontSize="large" />
       </div>
 

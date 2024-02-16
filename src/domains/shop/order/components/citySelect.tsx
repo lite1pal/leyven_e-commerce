@@ -5,22 +5,18 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import { Autocomplete } from "@mui/joy";
 import { Label } from "flowbite-react";
-import { FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { fetchCities, fetchWarehouses } from "@/services/novaposhta";
+import { fetchCities } from "@/services/novaposhta";
 
 export default function CitySelect({
   id,
   label,
   setCity,
-  required = false,
-  register,
 }: {
-  id: "city" | "warehouse";
+  id: "city";
   label: string;
   setCity: Dispatch<SetStateAction<string>>;
-  required?: boolean;
-  register: UseFormRegister<FieldValues>;
 }) {
   const [selects, setSelects] = useState([]);
 
@@ -37,18 +33,7 @@ export default function CitySelect({
       setSelects(data);
     };
 
-    const getWarehouses = async () => {
-      // if (watch) {
-      //   const data = await fetchWarehouses(watch("city"));
-      //   setSelects(data);
-      // }
-    };
-
-    if (id === "city") {
-      getCities();
-    } else if (id === "warehouse") {
-      getWarehouses();
-    }
+    getCities();
   }, []);
 
   return (
@@ -64,9 +49,6 @@ export default function CitySelect({
           options={selects}
           onChange={(e, newValue) => handleOnChange(e, newValue)}
           getOptionLabel={(option: any) => option["Description"]}
-          // {...register(id, {
-          //   required,
-          // })}
         />
       </FormControl>
     </Box>

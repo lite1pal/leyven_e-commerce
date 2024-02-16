@@ -1,7 +1,6 @@
 import CategoryView from "@/domains/shop/category/category";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";
-import { categories } from "@/data/categories";
 import { API_URL } from "@/config/api";
 
 export async function generateMetadata({ params }: any) {

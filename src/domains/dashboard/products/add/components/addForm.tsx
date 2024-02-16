@@ -5,7 +5,6 @@ import { API_URL } from "@/config/api";
 import { categories } from "@/data/categories";
 import { type Product } from "@/types";
 import { Divider } from "@mui/material";
-import { Label, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -13,7 +12,7 @@ import SelectInput from "./selectInput";
 import { countries } from "@/data/countries";
 import { brands } from "@/data/brands";
 import TextInput from "./textInput";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 /*
 

@@ -4,10 +4,7 @@ import toast from "react-hot-toast";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import { useState } from "react";
 import Button from "@/components/base/Button";
-import ButtonMUI from "@mui/material/Button";
 import Link from "next/link";
-import AddIcon from "@mui/icons-material/Add";
-import { Spinner } from "flowbite-react";
 
 export default function EditToolbar() {
   const [loading, setLoading] = useState(false);

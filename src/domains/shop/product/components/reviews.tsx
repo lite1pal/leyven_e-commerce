@@ -3,7 +3,7 @@
 import SectionHeader from "@/components/base/SectionHeader";
 import CardReview from "@/components/cards/cardReview";
 import ReviewModal from "@/components/modals/reviewModal";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default async function Reviews({ data, session }: any) {
   const [showMore, setShowMore] = useState(false);

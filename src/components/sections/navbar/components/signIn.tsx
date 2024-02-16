@@ -6,7 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { signIn } from "next-auth/react";
 import GoogleButton from "react-google-button";
 
-export default function SignInComponent({ icon = "person" }) {
+export default function SignInComponent() {
   const [openModal, setOpenModal] = useState(false);
   const [email, setEmail] = useState("");
 

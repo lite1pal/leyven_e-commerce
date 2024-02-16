@@ -5,12 +5,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import moment from "moment";
 import Link from "next/link";
-import { Product } from "@/types";
 import EditToolbar from "./editToolbar";
 import { API_URL } from "@/config/api";
 import { useEffect, useState } from "react";
 
-export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
+export default function FullFeaturedCrudGrid() {
   const columns: GridColDef[] = [
     {
       field: "actions",

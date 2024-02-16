@@ -2,8 +2,6 @@
 
 import { type Product } from "@/types";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import ImageGallery from "react-image-gallery";
-import CarouselComponent from "@/components/sections/carousel";
 import { useState } from "react";
 
 export default function ProductImg({ data }: { data: Product }) {

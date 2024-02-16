@@ -1,10 +1,5 @@
 import Link from "next/link";
 
-interface IProps {
-  name: string;
-  href: string;
-}
-
 export default function NavItem({ nav }: any) {
   return (
     <Link prefetch={false} href={nav.href}>

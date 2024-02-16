@@ -1,4 +1,4 @@
-import { Label, TextInput, Textarea } from "flowbite-react";
+import { Label } from "flowbite-react";
 
 export default function LabelField({
   id,

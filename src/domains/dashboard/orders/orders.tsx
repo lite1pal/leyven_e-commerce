@@ -26,12 +26,6 @@ export default async function OrdersView() {
       <div className="px-4">
         <DataGridOrders {...{ data }} />
       </div>
-      {/* <FullFeaturedCrudGrid /> */}
-      {/* <div className="text-sm">Кількість - {data.length}</div>
-      {data.length === 0 && <div>Немає замовлень</div>}
-      {data?.map((order: any, i: number) => {
-        return <CardOrder key={i} data={order} />;
-      })} */}
     </div>
   );
 }

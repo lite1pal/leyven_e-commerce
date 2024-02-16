@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 import Description from "./components/description";
 import ProductInfoTable from "@/components/productInfoTable";
 import BreadcrumbsProduct from "@/components/sections/breadcrumbsProduct";
-import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
 import { Suspense } from "react";
 import RelatedProducts from "@/components/sections/relatedProducts";
 import FooterComponent from "@/components/sections/footer/footer";

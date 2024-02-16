@@ -1,17 +1,10 @@
 import FormField from "@/domains/dashboard/products/edit/components/formField";
 import FormSection from "./formSection";
 import WarehouseSelect from "./warehouseSelect";
-import {
-  FieldValues,
-  UseFormGetFieldState,
-  UseFormRegister,
-  UseFormWatch,
-  useForm,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
 import CitySelect from "./citySelect";
 import FormRadio from "./formRadio";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import FilterRadioButton from "@/components/filterRadioButton";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   register: UseFormRegister<FieldValues>;
@@ -72,12 +65,7 @@ export default function OrderFields({
         />
       </FormSection>
       <FormSection header="Доставка">
-        <CitySelect
-          setCity={setCity}
-          id="city"
-          label="Місто"
-          register={register}
-        />
+        <CitySelect setCity={setCity} id="city" label="Місто" />
         <FormRadio
           id="shippingType"
           label="Спосіб доставки (безкоштовно від 500 грн)"

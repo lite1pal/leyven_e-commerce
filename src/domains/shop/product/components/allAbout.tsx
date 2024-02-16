@@ -1,14 +1,11 @@
 "use client";
 
 import "react-photo-view/dist/react-photo-view.css";
-import { Divider, Grid } from "@mui/joy";
+import { Divider } from "@mui/joy";
 import Link from "next/link";
-import type { CustomFlowbiteTheme } from "flowbite-react";
-import ProductInfoTable from "@/components/productInfoTable";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
 import { Product } from "@/types";
-import { useParams } from "next/navigation";
 import ProductImg from "./img";
 import ProductRating from "./rating";
 import ProductTitle from "./title";

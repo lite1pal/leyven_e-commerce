@@ -39,9 +39,6 @@ export default function Shipping() {
           </div>
           <div>
             <div>Вiддiлення Нова пошта</div>
-            {/* <Link href="/" className="text-xs text-blue-600">
-              Дивитися на мапі
-            </Link> */}
           </div>
         </div>
 
@@ -55,24 +52,8 @@ export default function Shipping() {
           </div>
           <div>
             <div>Поштомат Нова пошта</div>
-            {/* <Link href="/" className="text-xs text-blue-600">
-              Дивитися на мапі
-            </Link> */}
           </div>
         </div>
-
-        {/* <div className="flex items-center gap-2">
-          <div className="w-6">
-            <img
-              className="rounded-full"
-              src="https://www.ukrposhta.ua/uploads/files/shares/pin_2.png"
-              alt="Ukr poshta image"
-            />
-          </div>
-          <div>
-            <div>Відділення Укрпошта</div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

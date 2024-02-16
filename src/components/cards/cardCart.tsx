@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@mui/joy";
 import { Rating } from "flowbite-react";
-import { useRouter } from "next/navigation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCart } from "react-use-cart";
 import Link from "next/link";

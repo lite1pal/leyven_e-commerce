@@ -1,5 +1,5 @@
 import FooterComponent from "@/components/sections/footer/footer";
-import Payment, {
+import {
   PaymentImg,
   paymentImages,
 } from "@/domains/shop/product/components/payment";

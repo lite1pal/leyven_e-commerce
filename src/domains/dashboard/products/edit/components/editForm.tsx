@@ -9,7 +9,6 @@ import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import FormField from "./formField";
 import FormSelectField from "./formSelectField";
-import TextEditor from "./textEditor";
 import EditKeywords from "./editKeywords";
 import { useState } from "react";
 

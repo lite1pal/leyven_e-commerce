@@ -4,8 +4,7 @@ import { AspectRatio, Card, Grid, Skeleton } from "@mui/joy";
 import CardComponent from "./cards/card";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { useSearchParams } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { type Product } from "@/types";
 
 export default function GridComponent({ data }: { data: Product[] }) {

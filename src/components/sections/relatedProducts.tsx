@@ -1,5 +1,4 @@
 import { API_URL } from "@/config/api";
-import Card from "../cards/card";
 import SectionHeader from "../base/SectionHeader";
 import SwiperComponent from "../base/Swiper";
 

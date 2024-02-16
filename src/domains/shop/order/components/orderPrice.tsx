@@ -24,10 +24,7 @@ export default function OrderPrice({
       </div>
       <div className="flex justify-between">
         <div>Доставка нової пошти</div>
-        <div>
-          {shippingPrice + ".00 UAH"}
-          {/* {watchShippingType.includes("Відділення") ? "60.00 UAH" : "55.00 UAH"} */}
-        </div>
+        <div>{shippingPrice + ".00 UAH"}</div>
       </div>
       <Divider />
       <div className="flex justify-between">

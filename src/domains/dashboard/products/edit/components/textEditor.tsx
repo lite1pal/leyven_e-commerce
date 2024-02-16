@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";

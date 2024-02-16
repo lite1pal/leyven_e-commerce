@@ -2,7 +2,6 @@ import { type SearchInputProps } from "../search";
 import SearchInput from "./searchInput";
 import { ChangeEvent, useState } from "react";
 import { getProducts } from "@/app/actions";
-import SearchResults from "./searchResults";
 import { useRouter } from "next/navigation";
 
 export default function DesktopInput({ input, setInput }: SearchInputProps) {

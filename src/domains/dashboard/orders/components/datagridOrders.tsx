@@ -1,21 +1,7 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Divider,
-  Typography,
-} from "@mui/material";
-import {
-  DataGrid,
-  GridRowsProp,
-  GridColDef,
-  GridToolbar,
-  GridToolbarExportContainer,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import moment from "moment";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function DataGridOrders({ data }: any) {
   const columns: GridColDef[] = [

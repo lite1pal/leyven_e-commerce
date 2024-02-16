@@ -1,22 +1,10 @@
 import { Footer } from "flowbite-react";
 import Link from "next/link";
-import {
-  BsFacebook,
-  BsInstagram,
-  BsTiktok,
-  BsTelegram,
-  BsWhatsapp,
-} from "react-icons/bs";
+import { BsFacebook, BsInstagram, BsTiktok } from "react-icons/bs";
 
 export default async function FooterComponent() {
   return (
-    <div
-      className="rounded-lg bg-white py-10"
-      // style={{
-      //   boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-      // }}
-      // container
-    >
+    <div className="rounded-lg bg-white py-10">
       <div className="w-full pl-6 sm:pl-0">
         <div className="grid w-full justify-between sm:flex sm:justify-evenly md:flex md:grid-cols-1">
           <div className="mb-10 flex flex-col max-md:mr-6 max-md:p-4 sm:mb-0 sm:gap-3">

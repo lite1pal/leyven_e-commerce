@@ -3,7 +3,6 @@
 import CartModal from "../modals/cartModal";
 import Link from "next/link";
 import { slugifyString, valueOfPercent } from "@/libs/utils";
-import slugify from "slugify";
 
 export default function Card({
   data,

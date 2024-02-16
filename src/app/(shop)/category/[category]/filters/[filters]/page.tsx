@@ -1,4 +1,3 @@
-import CatalogView from "@/domains/shop/allProducts/allProducts";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";
 import FiltersView from "@/domains/shop/filters/filters";

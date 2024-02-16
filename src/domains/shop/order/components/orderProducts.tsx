@@ -38,7 +38,6 @@ export default function OrderProducts() {
 
               <div className="flex items-center gap-10">
                 <span className="text-lg font-medium text-slate-700 dark:text-white max-sm:text-sm">
-                  {/* {cartProduct.product.price} */}
                   {cartProduct.itemTotal}.00 UAH
                 </span>
                 <div className="hidden gap-2 text-xs text-slate-400 sm:flex">
