@@ -17,6 +17,7 @@ export async function ChildCategories({ params }: any) {
         {categories.map((category: any) => {
           return (
             <Link
+              prefetch={false}
               key={category.categoryId}
               href={`/category/${category.categoryId}-${slugifyString(
                 category.title,

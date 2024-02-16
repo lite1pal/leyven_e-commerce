@@ -14,9 +14,7 @@ export default async function RelatedProducts({
     ? `${API_URL}/relatedProducts?id=${id}`
     : `${API_URL}/relatedProducts`;
   // gets products for the catalog
-  const res = await fetch(endpoint, {
-    cache: "no-store",
-  });
+  const res = await fetch(endpoint, { next: { revalidate: 360 } });
 
   const data = await res.json();
 

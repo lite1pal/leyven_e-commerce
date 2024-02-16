@@ -16,7 +16,7 @@ export default async function CategoryView({ params }: any) {
 
   // gets products for the catalog
   const res = await fetch(`${API_URL}/products?categoryId=${categoryId}`, {
-    cache: "no-store",
+    next: { revalidate: 360 },
   });
   const data: Product[] = await res.json();
 

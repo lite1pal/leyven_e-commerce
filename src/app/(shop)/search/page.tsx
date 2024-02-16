@@ -26,7 +26,7 @@ export default async function SearchScreen({ searchParams, params }: any) {
         Результат пошуку
       </div>
       <div className="ml-10 flex items-center gap-1 pb-5">
-        <Link href="/">
+        <Link prefetch={false} href="/">
           <div className="cursor-pointer rounded-lg border-2 border-blue-600 border-opacity-0 p-1.5 transition duration-300  hover:border-opacity-100 hover:text-blue-600">
             <CloseIcon fontSize="small" />
           </div>

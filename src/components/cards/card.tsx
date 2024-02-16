@@ -22,7 +22,10 @@ export default function Card({
           {data.discount}%
         </div>
       )} */}
-      <Link href={`/product/${data.id}-${slugifyString(data.title)}`}>
+      <Link
+        prefetch={false}
+        href={`/product/${data.id}-${slugifyString(data.title)}`}
+      >
         <div
           className={`${data.availability === "out of stock" && "opacity-30"} ${
             type !== "catalog" && "h-52"
@@ -37,7 +40,10 @@ export default function Card({
         </div>
       </Link>
       <div className="relative flex flex-col gap-1 px-4 pb-4 max-sm:px-2.5 max-sm:pb-2.5">
-        <Link href={`/product/${data.id}`}>
+        <Link
+          prefetch={false}
+          href={`/product/${data.id}-${slugifyString(data.title)}`}
+        >
           <h5
             title={data.title}
             // style={{ animation: "move-words 20s linear infinite;" }}

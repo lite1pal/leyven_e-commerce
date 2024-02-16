@@ -35,7 +35,11 @@ export default function Sidebar() {
       </div>
       <Drawer size="md" open={open} onClose={toggleDrawer(false)}>
         <Box role="presentation" onClick={toggleDrawer(false)}>
-          <Link href="/" className="flex w-full items-center gap-3 p-5">
+          <Link
+            prefetch={false}
+            href="/"
+            className="flex w-full items-center gap-3 p-5"
+          >
             <img
               src="/new-logo-remove-bg.png"
               alt="Leyven logo"

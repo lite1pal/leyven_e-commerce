@@ -13,9 +13,7 @@ import AboutView from "../about/about";
 
 export default async function HomeView() {
   // gets products for the catalog
-  const res = await fetch(`${API_URL}/products`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${API_URL}/products`, { next: { revalidate: 360 } });
   const data: Product[] = await res.json();
 
   return (

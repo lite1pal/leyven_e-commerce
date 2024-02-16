@@ -1,8 +1,7 @@
 "use client";
 
-import { fetchCities } from "@/services/novaposhta";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useCart } from "react-use-cart";
@@ -55,7 +54,6 @@ export default function FormOrder() {
       data.warehouse = warehouse;
       data.totalPrice = cartTotal;
       data.orderProducts = items;
-      console.log(data);
       const res = await fetch(`${API_URL}/order`, {
         method: "POST",
         body: JSON.stringify(data),
@@ -69,14 +67,14 @@ export default function FormOrder() {
       }
       emptyCart();
       const formattedOrderProducts = data.orderProducts.map((product: any) => {
-        return `Назва: ${product.title}\n\nЦіна: ${product.price}\n\nЗагальна ціна: ${product.itemTotal}\n\nКількість: ${product.quantity}\n\nАртикул: ${product.artycul}\n\nШтрихкод: ${product.barcode}\n\n`;
-        // return {
-        //   title: product.title,
-        //   price: product.price,
-        //   quantity: product.quantity,
-        //   totalPrice: product.itemTotal,
-        //   img: product.img,
-        // };
+        // return `Назва: ${product.title}\n\nЦіна: ${product.price}\n\nЗагальна ціна: ${product.itemTotal}\n\nКількість: ${product.quantity}\n\nАртикул: ${product.artycul}\n\nШтрихкод: ${product.barcode}\n\n`;
+        return {
+          title: product.title,
+          price: product.price,
+          quantity: product.quantity,
+          totalPrice: product.itemTotal,
+          img: product.img,
+        };
       });
       axios
         .post(`${TELEGRAM_API_URL}${TELEGRAM_API_KEY}/sendMessage`, {

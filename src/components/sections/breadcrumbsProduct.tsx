@@ -17,16 +17,19 @@ export default async function BreadcrumbsProduct({
     <div className="align-items breadcrumbs overflow-x-hidden border-b px-4 py-4 text-sm max-sm:px-5">
       <ul>
         <li>
-          <Link href="/">
+          <Link prefetch={false} href="/">
             <HiHome />
           </Link>
         </li>
         <li>
-          <Link href="/allProducts">Товари</Link>
+          <Link prefetch={false} href="/allProducts">
+            Товари
+          </Link>
         </li>
         {parentCategory && (
           <li>
             <Link
+              prefetch={false}
               href={`/category/${parentCategory.categoryId}-${slugifyString(
                 parentCategory.title,
               )}`}
@@ -37,6 +40,7 @@ export default async function BreadcrumbsProduct({
         )}
         <li>
           <Link
+            prefetch={false}
             href={`/category/${category.categoryId}-${slugifyString(
               category.title,
             )}`}

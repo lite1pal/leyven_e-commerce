@@ -20,7 +20,11 @@ export default function FullFeaturedCrudGrid({ data }: { data: Product[] }) {
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
-          <Link key={1} href={`/dashboard/products/edit/${id}`}>
+          <Link
+            prefetch={false}
+            key={1}
+            href={`/dashboard/products/edit/${id}`}
+          >
             <GridActionsCellItem
               icon={<EditIcon />}
               label="Edit"

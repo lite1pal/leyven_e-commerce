@@ -20,7 +20,7 @@ type IProps = {
 };
 
 export default async function ProductView({ id, slugishTitle }: IProps) {
-  const res = await fetch(`${API_URL}/product?id=${id}`, { cache: "no-store" });
+  const res = await fetch(`${API_URL}/product?id=${id}`);
   const data: Product = await res.json();
 
   if (!data.title) {

@@ -47,12 +47,13 @@ export default function BasicBreadcrumbs({ data }: { data?: Product }) {
       aria-label="Default breadcrumb example"
     >
       <Breadcrumb.Item>
-        <Link href="/">
+        <Link prefetch={false} href="/">
           <HiHome />
         </Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item className="whitespace-nowrap" href="#">
         <Link
+          prefetch={false}
           className="transition duration-100 hover:text-blue-600"
           href={"/allProducts"}
         >

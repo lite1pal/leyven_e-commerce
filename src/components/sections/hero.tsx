@@ -13,7 +13,7 @@ export default function Hero() {
           Знайдіть ідеальні продукти для своїх пухнастих друзів у Лейвен
         </h3>
         <div className="mb-10">
-          <Link href="/allProducts">
+          <Link prefetch={false} href="/allProducts">
             <Button title="Перейти до каталогу" />
           </Link>
         </div>
