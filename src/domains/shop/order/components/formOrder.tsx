@@ -36,6 +36,13 @@ export default function FormOrder() {
 
   const onSubmit = async (data: any) => {
     try {
+      if (cartTotal < 200) {
+        toast.error("Мінімальна сума замовлення 200грн", {
+          style: { minWidth: "25rem", height: "5rem" },
+          position: "bottom-center",
+        });
+      }
+
       if (items.length === 0) {
         toast.error(
           "Додайте хоча б один товар до кошику, щоб зробити замовлення",
@@ -86,7 +93,9 @@ export default function FormOrder() {
             data.email
           }\n\nМісто: ${data.city}\n\nВідділення / Поштомат: ${
             data.warehouse
-          }\n\nТовари: \n\n${JSON.stringify(formattedOrderProducts)}`,
+          }\n\nКоментар: ${data.comment}\n\nТовари: \n\n${JSON.stringify(
+            formattedOrderProducts,
+          )}`,
         })
         .then((response: any) => {})
         .catch((err: any) =>

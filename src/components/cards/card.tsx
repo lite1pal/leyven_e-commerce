@@ -4,12 +4,7 @@ import CartModal from "../modals/cartModal";
 import Link from "next/link";
 import { slugifyString, valueOfPercent } from "@/libs/utils";
 
-export default function Card({
-  data,
-  openModal,
-  setOpenModal,
-  type = "catalog",
-}: any) {
+export default function Card({ data, type = "catalog" }: any) {
   return (
     <div
       className={`${
@@ -43,13 +38,13 @@ export default function Card({
           prefetch={false}
           href={`/product/${data.id}-${slugifyString(data.title)}`}
         >
-          <h5
+          <div
             title={data.title}
             // style={{ animation: "move-words 20s linear infinite;" }}
             className="overflow-x-hidden whitespace-nowrap text-lg font-medium tracking-tight dark:text-white max-sm:text-base xl:text-base"
           >
             {data.title}
-          </h5>
+          </div>
         </Link>
 
         <div
@@ -89,11 +84,7 @@ export default function Card({
               data.price + ".00 UAH"
             )}
           </span>
-          <CartModal
-            data={data}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
+          <CartModal data={data} />
           {/* {session ? (
           ) : (
             <SignInComponent icon="cart" />

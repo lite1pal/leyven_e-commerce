@@ -2,12 +2,15 @@
 
 import * as React from "react";
 import EditIcon from "@mui/icons-material/Edit";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import moment from "moment";
 import Link from "next/link";
 import EditToolbar from "./editToolbar";
 import { API_URL } from "@/config/api";
 import { useEffect, useState } from "react";
+import { slugifyString } from "@/libs/utils";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 export default function FullFeaturedCrudGrid() {
   const columns: GridColDef[] = [
@@ -15,29 +18,34 @@ export default function FullFeaturedCrudGrid() {
       field: "actions",
       type: "actions",
       headerName: "Дії",
-      width: 30,
+      width: 80,
       cellClassName: "actions",
-      getActions: ({ id }) => {
-        return [
-          <Link
-            prefetch={false}
-            key={1}
-            href={`/dashboard/products/edit/${id}`}
-          >
-            <GridActionsCellItem
-              icon={<EditIcon />}
-              label="Edit"
-              className="textPrimary"
-              color="inherit"
-            />
-          </Link>,
-          // <GridActionsCellItem
-          //   key={2}
-          //   icon={<DeleteIcon />}
-          //   label="Delete"
-          //   color="inherit"
-          // />,
-        ];
+      renderCell: ({ id, row }) => {
+        return (
+          <div className="flex flex-col gap-2">
+            <Link
+              prefetch={false}
+              title="Редагувати товар"
+              key={1}
+              href={`/dashboard/products/edit/${id}`}
+            >
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                color="inherit"
+              />
+            </Link>
+            <Link
+              prefetch={false}
+              title="Відкрити сторінку товара"
+              target="_blank"
+              href={`/product/${id}-${slugifyString(row.title)}`}
+            >
+              <OpenInNewIcon />
+            </Link>
+          </div>
+        );
       },
     },
 
@@ -46,6 +54,7 @@ export default function FullFeaturedCrudGrid() {
       headerName: "Назва",
       width: 300,
       renderCell: (params) => {
+        console.log(params);
         return <Value>{params.value}</Value>;
       },
     },
@@ -90,26 +99,27 @@ export default function FullFeaturedCrudGrid() {
     {
       field: "img",
       headerName: "Картинка",
-      width: 250,
+      width: 110,
       renderCell: (params) => {
         const product = params.row;
         return (
-          <div className="flex h-48 max-h-48 w-48 flex-col items-center justify-between bg-white">
-            <img
-              className="mx-auto h-full w-full object-contain"
-              src={product.img}
-            />
-            <div className="h-16 w-full overflow-hidden whitespace-normal p-2 text-slate-400">
-              {product.img !== "miss" && product.img}
-            </div>
-          </div>
+          <PhotoProvider>
+            <PhotoView src={product.img}>
+              <div className="flex h-20 flex-col items-center justify-between overflow-hidden bg-white">
+                <img
+                  className="mx-auto h-full w-full object-contain"
+                  src={product.img}
+                />
+              </div>
+            </PhotoView>
+          </PhotoProvider>
         );
       },
     },
     {
       field: "updatedAt",
       headerName: "Дата зміни",
-      width: 150,
+      width: 180,
       renderCell: (params) => {
         const product = params.row;
         return (
@@ -179,12 +189,24 @@ export default function FullFeaturedCrudGrid() {
           color: "rgb(15 23 42)",
         }}
         rows={rows || []}
+        getRowHeight={() => "auto"}
         columns={columns}
         showCellVerticalBorder
         disableRowSelectionOnClick
         density="standard"
         slots={{
           toolbar: EditToolbar,
+        }}
+        initialState={{
+          columns: {
+            columnVisibilityModel: {
+              // Hide columns status and traderName, the other columns will remain visible
+              artycul: false,
+              unique_id: false,
+              unique_id_1c: false,
+              barcode: false,
+            },
+          },
         }}
         pagination
         pageSizeOptions={[20, 50, 100]}

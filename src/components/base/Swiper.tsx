@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { ReactNode } from "react";
-import { Product } from "@/types";
+import { type Product } from "@/types";
 import Card from "../cards/card";
 
 type Props = {

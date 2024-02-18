@@ -5,11 +5,12 @@ import { API_URL } from "@/config/api";
 import { Suspense } from "react";
 import { type Product } from "@/types";
 import SectionHeader from "@/components/base/SectionHeader";
-import Testimonials from "@/components/sections/testimonials";
-import CompanyLocation from "@/components/sections/companyLocation";
 import FooterComponent from "@/components/sections/footer/footer";
 import { ParentCategories } from "@/components/sections/parentCategories";
+import Testimonials from "@/components/sections/testimonials";
 import AboutView from "../about/about";
+import CompanyLocation from "@/components/sections/companyLocation";
+import React from "react";
 
 export default async function HomeView() {
   // gets products for the catalog
@@ -20,6 +21,7 @@ export default async function HomeView() {
     <>
       <DiscountProducts header="Акційні пропозиції" />
       <RelatedProducts header="Новинки" />
+
       <ParentCategories />
 
       <div className="px-7 py-5">

@@ -31,6 +31,12 @@ export default function OrderPrice({
         <div>Разом</div>
         <div className="">{cartTotal + shippingPrice}.00 UAH</div>
       </div>
+      {cartTotal < 200 && (
+        <>
+          <Divider />
+          <div className="text-red-600">Мінімальна сума замовлення 200грн</div>
+        </>
+      )}
     </div>
   );
 }

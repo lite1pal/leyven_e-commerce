@@ -14,6 +14,9 @@ import ProductPrice from "./price";
 import ProductArtycul from "./artycul";
 import Payment from "./payment";
 import Shipping from "./shipping";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddCartButton from "@/components/modals/addCartButton";
 
 type Props = {
   data: Product;
@@ -48,12 +51,15 @@ export default function AllAbout({ data }: Props) {
           />
 
           {data.availability === "in stock" && (
-            <Link
-              onClick={() => !inCart(data.id) && addItem(data)}
-              href="/order"
-            >
-              <Button title="Купити" />
-            </Link>
+            <div className="flex gap-3">
+              <Link
+                onClick={() => !inCart(data.id) && addItem(data)}
+                href="/order"
+              >
+                <Button theme="green" title="Купити" />
+              </Link>
+              <AddCartButton data={data} />
+            </div>
           )}
         </div>
         <Divider />

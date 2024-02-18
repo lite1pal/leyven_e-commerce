@@ -1,9 +1,8 @@
-import { Card } from "flowbite-react";
 import { ReactNode } from "react";
 
 export default function AboutView() {
   return (
-    <Card>
+    <div className="rounded bg-white p-5">
       <div className="flex flex-col gap-10 p-5">
         <p
           style={{ maxWidth: "50rem" }}
@@ -58,7 +57,7 @@ export default function AboutView() {
           найкраще, обираючи нас!
         </p>
       </div>
-    </Card>
+    </div>
   );
 }
 

@@ -11,6 +11,7 @@ import FormField from "./formField";
 import FormSelectField from "./formSelectField";
 import EditKeywords from "./editKeywords";
 import { useState } from "react";
+import TextEditor from "./textEditor";
 
 export default function EditForm({ data }: { data: Product }) {
   const router = useRouter();

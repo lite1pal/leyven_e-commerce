@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
       lastName,
       city,
       warehouse,
+      comment,
       totalPrice,
       orderProducts,
     } = body;
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
         lastName,
         city,
         warehouse,
+        comment,
         totalPrice,
         orderProducts: { createMany: { data: products } },
       },

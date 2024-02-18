@@ -138,6 +138,7 @@ model Order {
   city String
   warehouse String
   totalPrice Int?
+  comment String?
   orderProducts OrderProduct[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt

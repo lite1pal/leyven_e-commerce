@@ -6,11 +6,11 @@ import moment from "moment";
 export default function DataGridOrders({ data }: any) {
   const columns: GridColDef[] = [
     {
-      field: "createdAt",
+      field: "orderProducts",
       headerName: "Товари",
       filterable: false,
       // sortable: false,
-      width: 270,
+      width: 190,
       renderCell: (params: any) => {
         const orderProduct = params.row.orderProducts[0];
         return (
@@ -21,24 +21,25 @@ export default function DataGridOrders({ data }: any) {
             />
             <div className="flex flex-col justify-center gap-3">
               <div className="text-blue-600">{orderProduct.quantity} шт.</div>
-              <div className="font-medium text-slate-600">
+              {/* <div className="font-medium text-slate-600">
                 {moment(params.row.createdAt).format("hh:mm, DD.MM.YYYY")}
-              </div>
+              </div> */}
             </div>
           </div>
         );
       },
     },
-    { field: "totalPrice", headerName: "Ціна", width: 100 },
+    { field: "totalPrice", headerName: "Ціна", width: 60 },
     {
       field: "firstName",
       headerName: "Клієнт",
-      width: 160,
+      width: 230,
       renderCell: (params: any) => {
         return (
           <div className="flex flex-col gap-2">
             <div>{params.row.lastName + " " + params.row.firstName}</div>
             <div className="text-indigo-700">{params.row.phone}</div>
+            <div className="text-slate-400">{params.row.comment}</div>
           </div>
         );
       },
@@ -46,7 +47,7 @@ export default function DataGridOrders({ data }: any) {
     {
       field: "email",
       headerName: "Пошта",
-      width: 240,
+      width: 230,
       renderCell: (params: any) => {
         return <div className="w-full font-medium">{params.value}</div>;
       },
@@ -54,10 +55,25 @@ export default function DataGridOrders({ data }: any) {
 
     { field: "city", headerName: "Місто", width: 120 },
     { field: "warehouse", headerName: "Відділення", width: 200 },
+    {
+      field: "createdAt",
+      headerName: "Дата замовлення",
+      width: 110,
+      renderCell: (params) => {
+        const product = params.row;
+        return (
+          <div className="font-medium text-slate-900">
+            {product.updatedAt
+              ? moment(product.updatedAt).format("hh:mm a, DD.MM.YYYY")
+              : "Відсутня"}
+          </div>
+        );
+      },
+    },
   ];
 
   return (
-    <div className="mx-auto w-fit">
+    <div className="mx-auto w-full">
       <DataGrid
         sx={{ border: "none" }}
         getRowHeight={() => "auto"}

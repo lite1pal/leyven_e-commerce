@@ -8,13 +8,15 @@ import CardCart from "../cards/cardCart";
 import { useCart } from "react-use-cart";
 import Button from "../base/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import AddCartButton from "./addCartButton";
 
 export default function CartModal({ data }: any) {
   const { addItem, items, isEmpty, cartTotal, inCart } = useCart();
 
   return (
     <>
-      <button
+      <AddCartButton data={data} />
+      {/* <button
         onClick={() => {
           addItem(data);
           (document.getElementById("cartModal") as HTMLFormElement).showModal();
@@ -32,7 +34,7 @@ export default function CartModal({ data }: any) {
         ) : (
           <AddShoppingCartIcon fontSize="small" />
         )}
-      </button>
+      </button> */}
 
       <dialog id="cartModal" className="modal">
         <div className="modal-box max-w-4xl bg-white p-0 text-black">

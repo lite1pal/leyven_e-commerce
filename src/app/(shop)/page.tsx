@@ -3,7 +3,7 @@ import HomeView from "@/domains/shop/home/home";
 import SkeletonHorizontalProducts from "@/components/base/Skeleton";
 import Hero from "@/components/sections/hero";
 
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata() {
   return {
     title: `Інтернет-зоомагазин Лейвен - Купити Товари для Тварин Онлайн: ✅ Ціни, ✅ Продаж, ✅ Відгуки`,
     description: `Дізнайтеся про широкий вибір якісних товарів для тварин в інтернет-зоомагазині Лейвен. Купуйте онлайн зручно та швидко. Низькі ціни, акції, та висока якість обслуговування. Перегляньте відгуки клієнтів та зробіть свій вибір для здоров'я та комфорту вашого улюбленця.`,

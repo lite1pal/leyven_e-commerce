@@ -40,7 +40,7 @@ export default function ProductImg({ data }: { data: Product }) {
           </PhotoView>
           {data.images.length > 0 && data.barcode && (
             <div
-              style={{ minWidth: "35rem" }}
+              // style={{ minWidth: "35rem" }}
               className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between"
             >
               <button
