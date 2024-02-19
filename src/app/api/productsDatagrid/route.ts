@@ -7,13 +7,13 @@ export async function POST(req: NextRequest) {
     const { pageSize, page, sortModel, filterModel } = body;
 
     let where = {};
-    let orderBy = {};
+    let orderBy: any = { updatedAt: "desc" };
     let search = "";
 
     if (sortModel[0]) {
       const sortField = sortModel[0].field;
       const sortOrder = sortModel[0].sort;
-      orderBy = { [sortField]: sortOrder };
+      orderBy = { [sortField]: sortOrder, updatedAt: "desc" };
     }
 
     if (Array.isArray(filterModel.quickFilterValues)) {

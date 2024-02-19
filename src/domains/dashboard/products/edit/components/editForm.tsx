@@ -12,16 +12,23 @@ import FormSelectField from "./formSelectField";
 import EditKeywords from "./editKeywords";
 import { useState } from "react";
 import TextEditor from "./textEditor";
+import EditInfo from "./editInfo";
 
 export default function EditForm({ data }: { data: Product }) {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
 
   const [keywords, setKeywords] = useState(data.keywords || "");
+  const [description, setDescription] = useState(data.description || "");
+  const [info, setInfo] = useState(data.info || [{}]);
 
   const onSubmit = async (fields: FieldValues) => {
     try {
       fields.id = data.id;
+      fields.description = description;
+      fields.keywords = keywords;
+      fields.info = info;
+
       const res = await fetch(`${API_URL}/product`, {
         method: "PUT",
         body: JSON.stringify(fields),
@@ -29,13 +36,13 @@ export default function EditForm({ data }: { data: Product }) {
       const parsedRes = await res.json();
       if (!res.ok) {
         toast.error("Помилка зміни");
+        return;
       }
       toast.success("Зміна успішна!");
       router.push("/dashboard/products");
     } catch (err) {
       console.error(err, "Failed to edit product data");
     }
-    return "";
   };
 
   return (
@@ -50,7 +57,7 @@ export default function EditForm({ data }: { data: Product }) {
         />
 
         {/* Description Text Editor */}
-        {/* <div className="w-full">
+        <div className="w-full">
           <div className="mb-2 block">
             <Label
               className="text-slate-900"
@@ -59,8 +66,12 @@ export default function EditForm({ data }: { data: Product }) {
             />
           </div>
 
-          <TextEditor description={data.description} register={register} />
-        </div> */}
+          <TextEditor
+            description={description}
+            register={register}
+            setDescription={setDescription}
+          />
+        </div>
 
         <FormField
           id="price"
@@ -75,7 +86,6 @@ export default function EditForm({ data }: { data: Product }) {
           id="img"
           label="Посилання на картинку"
           defaultValue={data.img}
-          disabled
           register={register}
           required
         />
@@ -88,13 +98,12 @@ export default function EditForm({ data }: { data: Product }) {
           type="number"
           required
         />
-
+        {/* 
         <FormField
           id="unique_id"
           label="Унікальне id, Prom.ua"
           register={register}
           defaultValue={data.unique_id}
-          disabled
           required
         />
 
@@ -103,16 +112,14 @@ export default function EditForm({ data }: { data: Product }) {
           label="Унікальне id, 1C"
           register={register}
           defaultValue={data.unique_id_1c}
-          disabled
           required
-        />
+        /> */}
 
-        <FormField
+        {/* <FormField
           id="barcode"
           label="Штрихкод"
           register={register}
           defaultValue={data.barcode!}
-          disabled
         />
 
         <FormField
@@ -120,8 +127,7 @@ export default function EditForm({ data }: { data: Product }) {
           label="Артикул"
           register={register}
           defaultValue={data.artycul!}
-          disabled
-        />
+        /> */}
 
         <FormField
           id="quantity"
@@ -137,8 +143,8 @@ export default function EditForm({ data }: { data: Product }) {
           label="Наявність"
           register={register}
         >
-          <option value="out of stock">Ні</option>
           <option value="in stock">Так</option>
+          <option value="out of stock">Ні</option>
         </FormSelectField>
 
         <EditKeywords
@@ -147,36 +153,13 @@ export default function EditForm({ data }: { data: Product }) {
           register={register}
         />
 
-        <div>
-          <div className="mb-2 block">
-            <Label
-              className="text-slate-900"
-              htmlFor="img"
-              value="Характеристики"
-            />
-          </div>
-          <div className="mt-5 flex flex-col gap-3">
-            {data.info.map((item: any, i) => {
-              return (
-                <div
-                  key={i}
-                  className="flex w-fit cursor-default gap-2 rounded-lg border p-1 text-slate-900"
-                >
-                  <div>{item["g:attribute_name"]._text}</div>
-                  <div>{"-"}</div>
-                  <div>{item["g:attribute_value"]._text}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <EditInfo {...{ data, info, setInfo }} />
 
         <FormField
           id="breadcrumbs"
           label="Категорія"
           register={register}
           defaultValue={data.breadcrumbs}
-          disabled
           required
         />
       </div>

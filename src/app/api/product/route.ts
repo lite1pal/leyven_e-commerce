@@ -58,6 +58,7 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log(body);
     const {
       id,
       title,
@@ -66,7 +67,8 @@ export async function PUT(req: NextRequest) {
       availability,
       quantity,
       discount,
-      img,
+      keywords,
+      info,
     } = body;
 
     const updatedProduct = await prisma.product.update({
@@ -76,9 +78,10 @@ export async function PUT(req: NextRequest) {
         description,
         price: parseInt(price),
         availability,
-        quantity,
+        quantity: parseInt(quantity),
         discount: parseInt(discount),
-        img,
+        keywords,
+        info,
       },
     });
     return new NextResponse(JSON.stringify(updatedProduct), { status: 200 });

@@ -54,7 +54,6 @@ export default function FullFeaturedCrudGrid() {
       headerName: "Назва",
       width: 300,
       renderCell: (params) => {
-        console.log(params);
         return <Value>{params.value}</Value>;
       },
     },

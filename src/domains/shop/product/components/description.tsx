@@ -18,10 +18,20 @@ export default function Description({ data }: { data: Product }) {
 
   const paragraphs = data.description.split("\n");
 
+  const isHTML = (str: string) => {
+    const doc = new DOMParser().parseFromString(str, "text/html");
+    return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1);
+  };
+
   return (
     <div className="flex w-full flex-col gap-5  rounded-lg bg-white px-7 py-5 text-sm lg:w-1/2">
       <SectionHeader>Опис</SectionHeader>
-      {data.unique_id !== "miss"
+      {isHTML(data.description) ? (
+        <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
+      ) : (
+        paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)
+      )}
+      {/* {data.unique_id !== "miss"
         ? parse(
             data.description
               .replaceAll("<h1>", "<strong>")
@@ -33,7 +43,7 @@ export default function Description({ data }: { data: Product }) {
               .replaceAll("<li>", "<li> - "),
             { trim: true },
           )
-        : paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+        : paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)} */}
       {/* // <>
         //   <p className="prose font-medium text-slate-600">
         //     {showMore
