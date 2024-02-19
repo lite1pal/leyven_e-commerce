@@ -46,14 +46,14 @@ export default function ProductImg({ data }: { data: Product }) {
             <div className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between">
               <div
                 onClick={backImg}
-                className={`btn btn-circle btn-ghost bg-blue-600 text-white`}
+                className={`flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white`}
               >
                 ❮
               </div>
 
               <div
                 onClick={nextImg}
-                className={`btn btn-circle btn-ghost bg-blue-600 text-white`}
+                className={`flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white`}
               >
                 ❯
               </div>

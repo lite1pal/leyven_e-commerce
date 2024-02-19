@@ -3735,3 +3735,5 @@
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T09:33:25.364Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T09:33:35.929Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T09:34:11.750Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T09:54:28.255Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T09:54:36.334Z"}
