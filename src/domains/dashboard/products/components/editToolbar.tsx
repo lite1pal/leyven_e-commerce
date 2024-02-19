@@ -1,4 +1,4 @@
-import { API_URL } from "@/config/api";
+import { API_KEY, API_URL } from "@/config/api";
 import { convertXLSXtoJSON } from "@/libs/utils";
 import toast from "react-hot-toast";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid";
@@ -14,7 +14,10 @@ export default function EditToolbar() {
       setLoading(true);
 
       // Make the actual fetch request
-      const res = await fetch(`${API_URL}/products`, { method: "PUT" });
+      const res = await fetch(`${API_URL}/products`, {
+        method: "PUT",
+        headers: { "api-key": API_KEY },
+      });
 
       // Check if the result is from the fetch request
       if (res.ok) {
@@ -44,6 +47,7 @@ export default function EditToolbar() {
 
       const res = await fetch(`${API_URL}/productsXLSX`, {
         method: "POST",
+        headers: { "api-key": API_KEY },
         body: JSON.stringify({ jsonData }),
       });
 
@@ -68,6 +72,7 @@ export default function EditToolbar() {
 
       const res = await fetch(`${API_URL}/products1C`, {
         method: "POST",
+        headers: { "api-key": API_KEY },
         body: JSON.stringify({ xmlText }),
       });
 

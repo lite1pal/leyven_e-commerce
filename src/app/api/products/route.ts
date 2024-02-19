@@ -1,8 +1,10 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
-import { categories } from "@/data/categories";
-import { convertXMLtoJSON, getArrayValueByKey } from "@/libs/utils";
+import {
+  convertXMLtoJSON,
+  getArrayValueByKey,
+  isValidApiKey,
+} from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
-import { logger } from "../../../../logger";
 import { PROM_UA_API_URL } from "@/config/api";
 
 /*
@@ -11,8 +13,8 @@ import { PROM_UA_API_URL } from "@/config/api";
   To return products without images, 'dashboard=true' must be provided.
 */
 
+// Handles GET requests to /api/products
 export async function GET(req: NextRequest, { params }: any) {
-  logger.info(`GET /api/products ${req}`);
   try {
     // creates an object URL to obtain search params
     const url = new URL(req.url);
@@ -199,6 +201,15 @@ export async function GET(req: NextRequest, { params }: any) {
 
 export async function PUT(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return new NextResponse(
+        JSON.stringify("Unauthorized. Provide an API key"),
+        {
+          status: 401,
+        },
+      );
+    }
+
     const res = await fetch(PROM_UA_API_URL);
 
     if (!res.ok) {

@@ -1,6 +1,8 @@
 import slugify from "slugify"; // "slugify": "^1.6.6",
 import convert from "xml-js";
 import * as XLSX from "xlsx";
+import { NextRequest } from "next/server";
+import { API_KEY } from "@/config/api";
 
 export const convertXMLtoJSON = async (xmlRes: Response, resource = "prom") => {
   const xmlText = await xmlRes.text();
@@ -131,3 +133,8 @@ export const slugifyString = (text: string) =>
     .replace(/\s+/g, "-")
     .replace(/[^\w-]+/g, "")
     .replace(/--+/g, "-");
+
+export function isValidApiKey(req: NextRequest) {
+  const providedApiKey = req.headers.get("api-key");
+  return providedApiKey === API_KEY;
+}

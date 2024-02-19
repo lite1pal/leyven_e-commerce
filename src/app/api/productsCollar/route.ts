@@ -1,4 +1,4 @@
-import { convertXMLtoJSON } from "@/libs/utils";
+import { convertXMLtoJSON, isValidApiKey } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import { COLLAR_API_URL } from "@/config/api";
@@ -10,6 +10,15 @@ import { COLLAR_API_URL } from "@/config/api";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return new NextResponse(
+        JSON.stringify("Unauthorized. Provide an API key"),
+        {
+          status: 401,
+        },
+      );
+    }
+
     const res = await fetch(COLLAR_API_URL);
 
     if (!res.ok) {

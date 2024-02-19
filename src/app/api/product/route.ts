@@ -1,4 +1,5 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
+import { isValidApiKey } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 /* 
@@ -57,6 +58,15 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return new NextResponse(
+        JSON.stringify("Unauthorized. Provide an API key"),
+        {
+          status: 401,
+        },
+      );
+    }
+
     const body = await req.json();
     console.log(body);
     const {

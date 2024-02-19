@@ -1,5 +1,5 @@
-import { COLLAR_API_URL } from "@/config/api";
-import { getCategoriesFromCollar } from "@/libs/utils";
+import { API_KEY, COLLAR_API_URL } from "@/config/api";
+import { getCategoriesFromCollar, isValidApiKey } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 
@@ -60,6 +60,15 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return new NextResponse(
+        JSON.stringify("Unauthorized. Provide an API key"),
+        {
+          status: 401,
+        },
+      );
+    }
+
     // const categories = await prisma.category.findMany();
     const promProducts = await prisma.product.findMany({
       where: { unique_id: { not: "miss" } },

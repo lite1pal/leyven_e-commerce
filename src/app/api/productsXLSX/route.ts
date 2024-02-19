@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
+import { isValidApiKey } from "@/libs/utils";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return new NextResponse(
+        JSON.stringify("Unauthorized. Provide an API key"),
+        {
+          status: 401,
+        },
+      );
+    }
+
     const body = await req.json();
     const { jsonData } = body;
 

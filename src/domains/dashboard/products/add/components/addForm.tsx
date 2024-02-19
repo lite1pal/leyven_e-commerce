@@ -70,6 +70,7 @@ export default function AddForm() {
 
   const onSubmit = async (fields: FieldValues) => {
     try {
+      return;
       fields.breadcrumbs =
         categories[fields.category].name +
         ">" +

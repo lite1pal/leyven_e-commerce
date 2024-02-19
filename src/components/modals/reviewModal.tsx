@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Textarea } from "flowbite-react";
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
-import { API_URL } from "@/config/api";
+import { API_KEY, API_URL } from "@/config/api";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -23,6 +23,7 @@ export default function ReviewModal({ data, session }: any) {
       }
       const res = await fetch(`${API_URL}/review`, {
         method: "POST",
+        headers: { "api-key": API_KEY },
         body: JSON.stringify({
           text,
           rating,
