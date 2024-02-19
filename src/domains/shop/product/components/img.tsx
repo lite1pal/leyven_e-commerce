@@ -17,13 +17,17 @@ export default function ProductImg({ data }: { data: Product }) {
   const backImg = () => {
     if (currentImg !== 0) {
       setCurrentImg((prev) => prev - 1);
+      return;
     }
+    setCurrentImg(data.images.length - 1);
   };
 
   const nextImg = () => {
     if (data.images.length - 1 !== currentImg) {
       setCurrentImg((prev) => prev + 1);
+      return;
     }
+    setCurrentImg(0);
   };
 
   return (
@@ -39,25 +43,19 @@ export default function ProductImg({ data }: { data: Product }) {
             />
           </PhotoView>
           {data.images.length > 0 && data.barcode && (
-            <div
-              // style={{ minWidth: "35rem" }}
-              className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between"
-            >
+            <div className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between">
               <button
                 onClick={backImg}
                 type="button"
-                className={`${
-                  currentImg === 0 && "btn-disabled"
-                } btn btn-circle btn-ghost bg-blue-600 text-white`}
+                className={`btn btn-circle btn-ghost bg-blue-600 text-white`}
               >
                 ❮
               </button>
+
               <button
                 onClick={nextImg}
                 type="button"
-                className={`${
-                  data.images.length - 1 === currentImg && "btn-disabled"
-                } btn btn-circle btn-ghost bg-blue-600 text-white`}
+                className={`btn btn-circle btn-ghost bg-blue-600 text-white`}
               >
                 ❯
               </button>
