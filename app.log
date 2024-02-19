@@ -3750,3 +3750,7 @@
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:27:34.405Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:27:34.595Z"}
 {"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:27:35.730Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:41:46.258Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:41:46.349Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:41:46.909Z"}
+{"level":"info","message":"GET /api/products [object Request]","timestamp":"2024-02-19T11:42:05.144Z"}
