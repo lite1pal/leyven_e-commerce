@@ -22,7 +22,7 @@ export default function CardCart({ cartProduct }: { cartProduct: any }) {
         />
       </div>
       <CardContent>
-        <Link prefetch={false} href={`/product/${cartProduct.id}`}>
+        <Link href={`/product/${cartProduct.id}`}>
           <div className="max-h-32 cursor-pointer overflow-y-hidden font-medium hover:underline">
             {cartProduct.title}
           </div>

@@ -33,7 +33,7 @@ export default async function Navbar() {
       <div
         className={`flex items-center justify-between py-3 font-normal max-xl:py-3 max-sm:px-2`}
       >
-        <Link prefetch={false} href="/" className="hidden xl:flex">
+        <Link href="/" className="hidden xl:flex">
           <div className="group flex w-16 items-center gap-2.5 sm:w-36">
             <img
               src="/new-logo-remove-bg.png"
@@ -76,7 +76,7 @@ export default async function Navbar() {
 
 function NavItem({ route, name }: { route: string; name: string }) {
   return (
-    <Link prefetch={false} href={route}>
+    <Link href={route}>
       <li className="group cursor-default border-opacity-0 transition duration-300 hover:border-opacity-100 hover:text-blue-600">
         {name}
         <span className="block h-0.5 max-w-0 bg-blue-600 transition-all duration-300 group-hover:max-w-full"></span>

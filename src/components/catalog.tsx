@@ -38,7 +38,7 @@ export default function CatalogView({ data }: { data: Product[] }) {
         <PaginationComponent data={data} />
       ) : (
         <div className="mx-auto mb-10 w-fit">
-          <Link prefetch={false} href="/allProducts">
+          <Link href="/allProducts">
             <Button title="Перейти до каталогу" />
           </Link>
         </div>
