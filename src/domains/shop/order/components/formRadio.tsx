@@ -25,7 +25,7 @@ export default function FormRadio({
         return (
           <div key={i} className="form-control">
             <label className="label cursor-pointer py-5">
-              <span className="label-text flex items-center gap-1.5 text-sm">
+              <span className="label-text flex items-center gap-2 text-sm">
                 {option.img && (
                   <div className="w-5">
                     <img
