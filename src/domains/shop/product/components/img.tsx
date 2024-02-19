@@ -44,21 +44,19 @@ export default function ProductImg({ data }: { data: Product }) {
           </PhotoView>
           {data.images.length > 0 && data.barcode && (
             <div className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between">
-              <button
+              <div
                 onClick={backImg}
-                type="button"
                 className={`btn btn-circle btn-ghost bg-blue-600 text-white`}
               >
                 ❮
-              </button>
+              </div>
 
-              <button
+              <div
                 onClick={nextImg}
-                type="button"
                 className={`btn btn-circle btn-ghost bg-blue-600 text-white`}
               >
                 ❯
-              </button>
+              </div>
             </div>
           )}
         </div>
