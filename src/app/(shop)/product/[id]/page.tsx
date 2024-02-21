@@ -4,6 +4,7 @@ import { API_URL } from "@/config/api";
 import MySpinner from "@/components/base/Spinner";
 import { Metadata } from "next";
 import { type Product } from "@/types";
+import { slugifyString } from "@/libs/utils";
 
 export async function generateMetadata({
   params,
@@ -12,6 +13,19 @@ export async function generateMetadata({
     cache: "no-store",
   });
   const data: Product = await res.json();
+
+  let allowIndex = true;
+  let alternates = {};
+
+  if (!data.title) {
+    allowIndex = false;
+  }
+
+  if (data.title) {
+    alternates = {
+      canonical: `/product/${data.id}-${slugifyString(data.title)}`,
+    };
+  }
 
   return {
     title:
@@ -28,9 +42,10 @@ export async function generateMetadata({
       images: [{ url: data.img }],
       siteName: "Leyven.com.ua",
     },
+    alternates,
     robots: {
-      index: data.title ? true : false,
-      follow: data.title ? true : false,
+      index: allowIndex,
+      follow: allowIndex,
     },
   };
 }

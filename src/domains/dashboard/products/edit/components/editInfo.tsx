@@ -5,11 +5,9 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 
 export default function EditInfo({
-  data,
   info,
   setInfo,
 }: {
-  data: Product;
   info: any;
   setInfo: any;
 }) {
@@ -57,6 +55,7 @@ export default function EditInfo({
         id="info"
         onKeyDown={(e: any) => {
           if (e.key === "Enter") {
+            e.preventDefault();
             addInfoItem(e.target.value);
             e.target.value = "";
           }

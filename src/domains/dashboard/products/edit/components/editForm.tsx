@@ -14,6 +14,7 @@ import { Suspense, useState } from "react";
 import TextEditor from "./textEditor";
 import EditInfo from "./editInfo";
 import SelectCategories from "./selectCategories";
+import MySpinner from "@/components/base/Spinner";
 
 export default function EditForm({ data }: { data: Product }) {
   const router = useRouter();
@@ -168,9 +169,9 @@ export default function EditForm({ data }: { data: Product }) {
           register={register}
         />
 
-        <EditInfo {...{ data, info, setInfo }} />
+        <EditInfo {...{ info, setInfo }} />
 
-        <Suspense>
+        <Suspense fallback={<MySpinner />}>
           <SelectCategories {...{ data, register }} />
         </Suspense>
       </div>

@@ -40,6 +40,7 @@ export default function EditKeywords({
         id="keywords"
         onKeyDown={(e: any) => {
           if (e.key === "Enter") {
+            e.preventDefault();
             addKeyword(e.target.value);
             e.target.value = "";
           }

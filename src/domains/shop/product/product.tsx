@@ -4,7 +4,7 @@ import { type Product } from "@/types";
 import AllAbout from "./components/allAbout";
 import Reviews from "./components/reviews";
 import { slugifyString, valueOfPercent } from "@/libs/utils";
-import { redirect } from "next/navigation";
+import { permanentRedirect, redirect } from "next/navigation";
 import Description from "./components/description";
 import ProductInfoTable from "@/components/productInfoTable";
 import BreadcrumbsProduct from "@/components/sections/breadcrumbsProduct";
@@ -24,16 +24,10 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
 
   if (!data.title) {
     notFound();
-    // redirect("/allProducts");
-    // return (
-    //   <div className="mb-10 py-10 text-center text-3xl font-semibold">
-    //     404 Not found
-    //   </div>
-    // );
   }
 
   if (slugifyString(data.title) !== slugishTitle) {
-    redirect(`/product/${id}-${slugifyString(data.title)}`);
+    permanentRedirect(`/product/${id}-${slugifyString(data.title)}`);
   }
 
   const calculateAverageRating = (): number => {

@@ -12,7 +12,15 @@ import SelectInput from "./selectInput";
 import { countries } from "@/data/countries";
 import { brands } from "@/data/brands";
 import TextInput from "./textInput";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import SelectCategories from "../../edit/components/selectCategories";
+import EditInfo from "../../edit/components/editInfo";
+import EditKeywords from "../../edit/components/editKeywords";
+import FormSelectField from "../../edit/components/formSelectField";
+import FormField from "../../edit/components/formField";
+import { Label } from "flowbite-react";
+import TextEditor from "../../edit/components/textEditor";
+import MySpinner from "@/components/base/Spinner";
 
 /*
 
@@ -44,268 +52,146 @@ export default function AddForm() {
     formState: { isDirty },
   } = useForm();
 
-  const [info, setInfo] = useState<Info[]>([]);
-  const [curInfoLabel, setCurInfoLabel] = useState("");
-  const [curInfoValue, setCurInfoValue] = useState("");
+  const [keywords, setKeywords] = useState("");
+  const [description, setDescription] = useState("");
+  const [info, setInfo] = useState([]);
 
   const watchCategory = watch("category", ""); // you can supply default value as second argument
-
-  const addInfoItem = () => {
-    if (curInfoLabel && curInfoValue) {
-      setInfo((prev) => {
-        return [
-          ...prev,
-          {
-            "g:attribute_name": { _text: curInfoLabel },
-            "g:attribute_value": { _text: curInfoValue },
-          },
-        ];
-      });
-      setCurInfoLabel("");
-      setCurInfoValue("");
-      return;
-    }
-    toast.error("Заповність два поля");
-  };
 
   const onSubmit = async (fields: FieldValues) => {
     try {
       return;
-      fields.breadcrumbs =
-        categories[fields.category].name +
-        ">" +
-        categories[fields.category].subCategories[fields.subCategory];
-      info.unshift({
-        "g:attribute_name": { _text: "Країна виробник" },
-        "g:attribute_value": { _text: fields.country },
-      });
-      fields.info = info;
-      const res = await fetch(`${API_URL}/product`, {
-        method: "POST",
-        body: JSON.stringify(fields),
-      });
-      const parsedRes: Product = await res.json();
-      console.log(parsedRes);
-      if (!res.ok) {
-        toast.error("Помилка створення");
-        reset();
-        return;
-      }
-      toast.success("Створення успішне!");
-      router.push("/dashboard/products");
+      // fields.breadcrumbs =
+      //   categories[fields.category].name +
+      //   ">" +
+      //   categories[fields.category].subCategories[fields.subCategory];
+      // info.unshift({
+      //   "g:attribute_name": { _text: "Країна виробник" },
+      //   "g:attribute_value": { _text: fields.country },
+      // });
+      // fields.info = info;
+      // const res = await fetch(`${API_URL}/product`, {
+      //   method: "POST",
+      //   body: JSON.stringify(fields),
+      // });
+      // const parsedRes: Product = await res.json();
+      // console.log(parsedRes);
+      // if (!res.ok) {
+      //   toast.error("Помилка створення");
+      //   reset();
+      //   return;
+      // }
+      // toast.success("Створення успішне!");
+      // router.push("/dashboard/products");
     } catch (err) {
       console.error(err, "Failed to edit product data");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-4">
-      <div className=" mt-5 flex w-full flex-col gap-3">
-        <div className="text-lg font-medium">Додати товар</div>
-        <Divider />
-        <div className="mb-6 flex max-w-2xl flex-col gap-7">
-          <TextInput
-            label="Назва товару"
-            id="title"
-            type="text"
-            shadow
-            register={register}
-            required
-          />
+    <form onSubmit={handleSubmit(onSubmit)} className="mb-6 px-4">
+      <div className="mb-6 flex max-w-2xl flex-col gap-10">
+        <FormField
+          id="title"
+          label="Назва"
+          defaultValue={""}
+          required
+          register={register}
+          border
+        />
 
-          <div>
-            <div className="mb-2 block">
-              <label
-                className="font-medium text-slate-700"
-                htmlFor="description"
-              >
-                Опис
-              </label>
-            </div>
-            <textarea
-              className="w-full shadow "
-              rows={5}
-              cols={50}
-              id="description"
-              //   shadow
-              {...register("description", {
-                required: true,
-              })}
-            ></textarea>
+        {/* Description Text Editor */}
+        <div className="w-full">
+          <div className="mb-2 block">
+            <Label
+              className="text-slate-900"
+              htmlFor={"description"}
+              value={"Опис"}
+            />
           </div>
 
-          <TextInput
-            label="Ціна товару"
-            id="price"
-            type="number"
-            shadow
+          <TextEditor
+            description={description}
             register={register}
-            required
+            setDescription={setDescription}
           />
-
-          <TextInput
-            label="Посилання на картинку"
-            id="img"
-            type="text"
-            shadow
-            register={register}
-            required
-          />
-
-          <TextInput
-            label="Знижка %"
-            id="discount"
-            type="number"
-            defaultValue={0}
-            shadow
-            register={register}
-            required
-          />
-
-          <div>
-            <div className="mb-2 block">
-              <label
-                className="font-medium text-slate-700"
-                htmlFor="availability"
-              >
-                Наявність
-              </label>
-            </div>
-            <select
-              id="availability"
-              {...register("availability", { required: true })}
-            >
-              <option value="in stock">Так</option>
-              <option value="out of stock">Ні</option>
-            </select>
-          </div>
-
-          <SelectInput
-            label="Країна виробник"
-            id="country"
-            options={countries}
-            register={register}
-            required
-          />
-          <SelectInput
-            label="Виробник"
-            id="brand"
-            options={brands}
-            register={register}
-            required
-          />
-
-          <div>
-            <div className="mb-2 block">
-              <label className="text-state-700 font-medium" htmlFor="info">
-                Додати характеристики{" "}
-                <span className="font-light text-slate-600">
-                  ( Приклад: Тип - Лікарська форма)
-                </span>
-              </label>
-            </div>
-            <div className="flex gap-5">
-              <div className="flex flex-col gap-2">
-                <label className="font-light" htmlFor="label">
-                  Назва
-                </label>
-                <input
-                  onChange={(e) => setCurInfoLabel(e.target.value)}
-                  value={curInfoLabel}
-                  id="label"
-                  type="text"
-                />
-                <Button onClick={addInfoItem} title="Додати" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="font-light" htmlFor="value">
-                  Значення
-                </label>
-                <input
-                  onChange={(e) => setCurInfoValue(e.target.value)}
-                  value={curInfoValue}
-                  id="value"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="mt-5 flex flex-col gap-2 p-3">
-              {info.map((item, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="flex w-fit cursor-default gap-2 rounded-lg border-2 p-3"
-                  >
-                    <div>{item["g:attribute_name"]._text}</div>
-                    <div>{"-"}</div>
-                    <div>{item["g:attribute_value"]._text}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div>
-            <div className="mb-2 block">
-              <label className="text-state-700 font-medium" htmlFor="category">
-                Категорія
-              </label>
-            </div>
-            <select id="category" {...register("category", { required: true })}>
-              <option className="pointer-events-none" value=""></option>
-              <option value="goduvannya-domashnih-tvarin">
-                Годування домашніх тварин і птахів
-              </option>
-              <option value="tovari-dlya-progulyanok">
-                Товари для прогулянок і подорожей з тваринами
-              </option>
-              <option value="tovari-dlya-komfortu">
-                Товари для комфорту домашніх тварин
-              </option>
-              <option value="tovari-dlya-doglyadu">
-                Товари для догляду за домашніми тваринами
-              </option>
-              <option value="veterinarni-zasobi-preparati">
-                Ветеринарні засоби та препарати
-              </option>
-            </select>
-          </div>
-
-          {getFieldState("category").isDirty && (
-            <div>
-              <div className="mb-2 block">
-                <label
-                  className="text-state-700 font-medium"
-                  htmlFor="subCategory"
-                >
-                  Підкатегорія
-                </label>
-              </div>
-              <select
-                id="subCategory"
-                {...register("subCategory", { required: true })}
-              >
-                {Object.keys(categories[watchCategory].subCategories).map(
-                  (subCategory, i) => {
-                    return (
-                      <option key={i} value={subCategory}>
-                        {
-                          categories[watchCategory].subCategories[subCategory]
-                            .name
-                        }
-                      </option>
-                    );
-                  },
-                )}
-              </select>
-            </div>
-          )}
         </div>
-        <Divider />
-        <div className=" pb-5 pt-4">
-          <Button type="submit" title="Створити товар" />
-        </div>
+
+        <FormField
+          id="price"
+          label="Ціна"
+          defaultValue={0}
+          type={"number"}
+          required
+          register={register}
+          border
+        />
+
+        <FormField
+          id="img"
+          label="Посилання на картинку"
+          defaultValue={""}
+          register={register}
+          required
+          border
+        />
+
+        <FormField
+          id="discount"
+          label="Знижка %"
+          defaultValue={0}
+          register={register}
+          type="number"
+          required
+          border
+        />
+
+        <FormField
+          id="barcode"
+          label="Штрихкод"
+          register={register}
+          defaultValue={""}
+        />
+
+        <FormField
+          id="artycul"
+          label="Артикул"
+          register={register}
+          defaultValue={""}
+        />
+
+        <FormField
+          id="quantity"
+          label="Кількість"
+          type="number"
+          register={register}
+          defaultValue={0}
+          required
+          border
+        />
+
+        <FormSelectField
+          id="availability"
+          label="Наявність"
+          register={register}
+        >
+          <option value="in stock">Так</option>
+          <option value="out of stock">Ні</option>
+        </FormSelectField>
+
+        <EditKeywords
+          setKeywords={setKeywords}
+          keywords={keywords}
+          register={register}
+        />
+
+        <EditInfo {...{ info, setInfo }} />
+
+        <Suspense fallback={<MySpinner />}>
+          <SelectCategories {...{ register }} />
+        </Suspense>
       </div>
+      {/* <Button type="submit" title="Додати товар" /> */}
     </form>
   );
 }

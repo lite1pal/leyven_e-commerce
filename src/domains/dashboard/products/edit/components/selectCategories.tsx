@@ -7,7 +7,7 @@ export default async function SelectCategories({
   data,
   register,
 }: {
-  data: Product;
+  data?: Product;
   register: UseFormRegister<FieldValues>;
 }) {
   const res = await fetch(`${API_URL}/categories`, { cache: "no-store" });
@@ -15,9 +15,9 @@ export default async function SelectCategories({
 
   const childCategories = categories.filter((c: any) => c.parentId);
 
-  const currentCategory = categories.find(
-    (c: any) => c.categoryId === data.categoryId,
-  );
+  const currentCategory = data
+    ? categories.find((c: any) => c.categoryId === data.categoryId)
+    : "";
 
   return (
     <div>

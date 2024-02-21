@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="flex min-h-screen">
           <div className="sticky top-0 hidden h-screen w-2/12 flex-col gap-3 border-r border-gray-500 border-opacity-20 bg-gray-100 py-4 text-sm text-slate-900 sm:flex">
             <Link
-              href="/allProducts"
+              href="/"
               className="flex items-center gap-2 border-b border-gray-500 border-opacity-20 pb-4 pl-4 hover:text-slate-700"
             >
               <ExitToAppIcon fontSize="small" />

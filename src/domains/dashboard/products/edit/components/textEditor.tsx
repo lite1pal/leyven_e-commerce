@@ -27,7 +27,7 @@ export default function TextEditor({
           ? description
           : paragraphs.map((paragraph, i) => `<p>${paragraph}</p>`).join("<br>")
       }
-      placeholder="Редагування опису"
+      placeholder="..."
       onChange={(value) => setDescription(value)}
       modules={{
         toolbar: [
