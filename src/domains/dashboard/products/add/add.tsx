@@ -8,7 +8,7 @@ export default async function AddProductView() {
       <PageHeader iconBack Icon={ArrowBackIcon}>
         Створення товару
       </PageHeader>
-      <AddForm />
+      {/* <AddForm /> */}
     </div>
   );
 }
