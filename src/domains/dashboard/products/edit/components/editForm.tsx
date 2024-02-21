@@ -10,9 +10,10 @@ import toast from "react-hot-toast";
 import FormField from "./formField";
 import FormSelectField from "./formSelectField";
 import EditKeywords from "./editKeywords";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import TextEditor from "./textEditor";
 import EditInfo from "./editInfo";
+import SelectCategories from "./selectCategories";
 
 export default function EditForm({ data }: { data: Product }) {
   const router = useRouter();
@@ -28,7 +29,6 @@ export default function EditForm({ data }: { data: Product }) {
       fields.description = description;
       fields.keywords = keywords;
       fields.info = info;
-
       const res = await fetch(`${API_URL}/product`, {
         method: "PUT",
         body: JSON.stringify(fields),
@@ -36,6 +36,7 @@ export default function EditForm({ data }: { data: Product }) {
       const parsedRes = await res.json();
       if (!res.ok) {
         toast.error("Помилка зміни");
+        console.error(parsedRes);
         return;
       }
       toast.success("Зміна успішна!");
@@ -54,6 +55,7 @@ export default function EditForm({ data }: { data: Product }) {
           defaultValue={data.title}
           required
           register={register}
+          border
         />
 
         {/* Description Text Editor */}
@@ -80,15 +82,26 @@ export default function EditForm({ data }: { data: Product }) {
           type={"number"}
           required
           register={register}
+          border
         />
 
-        <FormField
-          id="img"
-          label="Посилання на картинку"
-          defaultValue={data.img}
-          register={register}
-          required
-        />
+        <div className="flex flex-col gap-5">
+          <FormField
+            id="img"
+            label="Посилання на картинку"
+            defaultValue={data.img === "miss" ? data.images[0] : data.img}
+            register={register}
+            required
+            border
+          />
+          <div className="h-36 w-36">
+            <img
+              src={data.images[0]}
+              className="h-full w-full object-contain"
+              alt={data.title + " - картинка"}
+            />
+          </div>
+        </div>
 
         <FormField
           id="discount"
@@ -97,6 +110,7 @@ export default function EditForm({ data }: { data: Product }) {
           register={register}
           type="number"
           required
+          border
         />
         {/* 
         <FormField
@@ -136,6 +150,7 @@ export default function EditForm({ data }: { data: Product }) {
           register={register}
           defaultValue={data.quantity}
           required
+          border
         />
 
         <FormSelectField
@@ -155,13 +170,9 @@ export default function EditForm({ data }: { data: Product }) {
 
         <EditInfo {...{ data, info, setInfo }} />
 
-        <FormField
-          id="breadcrumbs"
-          label="Категорія"
-          register={register}
-          defaultValue={data.breadcrumbs}
-          required
-        />
+        <Suspense>
+          <SelectCategories {...{ data, register }} />
+        </Suspense>
       </div>
       <Button type="submit" title="Змінити" />
     </form>

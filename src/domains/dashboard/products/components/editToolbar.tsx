@@ -4,7 +4,10 @@ import toast from "react-hot-toast";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import { useState } from "react";
 import Button from "@/components/base/Button";
+import ButtonMUI from "@mui/material/Button";
 import Link from "next/link";
+import AddIcon from "@mui/icons-material/Add";
+import Spinner from "@/components/base/Spinner";
 
 export default function EditToolbar() {
   const [loading, setLoading] = useState(false);
@@ -72,7 +75,6 @@ export default function EditToolbar() {
 
       const res = await fetch(`${API_URL}/products1C`, {
         method: "POST",
-        headers: { "api-key": API_KEY },
         body: JSON.stringify({ xmlText }),
       });
 
@@ -115,11 +117,17 @@ export default function EditToolbar() {
           >
             Sync with Prom
           </ButtonMUI>
+        )} */}
+        {loading && (
+          <div className="flex gap-3 text-lg text-slate-500">
+            Не робіть ніяких дій, поки відбувається імпорт
+            <Spinner />
+          </div>
         )}
         {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>
             <label className="cursor-pointer" htmlFor="file">
-              Upload data from 1C
+              Імпорт з offers.xml файлу 1C
             </label>
             <input
               id="file"
@@ -130,7 +138,7 @@ export default function EditToolbar() {
           </ButtonMUI>
         )}
 
-        {!loading && (
+        {/* {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>
             <label className="cursor-pointer" htmlFor="file">
               Upload data from XLSX

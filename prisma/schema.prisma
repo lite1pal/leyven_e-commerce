@@ -67,6 +67,7 @@ model Product {
   price       Int
   discount Int @default(0)
   quantity Int @default(0)
+  quantity_provider Int? @default(0)
   barcode String? @default("miss")
   artycul String? @default("miss")
   rating      String? @default("4")
@@ -82,6 +83,7 @@ model Product {
   info Json[]
   reviews     Review[]
   orderProducts OrderProduct[]
+  createdAt  DateTime? @default(now())
   updatedAt DateTime? @updatedAt
 }
 

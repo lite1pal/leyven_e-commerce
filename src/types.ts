@@ -6,6 +6,7 @@ export type Product = {
   price: number;
   categoryId: string;
   quantity: number;
+  quantity_provider?: number;
   barcode?: string;
   artycul?: string;
   discount: number;

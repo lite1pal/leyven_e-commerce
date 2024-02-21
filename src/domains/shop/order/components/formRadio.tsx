@@ -43,7 +43,7 @@ export default function FormRadio({
                 {/* </span> */}
               </span>
               <input
-                {...register(id)}
+                {...register(id, { required: true })}
                 type="radio"
                 required
                 disabled={option.title === "Оплата карткою"}

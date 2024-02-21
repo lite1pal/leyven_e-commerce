@@ -32,7 +32,6 @@ export async function fetchWarehouses(city: string, shippingType: string) {
       );
     }
 
-    console.log(data);
     return filteredData.length > 0 ? filteredData : data.data;
   } catch (err) {
     console.error(err);

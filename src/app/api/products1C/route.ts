@@ -10,15 +10,6 @@ import { isValidApiKey } from "@/libs/utils";
 
 export async function POST(req: NextRequest) {
   try {
-    if (!isValidApiKey(req)) {
-      return new NextResponse(
-        JSON.stringify("Unauthorized. Provide an API key"),
-        {
-          status: 401,
-        },
-      );
-    }
-
     const body = await req.json();
     const { xmlText } = body;
 
@@ -51,12 +42,25 @@ export async function POST(req: NextRequest) {
         const existingProduct = existingProducts.find(
           (product) =>
             product.unique_id_1c === badProduct["Ид"]._text ||
-            product.barcode === badProduct["ШтрихКод"]._text,
+            product.barcode === badProduct["ШтрихКод"]._text ||
+            product.artycul === badProduct["Артикул"]._text,
         );
 
         // returns nothing if product already exists to avoid duplicates
         if (existingProduct) {
-          return;
+          if (
+            existingProduct.quantity !==
+              parseInt(badProduct["Количество"]._text) &&
+            existingProduct.quantity !== 1 &&
+            existingProduct.img !== "miss"
+          ) {
+            return prisma.product.update({
+              where: { id: existingProduct.id },
+              data: { quantity: parseInt(badProduct["Количество"]._text) },
+            });
+          }
+
+          return "product exists";
         }
 
         return prisma.product.create({
@@ -65,17 +69,11 @@ export async function POST(req: NextRequest) {
             title: badProduct["Наименование"]._text,
             price: parseInt(badProduct["Цены"]["Цена"]["ЦенаЗаЕдиницу"]._text),
             availability: "in stock",
-            quantity:
-              badProduct["Количество"]._text === "0"
-                ? 1
-                : parseInt(badProduct["Количество"]._text),
-            barcode: badProduct["ШтрихКод"]._text
-              ? badProduct["ШтрихКод"]._text
-              : "miss",
-            artycul: badProduct["Артикул"]._text
-              ? badProduct["Артикул"]._text
-              : "miss",
+            quantity: parseInt(badProduct["Количество"]._text),
+            barcode: badProduct["ШтрихКод"] || "miss",
+            artycul: badProduct["Артикул"] || "miss",
             info: [],
+            keywords: "",
           },
         });
       } catch (err) {
@@ -87,7 +85,7 @@ export async function POST(req: NextRequest) {
 
     return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {
-    console.error("Invalid file format");
+    console.error(err, "Invalid file format");
     return new NextResponse(JSON.stringify(err), { status: 500 });
   }
 }

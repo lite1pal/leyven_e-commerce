@@ -39,7 +39,6 @@ export default function PriceFilter() {
     newValue: number | number[],
   ) => {
     setValue(newValue as number[]);
-    console.log(newValue);
   };
 
   return (

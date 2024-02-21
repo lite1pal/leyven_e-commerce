@@ -58,17 +58,16 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    if (!isValidApiKey(req)) {
-      return new NextResponse(
-        JSON.stringify("Unauthorized. Provide an API key"),
-        {
-          status: 401,
-        },
-      );
-    }
+    // if (!isValidApiKey(req)) {
+    //   return new NextResponse(
+    //     JSON.stringify("Unauthorized. Provide an API key"),
+    //     {
+    //       status: 401,
+    //     },
+    //   );
+    // }
 
     const body = await req.json();
-    console.log(body);
     const {
       id,
       title,
@@ -78,6 +77,7 @@ export async function PUT(req: NextRequest) {
       quantity,
       discount,
       keywords,
+      categoryId,
       info,
     } = body;
 
@@ -91,6 +91,7 @@ export async function PUT(req: NextRequest) {
         quantity: parseInt(quantity),
         discount: parseInt(discount),
         keywords,
+        categoryId,
         info,
       },
     });

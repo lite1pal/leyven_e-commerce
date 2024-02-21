@@ -1,127 +1,127 @@
-import { convertXMLtoJSON, isValidApiKey } from "@/libs/utils";
-import { NextRequest, NextResponse } from "next/server";
+import {
+  convertXMLtoJSON,
+  errorResponse,
+  getAllExistingProducts,
+  successResponse,
+} from "@/libs/utils";
+import { NextRequest } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import { COLLAR_API_URL } from "@/config/api";
 
 /*
-  Fetches and parses data from Collar's api.
-  Creates new products bypassing existing ones by 'barcode' field in order to avoid duplicates.
+  This function handles the process of fetching and parsing data from Collar's API.
+  It is responsible for creating new products while bypassing existing ones based on the 'barcode' field.
+  The 'barcode' field serves as a unique identifier to avoid creating duplicate products in the system.
 */
 
-export async function POST(req: NextRequest) {
+// Handles GET requests to fetch and parse data from Collar's API
+export async function GET(req: NextRequest) {
   try {
-    if (!isValidApiKey(req)) {
-      return new NextResponse(
-        JSON.stringify("Unauthorized. Provide an API key"),
-        {
-          status: 401,
-        },
-      );
-    }
+    // Fetch data from Collar's API
+    const collarData = await fetchCollarData();
 
-    const res = await fetch(COLLAR_API_URL);
+    // Retrieve existing products from the database
+    const existingProducts = await getAllExistingProducts();
 
-    if (!res.ok) {
-      return new NextResponse(JSON.stringify({ message: "Невірний ресурс" }), {
-        status: 200,
-      });
-    }
+    // Process data and create products
+    const result = await processCollarData(collarData, existingProducts);
 
-    const badFormatData = await convertXMLtoJSON(res, "collar");
-
-    const existingProducts = await prisma.product.findMany();
-
-    let count = 0;
-    let test = [];
-    const promises = badFormatData
-      .slice(6000, 6100)
-      .map(async (badProduct: any) => {
-        try {
-          const existingProduct = existingProducts.find(
-            (product) => product.barcode == badProduct["ean13"]._text,
-          );
-
-          const getProductInfo = () => {
-            return badProduct["param"].map((info: any) => {
-              return {
-                "g:attribute_name": { _text: info["_attributes"].name },
-                "g:attribute_value": { _text: info["_cdata"] },
-              };
-            });
-          };
-
-          const getProductQuantity = () => {
-            if (badProduct["quantityInStock"]._text) {
-              return parseInt(
-                badProduct["quantityInStock"]._text.split(".")[0],
-              );
-            }
-            return 1;
-          };
-
-          const getProductPrice = () => {
-            if (badProduct["price"]._text) {
-              return parseInt(badProduct["price"]._text.split(".")[0]);
-            }
-            return 0;
-          };
-
-          // const getProductImg = () => {
-          //   return Array.isArray(badProduct["picture"])
-          //     ? badProduct["picture"][0]._text
-          //     : badProduct["picture"]._text;
-          // };
-
-          const getProductImages = () => {
-            if (Array.isArray(badProduct["picture"])) {
-              return badProduct["picture"].map((img) => {
-                return img._text;
-              });
-            }
-            return [badProduct["picture"]._text];
-          };
-
-          if (existingProduct) {
-            return prisma.product.update({
-              where: { id: existingProduct.id },
-              data: {
-                images: getProductImages(),
-                // img: getProductImg(),
-                // description: badProduct["description"]["_cdata"],
-                // info: getProductInfo(),
-              },
-            });
-          }
-          return 0;
-          // return prisma.product.create({
-          //   data: {
-          //     title: badProduct["name"]["_cdata"].replaceAll("&quot;", "'"),
-          //     price: getProductPrice(),
-          //     description: badProduct["description"]["_cdata"],
-          //     artycul: badProduct["vendorCode"]._text,
-          //     barcode: badProduct["ean13"]._text,
-          //     quantity: getProductQuantity(),
-          //     img: getProductImg(),
-          //     info: getProductInfo(),
-          //     availability: "in stock",
-          //     discount: 0,
-          //     unique_id_1c: "miss",
-          //     unique_id: "miss",
-          //   },
-          // });
-        } catch (err: any) {
-          console.error(err);
-          return 0;
-        }
-      });
-
-    const result = await Promise.all(promises);
-
-    return new NextResponse(JSON.stringify(result), {
-      status: 200,
-    });
-  } catch (err) {
+    return successResponse(result);
+  } catch (err: any) {
     console.error(err);
-    return new NextResponse(JSON.stringify(err), { status: 500 });
+    return errorResponse(err.message || "Internal Server Error");
   }
+}
+
+// Function to find existing product
+function findExistingProduct(existingProducts: any[], collarProduct: any) {
+  return existingProducts.find(
+    (product) =>
+      product.barcode === collarProduct.ean13._text ||
+      product.artycul === collarProduct.vendorCode._text,
+  );
+}
+
+// Function to fetch data from Collar's API
+async function fetchCollarData() {
+  const res = await fetch(COLLAR_API_URL);
+  if (!res.ok) {
+    throw new Error("Incorrect resource");
+  }
+  return convertXMLtoJSON(res, "collar");
+}
+
+// Function to get product image
+
+// Function to get product images
+function getProductImages(collarProduct: any) {
+  const images = Array.isArray(collarProduct.picture)
+    ? collarProduct.picture.map((img: any) => img._text)
+    : [collarProduct.picture._text];
+  return images;
+}
+
+// Function to get product info
+function getProductInfo(collarProduct: any) {
+  return collarProduct.param.map((info: any) => ({
+    "g:attribute_name": { _text: info._attributes.name },
+    "g:attribute_value": { _text: info._cdata },
+  }));
+}
+
+// Function to process collar data and create products
+async function processCollarData(collarData: any, existingProducts: any[]) {
+  const promises = collarData.map(async (collarProduct: any) => {
+    try {
+      const existingProduct = findExistingProduct(
+        existingProducts,
+        collarProduct,
+      );
+      if (existingProduct) {
+        return "update product"; // Product already exists, skip creation
+      }
+      return createProduct(collarProduct);
+    } catch (error) {
+      console.error(error);
+      return 0;
+    }
+  });
+  return await Promise.all(promises);
+}
+
+// Function to create product
+async function createProduct(collarProduct: any) {
+  if (
+    !collarProduct.name ||
+    !collarProduct.price ||
+    !collarProduct.description ||
+    !collarProduct.vendorCode ||
+    !collarProduct.ean13 ||
+    !collarProduct.categoryId ||
+    !collarProduct.quantityInStock ||
+    !Array.isArray(collarProduct.param)
+  ) {
+    return "Some fields are missing";
+  }
+
+  return prisma.product.create({
+    data: {
+      title: collarProduct.name._cdata.replaceAll("&quot;", "'"),
+      price: parseInt(collarProduct.price._text.split(".")[0]) || 0,
+      description: collarProduct.description._cdata,
+      artycul: collarProduct.vendorCode._text,
+      barcode: collarProduct.ean13._text,
+      categoryId: collarProduct.categoryId._text,
+      quantity:
+        parseInt(collarProduct.quantityInStock._text.split(".")[0]) || 1,
+      img: getProductImages(collarProduct)[0],
+      images: getProductImages(collarProduct),
+      info: getProductInfo(collarProduct),
+      keywords: "",
+      availability: "in stock",
+      discount: 0,
+      unique_id_1c: "miss",
+      unique_id: "miss",
+    },
+  });
 }

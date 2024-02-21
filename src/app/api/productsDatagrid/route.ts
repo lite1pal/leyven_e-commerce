@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     if (sortModel[0]) {
       const sortField = sortModel[0].field;
       const sortOrder = sortModel[0].sort;
-      orderBy = { [sortField]: sortOrder, updatedAt: "desc" };
+      orderBy = { [sortField]: sortOrder };
     }
 
     if (Array.isArray(filterModel.quickFilterValues)) {

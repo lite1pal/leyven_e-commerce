@@ -55,7 +55,6 @@ export default function EditInfo({
       </div>
       <TextInput
         id="info"
-        style={{ border: "none" }}
         onKeyDown={(e: any) => {
           if (e.key === "Enter") {
             addInfoItem(e.target.value);

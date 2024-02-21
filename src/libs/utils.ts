@@ -1,8 +1,9 @@
 import slugify from "slugify"; // "slugify": "^1.6.6",
 import convert from "xml-js";
 import * as XLSX from "xlsx";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { API_KEY } from "@/config/api";
+import { prisma } from "@/app/api/auth/[...nextauth]/auth";
 
 export const convertXMLtoJSON = async (xmlRes: Response, resource = "prom") => {
   const xmlText = await xmlRes.text();
@@ -137,4 +138,22 @@ export const slugifyString = (text: string) =>
 export function isValidApiKey(req: NextRequest) {
   const providedApiKey = req.headers.get("api-key");
   return providedApiKey === API_KEY;
+}
+
+export function errorResponse(err: string) {
+  return new NextResponse(JSON.stringify(err), { status: 500 });
+}
+
+export function successResponse(data: any) {
+  return new NextResponse(JSON.stringify(data), { status: 200 });
+}
+
+export function unauthorizedResponse() {
+  return new NextResponse(JSON.stringify("Unauthorized. Provide an API key"), {
+    status: 401,
+  });
+}
+
+export function getAllExistingProducts() {
+  return prisma.product.findMany();
 }

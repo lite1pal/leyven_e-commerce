@@ -24,7 +24,11 @@ export default function FormSelectField({
       <div className="mb-2 block">
         <Label className="text-slate-900" htmlFor={id} value={label} />
       </div>
-      <select disabled={disabled} {...register(id, { required })}>
+      <select
+        className="select select-bordered border border-gray-300 bg-gray-50"
+        disabled={disabled}
+        {...register(id, { required })}
+      >
         {children}
       </select>
     </div>

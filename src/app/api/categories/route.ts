@@ -1,5 +1,10 @@
 import { API_KEY, COLLAR_API_URL } from "@/config/api";
-import { getCategoriesFromCollar, isValidApiKey } from "@/libs/utils";
+import {
+  getCategoriesFromCollar,
+  isValidApiKey,
+  successResponse,
+  unauthorizedResponse,
+} from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 
@@ -16,6 +21,11 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return unauthorizedResponse();
+    }
+    return successResponse("message");
+
     const res = await fetch(COLLAR_API_URL);
     if (!res.ok) {
       return new NextResponse(JSON.stringify({ message: "Невірний ресурс" }), {

@@ -30,7 +30,6 @@ export default function EditKeywords({
       .filter((key: string) => key !== keyword)
       .join(", ");
     setKeywords(filteredKeywords);
-    console.log(filteredKeywords);
   };
 
   return (
@@ -39,7 +38,6 @@ export default function EditKeywords({
 
       <TextInput
         id="keywords"
-        style={{ border: "none" }}
         onKeyDown={(e: any) => {
           if (e.key === "Enter") {
             addKeyword(e.target.value);

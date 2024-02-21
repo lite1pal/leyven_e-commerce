@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useCart } from "react-use-cart";
 import Button from "@/components/base/Button";
 import {
+  API_KEY,
   API_URL,
   TELEGRAM_API_KEY,
   TELEGRAM_API_URL,

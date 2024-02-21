@@ -103,14 +103,17 @@ export default function OrderFields({
           register={register}
           defaultValue={"Готівкою або карткою: при отриманні"}
           options={[
-            {
-              title: "Оплата карткою",
-            },
+            // {
+            //   title: "Оплата карткою",
+            // },
             {
               title: "Готівкою або карткою: при отриманні",
             },
           ]}
         />
+        <div className="text-xs text-slate-500">
+          Оплата карткою через вебсайт з{"'"}явиться через декілька днів
+        </div>
       </FormSection>
       <FormSection header="Коментар">
         <FormField

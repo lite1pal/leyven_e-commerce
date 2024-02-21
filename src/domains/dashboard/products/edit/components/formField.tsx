@@ -11,6 +11,7 @@ type Props = {
   required?: boolean;
   disabled?: boolean;
   placeholder?: string;
+  border?: boolean;
 };
 
 export default function FormField({
@@ -23,6 +24,7 @@ export default function FormField({
   required = false,
   disabled = false,
   placeholder,
+  border = false,
 }: Props) {
   return (
     <div className="w-full">
@@ -35,7 +37,7 @@ export default function FormField({
           defaultValue={defaultValue}
           rows={rows}
           disabled={disabled}
-          style={{ border: "none" }}
+          style={border ? {} : { border: "none" }}
           required={required}
           shadow
           {...register(id, { required })}
@@ -48,7 +50,7 @@ export default function FormField({
           type={type}
           required={required}
           disabled={disabled}
-          style={{ border: "none" }}
+          style={border ? {} : { border: "none" }}
           shadow
           {...register(id, {
             required,
