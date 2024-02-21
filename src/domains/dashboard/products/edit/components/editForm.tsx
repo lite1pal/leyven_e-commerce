@@ -89,14 +89,14 @@ export default function EditForm({ data }: { data: Product }) {
           <FormField
             id="img"
             label="Посилання на картинку"
-            defaultValue={data.img === "miss" ? data.images[0] : data.img}
+            defaultValue={data.img}
             register={register}
             required
             border
           />
           <div className="h-36 w-36">
             <img
-              src={data.images[0]}
+              src={data.img}
               className="h-full w-full object-contain"
               alt={data.title + " - картинка"}
             />

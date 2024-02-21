@@ -30,7 +30,7 @@ export default async function SelectCategories({
       </div>
       <select
         id="category"
-        defaultValue={currentCategory.categoryId}
+        defaultValue={currentCategory?.categoryId || "Rick and Morty"}
         required
         className="select select-bordered w-full border border-gray-300 bg-gray-50"
         {...register("categoryId", { required: true })}
