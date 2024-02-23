@@ -1,12 +1,14 @@
 import { type SearchInputProps } from "../search";
 import SearchInput from "./searchInput";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { getProducts } from "@/app/actions";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import SearchResults from "./searchResults";
 
 export default function DesktopInput({ input, setInput }: SearchInputProps) {
   const [searchResults, setSearchResults] = useState<any>([]);
   const router = useRouter();
+  const pathName = usePathname();
 
   const searchProducts = async (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -19,6 +21,10 @@ export default function DesktopInput({ input, setInput }: SearchInputProps) {
     }
   };
 
+  useEffect(() => {
+    setInput("");
+  }, [pathName]);
+
   return (
     <div className={`relative hidden md:flex`}>
       <SearchInput
@@ -26,9 +32,14 @@ export default function DesktopInput({ input, setInput }: SearchInputProps) {
         setInput={setInput}
         onChange={searchProducts}
       />
-      {/* <div className="absolute right-0 top-12 max-h-96 overflow-y-scroll rounded-lg border">
-        <SearchResults data={searchResults} />
-      </div> */}
+      {input.length > 0 && (
+        <div
+          style={{ width: "50rem" }}
+          className="absolute left-0 top-14 mx-auto max-h-96 -translate-x-1/2 transform overflow-y-scroll rounded-lg shadow-xl"
+        >
+          <SearchResults data={searchResults} />
+        </div>
+      )}
     </div>
   );
 }

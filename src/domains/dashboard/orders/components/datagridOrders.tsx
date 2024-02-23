@@ -1,7 +1,10 @@
 "use client";
 
+import { Card, CardContent } from "@mui/joy";
+import ProductAvailability from "@/domains/shop/product/components/availability";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import moment from "moment";
+import Button from "@/components/base/Button";
 
 export default function DataGridOrders({ data }: any) {
   const columns: GridColDef[] = [
@@ -10,21 +13,71 @@ export default function DataGridOrders({ data }: any) {
       headerName: "Товари",
       filterable: false,
       // sortable: false,
-      width: 190,
+      width: 140,
       renderCell: (params: any) => {
-        const orderProduct = params.row.orderProducts[0];
+        const orderProducts = params.row.orderProducts;
         return (
-          <div className="flex w-full justify-between">
-            <img
-              className="h-20 object-contain"
-              src={orderProduct.product.img}
-            />
-            <div className="flex flex-col justify-center gap-3">
-              <div className="text-blue-600">{orderProduct.quantity} шт.</div>
-              {/* <div className="font-medium text-slate-600">
-                {moment(params.row.createdAt).format("hh:mm, DD.MM.YYYY")}
-              </div> */}
-            </div>
+          <div
+            onClick={() =>
+              (
+                document.getElementById("my_modal_2") as HTMLFormElement
+              ).showModal()
+            }
+            className="flex w-full justify-between"
+          >
+            <Button title="Відкрити" />
+
+            <dialog id="my_modal_2" className="modal">
+              <div className="modal-box bg-white">
+                <div className="flex h-fit w-full flex-col gap-3 overflow-y-scroll rounded-lg bg-white p-5">
+                  {orderProducts.map((orderProduct: any) => {
+                    const product = orderProduct.product;
+                    return (
+                      <Card
+                        key={orderProduct.id}
+                        orientation="horizontal"
+                        variant="outlined"
+                        sx={{
+                          width: "100%",
+                          backgroundColor: "white",
+                          border: "none",
+                        }}
+                      >
+                        <div className="h-20 w-20 overflow-hidden">
+                          <img
+                            className={`h-full w-full object-contain`}
+                            src={product.img}
+                            loading="lazy"
+                            alt={product.title + "картинка"}
+                          />
+                        </div>
+
+                        <CardContent>
+                          <div className="cursor-pointer font-medium">
+                            {product.title}
+                          </div>
+
+                          <div className="flex items-center gap-10">
+                            <span className="text-lg font-medium text-slate-700 dark:text-white max-sm:text-sm">
+                              {orderProduct.itemTotal}.00 UAH
+                            </span>
+                            <div className="hidden gap-2 text-xs text-slate-400 sm:flex">
+                              Артикул: {product.artycul}
+                            </div>
+                          </div>
+                          <div className="text-xs">
+                            {orderProduct.quantity} шт.
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
+              <form method="dialog" className="modal-backdrop">
+                <button>close</button>
+              </form>
+            </dialog>
           </div>
         );
       },
@@ -39,7 +92,7 @@ export default function DataGridOrders({ data }: any) {
           <div className="flex flex-col gap-2">
             <div>{params.row.lastName + " " + params.row.firstName}</div>
             <div className="text-indigo-700">{params.row.phone}</div>
-            <div className="text-slate-400">{params.row.comment}</div>
+            <div className="text-slate-600">{params.row.comment}</div>
           </div>
         );
       },

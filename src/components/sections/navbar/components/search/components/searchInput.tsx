@@ -1,10 +1,11 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ChangeEvent,
   Dispatch,
   KeyboardEventHandler,
   SetStateAction,
+  useEffect,
 } from "react";
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 
 export default function SearchInput({ input, setInput, onChange }: Props) {
   const router = useRouter();
+  const pathName = usePathname();
 
   const searchProductsOnKeyDown = (e: any) => {
     if (e.key === "Enter" && input.length > 0) {
@@ -23,6 +25,11 @@ export default function SearchInput({ input, setInput, onChange }: Props) {
       (document.getElementById("searchModal") as HTMLFormElement).close();
     }
   };
+
+  useEffect(() => {
+    setInput("");
+    (document.getElementById("searchModal") as HTMLFormElement).close();
+  }, [pathName]);
 
   return (
     <div
@@ -35,7 +42,8 @@ export default function SearchInput({ input, setInput, onChange }: Props) {
       <input
         value={input}
         // onChange={searchProductsOnKeyDown}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={onChange}
+        // onChange={(e) => setInput(e.target.value)}
         onKeyDown={searchProductsOnKeyDown}
         className="max-h-5 w-full border-none focus:outline-none focus:ring-0"
         type="text"
