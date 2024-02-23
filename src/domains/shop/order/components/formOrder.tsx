@@ -35,13 +35,19 @@ export default function FormOrder() {
 
   const watchShippingType = watch("shippingType");
 
+  const [isSubmitting, setIsSubmitting] = useState(false); // State variable to track form submission
+
   const onSubmit = async (data: any) => {
     try {
+      if (isSubmitting) return; // Prevent multiple submissions
+      setIsSubmitting(true); // Set isSubmitting to true when form submission starts
+
       if (cartTotal < 200) {
         toast.error("Мінімальна сума замовлення 200грн", {
           style: { minWidth: "25rem", height: "5rem" },
           position: "bottom-center",
         });
+        return;
       }
 
       if (items.length === 0) {
@@ -75,15 +81,16 @@ export default function FormOrder() {
       }
       emptyCart();
       const formattedOrderProducts = data.orderProducts.map((product: any) => {
-        // return `Назва: ${product.title}\n\nЦіна: ${product.price}\n\nЗагальна ціна: ${product.itemTotal}\n\nКількість: ${product.quantity}\n\nАртикул: ${product.artycul}\n\nШтрихкод: ${product.barcode}\n\n`;
-        return {
-          title: product.title,
-          price: product.price,
-          quantity: product.quantity,
-          totalPrice: product.itemTotal,
-          img: product.img,
-        };
+        return `Назва: ${product.title}\n\nЦіна: ${product.price}\n\nЗагальна ціна товару: ${product.itemTotal}\n\nКількість: ${product.quantity}\n\nАртикул: ${product.artycul}\n\nШтрихкод: ${product.barcode}\n\n-------------------------------------------------\n\n`;
+        // return {
+        //   title: product.title,
+        //   price: product.price,
+        //   quantity: product.quantity,
+        //   totalPrice: product.itemTotal,
+        //   img: product.img,
+        // };
       });
+      console.log(formattedOrderProducts.join(""));
       axios
         .post(`${TELEGRAM_API_URL}${TELEGRAM_API_KEY}/sendMessage`, {
           chat_id: TELEGRAM_CHAT_ID,
@@ -92,11 +99,11 @@ export default function FormOrder() {
             data.firstName + " " + data.lastName
           }\n\nНомер телефону: ${data.phone}\n\nПошта: ${
             data.email
-          }\n\nМісто: ${data.city}\n\nВідділення / Поштомат: ${
-            data.warehouse
-          }\n\nКоментар: ${data.comment}\n\nТовари: \n\n${JSON.stringify(
-            formattedOrderProducts,
-          )}`,
+          }\n\nМісто: ${data.city}\n\nЗагальна ціна за все замовлення: ${
+            data.totalPrice
+          }\n\nВідділення / Поштомат: ${data.warehouse}\n\nКоментар: ${
+            data.comment
+          }\n\nТовари: \n\n${formattedOrderProducts.join("")}`,
         })
         .then((response: any) => {})
         .catch((err: any) =>
@@ -106,8 +113,10 @@ export default function FormOrder() {
         );
       router.push(`/order_success/${parsedRes.id}`);
       toast.success("Замовлення успішне!");
+      setIsSubmitting(false);
     } catch (err) {
       console.error("Failed to create an order");
+      setIsSubmitting(false); // Reset isSubmitting in case of error
     }
   };
   return (
@@ -127,7 +136,11 @@ export default function FormOrder() {
         <OrderPrice watchShippingType={watchShippingType} />
 
         <div className="mx-auto mb-5 w-fit">
-          <Button title="Підтвердити замовлення" type="submit" />
+          <Button
+            // disabled={isSubmitting}
+            title="Підтвердити замовлення"
+            type="submit"
+          />
         </div>
       </div>
     </form>

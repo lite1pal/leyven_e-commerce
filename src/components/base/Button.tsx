@@ -29,6 +29,7 @@ interface IProps {
   size?: "lg" | "sm";
   className?: string;
   theme?: "blue" | "red" | "green"; // Add theme prop
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -36,6 +37,7 @@ export default function Button({
   onClick,
   type = "button",
   theme = "blue", // Default theme is blue
+  disabled = false,
 }: IProps) {
   // Determine color classes based on theme
   const colorClasses =
@@ -51,6 +53,7 @@ export default function Button({
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={`w-fit rounded border-2 px-5 py-2 transition max-sm:px-4 max-sm:py-3 max-sm:text-base ${colorClasses}`}
     >
       {title}
