@@ -8,10 +8,11 @@ import { permanentRedirect, redirect } from "next/navigation";
 import Description from "./components/description";
 import ProductInfoTable from "@/components/productInfoTable";
 import BreadcrumbsProduct from "@/components/sections/breadcrumbsProduct";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import RelatedProducts from "@/components/sections/relatedProducts";
 import FooterComponent from "@/components/sections/footer/footer";
 import { notFound } from "next/navigation";
+import { useInView } from "react-intersection-observer"; // Import useInView
 
 type IProps = {
   id: string;
@@ -116,7 +117,12 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
       </div>
       <Reviews {...{ data, session }} />
       <Suspense>
-        <RelatedProducts id={id} header={"Рекомендовані"} />
+        <RelatedProducts
+          id={id}
+          header={"Рекомендовані"}
+          type="relatedProducts"
+        />
+
         <FooterComponent />
       </Suspense>
     </div>

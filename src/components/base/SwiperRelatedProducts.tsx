@@ -21,7 +21,20 @@ type Props = {
   children?: ReactNode;
 };
 
-export default function SwiperComponent({ data, type, children }: Props) {
+export default function SwiperComponentRelatedProducts({
+  data,
+  type,
+  children,
+}: Props) {
+  const [relatedProductsLoaded, setRelatedProductsLoaded] =
+    useState<any>(false); // Corrected type
+  const [relatedProductsRef, inView] = useInView();
+
+  const loadRelatedProducts = () => {
+    console.log("load products");
+    setRelatedProductsLoaded(true);
+  };
+
   return (
     <Swiper
       // install Swiper modules
@@ -31,13 +44,17 @@ export default function SwiperComponent({ data, type, children }: Props) {
       navigation
       scrollbar={{ draggable: true }}
     >
-      {data.slice(0, 10).map((product: any) => {
-        return (
-          <SwiperSlide key={product.id} style={{ width: "auto" }}>
-            <Card type={type} data={product} />
-          </SwiperSlide>
-        );
-      })}
+      <div ref={relatedProductsRef}>
+        {inView && !relatedProductsLoaded && loadRelatedProducts()}
+        {relatedProductsLoaded &&
+          data.slice(0, 10).map((product: any) => {
+            return (
+              <SwiperSlide key={product.id} style={{ width: "auto" }}>
+                <Card type={type} data={product} />
+              </SwiperSlide>
+            );
+          })}
+      </div>
       {children}
       ...
     </Swiper>

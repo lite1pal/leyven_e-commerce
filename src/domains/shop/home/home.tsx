@@ -11,6 +11,7 @@ import Testimonials from "@/components/sections/testimonials";
 import AboutView from "../about/about";
 import CompanyLocation from "@/components/sections/companyLocation";
 import React from "react";
+import NewProducts from "@/components/sections/newProducts";
 
 export default async function HomeView() {
   // gets products for the catalog
@@ -20,7 +21,7 @@ export default async function HomeView() {
   return (
     <>
       <DiscountProducts header="Акційні пропозиції" />
-      <RelatedProducts header="Новинки" />
+      <NewProducts header="Новинки" />
 
       <ParentCategories />
 
