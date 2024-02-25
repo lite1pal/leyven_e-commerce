@@ -20,14 +20,16 @@ export default function DataGridOrders({ data }: any) {
           <div
             onClick={() =>
               (
-                document.getElementById("my_modal_2") as HTMLFormElement
+                document.getElementById(
+                  `modal_order_${params.row.id}`,
+                ) as HTMLFormElement
               ).showModal()
             }
             className="flex w-full justify-between"
           >
             <Button title="Відкрити" />
 
-            <dialog id="my_modal_2" className="modal">
+            <dialog id={`modal_order_${params.row.id}`} className="modal">
               <div className="modal-box bg-white">
                 <div className="flex h-fit w-full flex-col gap-3 overflow-y-scroll rounded-lg bg-white p-5">
                   {orderProducts.map((orderProduct: any) => {
