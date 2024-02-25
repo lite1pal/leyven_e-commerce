@@ -27,10 +27,17 @@ export default function DataGridOrders({ data }: any) {
             }
             className="flex w-full justify-between"
           >
-            <Button title="Відкрити" />
+            <Button theme="dark" title="Відкрити" />
 
             <dialog id={`modal_order_${params.row.id}`} className="modal">
               <div className="modal-box bg-white">
+                <div className="text-lg font-medium">
+                  {params.row.firstName} {params.row.lastName},{" "}
+                  {params.row.phone}
+                </div>
+                <div className="text-lg font-medium text-slate-400">
+                  Загальна сума - {params.row.totalPrice} грн
+                </div>
                 <div className="flex h-fit w-full flex-col gap-3 overflow-y-scroll rounded-lg bg-white p-5">
                   {orderProducts.map((orderProduct: any) => {
                     const product = orderProduct.product;
@@ -67,9 +74,7 @@ export default function DataGridOrders({ data }: any) {
                               Артикул: {product.artycul}
                             </div>
                           </div>
-                          <div className="text-xs">
-                            {orderProduct.quantity} шт.
-                          </div>
+                          <div>{orderProduct.quantity} шт.</div>
                         </CardContent>
                       </Card>
                     );
@@ -93,7 +98,7 @@ export default function DataGridOrders({ data }: any) {
         return (
           <div className="flex flex-col gap-2">
             <div>{params.row.lastName + " " + params.row.firstName}</div>
-            <div className="text-indigo-700">{params.row.phone}</div>
+            <div className="font-medium text-blue-600">{params.row.phone}</div>
             <div className="text-slate-600">{params.row.comment}</div>
           </div>
         );
@@ -131,6 +136,11 @@ export default function DataGridOrders({ data }: any) {
     <div className="mx-auto w-full">
       <DataGrid
         sx={{ border: "none" }}
+        // sx={{
+        //   "&, [class^=MuiDataGrid]": { border: "none" },
+        //   border: "none",
+        //   color: "rgb(15 23 42)",
+        // }}
         getRowHeight={() => "auto"}
         rows={data}
         // disableColumnFilter
@@ -139,11 +149,15 @@ export default function DataGridOrders({ data }: any) {
         density="standard"
         showCellVerticalBorder
         disableRowSelectionOnClick
+        disableColumnFilter
         columns={columns}
         slots={{ toolbar: GridToolbar }}
         slotProps={{
           toolbar: {
+            csvOptions: { disableToolbarButton: true },
+            printOptions: { disableToolbarButton: true },
             showQuickFilter: true,
+            quickFilterProps: { debounceMs: 250 },
           },
         }}
         initialState={{

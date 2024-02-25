@@ -28,7 +28,7 @@ interface IProps {
   type?: "button" | "submit";
   size?: "lg" | "sm";
   className?: string;
-  theme?: "blue" | "red" | "green"; // Add theme prop
+  theme?: "blue" | "dark" | "green"; // Add theme prop
   disabled?: boolean;
 }
 
@@ -43,8 +43,8 @@ export default function Button({
   const colorClasses =
     theme === "blue"
       ? "border-blue-600 bg-blue-600 text-white hover:bg-white hover:text-blue-600"
-      : theme === "red"
-        ? "border-red-600 bg-red-600 text-white hover:bg-white hover:text-red-600"
+      : theme === "dark"
+        ? "border-slate-900 font-light bg-slate-900 text-white hover:bg-white hover:text-slate-900"
         : theme === "green"
           ? "border-emerald-600 bg-emerald-600 text-white hover:bg-white hover:text-emerald-600"
           : ""; // Default to blue if theme is not recognized

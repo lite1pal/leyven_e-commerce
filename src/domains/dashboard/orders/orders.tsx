@@ -3,6 +3,7 @@ import PageHeader from "../components/pageHeader";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DataGridOrders from "./components/datagridOrders";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import Tabs from "./components/tabs";
 
 export default async function OrdersView() {
   const session = await auth();
@@ -24,6 +25,7 @@ export default async function OrdersView() {
     <div className="flex w-full flex-col gap-5">
       <PageHeader Icon={ShoppingCartIcon}>Замовлення</PageHeader>
       <div className="px-4">
+        <Tabs />
         <DataGridOrders {...{ data }} />
       </div>
     </div>
