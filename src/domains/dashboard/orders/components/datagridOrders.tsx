@@ -135,12 +135,14 @@ export default function DataGridOrders({ data }: any) {
   return (
     <div className="mx-auto w-full">
       <DataGrid
-        sx={{ border: "none" }}
-        // sx={{
-        //   "&, [class^=MuiDataGrid]": { border: "none" },
-        //   border: "none",
-        //   color: "rgb(15 23 42)",
-        // }}
+        // sx={{ border: "none" }}
+        sx={{
+          "&, [class^=MuiDataGrid]": {
+            borderColor: "rgb(15 23 42)",
+          },
+          border: "none",
+          color: "rgb(15 23 42)",
+        }}
         getRowHeight={() => "auto"}
         rows={data}
         // disableColumnFilter
