@@ -26,7 +26,6 @@ export default function FullFeaturedCrudGrid() {
             <Link
               prefetch={false}
               title="Редагувати товар"
-              key={1}
               href={`/dashboard/products/edit/${id}`}
             >
               <GridActionsCellItem

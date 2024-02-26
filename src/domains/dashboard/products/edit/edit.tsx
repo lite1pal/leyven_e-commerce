@@ -10,7 +10,7 @@ interface IProps {
 
 export default async function EditProductView({ id }: IProps) {
   const res = await fetch(`${API_URL}/product?id=${id}&dashboard=true`, {
-    cache: "no-store",
+    next: { revalidate: 0 },
   });
   const data: Product = await res.json();
   return (

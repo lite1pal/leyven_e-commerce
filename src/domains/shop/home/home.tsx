@@ -20,7 +20,7 @@ export default async function HomeView() {
 
   return (
     <>
-      <DiscountProducts header="Акційні пропозиції" />
+      {/* <DiscountProducts header="Акційні пропозиції" /> */}
       <NewProducts header="Новинки" />
 
       <ParentCategories />
