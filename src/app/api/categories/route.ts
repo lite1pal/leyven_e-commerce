@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     if (!isValidApiKey(req)) {
       return unauthorizedResponse();
     }
-    return successResponse("message");
+    return successResponse("categories post endpoint");
 
     const res = await fetch(COLLAR_API_URL);
     if (!res.ok) {

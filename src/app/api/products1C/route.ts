@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import convert from "xml-js";
-import { isValidApiKey } from "@/libs/utils";
+import {
+  isValidApiKey,
+  successResponse,
+  unauthorizedResponse,
+} from "@/libs/utils";
 
 /*
   Parses uploaded XML file into JSON.
@@ -10,6 +14,10 @@ import { isValidApiKey } from "@/libs/utils";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return unauthorizedResponse();
+    }
+
     const body = await req.json();
     const { xmlText } = body;
 

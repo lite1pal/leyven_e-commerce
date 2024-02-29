@@ -2,11 +2,13 @@ import {
   convertXMLtoJSON,
   errorResponse,
   getAllExistingProducts,
+  isValidApiKey,
   successResponse,
+  unauthorizedResponse,
 } from "@/libs/utils";
 import { NextRequest } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
-import { COLLAR_API_URL } from "@/config/api";
+import { COLLAR_API_URL, CRON_SECRET } from "@/config/api";
 
 /*
   This function handles the process of fetching and parsing data from Collar's API.
@@ -17,6 +19,16 @@ import { COLLAR_API_URL } from "@/config/api";
 // Handles GET requests to fetch and parse data from Collar's API
 export async function GET(req: NextRequest) {
   try {
+    // Get the bearer token from the header
+    const authToken = (req.headers.get("authorization") || "")
+      .split("Bearer ")
+      .at(1);
+
+    // If not found OR the bearer token does NOT equal the CRON_SECRET
+    if (!authToken || authToken != CRON_SECRET) {
+      return unauthorizedResponse();
+    }
+
     // Fetch data from Collar's API
     const collarData = await fetchCollarData();
 

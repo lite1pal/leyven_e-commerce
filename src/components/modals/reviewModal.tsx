@@ -23,7 +23,6 @@ export default function ReviewModal({ data, session }: any) {
       }
       const res = await fetch(`${API_URL}/review`, {
         method: "POST",
-        headers: { "api-key": API_KEY },
         body: JSON.stringify({
           text,
           rating,

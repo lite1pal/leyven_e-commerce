@@ -1,5 +1,5 @@
 import { API_KEY, API_URL } from "@/config/api";
-import { convertXLSXtoJSON } from "@/libs/utils";
+import { convertXLSXtoJSON, isXmlString } from "@/libs/utils";
 import toast from "react-hot-toast";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import ButtonMUI from "@mui/material/Button";
 import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
 import Spinner from "@/components/base/Spinner";
+import { import1CProducts } from "@/app/actions";
 
 export default function EditToolbar() {
   const [loading, setLoading] = useState(false);
@@ -68,32 +69,34 @@ export default function EditToolbar() {
 
   const handleImport1C = async (e: any) => {
     try {
-      setLoading(true);
       const file = e.target.files[0];
 
       const xmlText = await file.text();
 
-      const res = await fetch(`${API_URL}/products1C`, {
-        method: "POST",
-        body: JSON.stringify({ xmlText }),
-      });
-
-      // Check if the result is from the fetch request
-      if (res.ok) {
-        setLoading(false);
-        toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
-        const parsedRes = await res.json();
-        console.log(parsedRes);
+      if (!isXmlString(xmlText)) {
+        toast.error(
+          "Файл має бути формату XML. Спробуйте пізніше, якщо ви завантажували вірний формат",
+        );
         return;
       }
-      // Handle timeout
-      setLoading(false);
-      toast.error(
-        "Файл має бути формату XML. Спробуйте пізніше, якщо ви завантажували вірний формат",
-      );
+
+      setLoading(true);
+
+      const import1CProductsWithXmlFile = import1CProducts.bind(null, xmlText);
+
+      const result = await import1CProductsWithXmlFile();
+
+      if (result.error) {
+        console.log(result.error);
+        toast.error("Надто багато імпортів, спробуйте ще раз через годину");
+      } else {
+        console.log(result.message);
+        toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
+      }
     } catch (err) {
       console.log(err);
       toast.error("Надто багато імпортів, спробуйте ще раз через годину");
+    } finally {
       setLoading(false);
     }
   };

@@ -5,7 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { API_KEY } from "@/config/api";
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
 
-export const convertXMLtoJSON = async (xmlRes: Response, resource = "prom") => {
+export const convertXMLtoJSON = async (
+  xmlRes: Response,
+  resource: "prom" | "collar" | "suziria" = "prom",
+) => {
   const xmlText = await xmlRes.text();
 
   const xmlString = convert.xml2json(xmlText, {
@@ -19,7 +22,7 @@ export const convertXMLtoJSON = async (xmlRes: Response, resource = "prom") => {
     return parsedXML.rss.channel.item;
   }
 
-  if (resource === "collar") {
+  if (["collar", "suziria"].includes(resource)) {
     return parsedXML["yml_catalog"]["shop"]["offers"]["offer"];
   }
 
@@ -156,4 +159,8 @@ export function unauthorizedResponse() {
 
 export function getAllExistingProducts() {
   return prisma.product.findMany();
+}
+
+export function isXmlString(data: string) {
+  return data.startsWith("<?xml ");
 }
