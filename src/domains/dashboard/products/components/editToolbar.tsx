@@ -7,8 +7,8 @@ import Button from "@/components/base/Button";
 import ButtonMUI from "@mui/material/Button";
 import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
-import Spinner from "@/components/base/Spinner";
 import { import1CProducts } from "@/app/actions";
+import { Spinner } from "flowbite-react";
 
 export default function EditToolbar() {
   const [loading, setLoading] = useState(false);
@@ -79,18 +79,23 @@ export default function EditToolbar() {
         );
         return;
       }
-
       setLoading(true);
 
-      const import1CProductsWithXmlFile = import1CProducts.bind(null, xmlText);
+      const res = await fetch(`${API_URL}/products1C`, {
+        method: "POST",
+        body: JSON.stringify({ xmlText }),
+        cache: "no-store",
+      });
 
-      const result = await import1CProductsWithXmlFile();
+      // const import1CProductsWithXmlFile = import1CProducts.bind(null, xmlText);
 
-      if (result.error) {
-        console.log(result.error);
+      // const result = await import1CProductsWithXmlFile();
+
+      if (!res.ok) {
+        // console.log(result.error);
         toast.error("Надто багато імпортів, спробуйте ще раз через годину");
       } else {
-        console.log(result.message);
+        // console.log(result.message);
         toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
       }
     } catch (err) {
@@ -122,7 +127,7 @@ export default function EditToolbar() {
           </ButtonMUI>
         )} */}
         {loading && (
-          <div className="flex gap-3 text-lg text-slate-500">
+          <div className="flex items-center gap-3 text-lg text-slate-500">
             Не робіть ніяких дій, поки відбувається імпорт
             <Spinner />
           </div>

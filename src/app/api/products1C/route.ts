@@ -14,10 +14,6 @@ import {
 
 export async function POST(req: NextRequest) {
   try {
-    if (!isValidApiKey(req)) {
-      return unauthorizedResponse();
-    }
-
     const body = await req.json();
     const { xmlText } = body;
 
