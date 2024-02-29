@@ -96,7 +96,7 @@ model Category {
 
 model Review {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  text      String
+  text      String?
   rating    String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String  @db.ObjectId

@@ -3,7 +3,7 @@ import { Rating } from "@mui/material";
 export default async function CardReview({ review }: any) {
   return (
     <div className="flex w-full flex-col gap-3 rounded-lg bg-white p-5">
-      <div className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center">
+      <div className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center xl:w-2/3">
         <div className="text-lg font-medium">{review.user.name}</div>
         <div className="text-sm font-medium text-slate-500">
           {new Date(review.createdAt).toLocaleDateString("uk-UA", {

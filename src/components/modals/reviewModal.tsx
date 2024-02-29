@@ -14,12 +14,19 @@ export default function ReviewModal({ data, session }: any) {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
 
+  const [error, setError] = useState(false);
+
   const router = useRouter();
 
   const leaveReview = async () => {
     try {
       if (!session) {
+        (document.getElementById("reviewModal") as HTMLFormElement).close();
         return toast("Ввійдіть в акаунт, щоб залишити відгук");
+      }
+      if (!rating) {
+        setError(true);
+        return;
       }
       const res = await fetch(`${API_URL}/review`, {
         method: "POST",
@@ -86,6 +93,11 @@ export default function ReviewModal({ data, session }: any) {
               />
             </div>
           </div>
+          {error && (
+            <div className="mx-auto w-fit pb-6 pt-2 text-red-600">
+              Поставте оцінку, щоб віправити відгук
+            </div>
+          )}
           <div className="mb-5 flex items-center justify-center">
             <Button onClick={leaveReview} title="Залишити" />
           </div>
