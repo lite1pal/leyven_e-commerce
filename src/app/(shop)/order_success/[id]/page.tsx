@@ -1,4 +1,4 @@
-import Button from "@/components/base/Button";
+import Button from "@/components/Button";
 import Link from "next/link";
 
 export default function OrderSuccess({ params }: any) {

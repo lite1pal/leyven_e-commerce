@@ -1,5 +1,5 @@
 import MySpinner from "@/components/base/Spinner";
-import FooterComponent from "@/components/sections/footer/footer";
+import FooterComponent from "@/components/layout/footer";
 import { Card } from "flowbite-react";
 import { Suspense } from "react";
 

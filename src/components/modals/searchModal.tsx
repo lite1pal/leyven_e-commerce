@@ -1,9 +1,9 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { SearchInputProps } from "../sections/navbar/components/search/search";
+import { SearchInputProps } from "../layout/navbar/components/search/search";
 import { getProducts } from "@/app/actions";
 import { ChangeEvent, useState } from "react";
-import SearchInput from "../sections/navbar/components/search/components/searchInput";
-import SearchResults from "../sections/navbar/components/search/components/searchResults";
+import SearchInput from "../layout/navbar/components/search/components/searchInput";
+import SearchResults from "../layout/navbar/components/search/components/searchResults";
 
 export default function SearchModal({ input, setInput }: SearchInputProps) {
   const [searchResults, setSearchResults] = useState<any>([]);

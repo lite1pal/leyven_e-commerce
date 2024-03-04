@@ -1,4 +1,4 @@
-import AllProductsView from "@/domains/shop/allProducts/allProducts";
+import AllProductsView from "@/app/(shop)/allProducts/allProducts-view";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";
 

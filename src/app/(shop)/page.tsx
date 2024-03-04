@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import HomeView from "@/domains/shop/home/home";
+import HomeView from "@/app/(shop)/home-view";
 import SkeletonHorizontalProducts from "@/components/base/Skeleton";
 import Hero from "@/components/sections/hero";
 

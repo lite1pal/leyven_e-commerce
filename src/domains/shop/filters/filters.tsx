@@ -1,11 +1,11 @@
-import CategoryHeader from "@/components/base/CategoryHeader";
+import CategoryHeader from "@/components/CategoryHeader";
 import { API_URL } from "@/config/api";
-import CatalogView from "@/components/catalog";
+import CatalogView from "@/components/catalog/catalog";
 import { type Product } from "@/types";
 import Link from "next/link";
 import CloseIcon from "@mui/icons-material/Close";
 import { ChildCategories } from "@/components/sections/childCategories";
-import BreadcrumbsCategory from "@/components/sections/breadcrumbsCategory";
+import BreadcrumbsCategory from "@/components/breadcrumbs";
 
 export default async function FiltersView({
   params,

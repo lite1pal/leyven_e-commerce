@@ -1,5 +1,5 @@
 import { API_URL } from "@/config/api";
-import SectionHeader from "../base/SectionHeader";
+import SectionHeader from "../section-header";
 import SwiperComponent from "../base/Swiper";
 import SwiperComponentRelatedProducts from "../base/SwiperRelatedProducts";
 

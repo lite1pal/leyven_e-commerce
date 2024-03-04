@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
 
     const result = await Promise.all(promises);
 
-    return new NextResponse(JSON.stringify(result), { status: 200 });
+    return new NextResponse(JSON.stringify("success"), { status: 200 });
   } catch (err) {
     console.error(err, "Invalid file format");
     return new NextResponse(JSON.stringify(err), { status: 500 });

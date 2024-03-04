@@ -1,4 +1,4 @@
-import EditProductView from "@/domains/dashboard/products/edit/edit";
+import EditProductView from "@/app/(dashboard)/dashboard/products/edit/[id]/edit-view";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";

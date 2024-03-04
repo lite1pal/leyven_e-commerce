@@ -1,8 +1,8 @@
-import FooterComponent from "@/components/sections/footer/footer";
+import FooterComponent from "@/components/layout/footer";
 import {
   PaymentImg,
   paymentImages,
-} from "@/domains/shop/product/components/payment";
+} from "@/app/(shop)/product/[id]/components/payment";
 import { Card } from "flowbite-react";
 import { Suspense } from "react";
 

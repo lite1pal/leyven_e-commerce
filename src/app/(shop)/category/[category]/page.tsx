@@ -1,4 +1,4 @@
-import CategoryView from "@/domains/shop/category/category";
+import CategoryView from "@/app/(shop)/category/[category]/category-view";
 import { Suspense } from "react";
 import MySpinner from "@/components/base/Spinner";
 import { API_URL } from "@/config/api";

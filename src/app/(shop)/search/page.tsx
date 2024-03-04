@@ -1,5 +1,5 @@
 import { API_URL } from "@/config/api";
-import CatalogView from "@/components/catalog";
+import CatalogView from "@/components/catalog/catalog";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 

@@ -1,4 +1,4 @@
-import AddProductView from "@/domains/dashboard/products/add/add";
+import AddProductView from "@/app/(dashboard)/dashboard/products/add/add-view";
 
 export default function AddProductScreen() {
   return <AddProductView />;

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../base/Button";
+import Button from "../Button";
+import { buttonVariants } from "../ui/button";
 
 export default function Hero() {
   return (
@@ -13,7 +14,15 @@ export default function Hero() {
           Знайдіть ідеальні продукти для своїх пухнастих друзів у Лейвен
         </h3>
         <div className="mb-10">
-          <Link prefetch={false} href="/allProducts">
+          <Link
+            // className={buttonVariants({
+            //   size: "lg",
+            //   variant: "outline",
+            // })}
+            prefetch={false}
+            href="/allProducts"
+          >
+            {/* Перейти до каталогу */}
             <Button title="Перейти до каталогу" />
           </Link>
         </div>

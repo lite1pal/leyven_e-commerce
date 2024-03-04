@@ -1,5 +1,5 @@
 import MySpinner from "@/components/base/Spinner";
-import OrdersView from "@/domains/dashboard/orders/orders";
+import OrdersView from "@/app/(dashboard)/dashboard/orders/orders-view";
 import { Suspense } from "react";
 
 export default async function OrdersScreen() {

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import Navbar from "@/components/sections/navbar/navbar";
-import { Inter } from "next/font/google";
+import Navbar from "@/components/layout/navbar/navbar";
+import { Inter as FontSans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ServerCartProvider from "@/context/cart";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import { GOOGLE_ANALYTICS_ID } from "@/config/api";
-import ExtraNavbar from "@/components/sections/navbar/components/extraNavbar";
+import ExtraNavbar from "@/components/layout/navbar/components/extraNavbar";
+import Footer from "@/components/layout/footer";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.leyven.com.ua"),
@@ -39,7 +41,10 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export default async function RootLayout({
   children,
@@ -67,17 +72,21 @@ export default async function RootLayout({
           }}
         ></Script>
       </head>
-      <body className={`${inter.className} bg-slate-200`}>
-        <SpeedInsights />
+      <body
+        className={cn(
+          "bg-background min-h-screen bg-slate-200 font-sans antialiased",
+          fontSans.variable,
+        )}
+      >
         <ServerCartProvider>
           <Toaster />
           <main
             className={`max-w-screen mx-auto flex min-h-screen flex-grow flex-col bg-slate-200 text-slate-900 xl:container`}
           >
             <ExtraNavbar />
-
             <Navbar />
             {children}
+            <Footer />
           </main>
         </ServerCartProvider>
       </body>

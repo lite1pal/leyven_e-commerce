@@ -1,6 +1,6 @@
 "use client";
 
-import CartModal from "../modals/cartModal";
+import CartModal from "../modals/add-cart-modal";
 import Link from "next/link";
 import { slugifyString, valueOfPercent } from "@/libs/utils";
 
@@ -31,10 +31,19 @@ export default function Card({ data, type = "catalog" }: any) {
         </div>
       </Link>
       <div className="relative flex flex-col gap-1 px-4 pb-4 max-sm:px-2.5 max-sm:pb-2.5">
-        <Link href={`/product/${data.id}-${slugifyString(data.title)}`}>
+        {/* <Link href={`/product/${data.id}-${slugifyString(data.title)}`}>
           <div
             title={data.title}
             // style={{ animation: "move-words 20s linear infinite;" }}
+            className="overflow-x-hidden whitespace-nowrap text-lg font-medium tracking-tight dark:text-white max-sm:text-base xl:text-base"
+          >
+            {data.title}
+          </div>
+        </Link> */}
+
+        <Link href={`/product/${data.id}-${slugifyString(data.title)}`}>
+          <div
+            title={data.title}
             className="overflow-x-hidden whitespace-nowrap text-lg font-medium tracking-tight dark:text-white max-sm:text-base xl:text-base"
           >
             {data.title}

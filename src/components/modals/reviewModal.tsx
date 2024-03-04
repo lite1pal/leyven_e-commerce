@@ -1,14 +1,16 @@
 "use client";
 
-import { Divider } from "@mui/joy";
-import Button from "../base/Button";
+import { Button } from "../ui/button";
 import CloseIcon from "@mui/icons-material/Close";
-import { Textarea } from "flowbite-react";
+// import { Textarea } from "flowbite-react";
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { API_KEY, API_URL } from "@/config/api";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { Separator } from "../ui/separator";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 
 export default function ReviewModal({ data, session }: any) {
   const [rating, setRating] = useState(0);
@@ -54,27 +56,30 @@ export default function ReviewModal({ data, session }: any) {
   return (
     <>
       <Button
-        title="Залишити відгук"
+        variant="outline"
         onClick={() => {
           (
             document.getElementById("reviewModal") as HTMLFormElement
           ).showModal();
         }}
-      />
+      >
+        Залишити відгук
+      </Button>
+
       <dialog id="reviewModal" className="modal">
         <div className="modal-box bg-white p-0">
           <div className="flex items-center justify-between p-6">
-            <div className="text-lg font-bold">Відгук</div>
+            <Label className="text-lg">Відгук</Label>
             <form method="dialog">
               <button className="h-fit cursor-pointer rounded-lg border-2 border-blue-600 border-opacity-0 p-1 transition duration-300 hover:border-opacity-100 hover:text-blue-600">
                 <CloseIcon />
               </button>
             </form>
           </div>
-          <Divider />
-          <div className="flex flex-col gap-4 p-6">
+          <Separator />
+          <div className="flex flex-col gap-6 p-6">
             <div className="flex flex-col gap-2">
-              <div>Оцінка</div>
+              <Label>Оцінка</Label>
               <Rating
                 name="simple-controlled"
                 value={rating}
@@ -86,7 +91,7 @@ export default function ReviewModal({ data, session }: any) {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <div>Відгук</div>
+              <Label>Відгук</Label>
               <Textarea
                 value={text}
                 onChange={(e: any) => setText(e.target.value)}
@@ -99,7 +104,7 @@ export default function ReviewModal({ data, session }: any) {
             </div>
           )}
           <div className="mb-5 flex items-center justify-center">
-            <Button onClick={leaveReview} title="Залишити" />
+            <Button onClick={leaveReview}>Залишити</Button>
           </div>
         </div>
         <form method="dialog" className="modal-backdrop">
