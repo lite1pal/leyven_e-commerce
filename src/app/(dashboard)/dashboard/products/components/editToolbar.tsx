@@ -9,6 +9,7 @@ import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
 import { Spinner } from "flowbite-react";
 import { buttonVariants } from "@/components/ui/button";
+import Import1CForm from "./import1C-form";
 
 export default function EditToolbar() {
   const [loading, setLoading] = useState(false);
@@ -79,7 +80,13 @@ export default function EditToolbar() {
         );
         return;
       }
+      return;
       setLoading(true);
+
+      const requestBody = JSON.stringify({ xmlText });
+      const estimatedRequestSize = requestBody.length; // Approximate size
+
+      console.log(`Estimated request size: ${estimatedRequestSize} bytes`);
 
       const res = await fetch(`${API_URL}/products1C`, {
         method: "POST",
@@ -87,16 +94,12 @@ export default function EditToolbar() {
         cache: "no-store",
       });
 
-      // const import1CProductsWithXmlFile = import1CProducts.bind(null, xmlText);
-
-      // const result = await import1CProductsWithXmlFile();
-
       const parsedRes = await res.json();
       console.log(parsedRes);
 
       if (!res.ok) {
         // console.log(result.error);
-        toast.error("Надто багато імпортів, спробуйте ще раз через годину");
+        toast.error(parsedRes.message);
       } else {
         // console.log(result.message);
         toast.success("Імпорт з бази 1С успішний", { duration: 7000 });
@@ -111,14 +114,14 @@ export default function EditToolbar() {
 
   return (
     <GridToolbarContainer className="flex w-full justify-between">
-      <Link
-        className={buttonVariants({ variant: "outline" })}
-        href="/dashboard/products/add"
-      >
-        {/* <Button title="Додати товар" /> */}
-        Додати товар
-      </Link>
       <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-center">
+        <Link
+          className={buttonVariants({ variant: "outline" })}
+          href="/dashboard/products/add"
+        >
+          {/* <Button title="Додати товар" /> */}
+          Додати товар
+        </Link>
         {/* {loading ? (
           <div className="flex gap-3 text-lg text-slate-500">
             Не робіть ніяких дій, поки відбувається імпорт
@@ -139,7 +142,7 @@ export default function EditToolbar() {
             <Spinner />
           </div>
         )}
-        {!loading && (
+        {/* {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>
             <label className="cursor-pointer" htmlFor="file">
               Імпорт з offers.xml файлу 1C
@@ -151,7 +154,9 @@ export default function EditToolbar() {
               onChange={(e) => handleImport1C(e)}
             />
           </ButtonMUI>
-        )}
+        )} */}
+
+        <Import1CForm />
 
         {/* {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>

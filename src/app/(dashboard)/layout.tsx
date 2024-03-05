@@ -9,6 +9,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import NavItem from "@/app/(dashboard)/nav-item";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Toaster as ToasterShadcn } from "@/components/ui/toaster";
 
 const navigation = [
   { name: "Замовлення", href: "/dashboard/orders" },
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <SpeedInsights />
         <Toaster />
+        <ToasterShadcn />
 
         <div className="container mx-auto flex flex-col">
           <nav className="flex items-center justify-between py-4">

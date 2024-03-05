@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import convert from "xml-js";
 import {
+  errorResponse,
   isValidApiKey,
   successResponse,
   unauthorizedResponse,
@@ -15,81 +16,61 @@ import {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { xmlText } = body;
+    const { data } = body;
 
-    const xmlString = convert.xml2json(xmlText, {
-      compact: true,
-      spaces: 4,
+    const existingProducts = await prisma.product.findMany({
+      select: {
+        id: true,
+        unique_id_1c: true,
+        barcode: true,
+        artycul: true,
+        quantity: true,
+        img: true,
+      },
     });
+    const productsToCreate: any = [];
+    const productsToUpdate: any = [];
 
-    const parsedXML = await JSON.parse(xmlString);
-
-    // 1C data converted from XML to JSON
-    const badFormatData =
-      parsedXML["КоммерческаяИнформация"]["ПакетПредложений"]["Предложения"][
-        "Предложение"
-      ];
-
-    if (badFormatData.length === 0) {
-      return new NextResponse(
-        JSON.stringify({ message: "Імпорт наразі неможливий" }),
-        {
-          status: 200,
-        },
+    const queries = data.map(async (product1C: any) => {
+      const existingProduct = existingProducts.find(
+        (p) =>
+          p.unique_id_1c === product1C.id ||
+          p.barcode === product1C.barcode ||
+          p.artycul === product1C.artycul,
       );
-    }
 
-    const existingProducts = await prisma.product.findMany();
-
-    const promises = badFormatData.map(async (badProduct: any) => {
-      try {
-        const existingProduct = existingProducts.find(
-          (product) =>
-            product.unique_id_1c === badProduct["Ид"]._text ||
-            product.barcode === badProduct["ШтрихКод"]._text ||
-            product.artycul === badProduct["Артикул"]._text,
-        );
-
-        // returns nothing if product already exists to avoid duplicates
-        if (existingProduct) {
-          if (
-            existingProduct.quantity !==
-              parseInt(badProduct["Количество"]._text) &&
-            existingProduct.quantity !== 1 &&
-            existingProduct.img !== "miss"
-          ) {
-            return prisma.product.update({
-              where: { id: existingProduct.id },
-              data: { quantity: parseInt(badProduct["Количество"]._text) },
-            });
-          }
-
-          return "product exists";
+      if (!existingProduct) {
+        productsToCreate.push({});
+        return null;
+      } else {
+        if (
+          existingProduct.quantity !== product1C.quantity &&
+          existingProduct.quantity !== 1 &&
+          existingProduct.img !== "miss"
+        ) {
+          productsToUpdate.push({
+            where: { id: existingProduct.id },
+            data: { quantity: product1C.quantity },
+          });
+          return await prisma.product.update({
+            where: { id: existingProduct.id },
+            data: { quantity: product1C.quantity },
+          });
         }
-
-        return prisma.product.create({
-          data: {
-            unique_id_1c: badProduct["Ид"]._text,
-            title: badProduct["Наименование"]._text,
-            price: parseInt(badProduct["Цены"]["Цена"]["ЦенаЗаЕдиницу"]._text),
-            availability: "in stock",
-            quantity: parseInt(badProduct["Количество"]._text),
-            barcode: badProduct["ШтрихКод"] || "miss",
-            artycul: badProduct["Артикул"] || "miss",
-            info: [],
-            keywords: "",
-          },
-        });
-      } catch (err) {
-        console.error(err);
       }
+
+      return null;
     });
 
-    const result = await Promise.all(promises);
+    const result = await Promise.all(queries);
 
-    return new NextResponse(JSON.stringify("success"), { status: 200 });
-  } catch (err) {
-    console.error(err, "Invalid file format");
-    return new NextResponse(JSON.stringify(err), { status: 500 });
+    // const [updatedProducts] = await prisma.$transaction(
+    //   queries.filter((q: any) => q !== null),
+    // );
+
+    return successResponse(result.filter((r) => r !== null).length);
+  } catch (err: any) {
+    console.error(err);
+    return errorResponse("Помилка імпорту даних");
   }
 }
