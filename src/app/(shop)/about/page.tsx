@@ -6,7 +6,6 @@ export default function About() {
   return (
     <>
       <AboutView />
-      <FooterComponent />
     </>
   );
 }

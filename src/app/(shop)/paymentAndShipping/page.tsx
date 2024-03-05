@@ -136,9 +136,6 @@ export default function PaymentAndShipping() {
           </p>
         </div>
       </Card>
-      <Suspense>
-        <FooterComponent />
-      </Suspense>
     </>
   );
 }
