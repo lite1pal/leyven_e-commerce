@@ -8,6 +8,8 @@ import {
   unauthorizedResponse,
 } from "@/libs/utils";
 
+export const maxDuration = 50;
+
 /*
   Parses uploaded XML file into JSON.
   Creates new products bypassing existing ones by 'unique_id_1c' field in order to avoid duplicates.
