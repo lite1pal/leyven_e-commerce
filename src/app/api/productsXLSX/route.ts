@@ -7,6 +7,8 @@ import {
 } from "@/libs/utils";
 import { fetchPromData } from "../products/route";
 
+export const maxDuration = 50;
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
