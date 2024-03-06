@@ -108,17 +108,18 @@ function Import1CForm() {
       return;
     }
 
-    // toast({
-    //   title: "Імпорт успішний!",
-    //   duration: 10000,
-    //   description: (
-    //     <>
-    //       <div className="text-sm">
-    //         Кількість поновлених товарів: {parsedRes}
-    //       </div>
-    //     </>
-    //   ),
-    // });
+    toast({
+      title: "Імпорт успішний!",
+      duration: 10000,
+      description: (
+        <>
+          <div className="text-sm">
+            Кількість поновлених товарів: {parsedRes.update}
+            Кількість створених товарів: {parsedRes.create}
+          </div>
+        </>
+      ),
+    });
   }
 
   return (
