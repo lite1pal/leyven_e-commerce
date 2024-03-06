@@ -58,9 +58,8 @@ const formSchema = z.object({
       }
       return false;
     }, "Цей .xml файл не є файлом з 1C"),
-  update: z.literal<boolean>(true, {
-    errorMap: () => ({ message: "Оберіть, як мінімум, один пункт" }),
-  }),
+  updateQuantity: z.boolean(),
+  updatePrice: z.boolean(),
   createNew: z.boolean(),
 });
 
@@ -70,8 +69,9 @@ function Import1CForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       xmlFile: null,
-      update: true,
-      createNew: false,
+      updateQuantity: true,
+      updatePrice: true,
+      createNew: true,
     },
   });
 
@@ -80,16 +80,24 @@ function Import1CForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const data1C = await convertXml_1C_FileToJSON(values.xmlFile);
+    const { xmlFile, updateQuantity, updatePrice, createNew } = values;
+
+    const data1C = await convertXml_1C_FileToJSON(xmlFile);
 
     const formattedData1C = getData1C(data1C);
 
     const res = await fetch(`${API_URL}/products1C`, {
       method: "POST",
-      body: JSON.stringify({ data: formattedData1C }),
+      body: JSON.stringify({
+        data: formattedData1C,
+        updateQuantity,
+        updatePrice,
+        createNew,
+      }),
     });
 
     const parsedRes = await res.json();
+
     console.log(parsedRes);
 
     if (!res.ok) {
@@ -100,19 +108,17 @@ function Import1CForm() {
       return;
     }
 
-    toast({
-      title: "Імпорт успішний!",
-      duration: 10000,
-      description: (
-        <>
-          {/* <div>Розмір файлу: {JSON.stringify({ data1C }).length}</div> */}
-          <div className="text-sm">
-            Кількість поновлених товарів: {parsedRes}
-          </div>
-          {/* <div>К-сть створених товарів: 0</div> */}
-        </>
-      ),
-    });
+    // toast({
+    //   title: "Імпорт успішний!",
+    //   duration: 10000,
+    //   description: (
+    //     <>
+    //       <div className="text-sm">
+    //         Кількість поновлених товарів: {parsedRes}
+    //       </div>
+    //     </>
+    //   ),
+    // });
   }
 
   return (
@@ -158,16 +164,34 @@ function Import1CForm() {
             />
             <FormField
               control={form.control}
-              name="update"
+              name="updateQuantity"
               render={({ field }) => (
                 <FormItem>
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
                       Поновити кількість
                     </FormLabel>
+                    <FormDescription>Залишок в базі</FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="updatePrice"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">Поновити ціну</FormLabel>
                     <FormDescription>
-                      Поновлення товару відбудеться тільки у тому випадку, якщо
-                      його к-ість відрізняється від к-сті в базі 1С.
+                      Якщо кількість товару {">"} 0
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -180,7 +204,7 @@ function Import1CForm() {
                 </FormItem>
               )}
             />
-            {/* <FormField
+            <FormField
               control={form.control}
               name="createNew"
               render={({ field }) => (
@@ -202,7 +226,11 @@ function Import1CForm() {
                   </FormControl>
                 </FormItem>
               )}
-            /> */}
+            />
+            <FormDescription>
+              Ідентифікатор, штрихкод та артикул будуть поновлені, або додані, в
+              любому випадку
+            </FormDescription>
             {!form.formState.isSubmitting ? (
               <Button type="submit">Імпорт</Button>
             ) : (
