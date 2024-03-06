@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Spinner } from "flowbite-react";
 import { buttonVariants } from "@/components/ui/button";
 import Import1CForm from "./import1C-form";
+import ImportPromExcelForm from "./importPromExcel-form";
 
 export default function EditToolbar() {
   const [loading, setLoading] = useState(false);
@@ -157,6 +158,7 @@ export default function EditToolbar() {
         )} */}
 
         <Import1CForm />
+        <ImportPromExcelForm />
 
         {/* {!loading && (
           <ButtonMUI startIcon={<AddIcon />}>

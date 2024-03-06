@@ -42,7 +42,7 @@ export const getCategoriesFromCollar = async (xmlRes: Response) => {
   return parsedXML["yml_catalog"]["shop"]["categories"]["category"];
 };
 
-export const convertXLSXtoJSON = async (file: any) => {
+export const convertXLSXtoJSON = async (file: any): Promise<[{}]> => {
   return new Promise((resolve, reject) => {
     var reader = new FileReader();
     let jsonData: any = [];

@@ -10,6 +10,7 @@ import {
 } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { PROM_UA_API_URL } from "@/config/api";
+import { getDataPromXml } from "@/data-mappers";
 
 /*
   This function returns a maximum of 24 products based on provided filters, categories, and subcategories.
@@ -263,14 +264,17 @@ async function getChildCategories(
 }
 
 // Function to fetch data from Prom's API
-async function fetchPromData() {
+export async function fetchPromData() {
   const res = await fetch(PROM_UA_API_URL);
 
   if (!res.ok) {
     throw new Error("Incorrect resource");
   }
+  const dataJson = await convertXMLtoJSON(res);
 
-  return convertXMLtoJSON(res);
+  const formattedData = getDataPromXml(dataJson);
+
+  return formattedData;
 }
 
 // Function to process prom data and create products

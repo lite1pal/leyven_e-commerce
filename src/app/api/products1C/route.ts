@@ -88,7 +88,11 @@ export async function POST(req: NextRequest) {
         }
 
         // Update price
-        if (updatePrice && existingProduct.price !== product1C.price)
+        if (
+          updatePrice &&
+          existingProduct.price !== product1C.price &&
+          existingProduct.quantity > 0
+        )
           data.price = product1C.price;
 
         // Add barcode and artycul
