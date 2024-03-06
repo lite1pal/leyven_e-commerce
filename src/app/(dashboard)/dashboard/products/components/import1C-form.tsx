@@ -115,6 +115,8 @@ function Import1CForm() {
         <>
           <div className="text-sm">
             Кількість поновлених товарів: {parsedRes.update}
+          </div>
+          <div className="text-sm">
             Кількість створених товарів: {parsedRes.create}
           </div>
         </>
