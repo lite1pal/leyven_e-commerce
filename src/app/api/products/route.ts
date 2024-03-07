@@ -200,7 +200,7 @@ async function generateFilteringOptions(
   }
 
   // Instock filter
-  if (instock === "Так") {
+  if (instock === "Так" || !instock || instock === "Всі") {
     where.availability = "in stock";
   } else if (instock === "Ні") {
     where.availability = "out of stock";
