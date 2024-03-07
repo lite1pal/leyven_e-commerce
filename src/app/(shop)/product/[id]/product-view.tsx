@@ -108,7 +108,10 @@ export default async function ProductView({ id, slugishTitle }: IProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      {data.categoryId && <Breadcrumbs categoryId={data.categoryId} />}
+
+      {data.categoryId && data.categoryId !== "miss" && (
+        <Breadcrumbs categoryId={data.categoryId} />
+      )}
       <AllAbout data={data} />
 
       <div className="mb-5 flex flex-col gap-5 lg:flex-row">
