@@ -98,8 +98,6 @@ function Import1CForm() {
 
     const parsedRes = await res.json();
 
-    console.log(parsedRes);
-
     if (!res.ok) {
       toast({
         title: "Помилка імпорту",

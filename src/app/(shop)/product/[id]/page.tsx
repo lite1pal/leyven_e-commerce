@@ -5,6 +5,7 @@ import MySpinner from "@/components/base/Spinner";
 import { Metadata } from "next";
 import { type Product } from "@/types";
 import { slugifyString } from "@/libs/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export async function generateMetadata({
   params,

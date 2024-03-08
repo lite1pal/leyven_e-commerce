@@ -47,11 +47,19 @@ export default function UserDropdown({ session }: { session: Session | null }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-36">
-            <DropdownMenuItem>
-              <Link prefetch={false} href="/dashboard/products" target="_blank">
-                Панель адміна
-              </Link>
-            </DropdownMenuItem>
+            {process.env["NEXT_PUBLIC_ALLOWED_EMAILS"]
+              ?.split(", ")
+              .includes(session?.user?.email!) && (
+              <DropdownMenuItem>
+                <Link
+                  prefetch={false}
+                  href="/dashboard/products"
+                  target="_blank"
+                >
+                  Панель адміна
+                </Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
             <DropdownMenuItem className="" onClick={() => signOut()}>
               Вийти

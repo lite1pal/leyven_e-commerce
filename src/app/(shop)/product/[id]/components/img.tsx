@@ -3,6 +3,7 @@
 import { type Product } from "@/types";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ProductImg({ data }: { data: Product }) {
   const [currentImg, setCurrentImg] = useState(0);
@@ -36,6 +37,9 @@ export default function ProductImg({ data }: { data: Product }) {
         <div className="relative mx-auto aspect-square h-full w-full max-w-lg cursor-pointer">
           <PhotoView src={getCurrentImg()}>
             <img
+              // width={600}
+              // height={600}
+              // sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 75vw"
               style={{ maxHeight: "40rem" }}
               className="mx-auto h-full w-full rounded-t-lg object-contain"
               src={getCurrentImg()}

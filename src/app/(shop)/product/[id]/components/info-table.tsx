@@ -6,7 +6,6 @@ import SectionHeader from "../../../../../components/section-header";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 export default function InfoTable({ data }: { data: Product }) {
-  console.log(data.info);
   return (
     <div className="flex h-fit w-full flex-col gap-5 rounded-lg bg-white px-7 py-5 lg:w-1/2">
       <SectionHeader>Характеристики</SectionHeader>
