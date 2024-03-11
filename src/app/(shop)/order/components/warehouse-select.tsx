@@ -1,19 +1,19 @@
 "use client";
 
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 import { fetchWarehouses } from "@/services/novaposhta";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { Label } from "flowbite-react";
 import { Autocomplete } from "@mui/joy";
+import { FormLabel } from "@/components/ui/form";
 
 export default function WarehouseSelect({
+  field,
   cityInput,
   shippingType,
   warehouseInput,
   setWarehouseInput,
 }: {
+  field: any;
   shippingType: string;
   cityInput: string;
   warehouseInput: string;
@@ -37,38 +37,39 @@ export default function WarehouseSelect({
   }, [cityInput, shippingType]);
 
   const handleChange = (e: SyntheticEvent<Element, Event>, newValue: any) => {
+    field.onChange(newValue["Description"]);
     setWarehouseInput(newValue["Description"]);
   };
 
   return (
-    <Box>
+    <>
       {warehouses.length > 0 && (
-        <FormControl fullWidth>
-          <div className="mb-2 block">
-            <Label
-              value={
-                shippingType === "Нова пошта Відділення"
-                  ? "Відділення нової пошти"
-                  : "Поштомат нової пошти"
-              }
-            />
-          </div>
+        <>
+          <FormLabel>
+            {shippingType === "warehouse"
+              ? "Відділення нової пошти"
+              : "Поштомат нової пошти"}
+          </FormLabel>
 
           <Autocomplete
-            required
             id="warehouse"
-            style={{ boxShadow: "none" }}
+            style={{
+              boxShadow: "none",
+              borderColor: "#e5e5e5",
+              backgroundColor: "white",
+              height: "2.5rem",
+            }}
             options={warehouses}
             onChange={(e, newValue) => handleChange(e, newValue)}
             getOptionLabel={(option: any) => option["Description"]}
           />
-        </FormControl>
+        </>
       )}
       {cityInput && !loading && warehouses.length === 0 && (
         <InputLabel sx={{ color: "red" }} id="demo-simple-select-label">
           На жаль, відділення у цьому місті наразі не працюють
         </InputLabel>
       )}
-    </Box>
+    </>
   );
 }

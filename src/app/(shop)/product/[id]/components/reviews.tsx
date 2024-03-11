@@ -5,7 +5,7 @@ import CardReview from "@/components/cards/card-review";
 import ReviewModal from "@/components/modals/reviewModal";
 import { useState } from "react";
 
-export default async function Reviews({ data, session }: any) {
+export default function Reviews({ data, session }: any) {
   const [showMore, setShowMore] = useState(false);
 
   return (

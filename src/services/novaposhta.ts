@@ -18,13 +18,13 @@ export async function fetchWarehouses(city: string, shippingType: string) {
     const data = await res.json();
 
     let filteredData = [];
-    if (shippingType === "Нова пошта Відділення") {
+    if (shippingType === "warehouse") {
       filteredData = data.data.filter(
         (warehouse: any) =>
           warehouse["CategoryOfWarehouse"] === "Branch" &&
           warehouse["WarehouseStatus"] === "Working",
       );
-    } else if (shippingType === "Нова пошта Поштомат") {
+    } else if (shippingType === "postomat") {
       filteredData = data.data.filter(
         (warehouse: any) =>
           warehouse["CategoryOfWarehouse"] === "Postomat" &&

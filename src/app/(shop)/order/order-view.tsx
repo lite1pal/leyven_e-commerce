@@ -1,4 +1,4 @@
-import FormOrder from "./components/formOrder";
+import FormOrder from "./order-form";
 
 export default function OrderView() {
   return (
