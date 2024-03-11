@@ -1,4 +1,6 @@
-import { Divider } from "@mui/joy";
+"use client";
+
+import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";
 import { useCart } from "react-use-cart";
 
@@ -13,7 +15,7 @@ export default function OrderPrice({
     if (!watchShippingType || cartTotal >= 500) {
       return 0;
     }
-    return watchShippingType.includes("Відділення") ? 60 : 55;
+    return watchShippingType === "warehouse" ? 60 : 55;
   }, [watchShippingType]);
 
   return (
@@ -26,14 +28,14 @@ export default function OrderPrice({
         <div>Доставка нової пошти</div>
         <div>{shippingPrice + ".00 UAH"}</div>
       </div>
-      <Divider />
+      <Separator />
       <div className="flex justify-between">
         <div>Разом</div>
         <div className="">{cartTotal + shippingPrice}.00 UAH</div>
       </div>
       {cartTotal < 200 && (
         <>
-          <Divider />
+          <Separator />
           <div className="text-red-600">Мінімальна сума замовлення 200грн</div>
         </>
       )}

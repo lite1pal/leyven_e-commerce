@@ -1,5 +1,5 @@
 "use client";
 
 export default function Error() {
-  return <div>error</div>;
+  return <div>Помилка замовлення</div>;
 }

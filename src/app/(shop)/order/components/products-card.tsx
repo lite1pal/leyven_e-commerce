@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent } from "@mui/joy";
 import { useCart } from "react-use-cart";
 import ProductAvailability from "../../product/[id]/components/availability";
