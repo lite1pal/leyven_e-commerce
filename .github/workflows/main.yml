@@ -1,0 +1,22 @@
+name: Whitelist Check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  whitelist-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if author is in whitelist
+        run: |
+          whitelist=("lite1pal")  # Add your whitelist of GitHub usernames here
+          author=$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH")
+
+          if [[ " ${whitelist[@]} " =~ " $author " ]]; then
+            echo "Author $author is in the whitelist."
+          else
+            echo "Author $author is not in the whitelist."
+            exit 1
+          fi
