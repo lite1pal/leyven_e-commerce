@@ -11,19 +11,20 @@ import { API_URL } from "@/config/api";
 import { useEffect, useState } from "react";
 import { slugifyString } from "@/libs/utils";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import EditForm from "../edit-form";
 
 export default function FullFeaturedCrudGrid() {
   const columns: GridColDef[] = [
     {
       field: "actions",
       type: "actions",
-      headerName: "Дії",
+      headerName: "",
       width: 80,
       cellClassName: "actions",
       renderCell: ({ id, row }) => {
         return (
-          <div className="flex flex-col gap-2">
-            <Link
+          <div className="flex flex-col items-center gap-2">
+            {/* <Link
               prefetch={false}
               title="Редагувати товар"
               href={`/dashboard/products/edit/${id}`}
@@ -34,7 +35,9 @@ export default function FullFeaturedCrudGrid() {
                 className="textPrimary"
                 color="inherit"
               />
-            </Link>
+            </Link> */}
+            <EditForm {...{ id }} />
+
             <Link
               prefetch={false}
               title="Відкрити сторінку товара"
