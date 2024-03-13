@@ -30,8 +30,10 @@ import EditInfo from "./components/info";
 import { CardTitle } from "@/components/ui/card";
 import ImgUpload from "./components/img-upload";
 import SelectCategories from "./components/categories";
+import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
+  id: z.string(),
   title: z.string(),
   description: z.string(),
   price: z.coerce.number().min(0),
@@ -55,6 +57,7 @@ function EditForm({ id }: { id: GridRowId }) {
       const res = await fetch(`${API_URL}/product?id=${id}&dashboard=true`);
       const data: Product = await res.json();
 
+      form.setValue("id", data.id);
       form.setValue("title", data.title);
       form.setValue("description", data.description);
       form.setValue("price", data.price);
@@ -73,11 +76,7 @@ function EditForm({ id }: { id: GridRowId }) {
           label: "Назва",
           oldValue: data.title,
         },
-        // {
-        //   name: "description",
-        //   label: "Опис",
-        //   oldValue: data.description,
-        // },
+
         {
           name: "price",
           label: "Ціна",
@@ -88,7 +87,6 @@ function EditForm({ id }: { id: GridRowId }) {
         { name: "barcode", label: "Штрихкод", oldValue: data.barcode },
         { name: "artycul", label: "Артикул", oldValue: data.artycul },
         { name: "categoryId", label: "Категорія", oldValue: data.categoryId },
-        // { name: "keywords", label: "Ключові слова", oldValue: data.keywords },
       ]);
 
       setData(data);
@@ -101,8 +99,26 @@ function EditForm({ id }: { id: GridRowId }) {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const res = await fetch(`${API_URL}/product`, {
+        method: "PUT",
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) {
+        throw new Error();
+      }
+
+      // Update fields with new data
+      fetchData();
+
+      toast({
+        title: "Зміни збережено",
+        duration: 10000,
+      });
+    } catch (err) {
+      console.error(err, "Failed to edit a product");
+    }
   };
 
   return (

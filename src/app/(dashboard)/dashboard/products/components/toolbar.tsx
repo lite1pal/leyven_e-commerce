@@ -1,8 +1,8 @@
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import Import1CForm from "./import1C-form";
-import ImportPromExcelForm from "./importPromExcel-form";
+import Import1CForm from "../import1C-form";
+import ImportPromExcelForm from "../importPromExcel-form";
 
 export default function Toolbar() {
   return (
