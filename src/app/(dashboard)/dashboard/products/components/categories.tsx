@@ -5,10 +5,10 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 
 export default async function SelectCategories({
   data,
-  register,
+  field,
 }: {
   data?: Product;
-  register: UseFormRegister<FieldValues>;
+  field: any;
 }) {
   const res = await fetch(`${API_URL}/categories`, { cache: "no-store" });
   const categories = await res.json();
@@ -33,7 +33,8 @@ export default async function SelectCategories({
         defaultValue={currentCategory?.categoryId || "Rick and Morty"}
         required
         className="select select-bordered w-full border border-gray-300 bg-gray-50"
-        {...register("categoryId", { required: true })}
+        // {...register("categoryId", { required: true })}
+        {...field}
       >
         <option value={"Вибрати категорію"} disabled>
           Вибрати категорію

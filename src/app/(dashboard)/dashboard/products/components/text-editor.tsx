@@ -5,11 +5,9 @@ import "react-quill/dist/quill.snow.css";
 
 export default function TextEditor({
   description,
-  setDescription,
   field,
 }: {
   description: string;
-  setDescription: Dispatch<SetStateAction<string>>;
   field: any;
 }) {
   const isHTML = (str: string) => {
@@ -20,7 +18,6 @@ export default function TextEditor({
   const paragraphs = description.split("\n");
 
   const handleChange = (value: string) => {
-    setDescription(value);
     field.onChange(value);
   };
 

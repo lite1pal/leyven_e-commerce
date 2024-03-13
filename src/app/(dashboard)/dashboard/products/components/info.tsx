@@ -3,14 +3,14 @@ import { Label, TextInput } from "flowbite-react";
 import CloseIcon from "@mui/icons-material/Close";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 
-export default function EditInfo({
-  info,
-  setInfo,
-}: {
-  info: any;
-  setInfo: any;
-}) {
+export default function EditInfo({ info, field }: { info: any; field: any }) {
   const addInfoItem = (newValue: string) => {
     if (!newValue.includes(" - ")) {
       toast.error(
@@ -31,7 +31,7 @@ export default function EditInfo({
         "g:attribute_value": { _text: newValue.split(" - ")[1] },
       },
     ];
-    setInfo(updatedInfo);
+    field.onChange(updatedInfo);
   };
 
   const deleteInfoItem = (item: any) => {
@@ -39,18 +39,11 @@ export default function EditInfo({
       (i: any) =>
         i["g:attribute_name"]._text !== item["g:attribute_name"]._text,
     );
-    setInfo(filteredInfo);
+    field.onChange(filteredInfo);
   };
 
   return (
     <div>
-      <div className="mb-2 block">
-        <Label
-          className="text-slate-900"
-          htmlFor="img"
-          value="Характеристики"
-        />
-      </div>
       <TextInput
         id="info"
         onKeyDown={(e: any) => {
@@ -65,17 +58,23 @@ export default function EditInfo({
       <div className="mt-5 flex flex-wrap gap-3">
         {info.map((item: any, i: number) => {
           return (
-            <div
-              key={i}
-              className="flex w-fit cursor-default flex-wrap items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-xs text-white"
-            >
-              <div onClick={() => deleteInfoItem(item)}>
-                <CloseIcon fontSize="small" />
-              </div>
-              <div>{item["g:attribute_name"]._text}</div>
-              <div>{"-"}</div>
-              <div>{item["g:attribute_value"]._text}</div>
-            </div>
+            <ContextMenu>
+              <ContextMenuTrigger>
+                <div
+                  key={i}
+                  className="flex w-fit cursor-default flex-wrap items-center gap-2 rounded-lg bg-blue-200 px-3 py-2 text-xs font-medium"
+                >
+                  <div>{item["g:attribute_name"]._text}</div>
+                  <div>{"-"}</div>
+                  <div>{item["g:attribute_value"]._text}</div>
+                </div>
+              </ContextMenuTrigger>
+              <ContextMenuContent>
+                <ContextMenuItem onClick={() => deleteInfoItem(item)}>
+                  Видалити
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           );
         })}
       </div>

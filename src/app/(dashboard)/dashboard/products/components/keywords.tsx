@@ -58,7 +58,7 @@ export default function EditKeywords({
                   <div
                     key={i}
                     className={
-                      "flex h-fit w-fit items-center gap-2 rounded-lg bg-emerald-200 px-3 py-2 text-xs font-medium"
+                      "flex h-fit w-fit  cursor-default items-center gap-2 rounded-lg bg-emerald-200 px-3 py-2 text-xs font-medium"
                     }
                   >
                     {keyword}
