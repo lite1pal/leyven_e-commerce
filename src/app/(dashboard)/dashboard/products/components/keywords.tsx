@@ -55,7 +55,7 @@ export default function EditKeywords({
         {keywords.length > 0 &&
           keywords.split(", ").map((keyword: string, i) => {
             return (
-              <ContextMenu>
+              <ContextMenu key={i}>
                 <ContextMenuTrigger>
                   <div
                     key={i}

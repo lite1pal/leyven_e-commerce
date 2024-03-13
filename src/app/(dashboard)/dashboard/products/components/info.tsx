@@ -61,7 +61,7 @@ export default function EditInfo({ info, field }: { info: any; field: any }) {
       <div className="mt-5 flex flex-wrap gap-3">
         {info.map((item: any, i: number) => {
           return (
-            <ContextMenu>
+            <ContextMenu key={i}>
               <ContextMenuTrigger>
                 <div
                   key={i}
