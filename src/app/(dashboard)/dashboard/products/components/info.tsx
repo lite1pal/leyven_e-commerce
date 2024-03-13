@@ -9,6 +9,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { Input } from "@/components/ui/input";
 
 export default function EditInfo({ info, field }: { info: any; field: any }) {
   const addInfoItem = (newValue: string) => {
@@ -44,13 +45,15 @@ export default function EditInfo({ info, field }: { info: any; field: any }) {
 
   return (
     <div>
-      <TextInput
+      <Input
         id="info"
         onKeyDown={(e: any) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            addInfoItem(e.target.value);
-            e.target.value = "";
+            if (e.target.value.length > 0) {
+              addInfoItem(e.target.value);
+              e.target.value = "";
+            }
           }
         }}
         placeholder="Додайте нову характеристику через дефіс з пробілами. Натисніть Enter, щоб додати"

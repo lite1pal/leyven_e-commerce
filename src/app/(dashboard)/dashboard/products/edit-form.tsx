@@ -16,25 +16,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
 import { API_URL } from "@/config/api";
 import { type Product } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GridRowId } from "@mui/x-data-grid/models/gridRows";
 import { Pencil } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import TextEditor from "./components/text-editor";
 import EditKeywords from "./components/keywords";
 import EditInfo from "./components/info";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { CardTitle } from "@/components/ui/card";
+import ImgUpload from "./components/img-upload";
 import SelectCategories from "./components/categories";
 
 const formSchema = z.object({
@@ -46,7 +40,7 @@ const formSchema = z.object({
   barcode: z.string().optional(),
   artycul: z.string().optional(),
   images: z.string().array().optional(),
-  keywords: z.string().optional(),
+  keywords: z.string().optional().nullable(),
   categoryId: z.string().optional(),
   info: z.any().optional(),
 });
@@ -67,9 +61,11 @@ function EditForm({ id }: { id: GridRowId }) {
       form.setValue("discount", data.discount);
       form.setValue("quantity", data.quantity);
       form.setValue("barcode", data.barcode);
+      form.setValue("images", data.images);
       form.setValue("artycul", data.artycul);
       form.setValue("keywords", data.keywords);
       form.setValue("info", data.info);
+      form.setValue("categoryId", data.categoryId);
 
       setFields([
         {
@@ -91,6 +87,7 @@ function EditForm({ id }: { id: GridRowId }) {
         { name: "quantity", label: "Кількість", oldValue: data.quantity },
         { name: "barcode", label: "Штрихкод", oldValue: data.barcode },
         { name: "artycul", label: "Артикул", oldValue: data.artycul },
+        { name: "categoryId", label: "Категорія", oldValue: data.categoryId },
         // { name: "keywords", label: "Ключові слова", oldValue: data.keywords },
       ]);
 
@@ -198,6 +195,22 @@ function EditForm({ id }: { id: GridRowId }) {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="images"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Зображення</FormLabel>
+                    <FormDescription>
+                      Щоб зміни збереглися, обов{"'"}язково пролистайти донизу
+                      та нажміть Зберегти
+                    </FormDescription>
+                    <ImgUpload {...{ data, field, form, onSubmit }} />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="barcode"
@@ -284,7 +297,7 @@ function EditForm({ id }: { id: GridRowId }) {
                 className="w-fit bg-indigo-500 text-white"
                 type="submit"
               >
-                Змінити
+                Зберегти
               </Button>
             </form>
           </Form>

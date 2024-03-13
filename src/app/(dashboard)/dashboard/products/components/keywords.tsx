@@ -42,8 +42,10 @@ export default function EditKeywords({
         onKeyDown={(e: any) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            addKeyword(e.target.value);
-            e.target.value = "";
+            if (e.target.value.length > 0) {
+              addKeyword(e.target.value);
+              e.target.value = "";
+            }
           }
         }}
         placeholder="Перечисліть ключові слова через кому та пробел. Натисніть Enter, щоб додати"

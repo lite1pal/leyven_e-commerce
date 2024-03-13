@@ -1,52 +1,71 @@
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { API_URL } from "@/config/api";
 import { type Product } from "@/types";
 import { Label } from "flowbite-react";
+import { useEffect, useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
-export default async function SelectCategories({
+export default function SelectCategories({
   data,
   field,
 }: {
   data?: Product;
   field: any;
 }) {
-  const res = await fetch(`${API_URL}/categories`, { cache: "no-store" });
-  const categories = await res.json();
+  const [categories, setCategories] = useState([]);
+  const [childCategories, setChildCategories] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState<any>("");
 
-  const childCategories = categories.filter((c: any) => c.parentId);
+  async function fetchCategories() {
+    try {
+      const res = await fetch(`${API_URL}/categories`, { cache: "no-store" });
+      const parsedRes = await res.json();
+      setCategories(parsedRes);
+      setChildCategories(parsedRes.filter((c: any) => c.parentId));
+      setCurrentCategory(
+        parsedRes.find((c: any) => c.categoryId === data?.categoryId),
+      );
+    } catch (err) {
+      console.error(err, "Failed to fetch categories");
+    }
+  }
 
-  const currentCategory = data
-    ? categories.find((c: any) => c.categoryId === data.categoryId)
-    : "";
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
-    <div>
-      <div className="mb-2 block">
-        <Label
-          className="text-slate-900"
-          htmlFor="category"
-          value="Категорія"
-        />
-      </div>
-      <select
-        id="category"
-        defaultValue={currentCategory?.categoryId || "Rick and Morty"}
-        required
-        className="select select-bordered w-full border border-gray-300 bg-gray-50"
-        // {...register("categoryId", { required: true })}
-        {...field}
-      >
-        <option value={"Вибрати категорію"} disabled>
-          Вибрати категорію
-        </option>
-        {childCategories.map((category: any) => {
-          return (
-            <option value={category.categoryId} key={category.id}>
-              {category.title}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+    <>
+      {categories.length > 0 && (
+        <Select
+          defaultValue={currentCategory?.categoryId}
+          onValueChange={(value) => field.onChange(value)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Виберіть категорію" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Категорії</SelectLabel>
+              {childCategories?.map((category: any) => {
+                return (
+                  <SelectItem key={category.id} value={category.categoryId}>
+                    {category.title}
+                  </SelectItem>
+                );
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      )}
+    </>
   );
 }
