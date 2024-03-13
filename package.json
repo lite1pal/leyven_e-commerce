@@ -47,6 +47,8 @@
     "formik": "^2.4.5",
     "framer-motion": "^10.16.14",
     "html-react-parser": "^5.1.2",
+    "imagekit": "^5.0.0",
+    "imagekitio-react": "^4.0.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.344.0",
     "moment": "^2.30.1",
