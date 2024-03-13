@@ -1,5 +1,5 @@
 import { prisma } from "@/app/api/auth/[...nextauth]/auth";
-import { isValidApiKey } from "@/libs/utils";
+import { errorResponse, isValidApiKey, successResponse } from "@/libs/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 /* 
@@ -58,24 +58,17 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    // if (!isValidApiKey(req)) {
-    //   return new NextResponse(
-    //     JSON.stringify("Unauthorized. Provide an API key"),
-    //     {
-    //       status: 401,
-    //     },
-    //   );
-    // }
-
     const body = await req.json();
     const {
       id,
       title,
       description,
       price,
-      availability,
       quantity,
       discount,
+      images,
+      barcode,
+      artycul,
       keywords,
       categoryId,
       info,
@@ -87,18 +80,18 @@ export async function PUT(req: NextRequest) {
         title,
         description,
         price: parseInt(price),
-        availability,
         quantity: parseInt(quantity),
         discount: parseInt(discount),
+        barcode,
+        artycul,
+        images,
         keywords,
         categoryId,
         info,
       },
     });
-    return new NextResponse(JSON.stringify(updatedProduct), { status: 200 });
-  } catch (err) {
-    return new NextResponse(JSON.stringify(err), {
-      status: 500,
-    });
+    return successResponse(updatedProduct);
+  } catch (err: any) {
+    return errorResponse(err);
   }
 }

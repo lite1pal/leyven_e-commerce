@@ -1,6 +1,6 @@
 import PageHeader from "../../page-header";
 import SellIcon from "@mui/icons-material/Sell";
-import FullFeaturedCrudGrid from "./components/datagridProducts";
+import FullFeaturedCrudGrid from "./components/data-table";
 
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { CardTitle } from "@/components/ui/card";

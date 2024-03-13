@@ -10,3 +10,6 @@ export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!;
 export const PROM_UA_API_URL = process.env.PROM_UA_API_URL!;
 export const COLLAR_API_URL = process.env.COLLAR_API_URL!;
 export const SUZIRIA_API_URL = process.env.SUZIRIA_API_API!;
+export const IMAGEKIT_URL = process.env.IMAGEKIT_URL!;
+export const IMAGEKIT_PUBLIC_KEY = process.env.IMAGEKIT_PUBLIC_KEY!;
+export const IMAGEKIT_PRIVATE_KEY = process.env.IMAGEKIT_PRIVATE_KEY!;
