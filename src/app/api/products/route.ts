@@ -188,6 +188,16 @@ async function generateFilteringOptions(
 
   // Prisma filtering objects
   const where: any = { img: { not: "miss" } };
+  const select: any = {
+    id: true,
+    title: true,
+    price: true,
+    discount: true,
+    availability: true,
+    img: true,
+    images: true,
+    categoryId: true,
+  };
   let orderBy: any = { updatedAt: "desc" };
   let skip = page ? (page - 1) * 24 : 0;
   let take = 24;
@@ -228,7 +238,7 @@ async function generateFilteringOptions(
 
   // Category filter
   if (!categoryId) {
-    return { where, orderBy, skip, take };
+    return { where, orderBy, skip, take, select };
   }
 
   return {
@@ -241,6 +251,7 @@ async function generateFilteringOptions(
     orderBy,
     skip,
     take,
+    select,
   };
 }
 
