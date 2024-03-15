@@ -9,6 +9,20 @@ export async function POST(req: NextRequest) {
     let where = {};
     let orderBy: any = { updatedAt: "desc" };
     let search = "";
+    let select = {
+      id: true,
+      unique_id: true,
+      unique_id_1c: true,
+      title: true,
+      price: true,
+      discount: true,
+      availability: true,
+      quantity: true,
+      img: true,
+      images: true,
+      updatedAt: true,
+      createdAt: true,
+    };
 
     if (sortModel[0]) {
       const sortField = sortModel[0].field;
@@ -45,6 +59,7 @@ export async function POST(req: NextRequest) {
       orderBy,
       take: pageSize,
       skip: page * pageSize,
+      select,
     });
 
     const productsCount = await prisma.product.count();

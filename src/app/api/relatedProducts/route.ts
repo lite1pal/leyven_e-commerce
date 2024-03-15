@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     // creates an object URL to obtain search params
     const url = new URL(req.url);
 
-    const id = url.searchParams.get("id")!;
+    const id = url.searchParams.get("id");
     let products = [];
 
     if (!id) {
@@ -14,6 +14,15 @@ export async function GET(req: NextRequest) {
         where: { img: { not: "miss" }, availability: "in stock" },
         take: 10,
         orderBy: { updatedAt: "desc" },
+        select: {
+          id: true,
+          img: true,
+          images: true,
+          title: true,
+          price: true,
+          discount: true,
+          availability: true,
+        },
       });
 
       return new NextResponse(JSON.stringify(products), {
@@ -21,23 +30,33 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const product = await prisma.product.findUnique({ where: { id } });
+    const product = await prisma.product.findUnique({
+      where: { id },
+      select: { id: true, categoryId: true },
+    });
 
     products = await prisma.product.findMany({
       where: {
         categoryId: product?.categoryId,
         img: { not: "miss" },
         availability: "in stock",
+        id: { not: id },
+      },
+      select: {
+        id: true,
+        img: true,
+        images: true,
+        title: true,
+        price: true,
+        discount: true,
+        availability: true,
       },
       take: 10,
     });
 
-    return new NextResponse(
-      JSON.stringify(products.filter((p) => p.id !== product?.id)),
-      {
-        status: 200,
-      },
-    );
+    return new NextResponse(JSON.stringify(products), {
+      status: 200,
+    });
   } catch (err) {
     return new NextResponse(JSON.stringify(err), {
       status: 500,
