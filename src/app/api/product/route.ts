@@ -31,6 +31,12 @@ export async function GET(req: NextRequest) {
 
     const product = await prisma.product.findUnique({
       where,
+      // select: {
+      //   id: true,
+      //   createdAt: true,
+      //   title: true,
+      //   reviews: { include: { user: true }, orderBy: { createdAt: "desc" } },
+      // },
       include: {
         reviews: { include: { user: true }, orderBy: { createdAt: "desc" } },
       },

@@ -4,6 +4,7 @@ import EditForm from "../edit-form";
 import { slugifyString } from "@/libs/utils";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import moment from "moment";
+import { Pencil } from "lucide-react";
 
 export const columns: GridColDef[] = [
   {
@@ -15,19 +16,9 @@ export const columns: GridColDef[] = [
     renderCell: ({ id, row }) => {
       return (
         <div className="flex flex-col items-center gap-2">
-          {/* <Link
-              prefetch={false}
-              title="Редагувати товар"
-              href={`/dashboard/products/edit/${id}`}
-            >
-              <GridActionsCellItem
-                icon={<EditIcon />}
-                label="Edit"
-                className="textPrimary"
-                color="inherit"
-              />
-            </Link> */}
-          <EditForm {...{ id }} />
+          <Link href={`/dashboard/products/edit/${id}`}>
+            <Pencil className="w-5 sm:cursor-pointer" />
+          </Link>
 
           <Link
             prefetch={false}

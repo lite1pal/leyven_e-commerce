@@ -23,7 +23,7 @@ export default function TextEditor({
 
   return (
     <ReactQuill
-      style={{ backgroundColor: "white", maxWidth: "460px" }}
+      style={{ backgroundColor: "white" }}
       value={
         isHTML(description)
           ? description
