@@ -25,6 +25,7 @@ import convert from "xml-js";
 import { getData1C, getDataPromExcel } from "@/data-mappers";
 import { API_URL } from "@/config/api";
 import { convertXLSXtoJSON } from "@/libs/utils";
+import { importPromExcelAction } from "@/actions";
 
 const MAX_FILE_SIZE = 4500000;
 
@@ -63,46 +64,49 @@ function ImportPromExcelForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    try {
+      const { file } = values;
 
-    const { file } = values;
+      const dataProm = await convertXLSXtoJSON(file);
 
-    const dataProm = await convertXLSXtoJSON(file);
+      const formattedDataPromExcel = getDataPromExcel(dataProm);
 
-    const formattedDataPromExcel = getDataPromExcel(dataProm);
+      const { created } = await importPromExcelAction.bind(
+        null,
+        formattedDataPromExcel,
+      )();
 
-    const res = await fetch(`${API_URL}/productsXLSX`, {
-      method: "POST",
-      body: JSON.stringify({
-        dataExcel: formattedDataPromExcel,
-      }),
-    });
+      // const res = await fetch(`${API_URL}/productsXLSX`, {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     dataExcel: formattedDataPromExcel,
+      //   }),
+      // });
 
-    const parsedRes = await res.json();
+      // const parsedRes = await res.json();
 
-    if (!res.ok) {
       toast({
-        title: "Помилка імпорту",
+        title: "Імпорт успішний!",
+        duration: 10000,
+        description: (
+          <>
+            {/* <div className="text-sm">
+              Кількість поновлених товарів: {parsedRes.update}
+            </div> */}
+            <div className="text-sm">
+              Кількість створених товарів: {created}
+            </div>
+          </>
+        ),
+      });
+    } catch (err: any) {
+      console.error(err.message);
+      toast({
+        title: err.message,
         duration: 10000,
       });
-      return;
     }
-
-    toast({
-      title: "Імпорт успішний!",
-      duration: 10000,
-      description: (
-        <>
-          {/* <div className="text-sm">
-            Кількість поновлених товарів: {parsedRes.update}
-          </div> */}
-          <div className="text-sm">
-            Кількість створених товарів: {parsedRes.create}
-          </div>
-        </>
-      ),
-    });
   }
 
   return (

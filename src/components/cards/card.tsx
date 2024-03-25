@@ -50,7 +50,7 @@ export default function Card({ data, type = "catalog" }: any) {
           </div>
         </Link>
 
-        <div
+        {/* <div
           className={`${
             data.availability === "in stock"
               ? "text-emerald-600"
@@ -58,20 +58,16 @@ export default function Card({ data, type = "catalog" }: any) {
           } flex items-center gap-1`}
         >
           {data.availability === "in stock" ? "В наявності" : "Немає на складі"}
+        </div> */}
+
+        <div
+          className={`${
+            data.quantity > 0 ? "text-emerald-600" : "text-slate-600"
+          } flex items-center gap-1`}
+        >
+          {data.quantity > 0 ? "В наявності" : "Немає на складі"}
         </div>
 
-        {/* {data.reviews && data.reviews.length > 0 && (
-          <Rating>
-            <Rating.Star />
-            <p className="mb-1 text-sm font-bold text-gray-900 dark:text-white">
-              {data.rating}
-            </p>
-            <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-            <a className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
-              {data?.reviews.length} reviews
-            </a>
-          </Rating>
-        )} */}
         <div className="flex items-center justify-between border-t-2 pt-4 max-sm:pt-2.5">
           <span
             className={`flex flex-col font-sans text-2xl font-medium text-slate-900 dark:text-white max-sm:text-base lg:text-base`}

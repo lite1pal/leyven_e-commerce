@@ -4,9 +4,12 @@ import SectionHeader from "@/components/section-header";
 import { type Product } from "@/types";
 import { useState } from "react";
 import parse from "html-react-parser";
+import ReactQuill from "react-quill";
 
 export default function Description({ data }: { data: Product }) {
   const [showMore, setShowMore] = useState(false);
+
+  console.log(data.description);
 
   const handleShowMore = () => {
     if (showMore) {
@@ -27,101 +30,26 @@ export default function Description({ data }: { data: Product }) {
     return htmlRegex.test(str);
   };
 
+  // const isHTML = (str: string) => {
+  //   const doc = new DOMParser().parseFromString(str, "text/html");
+  //   return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1);
+  // };
+
   return (
-    <div className="flex w-full flex-col gap-5 rounded-lg bg-white px-7 py-5 text-sm lg:w-1/2">
+    <div className="prose flex w-full flex-col gap-5 rounded-lg bg-white px-7 py-5 text-sm text-slate-900 prose-headings:text-slate-900 prose-p:text-slate-900 prose-strong:text-slate-900 prose-em:text-slate-900 lg:w-1/2">
       <SectionHeader>Опис</SectionHeader>
+
       {isHTML(data.description) ? (
         <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
       ) : (
-        paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)
+        paragraphs.map((paragraph, i) => (
+          <>
+            <p key={i}>{paragraph}</p>
+
+            <br />
+          </>
+        ))
       )}
-      {/* {data.unique_id !== "miss"
-        ? parse(
-            data.description
-              .replaceAll("<h1>", "<strong>")
-              .replaceAll("</h1>", "</strong>")
-              .replaceAll("<h2>", "<strong>")
-              .replaceAll("</h2>", "</strong>")
-              .replaceAll("<h3>", "<strong>")
-              .replaceAll("</h3>", "</strong>")
-              .replaceAll("<li>", "<li> - "),
-            { trim: true },
-          )
-        : paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)} */}
-      {/* // <>
-        //   <p className="prose font-medium text-slate-600">
-        //     {showMore
-        //       ? formatDescription(data.description)
-        //       : formatDescription(data.description.slice(0, 500))}
-        //     {data.breadcrumbs.includes("Ветеринарія") && showMore && (
-        //       <Warning />
-        //     )}
-        //   </p>
-        //   {data.description.length >= 500 && (
-        //     <div
-        //       className="cursor-pointer text-lg text-blue-600"
-        //       onClick={handleShowMore}
-        //     >
-        //       Читати {showMore ? "менше" : "повністю"}
-        //     </div>
-        //   )}
-        // </> */}
     </div>
   );
 }
-
-const formatDescription = (description: string) => {
-  const strongParags = [
-    "Протипоказання",
-    "Дози та спосіб застосування",
-    "Показання",
-    "Фармакологічні властивості",
-    "Склад",
-    "Склад корму",
-    "Опис",
-    "Особливі вказівки",
-    "Особливості застосування",
-    "Призначення",
-    "Побічні явища",
-    "Умови зберігання",
-    "Форма випуску",
-    "Вид тварин",
-    "Заходи особистої гігієни",
-    "Застосування",
-    "Дозування",
-    "Чому варто купити?",
-    "Як використовувати",
-    "Склад",
-    "Переваги",
-  ];
-  const paragraphs = description
-    .split(/(?<=\s)(?=[\u0410-\u042F])/u)
-    // .split("")
-    .map((paragraph: string, index: number) => (
-      <>
-        {strongParags.includes(paragraph.trim()) && (
-          <>
-            <br />
-            <br />
-          </>
-        )}
-        <span
-          className={`${
-            strongParags.includes(paragraph.trim().replace(":", "")) &&
-            "mb-5 mt-5 text-lg font-semibold text-slate-700"
-          } mt-1.5`}
-          key={index}
-        >
-          {paragraph}
-        </span>
-        {strongParags.includes(paragraph.trim()) && (
-          <>
-            <br />
-            <br />
-          </>
-        )}
-      </>
-    ));
-
-  return <div>{paragraphs}</div>;
-};

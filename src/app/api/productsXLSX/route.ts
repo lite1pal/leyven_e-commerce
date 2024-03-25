@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/auth";
 import {
+  errorResponse,
   isValidApiKey,
   successResponse,
   unauthorizedResponse,
@@ -11,6 +12,10 @@ export const maxDuration = 50;
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return unauthorizedResponse();
+    }
+
     const body = await req.json();
     const { dataExcel } = body;
 
@@ -38,7 +43,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    let createdProducts = 0;
+    let createdProductsLength = 0;
 
     const queries = combinedData.map(async (productProm: any) => {
       const existingProduct = existingProducts.find(
@@ -60,7 +65,7 @@ export async function POST(req: NextRequest) {
           availability,
         } = productProm;
 
-        createdProducts++;
+        createdProductsLength++;
         return await prisma.product.create({
           data: {
             unique_id: unique_id_prom,
@@ -85,10 +90,10 @@ export async function POST(req: NextRequest) {
       excel: dataExcel.length,
       xml: dataPromXml.length,
       combined: combinedData.length,
-      create: createdProducts,
+      created: createdProductsLength,
     });
-  } catch (err) {
-    console.error(err);
-    return new NextResponse(JSON.stringify(err), { status: 500 });
+  } catch (err: any) {
+    console.error("POST 500 /productsXLSX\n", err.message);
+    return errorResponse(err.message);
   }
 }

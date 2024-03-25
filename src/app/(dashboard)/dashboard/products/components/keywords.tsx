@@ -1,15 +1,8 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuShortcut,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-import { Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+import { X } from "lucide-react";
 
 export default function EditKeywords({
   keywords,
@@ -55,23 +48,15 @@ export default function EditKeywords({
         {keywords.length > 0 &&
           keywords.split(", ").map((keyword: string, i) => {
             return (
-              <ContextMenu key={i}>
-                <ContextMenuTrigger>
-                  <div
-                    key={i}
-                    className={
-                      "flex h-fit w-fit  cursor-default items-center gap-2 rounded-lg bg-emerald-200 px-3 py-2 text-xs font-medium"
-                    }
-                  >
-                    {keyword}
-                  </div>
-                </ContextMenuTrigger>
-                <ContextMenuContent>
-                  <ContextMenuItem onClick={() => deleteKeyword(keyword)}>
-                    Видалити
-                  </ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
+              <div
+                key={i}
+                className={
+                  "flex h-fit w-fit  cursor-default items-center gap-2 rounded-lg bg-emerald-200 px-3 py-2 text-xs font-medium"
+                }
+              >
+                <X onClick={() => deleteKeyword(keyword)} />
+                {keyword}
+              </div>
             );
           })}
       </div>

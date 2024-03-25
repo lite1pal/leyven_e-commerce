@@ -194,6 +194,7 @@ async function generateFilteringOptions(
     price: true,
     discount: true,
     availability: true,
+    quantity: true,
     img: true,
     images: true,
     categoryId: true,

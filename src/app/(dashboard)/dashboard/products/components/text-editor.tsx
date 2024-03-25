@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -23,7 +21,7 @@ export default function TextEditor({
 
   return (
     <ReactQuill
-      style={{ backgroundColor: "white", maxWidth: "460px" }}
+      style={{ backgroundColor: "white" }}
       value={
         isHTML(description)
           ? description

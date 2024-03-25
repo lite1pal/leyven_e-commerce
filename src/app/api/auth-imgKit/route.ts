@@ -1,4 +1,5 @@
 import {
+  API_KEY,
   IMAGEKIT_PRIVATE_KEY,
   IMAGEKIT_PUBLIC_KEY,
   IMAGEKIT_URL,
@@ -18,6 +19,6 @@ export async function GET() {
 
     return successResponse(result);
   } catch (err: any) {
-    return errorResponse(err);
+    return errorResponse(err.message);
   }
 }

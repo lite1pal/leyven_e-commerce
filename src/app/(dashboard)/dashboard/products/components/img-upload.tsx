@@ -89,22 +89,22 @@ function ImgUpload({
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="h-full max-h-[200px]">
-        <div className="relative mx-auto aspect-square h-full w-full max-w-lg">
-          <img
-            style={{ maxHeight: "20rem" }}
-            className="mx-auto h-full w-full rounded-t-lg object-contain"
-            src={getCurrentImg()}
-            alt={data.title + "- фото продукту Лейвен"}
-          />
-          {data.images.length > 0 && data.barcode && (
-            <div className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between">
-              <ArrowBigLeft onClick={backImg} />
+      <div
+        style={{ maxHeight: "15rem", maxWidth: "20rem" }}
+        className="relative aspect-square h-full w-full max-w-lg"
+      >
+        <img
+          className="mx-auto h-full w-full rounded-t-lg object-contain"
+          src={getCurrentImg()}
+          alt={data.title + "- фото продукту Лейвен"}
+        />
+        {data.images.length > 0 && data.barcode && (
+          <div className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 transform items-center justify-between">
+            <ArrowBigLeft onClick={backImg} />
 
-              <ArrowBigRight onClick={nextImg} />
-            </div>
-          )}
-        </div>
+            <ArrowBigRight onClick={nextImg} />
+          </div>
+        )}
       </div>
       {data.images.length > 0 && data.barcode && (
         <div className="flex gap-3">
@@ -168,7 +168,7 @@ function ImgUpload({
         {ikUploadRefTest && !uploading && (
           <Button
             variant={"outline"}
-            className="bg-yellow-300"
+            className="w-36 bg-yellow-300"
             onClick={(e) => {
               e.preventDefault();
               (ikUploadRefTest.current as any).click();

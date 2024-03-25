@@ -4,7 +4,6 @@ import Navbar from "@/components/layout/navbar/navbar";
 import { Inter as FontSans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ServerCartProvider from "@/context/cart";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import { GOOGLE_ANALYTICS_ID } from "@/config/api";
 import ExtraNavbar from "@/components/layout/navbar/components/extraNavbar";

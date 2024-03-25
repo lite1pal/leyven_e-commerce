@@ -3,8 +3,6 @@ import SearchInput from "./components/search/search";
 import Link from "next/link";
 import Sidebar from "./components/sidebar";
 import Icons from "./components/icons";
-import { Spinner } from "flowbite-react";
-import MySpinner from "@/components/base/Spinner";
 
 const navItems = [
   { route: "/allProducts", name: "Каталог" },

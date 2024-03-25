@@ -40,9 +40,10 @@ model Session {
 
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
+  name          String
+  email         String   @unique
   emailVerified DateTime?
+  admin Boolean @default(false)
   image         String?
   accounts      Account[]
   sessions      Session[]

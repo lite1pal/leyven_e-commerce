@@ -1,15 +1,6 @@
-import { type Product } from "@/types";
-import { Label, TextInput } from "flowbite-react";
-import CloseIcon from "@mui/icons-material/Close";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
+import { X } from "lucide-react";
 
 export default function EditInfo({ info, field }: { info: any; field: any }) {
   const addInfoItem = (newValue: string) => {
@@ -61,23 +52,15 @@ export default function EditInfo({ info, field }: { info: any; field: any }) {
       <div className="mt-5 flex flex-wrap gap-3">
         {info.map((item: any, i: number) => {
           return (
-            <ContextMenu key={i}>
-              <ContextMenuTrigger>
-                <div
-                  key={i}
-                  className="flex w-fit cursor-default flex-wrap items-center gap-2 rounded-lg bg-blue-200 px-3 py-2 text-xs font-medium"
-                >
-                  <div>{item["g:attribute_name"]._text}</div>
-                  <div>{"-"}</div>
-                  <div>{item["g:attribute_value"]._text}</div>
-                </div>
-              </ContextMenuTrigger>
-              <ContextMenuContent>
-                <ContextMenuItem onClick={() => deleteInfoItem(item)}>
-                  Видалити
-                </ContextMenuItem>
-              </ContextMenuContent>
-            </ContextMenu>
+            <div
+              key={i}
+              className="flex w-fit cursor-default flex-wrap items-center gap-2 rounded-lg bg-blue-200 px-3 py-2 text-xs font-medium"
+            >
+              <X onClick={() => deleteInfoItem(item)} />
+              <div>{item["g:attribute_name"]._text}</div>
+              <div>{"-"}</div>
+              <div>{item["g:attribute_value"]._text}</div>
+            </div>
           );
         })}
       </div>

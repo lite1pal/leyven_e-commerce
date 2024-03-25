@@ -43,13 +43,29 @@ export default function AllAbout({ data }: Props) {
             <ProductAvailability {...{ data }} />
           </div>
 
-          <span
+          {/* <span
             className={`${
               data.availability === "out of stock" && "hidden"
             } mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400`}
+          /> */}
+          <span
+            className={`${
+              data.quantity === 0 && "hidden"
+            } mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400`}
           />
 
-          {data.availability === "in stock" && (
+          {/* {data.availability === "in stock" && (
+            <div className="flex gap-3">
+              <Link
+                onClick={() => !inCart(data.id) && addItem(data)}
+                href="/order"
+              >
+                <Button theme="green" title="Купити" />
+              </Link>
+              <CartModal data={data} />
+            </div>
+          )} */}
+          {data.quantity > 0 && (
             <div className="flex gap-3">
               <Link
                 onClick={() => !inCart(data.id) && addItem(data)}

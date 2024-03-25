@@ -9,29 +9,12 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
 export default async function OrdersView() {
-  const session = await auth();
-
-  if (
-    !process.env["NEXT_PUBLIC_ALLOWED_EMAILS"]
-      ?.split(", ")
-      .includes(session?.user?.email!)
-  ) {
-    return <div>ДОСТУП ДО ДАНОГО АДРЕСУ ОБМЕЖЕНИЙ</div>;
-  }
-
   const res = await fetch(`${API_URL}/order`, {
     cache: "no-store",
   });
   const data = await res.json();
 
   return (
-    // <div className="flex w-full flex-col gap-5">
-    //   <PageHeader Icon={ShoppingCartIcon}>Замовлення</PageHeader>
-    //   <div className="px-4">
-    //     <Tabs />
-    //     <DataGridOrders {...{ data }} />
-    //   </div>
-    // </div>
     <div className="mx-auto py-10">
       <CardTitle className="py-3 text-3xl">Замовлення</CardTitle>
       <DataTable columns={columns} data={data} />
