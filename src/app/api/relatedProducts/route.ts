@@ -22,6 +22,7 @@ export async function GET(req: NextRequest) {
           price: true,
           discount: true,
           availability: true,
+          quantity: true,
         },
       });
 
@@ -50,6 +51,7 @@ export async function GET(req: NextRequest) {
         price: true,
         discount: true,
         availability: true,
+        quantity: true,
       },
       take: 10,
     });
