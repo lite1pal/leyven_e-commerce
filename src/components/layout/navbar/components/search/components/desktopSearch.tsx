@@ -1,7 +1,7 @@
 import { type SearchInputProps } from "../search";
 import SearchInput from "./searchInput";
 import { ChangeEvent, useEffect, useState } from "react";
-import { getProducts } from "@/app/actions";
+import { getProductsAction } from "@/actions";
 import { usePathname, useRouter } from "next/navigation";
 import SearchResults from "./searchResults";
 
@@ -13,7 +13,7 @@ export default function DesktopInput({ input, setInput }: SearchInputProps) {
   const searchProducts = async (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     if (e.target.value.length > 0) {
-      const getProductsBySearch = getProducts.bind(null, input);
+      const getProductsBySearch = getProductsAction.bind(null, input);
       const result = await getProductsBySearch();
       setSearchResults(result.products);
     } else {

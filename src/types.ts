@@ -37,3 +37,11 @@ export type Review = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  admin: boolean;
+  image?: string;
+};

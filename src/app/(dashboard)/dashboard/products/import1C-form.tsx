@@ -23,7 +23,7 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import convert from "xml-js";
 import { getData1C } from "@/data-mappers";
-import { API_URL } from "@/config/api";
+import { import1CAction } from "@/actions";
 
 const MAX_FILE_SIZE = 4500000;
 
@@ -77,49 +77,43 @@ function Import1CForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const { xmlFile, updateQuantity, updatePrice, createNew } = values;
+    try {
+      const { xmlFile, updateQuantity, updatePrice, createNew } = values;
 
-    const data1C = await convertXml_1C_FileToJSON(xmlFile);
+      const data1C = await convertXml_1C_FileToJSON(xmlFile);
 
-    const formattedData1C = getData1C(data1C);
+      const formattedData1C = getData1C(data1C);
 
-    const res = await fetch(`${API_URL}/products1C`, {
-      method: "POST",
-      body: JSON.stringify({
-        data: formattedData1C,
+      // Call a server action to make a secure request to the API route
+      const { update, create } = await import1CAction.bind(
+        null,
+        formattedData1C,
         updateQuantity,
         updatePrice,
         createNew,
-      }),
-    });
+      )();
 
-    const parsedRes = await res.json();
-
-    if (!res.ok) {
       toast({
-        title: "Помилка імпорту",
+        title: "Імпорт успішний!",
+        duration: 10000,
+        description: (
+          <>
+            <div className="text-sm">
+              Кількість поновлених товарів: {update}
+            </div>
+            <div className="text-sm">Кількість створених товарів: {create}</div>
+          </>
+        ),
+      });
+    } catch (err: any) {
+      console.log(err.message);
+      toast({
+        title: err.message,
         duration: 10000,
       });
-      return;
     }
-
-    toast({
-      title: "Імпорт успішний!",
-      duration: 10000,
-      description: (
-        <>
-          <div className="text-sm">
-            Кількість поновлених товарів: {parsedRes.update}
-          </div>
-          <div className="text-sm">
-            Кількість створених товарів: {parsedRes.create}
-          </div>
-        </>
-      ),
-    });
   }
 
   return (

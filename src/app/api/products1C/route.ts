@@ -9,6 +9,7 @@ import {
 } from "@/libs/utils";
 
 export const maxDuration = 50;
+export const dynamic = "force-dynamic"; // defaults to auto
 
 /*
   Parses uploaded XML file into JSON.
@@ -17,6 +18,10 @@ export const maxDuration = 50;
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isValidApiKey(req)) {
+      return unauthorizedResponse();
+    }
+
     const body = await req.json();
     const { data, updateQuantity, updatePrice, createNew } = body;
 
@@ -124,7 +129,7 @@ export async function POST(req: NextRequest) {
       update: productsToUpdate.length,
     });
   } catch (err: any) {
-    console.error(err);
-    return errorResponse("Помилка імпорту даних");
+    console.error("POST 500 /products1C\n", err.message);
+    return errorResponse(err.message);
   }
 }

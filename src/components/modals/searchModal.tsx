@@ -1,6 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { SearchInputProps } from "../layout/navbar/components/search/search";
-import { getProducts } from "@/app/actions";
+import { getProductsAction } from "@/actions";
 import { ChangeEvent, useState } from "react";
 import SearchInput from "../layout/navbar/components/search/components/searchInput";
 import SearchResults from "../layout/navbar/components/search/components/searchResults";
@@ -11,7 +11,7 @@ export default function SearchModal({ input, setInput }: SearchInputProps) {
   const searchProducts = async (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     if (e.target.value.length > 0) {
-      const getProductsBySearch = getProducts.bind(null, input);
+      const getProductsBySearch = getProductsAction.bind(null, input);
       const result = await getProductsBySearch();
       setSearchResults(result.products);
     } else {
