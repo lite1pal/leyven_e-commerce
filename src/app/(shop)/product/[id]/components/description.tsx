@@ -1,11 +1,14 @@
 "use client";
 
 import SectionHeader from "@/components/section-header";
+import { Button } from "@/components/ui/button";
 import { type Product } from "@/types";
 import { useState } from "react";
 
 export default function Description({ data }: { data: Product }) {
   const [showMore, setShowMore] = useState(false);
+
+  const initialDisplayLimit = 3; // Show 3 paragraphs initially
 
   console.log(data.description);
 
@@ -29,7 +32,14 @@ export default function Description({ data }: { data: Product }) {
       <SectionHeader>Опис</SectionHeader>
 
       {isHTML(data.description) ? (
-        <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: data.description.slice(
+              0,
+              showMore ? data.description.length : 800,
+            ),
+          }}
+        ></div>
       ) : (
         paragraphs.map((paragraph, i) => (
           <>
@@ -39,6 +49,16 @@ export default function Description({ data }: { data: Product }) {
           </>
         ))
       )}
+      {data.description.length > 799 &&
+        (showMore ? (
+          <Button variant="outline" onClick={handleShowMore}>
+            Згорнути опис
+          </Button>
+        ) : (
+          <Button variant="outline" onClick={handleShowMore}>
+            Розгорнути опис
+          </Button>
+        ))}
     </div>
   );
 }
