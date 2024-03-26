@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 export default function InfoTable({ data }: { data: Product }) {
   return (
-    <div className="flex h-fit w-full flex-col gap-5 rounded-lg bg-white px-7 py-5 lg:w-1/2">
+    <div className="flex h-fit flex-1 flex-col gap-5 rounded-lg bg-white px-7 py-5 ">
       <SectionHeader>Характеристики</SectionHeader>
 
       <div className="overflow-x-hidden">
