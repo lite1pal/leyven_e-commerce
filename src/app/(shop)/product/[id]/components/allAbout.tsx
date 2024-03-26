@@ -4,7 +4,6 @@ import "react-photo-view/dist/react-photo-view.css";
 import { Divider } from "@mui/joy";
 import Link from "next/link";
 import { useCart } from "react-use-cart";
-import Button from "@/components/Button";
 import { Product } from "@/types";
 import ProductImg from "./img";
 import ProductRating from "./rating";
@@ -16,6 +15,7 @@ import Payment from "./payment";
 import Shipping from "./shipping";
 import AddCartButton from "@/components/modals/addCartButton";
 import CartModal from "@/components/modals/add-cart-modal";
+import Button from "@/components/Button";
 
 type Props = {
   data: Product;
@@ -71,7 +71,10 @@ export default function AllAbout({ data }: Props) {
                 onClick={() => !inCart(data.id) && addItem(data)}
                 href="/order"
               >
-                <Button theme="green" title="Купити" />
+                {/* <Button className="text-lg" theme="green" title="Купити" /> */}
+                <button className="btn btn-success rounded text-lg text-white">
+                  Купити
+                </button>
               </Link>
               <CartModal data={data} />
             </div>
